@@ -31,6 +31,7 @@ Object.assign(config, {
   dest: setting.dest,
   platform: 'mobile',
   px2rem: false,
+  seed: 'vue2',
   entry: {
     'vendors': path.join(__dirname, './src/js/vendors.js')
   }

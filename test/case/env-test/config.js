@@ -30,6 +30,7 @@ Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
   platform: 'pc',
+  seed: 'vue2',
   px2rem: false
 });
 // - base

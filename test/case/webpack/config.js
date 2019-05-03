@@ -30,7 +30,8 @@ const setting = {
 Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
-  plugins: []
+  plugins: [],
+  seed: 'vue2'
 });
 // - base
 
