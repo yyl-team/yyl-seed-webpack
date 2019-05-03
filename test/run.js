@@ -6,6 +6,9 @@ const print = require('yyl-print');
 const extOs = require('yyl-os');
 const tUtil = require('yyl-seed-test-util');
 
+const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
+const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
+
 const seed = require('../index.js');
 
 let config = {};
@@ -30,6 +33,16 @@ const fn = {
         });
       });
     });
+  },
+  async initPlugins(config) {
+    if (config.plugins && config.plugins.length) {
+      if (!fs.existsSync(RESOLVE_PATH)){
+        extFs.mkdirSync(RESOLVE_PATH);
+      }
+      await tUtil.initPlugins(config.plugins, RESOLVE_PATH);
+      config.resolveModule = path.join(RESOLVE_PATH, 'node_modules');
+    }
+    return config;
   }
 };
 
@@ -78,6 +91,8 @@ const runner = {
       return print.log.warn('task need --config options');
     }
 
+    config = await fn.initPlugins(config);
+
     const CONFIG_DIR = path.dirname(configPath);
     const opzer = seed.optimize(config, CONFIG_DIR);
 
@@ -113,6 +128,8 @@ const runner = {
     } else {
       return print.log.warn('task need --config options');
     }
+
+    config = await fn.initPlugins(config);
 
     const CONFIG_DIR = path.dirname(configPath);
     const opzer = seed.optimize(config, CONFIG_DIR);
