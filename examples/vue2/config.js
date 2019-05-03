@@ -30,15 +30,12 @@ const setting = {
 Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
-  seed: 'webpack'
+  seed: 'vue2',
+  plugins: []
 });
 // - base
 
-// + plugins
-Object.assign(config, {
-  plugins: ['yyl-flexlayout']
-});
-// - plugins
+config.plugins.push('yyl-flexlayout');
 
 // + alias
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
@@ -80,7 +77,7 @@ Object.assign(config, {
     // - yyl make
   }
 });
-
+// - alias
 
 // + commit
 Object.assign(config, {
