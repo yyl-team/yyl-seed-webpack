@@ -330,6 +330,15 @@ const init = (config, iEnv) => {
     webpackconfig.resolveLoader.modules.unshift(config.resolveModule);
   }
 
+  // add seed node_modules 
+  if (config.seed) {
+    const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules');
+    if (fs.existsSync(nodeModulePath)) {
+      webpackconfig.resolve.modules.unshift(nodeModulePath);
+      webpackconfig.resolveLoader.modules.unshift(nodeModulePath);
+    }
+  }
+
   return webpackconfig;
 };
 

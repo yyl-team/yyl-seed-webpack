@@ -17,6 +17,9 @@
     "e-webpack:init": "node ./test/run.js init --name webpack --path ./test/__frag",
     "e-webpack:all": "node ./test/run.js all --config ./examples/webpack/config.js",
     "e-webpack:watch": "node ./test/run.js watch --config ./examples/webpack/config.js",
+    "e-vue2:init": "node ./test/run.js init --name vue2 --path ./test/__frag",
+    "e-vue2:all": "node ./test/run.js all --config ./examples/vue2/config.js",
+    "e-vue2:watch": "node ./test/run.js watch --config ./examples/vue2/config.js",
     "examples": "node ./test/run.js examples",
     "make-page": "node ./test/run.js make --config ./test/case/demo/config.js --name p-maketest",
     "make-widget": "node ./test/run.js make --config ./test/case/demo/config.js --name w-maketest"
@@ -85,7 +88,7 @@
     "webpack-merge": "^4.2.1",
     "yyl-file-replacer": "^0.3.1",
     "yyl-fs": "^0.2.0",
-    "yyl-os": "^0.2.0",
+    "yyl-os": "^0.6.1",
     "yyl-seed-response": "^0.1.0",
     "yyl-util": "^2.2.0"
   },
