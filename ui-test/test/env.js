@@ -7,26 +7,11 @@ const util = require('yyl-util');
 const request = require('yyl-request');
 const tUtil = require('yyl-seed-test-util');
 
-const seed = require('../../index.js');
+const handler = require('../../test/handler');
 
 const FRAG_PATH = path.join(__dirname, '../__frag');
 const TEST_CTRL = require('../test.config.js');
 
-const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
-const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
-
-const fn = {
-  async initPlugins(config) {
-    if (config.plugins && config.plugins.length) {
-      if (!fs.existsSync(RESOLVE_PATH)){
-        extFs.mkdirSync(RESOLVE_PATH);
-      }
-      await tUtil.initPlugins(config.plugins, RESOLVE_PATH);
-      config.resolveModule = path.join(RESOLVE_PATH, 'node_modules');
-    }
-    return config;
-  }
-};
 
 const PORT = 5000;
 
@@ -61,25 +46,16 @@ envList.forEach(([iEnv, mode]) => {
         await extFs.copyFiles(oPath, pjPath);
 
         const configPath = path.join(pjPath, 'config.js');
-        const destPath = path.join(pjPath, 'dist');
-        config = tUtil.parseConfig(configPath);
-        config = await fn.initPlugins(config);
-
         client.verify.ok(fs.existsSync(configPath) === true, `check config path exists: ${configPath}`);
 
-        const opzer = seed.optimize(config, pjPath);
-
+        const destPath = path.join(pjPath, 'dist');
         await extFs.mkdirSync(destPath);
-        await tUtil.server.start(destPath, PORT);
-        // opzer.initServerMiddleWare(tUtil.server.getAppSync(), {});
-
-        await util.makeAwait((next) => {
-          opzer.watch(iEnv)
-            .on('finished', () => {
-              next();
-            });
-        });
-
+        const op = Object.assign({
+          config: configPath,
+          silent: true
+        }, iEnv);
+        await handler.watch(op);
+        
         const htmls = await extFs.readFilePaths(destPath, (iPath) => /\.html$/.test(iPath));
         client.verify.ok(htmls.length !== 0, `expect build ${htmls.length} html files`);
 

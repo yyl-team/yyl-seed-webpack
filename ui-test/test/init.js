@@ -7,25 +7,11 @@ const fs = require('fs');
 const request = require('yyl-request');
 
 const seed = require('../../index.js');
+const handler = require('../../test/handler');
 const TEST_CTRL = require('../test.config.js');
 
 const FRAG_PATH = path.join(__dirname, '../__frag');
 
-const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
-const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
-
-const fn = {
-  async initPlugins(config) {
-    if (config.plugins && config.plugins.length) {
-      if (!fs.existsSync(RESOLVE_PATH)){
-        extFs.mkdirSync(RESOLVE_PATH);
-      }
-      await tUtil.initPlugins(config.plugins, RESOLVE_PATH);
-      config.resolveModule = path.join(RESOLVE_PATH, 'node_modules');
-    }
-    return config;
-  }
-};
 
 module.exports['@disabled'] = !TEST_CTRL.INIT;
 
@@ -52,23 +38,12 @@ seed.examples.forEach((type, index) => {
 
         const configPath = path.join(pjPath, 'config.js');
         const destPath = path.join(pjPath, 'dist');
-        let config = tUtil.parseConfig(configPath);
-        config = await fn.initPlugins(config);
-
-        const opzer = seed.optimize(config, pjPath);
-
         await extFs.mkdirSync(destPath);
 
-        await tUtil.server.start(destPath, 5000);
-
-        opzer.initServerMiddleWare(tUtil.server.getAppSync(), {});
-
-        await util.makeAwait((next) => {
-          opzer.watch({})
-            .on('finished', () => {
-              next();
-            });
-        });
+        await handler.watch({
+          config: configPath,
+          silent: true
+        })
 
         const htmls = await extFs.readFilePaths(destPath, (iPath) => /\.html$/.test(iPath));
         client.verify.ok(htmls.length !== 0, `expect build ${htmls.length} html files`);
@@ -98,7 +73,7 @@ seed.examples.forEach((type, index) => {
         client.verify.ok(result.value === 'rgba(255, 0, 0, 1)', `expect body turning red ${result.value}`);
       })
       .end(async () => {
-        await tUtil.server.abort();
+        await handler.abort();
         await tUtil.frag.destroy();
       });
   };

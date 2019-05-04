@@ -20,7 +20,6 @@ const init = (config, iEnv) => {
     }
   };
   return webpackMerge(
-    webpackBase(config, iEnv),
     webpackDev(config, iEnv),
     webpackConfig
   );
