@@ -28,6 +28,10 @@
     "c-env-test:watch": "node ./test/run.js watch --config ./test/case/env-test/config.js",
     "c-webpack:all": "node ./test/run.js all --config ./test/case/webpack/config.js",
     "c-webpack:watch": "node ./test/run.js watch --config ./test/case/webpack/config.js",
+    "c-extend-webpack:all": "node ./test/run.js all --config ./test/case/extend-webpack/config.js",
+    "c-extend-webpack:watch": "node ./test/run.js watch --config ./test/case/extend-webpack/config.js",
+    "c-extend-webpack2:all": "node ./test/run.js all --config ./test/case/extend-webpack2/config.js",
+    "c-extend-webpack2:watch": "node ./test/run.js watch --config ./test/case/extend-webpack2/config.js",
     "examples": "node ./test/run.js examples",
     "make-page": "node ./test/run.js make --config ./test/case/demo/config.js --name p-maketest",
     "make-widget": "node ./test/run.js make --config ./test/case/demo/config.js --name w-maketest"
