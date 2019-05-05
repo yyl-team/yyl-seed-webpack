@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import './demo.scss';
 
 const wDemo = ():void => {

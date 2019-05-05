@@ -60,6 +60,74 @@ const init = (config, iEnv) => {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      }, {
+        test: /\.js$/,
+        exclude: (file) => (
+          /node_modules/.test(file) &&
+          !/\.vue\.js/.test(file)
+        ),
+        use: [{
+          loader: 'babel-loader',
+          query: (() => {
+            if (config.platform === 'pc') {
+              return {
+                babelrc: false,
+                cacheDirectory: true,
+                presets: [
+                  ['@babel/preset-env', {
+                    'targets': {
+                      'browsers': ['last 2 versions', 'ie >= 7']
+                    },
+                    loose: true,
+                    exclude: [
+                      'es6.typed.array-buffer',
+                      'es6.typed.data-view',
+                      'es6.typed.int8-array',
+                      'es6.typed.uint8-array',
+                      'es6.typed.uint8-clamped-array'
+                    ],
+                    modules: false
+                    // 'useBuiltIns': true,
+                    // 'debug': true
+                  }]
+                ],
+                plugins: [
+                  // 'transform-object-rest-spread',
+                  // 'transform-es3-property-literals',
+                  // 'transform-es3-member-expression-literals',
+                  // Stage 2
+                  ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+                  '@babel/plugin-proposal-function-sent',
+                  '@babel/plugin-proposal-export-namespace-from',
+                  '@babel/plugin-proposal-numeric-separator',
+                  '@babel/plugin-proposal-throw-expressions',
+                  '@babel/plugin-syntax-dynamic-import'
+                ]
+              };
+            } else {
+              return {
+                babelrc: false,
+                cacheDirectory: true,
+                presets: [
+                  ['@babel/preset-env', { modules: 'commonjs' }]
+                ],
+                plugins: [
+                  // Stage 2
+                  ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+                  '@babel/plugin-proposal-function-sent',
+                  '@babel/plugin-proposal-export-namespace-from',
+                  '@babel/plugin-proposal-numeric-separator',
+                  '@babel/plugin-proposal-throw-expressions',
+                  '@babel/plugin-syntax-dynamic-import'
+                ]
+              };
+            }
+          })()
+        }]
+      }, {
+        test: /.js$/,
+        enforce: 'post', // post-loader处理
+        loader: 'es3ify-loader'
       }]
     },
     plugins: [
@@ -153,6 +221,22 @@ const init = (config, iEnv) => {
     return r;
   })());
   // - html output
+  return wConfig;
+};
+
+init.removeBabel = (wConfig) => {
+  // console.log(wConfig)
+  if (wConfig.module.rules && wConfig.module.rules.length) {
+    wConfig.module.rules = wConfig.module.rules.filter((item) => {
+      const str = 'hello.js';
+      if (util.type(item.test) === 'RegExp') {
+        return str.match(item.test) ? false: true;
+      } else {
+        return true;
+      }
+    });
+  }
+
   return wConfig;
 };
 
