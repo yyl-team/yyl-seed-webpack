@@ -150,7 +150,7 @@ const init = (config, iEnv) => {
     return r;
   })());
   // - html output
-  return webpackMerge(webpackBase(config, iEnv), wConfig);
+  return wConfig;
 };
 
 module.exports = init;

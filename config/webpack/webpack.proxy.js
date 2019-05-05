@@ -1,7 +1,6 @@
 const webpackMerge = require('webpack-merge');
 const path = require('path');
 
-const webpackBase = require('./webpack.base.js');
 const webpackDev = require('./webpack.dev.js');
 const util = require('yyl-util');
 
