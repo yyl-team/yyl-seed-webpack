@@ -285,18 +285,20 @@ const init = (config, iEnv) => {
       }
 
 
-      const opts = {
-        template: iPath,
-        filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
-        chunks: iChunks,
-        chunksSortMode (a, b) {
-          return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
-        },
-        inlineSource: '.(js|css)\\?__inline$',
-        minify: false
-      };
+      if (iChunkName) {
+        const opts = {
+          template: iPath,
+          filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
+          chunks: iChunks,
+          chunksSortMode (a, b) {
+            return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
+          },
+          inlineSource: '.(js|css)\\?__inline$',
+          minify: false
+        };
 
-      r.push(new HtmlWebpackPlugin(opts));
+        r.push(new HtmlWebpackPlugin(opts));
+      }
     });
 
     return r;

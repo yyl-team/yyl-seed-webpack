@@ -4,6 +4,7 @@ const fs = require('fs');
 const querystring = require('querystring');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const util = require('yyl-util');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -12,9 +13,7 @@ const init = (config, iEnv) => {
         config.alias.srcRoot :
         path.join(__dirname, config.alias.srcRoot);
 
-      let r = {
-        // 'boot': path.join(path.isAbsolute(config.alias.srcRoot)? '': __dirname, config.alias.srcRoot, 'boot/boot.js'),
-      };
+      let r = {};
 
       // 合并 config 中的 entry 字段
       if (config.entry) {
@@ -64,7 +63,13 @@ const init = (config, iEnv) => {
       }]
     },
     plugins: [
-    ]
+    ],
+    resolve: {
+      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs'],
+      plugins: [new TsconfigPathsPlugin({
+        configFile: path.join(config.alias.dirname, 'tsconfig.json')
+      })]
+    }
   };
 
   // + html output
@@ -84,7 +89,7 @@ const init = (config, iEnv) => {
 
     const outputMap = {};
     const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css)$/, '');
+      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts)$/, '');
     };
 
     outputPath.forEach((iPath) => {
@@ -129,19 +134,20 @@ const init = (config, iEnv) => {
         iChunks.push(iChunkName);
       }
 
+      if (iChunkName) {
+        const opts = {
+          template: iPath,
+          filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
+          chunks: iChunks,
+          chunksSortMode(a, b) {
+            return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
+          },
+          inlineSource: '.(js|css|ts)\\?__inline$',
+          minify: false
+        };
 
-      const opts = {
-        template: iPath,
-        filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
-        chunks: iChunks,
-        chunksSortMode (a, b) {
-          return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
-        },
-        inlineSource: '.(js|css|ts)\\?__inline$',
-        minify: false
-      };
-
-      r.push(new HtmlWebpackPlugin(opts));
+        r.push(new HtmlWebpackPlugin(opts));
+      }
     });
 
     return r;
