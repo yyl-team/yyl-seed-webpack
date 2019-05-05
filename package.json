@@ -20,6 +20,8 @@
     "e-webpack:watch": "node ./test/run.js watch --config ./examples/webpack/config.js",
     "e-vue2:all": "node ./test/run.js all --config ./examples/vue2/config.js",
     "e-vue2:watch": "node ./test/run.js watch --config ./examples/vue2/config.js",
+    "e-typescript:all": "node ./test/run.js all --config ./examples/typescript/config.js",
+    "e-typescript:watch": "node ./test/run.js watch --config ./examples/typescript/config.js",
     "frag:all": "node ./test/run.js all --config ./test/__frag/config.js",
     "frag:watch": "node ./test/run.js watch --config ./test/__frag/config.js",
     "c-demo:all": "node ./test/run.js all --config ./test/case/demo/config.js",

@@ -1,2 +1,3 @@
-import wDemo from '../../components/widget/demo/demo';
-wDemo();
+// import wDemo from '../../components/widget/demo/demo';
+import './index.scss';
+// wDemo();

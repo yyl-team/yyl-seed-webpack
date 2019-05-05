@@ -222,7 +222,7 @@ const init = (config, iEnv) => {
     webpackconfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin));
   }
 
-  // html output
+  // + html output
   webpackconfig.plugins = webpackconfig.plugins.concat((function() { // html 输出
     const bootPath = util.path.join(config.alias.srcRoot, 'boot');
     const entryPath = util.path.join(config.alias.srcRoot, 'entry');
@@ -273,23 +273,6 @@ const init = (config, iEnv) => {
       }
     });
 
-    // env defined
-    // 环境变量 (全局替换 含有这 变量的 js)
-    webpackconfig.plugins.push((() => {
-      const r = {};
-      Object.keys(iEnv).forEach((key) => {
-        if ( typeof iEnv[key] === 'string') {
-          r[`process.env.${key}`] = JSON.stringify(iEnv[key]);
-        } else {
-          r[`process.env.${key}`] = iEnv[key];
-        }
-      });
-
-      return new webpack.DefinePlugin(r);
-    })());
-
-
-
     outputPath.forEach((iPath) => {
       const iBaseName = ignoreExtName(iPath);
       const iChunkName = pageChunkMap[iBaseName];
@@ -317,6 +300,22 @@ const init = (config, iEnv) => {
     });
 
     return r;
+  })());
+  // - html output
+
+  // env defined
+  // 环境变量 (全局替换 含有这 变量的 js)
+  webpackconfig.plugins.push((() => {
+    const r = {};
+    Object.keys(iEnv).forEach((key) => {
+      if ( typeof iEnv[key] === 'string') {
+        r[`process.env.${key}`] = JSON.stringify(iEnv[key]);
+      } else {
+        r[`process.env.${key}`] = iEnv[key];
+      }
+    });
+
+    return new webpack.DefinePlugin(r);
   })());
 
   // config.module 继承

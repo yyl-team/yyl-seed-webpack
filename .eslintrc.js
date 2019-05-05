@@ -27,6 +27,7 @@ module.exports = {
      *  "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
      */
     "rules": {
+        "node/no-extraneous-require": 0,
         "node/no-missing-require": 0,
         "node/no-unpublished-require": 0,
         "no-process-exit": 0,
