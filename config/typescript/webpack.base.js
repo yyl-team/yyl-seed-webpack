@@ -1,12 +1,9 @@
-const webpackMerge = require('webpack-merge');
 const path = require('path');
 const extFs = require('yyl-fs');
 const fs = require('fs');
 const querystring = require('querystring');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const util = require('yyl-util');
-
-const webpackBase = require('../webpack/webpack.base');
 
 const init = (config, iEnv) => {
   const wConfig = {
