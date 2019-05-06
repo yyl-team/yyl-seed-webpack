@@ -37,97 +37,78 @@ const init = (config, iEnv) => {
             r[key] = [str];
           }
 
-          const queryObj = {
-            name: key
-          };
+          // const queryObj = {
+          //   name: key
+          // };
 
-          if (config.localserver && config.localserver.port) {
-            queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`;
-          }
+          // if (config.localserver && config.localserver.port) {
+          //   queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`;
+          // }
 
-          const iQuery = querystring.stringify(queryObj);
-          // hotreload
-          if (iEnv.hot) {
-            r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
-          }
+          // const iQuery = querystring.stringify(queryObj);
+          // // hotreload
+          // if (iEnv.hot) {
+          //   r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
+          // }
         });
       }
 
       return r;
     })(),
+    output: {
+      path: path.resolve(__dirname, config.alias.jsDest),
+      filename: '[name].js',
+      chunkFilename: `async_component/[name]${config.disableHash? '' : '-[chunkhash:8]'}.js`
+    },
     module: {
       rules: [{
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
       }, {
-        test: /\.js$/,
-        exclude: (file) => (
-          /node_modules/.test(file) &&
-          !/\.vue\.js/.test(file)
-        ),
+        test: /\.html$/,
         use: [{
-          loader: 'babel-loader',
-          query: (() => {
-            if (config.platform === 'pc') {
-              return {
-                babelrc: false,
-                cacheDirectory: true,
-                presets: [
-                  ['@babel/preset-env', {
-                    'targets': {
-                      'browsers': ['last 2 versions', 'ie >= 7']
-                    },
-                    loose: true,
-                    exclude: [
-                      'es6.typed.array-buffer',
-                      'es6.typed.data-view',
-                      'es6.typed.int8-array',
-                      'es6.typed.uint8-array',
-                      'es6.typed.uint8-clamped-array'
-                    ],
-                    modules: false
-                    // 'useBuiltIns': true,
-                    // 'debug': true
-                  }]
-                ],
-                plugins: [
-                  // 'transform-object-rest-spread',
-                  // 'transform-es3-property-literals',
-                  // 'transform-es3-member-expression-literals',
-                  // Stage 2
-                  ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-                  '@babel/plugin-proposal-function-sent',
-                  '@babel/plugin-proposal-export-namespace-from',
-                  '@babel/plugin-proposal-numeric-separator',
-                  '@babel/plugin-proposal-throw-expressions',
-                  '@babel/plugin-syntax-dynamic-import'
-                ]
-              };
-            } else {
-              return {
-                babelrc: false,
-                cacheDirectory: true,
-                presets: [
-                  ['@babel/preset-env', { modules: 'commonjs' }]
-                ],
-                plugins: [
-                  // Stage 2
-                  ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-                  '@babel/plugin-proposal-function-sent',
-                  '@babel/plugin-proposal-export-namespace-from',
-                  '@babel/plugin-proposal-numeric-separator',
-                  '@babel/plugin-proposal-throw-expressions',
-                  '@babel/plugin-syntax-dynamic-import'
-                ]
-              };
-            }
-          })()
+          loader: 'html-loader'
         }]
       }, {
-        test: /.js$/,
-        enforce: 'post', // post-loader处理
-        loader: 'es3ify-loader'
+        test: /\.pug$/,
+        oneOf: [{
+          resourceQuery: /^\?vue/,
+          use: ['pug-plain-loader']
+        }, {
+          use: ['pug-loader']
+        }]
+      }, {
+        test: /\.jade$/,
+        oneOf: [{
+          resourceQuery: /^\?vue/,
+          use: ['pug-plain-loader']
+        }, {
+          use: ['pug-loader']
+        }]
+      }, {
+        test: /\.svg$/,
+        use: {
+          loader: 'svg-inline-loader'
+        }
+      }, {
+        test: /\.webp$/,
+        loaders: ['file-loader']
+      }, {
+        test: /\.ico$/,
+        loaders: ['file-loader']
+      }, {
+        // shiming the module
+        test: path.join(config.alias.srcRoot, 'js/lib/'),
+        use: {
+          loader: 'imports-loader?this=>window'
+        }
+      }, {
+        // shiming the global module
+        test: path.join(config.alias.commons, 'lib'),
+        use: {
+          loader: 'imports-loader?this=>window'
+        }
       }]
     },
     plugins: [
