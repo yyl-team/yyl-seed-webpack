@@ -8,63 +8,9 @@ const extFs = require('yyl-fs');
 
 const util = require('yyl-util');
 
-const map2Babel = function (str) {
-  const nodeModulePath1 = path.join(__dirname, '../../');
-  const nodeModulePath2 = path.join(__dirname, '../../../');
-  const path1 = path.join(nodeModulePath1, 'node_modules/@babel');
-  if (fs.existsSync(path1)) {
-    return util.path.join(nodeModulePath1, 'node_modules', str);
-  } else {
-    return util.path.join(nodeModulePath2, str);
-  }
-};
-
+const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 
 const init = (config, iEnv) => {
-  // + 生成 async_component 中 rev-manifest 插件
-  class BuildAsyncRevPlugin {
-    apply(compiler) {
-      compiler.hooks.emit.tapAsync(
-        'buildAsyncRev',
-        (compilation, done) => {
-          let revMap = {};
-          const NO_HASH_REG = /-\w{8}\.js$/;
-          for (let filename in compilation.assets) {
-            const iPath = util.path.join(config.alias.jsDest, filename);
-            const revPath = util.path.relative(config.alias.revRoot, iPath);
-            if (/async_component/.test(iPath)) {
-              revMap[revPath.replace(NO_HASH_REG, '.js')] = revPath;
-
-              // 生成不带hash 的文件
-              compilation.assets[filename.replace(NO_HASH_REG, '.js')] = {
-                source() {
-                  return compilation.assets[filename].source();
-                },
-                size() {
-                  return compilation.assets[filename].size();
-                }
-              };
-            }
-          }
-          const revPath = util.path.join(config.alias.revDest, 'rev-manifest.json');
-          let originRev = null;
-          if (fs.existsSync(revPath)) {
-            try {
-              originRev = util.requireJs(revPath);
-            } catch (er) {}
-          } else {
-            extFs.mkdirSync(config.alias.revDest);
-          }
-          revMap = util.extend(true, originRev, revMap);
-
-          fs.writeFile(revPath, JSON.stringify(revMap, null, 2), () => {
-            done();
-          });
-        }
-      );
-    }
-  }
-  // - 生成 async_component 中 rev-manifest 插件
   const webpackconfig = {
     entry: (function() {
       const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
@@ -133,16 +79,16 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+              ['@babel/preset-env', { modules: 'commonjs' }]
             ],
             plugins: [
               // Stage 2
-              [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-              map2Babel('@babel/plugin-proposal-function-sent'),
-              map2Babel('@babel/plugin-proposal-export-namespace-from'),
-              map2Babel('@babel/plugin-proposal-numeric-separator'),
-              map2Babel('@babel/plugin-proposal-throw-expressions'),
-              map2Babel('@babel/plugin-syntax-dynamic-import')
+              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+              '@babel/plugin-proposal-function-sent',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-numeric-separator',
+              '@babel/plugin-proposal-throw-expressions',
+              '@babel/plugin-syntax-dynamic-import'
             ]
           }
         }]
@@ -212,7 +158,7 @@ const init = (config, iEnv) => {
       }, config.alias)
     },
     plugins: [
-      new BuildAsyncRevPlugin(),
+      new BuildAsyncRevWebpackPlugin(config),
       new webpack.HotModuleReplacementPlugin()
     ]
   };

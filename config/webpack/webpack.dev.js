@@ -4,50 +4,12 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const px2rem = require('postcss-px2rem');
 
+const BuildBlankCssWebpackPlugin = require('../../plugins/build-blank-css-webpack-plugin');
 const webpackBase = require('./webpack.base.js');
 const util = require('yyl-util');
 
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'development';
-  // + 生成 空白 css 插件
-  class BuildBlankCssPlugin {
-    apply(compiler) {
-      compiler.hooks.emit.tapAsync(
-        'buildBlankCss',
-        (compilation, done) => {
-          const files = [];
-          for (let filename in compilation.assets) {
-            let iPath = util.path.join(filename);
-            if (
-              !/^\.\.\//.test(iPath) &&
-              path.extname(iPath) === '.js' &&
-              iPath.split('/').length === 1
-            ) {
-              files.push(iPath.replace(/\.js/, ''));
-            }
-          }
-
-          files.forEach((name) => {
-            const rPath = path.relative(
-              config.alias.jsDest,
-              path.join(config.alias.cssDest, `${name}.css`)
-            );
-            compilation.assets[rPath] = {
-              source() {
-                return '';
-              },
-              size() {
-                return 0;
-              }
-            };
-          });
-          done();
-        }
-      );
-    }
-  }
-  // - 生成 空白 css 插件
-
 
   const webpackConfig = {
     mode: MODE,
@@ -140,7 +102,7 @@ const init = (config, iEnv) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(MODE)
       }),
-      new BuildBlankCssPlugin()
+      new BuildBlankCssWebpackPlugin(config)
     ]
   };
   return webpackMerge(webpackBase(config, iEnv), webpackConfig);

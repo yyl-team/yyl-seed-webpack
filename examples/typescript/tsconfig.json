@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "module": "esNext",
+    "module": "commonjs",
     "target": "es3",
-    "strict": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
     "removeComments": true,
@@ -10,7 +9,7 @@
     "sourceMap": false,
     "allowJs": true,
     "lib": [
-      "es2015",
+      "es6",
       "dom"
     ],
     "baseUrl": ".",

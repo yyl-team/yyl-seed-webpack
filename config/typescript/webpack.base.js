@@ -1,10 +1,15 @@
 const path = require('path');
 const extFs = require('yyl-fs');
 const fs = require('fs');
-const querystring = require('querystring');
+const webpack = require('webpack');
+// const querystring = require('querystring');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const util = require('yyl-util');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
+const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -63,7 +68,7 @@ const init = (config, iEnv) => {
     module: {
       rules: [{
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: ['ts-loader'],
         exclude: /node_modules/
       }, {
         test: /\.html$/,
@@ -72,14 +77,6 @@ const init = (config, iEnv) => {
         }]
       }, {
         test: /\.pug$/,
-        oneOf: [{
-          resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
-        }, {
-          use: ['pug-loader']
-        }]
-      }, {
-        test: /\.jade$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
           use: ['pug-plain-loader']
@@ -111,14 +108,32 @@ const init = (config, iEnv) => {
         }
       }]
     },
-    plugins: [
-    ],
     resolve: {
+      modules: [
+        path.join( __dirname, '../../node_modules'),
+        path.join( __dirname, '../../../'),
+        path.join(config.alias.dirname, 'node_modules')
+      ],
+      alias: config.alias,
       extensions: ['.ts', '.js', '.json', '.wasm', '.mjs'],
       plugins: [new TsconfigPathsPlugin({
         configFile: path.join(config.alias.dirname, 'tsconfig.json')
       })]
-    }
+    },
+    resolveLoader: {
+      modules: [
+        path.join( __dirname, '../../node_modules'),
+        path.join( __dirname, '../../../'),
+        path.join(config.alias.dirname, 'node_modules')
+      ]
+    },
+    plugins: [
+      new BuildAsyncRevWebpackPlugin(config),
+      new es3ifyWebpackPlugin(),
+      new Ie8FixWebpackPlugin()
+      // new webpack.HotModuleReplacementPlugin()
+    ]
+
   };
 
   // + html output
@@ -129,16 +144,16 @@ const init = (config, iEnv) => {
     const r = [];
 
     if (fs.existsSync(bootPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(bootPath, /(\.jade|\.pug|\.html)$/));
+      outputPath = outputPath.concat(extFs.readFilesSync(bootPath, /(\.pug|\.html)$/));
     }
 
     if (fs.existsSync(entryPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(entryPath, /(\.jade|\.pug|\.html)$/));
+      outputPath = outputPath.concat(extFs.readFilesSync(entryPath, /(\.pug|\.html)$/));
     }
 
     const outputMap = {};
     const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts)$/, '');
+      return iPath.replace(/(.pug|\.html|\.js|\.css|\.ts)$/, '');
     };
 
     outputPath.forEach((iPath) => {
@@ -202,6 +217,41 @@ const init = (config, iEnv) => {
     return r;
   })());
   // - html output
+
+  // env defined
+  // 环境变量 (全局替换 含有这 变量的 js)
+  wConfig.plugins.push((() => {
+    const r = {};
+    Object.keys(iEnv).forEach((key) => {
+      if ( typeof iEnv[key] === 'string') {
+        r[`process.env.${key}`] = JSON.stringify(iEnv[key]);
+      } else {
+        r[`process.env.${key}`] = iEnv[key];
+      }
+    });
+
+    return new webpack.DefinePlugin(r);
+  })());
+
+  // config.module 继承
+  if (config.moduleRules) {
+    wConfig.module.rules = wConfig.module.rules.concat(config.moduleRules);
+  }
+
+  // extend node_modules
+  if (config.resolveModule) {
+    wConfig.resolve.modules.unshift(config.resolveModule);
+    wConfig.resolveLoader.modules.unshift(config.resolveModule);
+  }
+
+  // add seed node_modules 
+  if (config.seed) {
+    const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules');
+    if (fs.existsSync(nodeModulePath)) {
+      wConfig.resolve.modules.unshift(nodeModulePath);
+      wConfig.resolveLoader.modules.unshift(nodeModulePath);
+    }
+  }
   return wConfig;
 };
 

@@ -31,9 +31,7 @@ Object.assign(config, {
   dest: setting.dest,
   platform: 'pc',
   seed: 'typescript',
-  px2rem: false,
-  entry: {
-  }
+  px2rem: false
 });
 // - base
 
