@@ -1,5 +1,5 @@
-# yyl-seed-webpack-vue2
-yyl 构建种子 - `webpack-vue2`
+# yyl-seed-webpack
+yyl 构建种子 - `webpack`
 
 ## SDK
 
