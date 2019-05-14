@@ -130,12 +130,6 @@ const init = (config, iEnv) => {
         use: {
           loader: 'imports-loader?this=>window'
         }
-      }, {
-        // shiming the global module
-        test: path.join(config.alias.commons, 'lib'),
-        use: {
-          loader: 'imports-loader?this=>window'
-        }
       }]
     },
     resolveLoader: {

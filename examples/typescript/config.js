@@ -1,7 +1,11 @@
-
 const path = require('path');
 
 const config = {};
+
+// + vars
+const SRC_ROOT = './src';
+const WORKFLOW = 'webpack';
+// - vars
 
 // + setting
 const setting = {
@@ -23,7 +27,6 @@ const setting = {
 // - setting
 
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
-const WORKFLOW = 'webpack';
 
 // + base
 Object.assign(config, {
@@ -41,6 +44,9 @@ Object.assign(config, {
       '{$srcRoot}/js/lib/shim/es6-shim.min.js',
       '{$srcRoot}/js/lib/shim/es6-sham.min.js'
     ]
+  },
+  resource: { // 自定义项目中其他需打包的文件夹
+    // 'src/pc/svga': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
   }
 });
 // - base
@@ -55,7 +61,7 @@ Object.assign(config, {
     // dest 地址
     'destRoot': setting.localserver.root,
     // src 地址
-    'srcRoot': './src',
+    'srcRoot': SRC_ROOT,
     // 项目根目录
     'dirname': './',
     // js 输出地址

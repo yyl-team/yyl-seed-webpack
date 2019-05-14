@@ -4,8 +4,8 @@ const path = require('path');
 const config = {};
 
 // + vars
-const COMMON_PATH = '../commons';
 const SRC_ROOT = './src';
+const WORKFLOW = 'webpack';
 // - vars
 
 // + setting
@@ -28,10 +28,17 @@ const setting = {
 
 // + base
 Object.assign(config, {
+  workflow: WORKFLOW,
   localserver: setting.localserver,
   dest: setting.dest,
   seed: 'vue2',
-  plugins: []
+  plugins: [],
+  concat: { // js 合并
+    // '{$jsDest}/vendors.js': ['{$srcRoot}/js/lib/a.js', '{$srcRoot}/js/lib/b.js']
+  },
+  resource: { // 自定义项目中其他需打包的文件夹
+    // 'src/pc/svga': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
+  }
 });
 // - base
 
@@ -51,11 +58,6 @@ Object.assign(config, {
     'srcRoot': SRC_ROOT,
     // 项目根目录
     'dirname': './',
-    // 公用组件地址
-    'commons': COMMON_PATH,
-    // 公用 components 目录
-    'globalcomponents': path.join(COMMON_PATH, 'components'),
-    'globallib': path.join(COMMON_PATH, 'lib'),
     // js 输出地址
     'jsDest': path.join(DEST_BASE_PATH, setting.dest.jsPath),
     // js lib 输出地址
