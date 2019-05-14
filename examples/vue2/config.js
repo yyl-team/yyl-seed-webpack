@@ -32,17 +32,9 @@ Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
   seed: 'vue2',
-  plugins: [],
-  concat: { // js 合并
-    // '{$jsDest}/vendors.js': ['{$srcRoot}/js/lib/a.js', '{$srcRoot}/js/lib/b.js']
-  },
-  resource: { // 自定义项目中其他需打包的文件夹
-    // 'src/pc/svga': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
-  }
+  plugins: ['yyl-flexlayout']
 });
 // - base
-
-config.plugins.push('yyl-flexlayout');
 
 // + alias
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);

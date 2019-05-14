@@ -44,9 +44,6 @@ Object.assign(config, {
       '{$srcRoot}/js/lib/shim/es6-shim.min.js',
       '{$srcRoot}/js/lib/shim/es6-sham.min.js'
     ]
-  },
-  resource: { // 自定义项目中其他需打包的文件夹
-    // 'src/pc/svga': path.join(setting.localserver.root, setting.dest.basePath, 'tpl')
   }
 });
 // - base
