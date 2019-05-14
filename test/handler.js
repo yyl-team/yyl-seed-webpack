@@ -5,11 +5,31 @@ const extFs = require('yyl-fs');
 const print = require('yyl-print');
 const extOs = require('yyl-os');
 const tUtil = require('yyl-seed-test-util');
+const Hander = require('yyl-hander');
 
 const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
 const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
 
 const seed = require('../index.js');
+const yh = new Hander({
+  log: function (type, status, args) {
+    switch (type) {
+      case 'msg':
+        if (print.log[status]) {
+          print.log[status](args);
+        } else {
+          print.log.info(args);
+        }
+        break;
+
+      default:
+        break;
+    }
+  },
+  vars: {
+    PROJECT_PATH: process.cwd()
+  }
+});
 
 let config = {};
 
@@ -36,11 +56,10 @@ const fn = {
   },
   async initPlugins(config) {
     if (config.plugins && config.plugins.length) {
-      if (!fs.existsSync(RESOLVE_PATH)){
+      if (!fs.existsSync(RESOLVE_PATH)) {
         extFs.mkdirSync(RESOLVE_PATH);
       }
       await tUtil.initPlugins(config.plugins, RESOLVE_PATH);
-      config.resolveModule = path.join(RESOLVE_PATH, 'node_modules');
     }
     return config;
   }
@@ -85,18 +104,24 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`);
       } else {
-        config = tUtil.parseConfig(configPath);
+        config = await yh.parseConfig(configPath);
       }
     } else {
       return print.log.warn('task need --config options');
     }
 
-    config = await fn.initPlugins(config);
+    yh.optimize.init({config, iEnv});
+    await yh.optimize.initPlugins();
 
     const CONFIG_DIR = path.dirname(configPath);
     const opzer = seed.optimize(config, CONFIG_DIR);
 
     await fn.clearDest(config);
+
+    yh.setVars({
+      PROJECT_PATH: iEnv.path
+    });
+
     return await util.makeAwait((next) => {
       opzer.all(iEnv)
         .on('msg', (...argv) => {
@@ -110,7 +135,8 @@ const handler = {
         .on('clear', () => {
           print.cleanScreen();
         })
-        .on('finished', () => {
+        .on('finished', async() => {
+          await yh.optimize.afterTask();
           print.log.success('task finished');
           next();
         });
@@ -126,13 +152,14 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`);
       } else {
-        config = tUtil.parseConfig(configPath);
+        config = await yh.parseConfig(configPath, iEnv);
       }
     } else {
       return print.log.warn('task need --config options');
     }
 
-    config = await fn.initPlugins(config);
+    yh.optimize.init({config, iEnv});
+    await yh.optimize.initPlugins();
 
     const CONFIG_DIR = path.dirname(configPath);
     const opzer = seed.optimize(config, CONFIG_DIR);
@@ -144,7 +171,12 @@ const handler = {
 
     await fn.clearDest(config);
 
+    yh.setVars({
+      PROJECT_PATH: iEnv.path
+    });
+
     return util.makeAwait((next) => {
+      let isUpdate = false;
       opzer.watch(iEnv)
         .on('clear', () => {
           if (!iEnv.silent) {
@@ -161,7 +193,13 @@ const handler = {
             print.log[iType](iArgv);
           }
         })
-        .on('finished', () => {
+        .on('finished', async() => {
+          if (!isUpdate) {
+            await yh.optimize.afterTask();
+            isUpdate = true;
+          } else {
+            await yh.optimize.afterTask(true);
+          }
           if (!iEnv.silent) {
             print.log.success('task finished');
           }
@@ -179,7 +217,7 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`);
       } else {
-        config = tUtil.parseConfig(configPath);
+        config = await yh.parseConfig(configPath, iEnv); 
       }
     } else {
       return print.log.warn('task need --config options');

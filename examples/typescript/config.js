@@ -23,15 +23,25 @@ const setting = {
 // - setting
 
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
-const COMMON_PATH = '../commons';
+const WORKFLOW = 'webpack';
 
 // + base
 Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
+  workflow: WORKFLOW,
   platform: 'pc',
   seed: 'typescript',
-  px2rem: false
+  px2rem: false,
+  concat: {
+    '{$jsDest}/shim.js': [
+      '{$srcRoot}/js/lib/shim/es5-shim.min.js',
+      '{$srcRoot}/js/lib/shim/es5-sham.min.js',
+      '{$srcRoot}/js/lib/shim/json3.min.js',
+      '{$srcRoot}/js/lib/shim/es6-shim.min.js',
+      '{$srcRoot}/js/lib/shim/es6-sham.min.js'
+    ]
+  }
 });
 // - base
 
@@ -48,11 +58,6 @@ Object.assign(config, {
     'srcRoot': './src',
     // 项目根目录
     'dirname': './',
-    // 公用组件地址
-    'commons': COMMON_PATH,
-    // 公用 components 目录
-    'globalcomponents': path.join(COMMON_PATH, 'components'),
-    'globallib': path.join(COMMON_PATH, 'lib'),
     // js 输出地址
     'jsDest': path.join(DEST_BASE_PATH, setting.dest.jsPath),
     // js lib 输出地址
