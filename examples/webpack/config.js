@@ -30,7 +30,6 @@ const setting = {
 Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
-  workflow: WORKFLOW,
   seed: 'webpack',
   plugins: ['yyl-flexlayout']
 });

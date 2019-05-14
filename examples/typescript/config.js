@@ -4,7 +4,6 @@ const config = {};
 
 // + vars
 const SRC_ROOT = './src';
-const WORKFLOW = 'webpack';
 // - vars
 
 // + setting
@@ -32,7 +31,6 @@ const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath
 Object.assign(config, {
   localserver: setting.localserver,
   dest: setting.dest,
-  workflow: WORKFLOW,
   platform: 'pc',
   seed: 'typescript',
   px2rem: false,

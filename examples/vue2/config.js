@@ -5,7 +5,6 @@ const config = {};
 
 // + vars
 const SRC_ROOT = './src';
-const WORKFLOW = 'webpack';
 // - vars
 
 // + setting
@@ -28,7 +27,6 @@ const setting = {
 
 // + base
 Object.assign(config, {
-  workflow: WORKFLOW,
   localserver: setting.localserver,
   dest: setting.dest,
   seed: 'vue2',
