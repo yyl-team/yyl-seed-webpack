@@ -9,6 +9,7 @@ const Hander = require('yyl-hander');
 
 const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
 const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
+const WORKFLOW = 'webpack';
 
 const seed = require('../index.js');
 const yh = new Hander({
@@ -104,7 +105,8 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`);
       } else {
-        config = await yh.parseConfig(configPath);
+        iEnv.workflow = WORKFLOW;
+        config = await yh.parseConfig(configPath, iEnv);
       }
     } else {
       return print.log.warn('task need --config options');
@@ -152,6 +154,7 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`);
       } else {
+        iEnv.workflow = WORKFLOW;
         config = await yh.parseConfig(configPath, iEnv);
       }
     } else {
@@ -217,7 +220,8 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`);
       } else {
-        config = await yh.parseConfig(configPath, iEnv); 
+        iEnv.workflow = WORKFLOW;
+        config = await yh.parseConfig(configPath, iEnv);
       }
     } else {
       return print.log.warn('task need --config options');
