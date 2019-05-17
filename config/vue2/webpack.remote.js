@@ -1,5 +1,5 @@
 const webpackMerge = require('webpack-merge');
-const webpackBase = require('../webpack/webpack.remote');
+const webpackBase = require('../base/webpack.remote');
 const selfBase = require('./webpack.base');
 
 const init = (config, iEnv) => {

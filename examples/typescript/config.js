@@ -1,7 +1,5 @@
 const path = require('path');
 
-const config = {};
-
 // + vars
 const SRC_ROOT = './src';
 // - vars
@@ -27,12 +25,13 @@ const setting = {
 
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
 
-// + base
-Object.assign(config, {
+const config = {
+  // + configBase
+  platform: 'pc',
+  // - configBase
+  seed: 'typescript',
   localserver: setting.localserver,
   dest: setting.dest,
-  platform: 'pc',
-  seed: 'typescript',
   px2rem: false,
   concat: {
     '{$jsDest}/shim.js': [
@@ -42,12 +41,10 @@ Object.assign(config, {
       '{$srcRoot}/js/lib/shim/es6-shim.min.js',
       '{$srcRoot}/js/lib/shim/es6-sham.min.js'
     ]
-  }
-});
-// - base
-
-// + alias
-Object.assign(config, {
+  },
+  providePlugin: {
+    '$': 'jquery'
+  },
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径
     'root': DEST_BASE_PATH,
@@ -78,25 +75,14 @@ Object.assign(config, {
     'babel-polyfill': path.join('./src/js/lib/babel-polyfill/babel-polyfill.js')
     // + yyl make
     // - yyl make
-  }
-});
-// - alias
-
-Object.assign(config, {
-  providePlugin: {
-    '$': 'jquery'
-  }
-});
-
-
-// + commit
-Object.assign(config, {
+  },
+  // + configCommit
   commit: {
     hostname: '//yyweb.yystatic.com/',
     revAddr: `//yyweb.yystatic.com/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
-});
-// - commit
+  // - configCommit
+};
 
 module.exports = config;
 

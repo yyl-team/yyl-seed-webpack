@@ -14,10 +14,11 @@
   "scripts": {
     "test": "jest ./test/jest/ --env=node",
     "ui-test": "yyt",
-    "init:webpack": "node ./test/run.js init --name webpack --path ./test/__frag",
+    "init:base": "node ./test/run.js init --name base --path ./test/__frag",
     "init:vue2": "node ./test/run.js init --name vue2 --path ./test/__frag",
-    "e-webpack:all": "node ./test/run.js all --config ./examples/webpack/config.js",
-    "e-webpack:watch": "node ./test/run.js watch --config ./examples/webpack/config.js",
+    "init:typescript": "node ./test/run.js init --name typescript --path ./test/__frag",
+    "e-base:all": "node ./test/run.js all --config ./examples/base/config.js",
+    "e-base:watch": "node ./test/run.js watch --config ./examples/base/config.js",
     "e-vue2:all": "node ./test/run.js all --config ./examples/vue2/config.js",
     "e-vue2:watch": "node ./test/run.js watch --config ./examples/vue2/config.js",
     "e-typescript:all": "node ./test/run.js all --config ./examples/typescript/config.js",
@@ -108,7 +109,7 @@
   },
   "devDependencies": {
     "jest": "^24.7.1 ",
-    "yyl-hander": "^0.1.1",
+    "yyl-hander": "^0.1.2",
     "yyl-print": "^0.4.0",
     "yyl-request": "^0.1.0",
     "yyl-seed-test-util": "^0.4.0"
