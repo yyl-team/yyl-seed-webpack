@@ -1,11 +1,8 @@
 /* eslint indent: ["error", 2, { "SwitchCase": 1 }] */
 const path = require('path');
 
-const config = {};
-
 // + vars
 const SRC_ROOT = './src';
-const WORKFLOW = 'webpack';
 // - vars
 
 // + setting
@@ -26,18 +23,15 @@ const setting = {
 };
 // - setting
 
-// + base
-Object.assign(config, {
+const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
+
+const config = {
+  // + configBase
+  // - configBase
+  seed: 'base',
   localserver: setting.localserver,
   dest: setting.dest,
-  seed: 'webpack',
-  plugins: ['yyl-flexlayout']
-});
-// - base
-
-// + alias
-const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
-Object.assign(config, {
+  plugins: ['yyl-flexlayout'],
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径
     'root': DEST_BASE_PATH,
@@ -68,16 +62,13 @@ Object.assign(config, {
     '~@': path.join(SRC_ROOT, 'components')
     // + yyl make
     // - yyl make
-  }
-});
-
-// + commit
-Object.assign(config, {
+  },
+  // + configCommit
   commit: {
     hostname: '//yyweb.yystatic.com/',
     revAddr: `//yyweb.yystatic.com/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
-});
-// - commit
+  // - configCommit
+};
 
 module.exports = config;

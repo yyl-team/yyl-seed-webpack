@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.1.0",
+  "version": "0.1.2-beta2",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
@@ -14,10 +14,11 @@
   "scripts": {
     "test": "jest ./test/jest/ --env=node",
     "ui-test": "yyt",
-    "init:webpack": "node ./test/run.js init --name webpack --path ./test/__frag",
+    "init:base": "node ./test/run.js init --name base --path ./test/__frag",
     "init:vue2": "node ./test/run.js init --name vue2 --path ./test/__frag",
-    "e-webpack:all": "node ./test/run.js all --config ./examples/webpack/config.js",
-    "e-webpack:watch": "node ./test/run.js watch --config ./examples/webpack/config.js",
+    "init:typescript": "node ./test/run.js init --name typescript --path ./test/__frag",
+    "e-base:all": "node ./test/run.js all --config ./examples/base/config.js",
+    "e-base:watch": "node ./test/run.js watch --config ./examples/base/config.js",
     "e-vue2:all": "node ./test/run.js all --config ./examples/vue2/config.js",
     "e-vue2:watch": "node ./test/run.js watch --config ./examples/vue2/config.js",
     "e-typescript:all": "node ./test/run.js all --config ./examples/typescript/config.js",
@@ -26,8 +27,8 @@
     "frag:watch": "node ./test/run.js watch --config ./test/__frag/config.js",
     "c-demo:all": "node ./test/run.js all --config ./test/case/demo/config.js",
     "c-demo:watch": "node ./test/run.js watch --config ./test/case/demo/config.js",
-    "c-env-test:all": "node ./test/run.js all --config ./test/case/env-test/config.js",
-    "c-env-test:watch": "node ./test/run.js watch --config ./test/case/env-test/config.js",
+    "c-env-test:all": "node ./test/run.js all --config ./test/case/env-test/config.js --proxy --isCommit",
+    "c-env-test:watch": "node ./test/run.js watch --config ./test/case/env-test/config.js  --proxy --isCommit",
     "c-webpack:all": "node ./test/run.js all --config ./test/case/webpack/config.js",
     "c-webpack:watch": "node ./test/run.js watch --config ./test/case/webpack/config.js",
     "c-extend-webpack:all": "node ./test/run.js all --config ./test/case/extend-webpack/config.js",
@@ -56,7 +57,7 @@
   "dependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
     "@babel/plugin-proposal-function-sent": "^7.0.0",
     "@babel/plugin-proposal-json-strings": "^7.0.0",
@@ -108,7 +109,7 @@
   },
   "devDependencies": {
     "jest": "^24.7.1 ",
-    "yyl-hander": "^0.1.1",
+    "yyl-hander": "^0.1.2",
     "yyl-print": "^0.4.0",
     "yyl-request": "^0.1.0",
     "yyl-seed-test-util": "^0.4.0"

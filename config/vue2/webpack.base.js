@@ -1,6 +1,6 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const init = (config, iEnv) => {
+const init = () => {
   const webpackConfig = {
     module: {
       rules: [

@@ -10,7 +10,7 @@ const seed = require('../../index.js');
 const handler = require('../../test/handler');
 const TEST_CTRL = require('../test.config.js');
 
-const FRAG_PATH = path.join(__dirname, '../__frag');
+const FRAG_PATH = path.join(__dirname, '../../test/__frag');
 
 
 module.exports['@disabled'] = !TEST_CTRL.INIT;

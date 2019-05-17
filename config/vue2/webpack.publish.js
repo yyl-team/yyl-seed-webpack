@@ -1,5 +1,5 @@
 const webpackMerge = require('webpack-merge');
-const webpackBase = require('../webpack/webpack.publish');
+const webpackBase = require('../base/webpack.publish');
 const selfBase = require('./webpack.base');
 
 const init = (config, iEnv) => {

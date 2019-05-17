@@ -1,5 +1,5 @@
 const webpackMerge = require('webpack-merge');
-const webpackBase = require('../webpack/webpack.proxy');
+const webpackBase = require('../base/webpack.proxy');
 const selfBase = require('./webpack.base');
 
 const init = (config, iEnv) => {
