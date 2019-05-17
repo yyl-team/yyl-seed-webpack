@@ -188,10 +188,6 @@ const handler = {
 
     await fn.clearDest(config);
 
-    yh.setVars({
-      PROJECT_PATH: iEnv.path
-    });
-
     return util.makeAwait((next) => {
       let isUpdate = false;
       opzer.watch(iEnv)
