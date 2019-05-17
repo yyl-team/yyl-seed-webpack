@@ -27,8 +27,8 @@ const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath
 
 const config = {
   // + configBase
-  seed: 'base',
   // - configBase
+  seed: 'base',
   localserver: setting.localserver,
   dest: setting.dest,
   plugins: ['yyl-flexlayout'],
