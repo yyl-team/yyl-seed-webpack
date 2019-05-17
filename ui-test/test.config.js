@@ -1,5 +1,5 @@
 module.exports = {
-  INIT: true,
-  WATCH: true,
+  // INIT: true,
+  // WATCH: true,
   ENV: true
 };

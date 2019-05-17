@@ -100,6 +100,12 @@ const handler = {
 
   async all(iEnv) {
     let configPath;
+    if (iEnv.silent) {
+      print.log.setLogLevel(0);
+    } else {
+      print.log.setLogLevel(2);
+    }
+
     if (iEnv.config) {
       configPath = path.resolve(process.cwd(), iEnv.config);
       if (!fs.existsSync(configPath)) {
@@ -112,17 +118,17 @@ const handler = {
       return print.log.warn('task need --config options');
     }
 
+    const CONFIG_DIR = path.dirname(configPath);
+    yh.setVars({
+      PROJECT_PATH: CONFIG_DIR
+    });
+
     yh.optimize.init({config, iEnv});
     await yh.optimize.initPlugins();
 
-    const CONFIG_DIR = path.dirname(configPath);
     const opzer = seed.optimize(config, CONFIG_DIR);
 
     await fn.clearDest(config);
-
-    yh.setVars({
-      PROJECT_PATH: iEnv.path
-    });
 
     return await util.makeAwait((next) => {
       opzer.all(iEnv)
@@ -148,7 +154,9 @@ const handler = {
     let configPath;
     if (iEnv.silent) {
       print.log.setLogLevel(0);
-    }
+    } else {
+      print.log.setLogLevel(2);
+    } 
     if (iEnv.config) {
       configPath = path.resolve(process.cwd(), iEnv.config);
       if (!fs.existsSync(configPath)) {
@@ -161,11 +169,17 @@ const handler = {
       return print.log.warn('task need --config options');
     }
 
+    const CONFIG_DIR = path.dirname(configPath);
+    yh.setVars({
+      PROJECT_PATH: CONFIG_DIR
+    });
+
     yh.optimize.init({config, iEnv});
     await yh.optimize.initPlugins();
 
-    const CONFIG_DIR = path.dirname(configPath);
     const opzer = seed.optimize(config, CONFIG_DIR);
+
+    
 
     // 本地服务器
     await tUtil.server.start(config.alias.destRoot, config.localserver.port || 5000);

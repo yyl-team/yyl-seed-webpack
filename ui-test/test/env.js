@@ -9,7 +9,7 @@ const tUtil = require('yyl-seed-test-util');
 
 const handler = require('../../test/handler');
 
-const FRAG_PATH = path.join(__dirname, '../__frag');
+const FRAG_PATH = path.join(__dirname, '../../test/__frag');
 const TEST_CTRL = require('../test.config.js');
 
 

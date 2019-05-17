@@ -10,6 +10,17 @@ const util = require('yyl-util');
 
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 
+const map2Babel = function (str) {
+  const nodeModulePath1 = path.join(__dirname, '../../');
+  const nodeModulePath2 = path.join(__dirname, '../../../');
+  const path1 = path.join(nodeModulePath1, 'node_modules/@babel');
+  if (fs.existsSync(path1)) {
+    return util.path.join(nodeModulePath1, 'node_modules', str);
+  } else {
+    return util.path.join(nodeModulePath2, str);
+  }
+};
+
 const init = (config, iEnv) => {
   const webpackconfig = {
     entry: (function() {
@@ -79,17 +90,17 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              ['@babel/preset-env', { modules: 'commonjs' }]
+              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
             ],
             plugins: [
               // Stage 2
-              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-              '@babel/plugin-proposal-function-sent',
-              '@babel/plugin-proposal-export-namespace-from',
-              '@babel/plugin-proposal-numeric-separator',
-              '@babel/plugin-proposal-throw-expressions',
-              '@babel/plugin-syntax-dynamic-import'
-            ]
+              [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
+              map2Babel('@babel/plugin-proposal-function-sent'),
+              map2Babel('@babel/plugin-proposal-export-namespace-from'),
+              map2Babel('@babel/plugin-proposal-numeric-separator'),
+              map2Babel('@babel/plugin-proposal-throw-expressions'),
+              map2Babel('@babel/plugin-syntax-dynamic-import')
+            ] 
           }
         }]
       }, {
@@ -134,6 +145,7 @@ const init = (config, iEnv) => {
     },
     resolveLoader: {
       modules: [
+        path.join( __dirname, 'node_modules'),
         path.join( __dirname, '../../node_modules'),
         path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
@@ -141,6 +153,7 @@ const init = (config, iEnv) => {
     },
     resolve: {
       modules: [
+        path.join( __dirname, 'node_modules'),
         path.join( __dirname, '../../node_modules'),
         path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
