@@ -4,8 +4,8 @@ const selfBase = require('./webpack.base');
 
 const init = (config, iEnv) => {
   return webpackMerge(
+    webpackBase(config, iEnv),
     selfBase(config, iEnv),
-    selfBase.removeBabel(webpackBase(config, iEnv))
   );
 };
 module.exports = init;

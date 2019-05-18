@@ -8,7 +8,6 @@ const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const util = require('yyl-util');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const init = (config, iEnv) => {
@@ -42,19 +41,19 @@ const init = (config, iEnv) => {
             r[key] = [str];
           }
 
-          // const queryObj = {
-          //   name: key
-          // };
+          const queryObj = {
+            name: key
+          };
 
-          // if (config.localserver && config.localserver.port) {
-          //   queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`;
-          // }
+          if (config.localserver && config.localserver.port) {
+            queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`;
+          }
 
-          // const iQuery = querystring.stringify(queryObj);
-          // // hotreload
-          // if (iEnv.hot) {
-          //   r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
-          // }
+          const iQuery = querystring.stringify(queryObj);
+          // hotreload
+          if (iEnv.hot && !config.ie8) {
+            r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
+          }
         });
       }
 
@@ -70,40 +69,11 @@ const init = (config, iEnv) => {
         test: /\.tsx?$/,
         use: ['ts-loader'],
         exclude: /node_modules/
-      }, {
-        test: /\.html$/,
-        use: [{
-          loader: 'html-loader'
-        }]
-      }, {
-        test: /\.pug$/,
-        oneOf: [{
-          resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
-        }, {
-          use: ['pug-loader']
-        }]
-      }, {
-        test: /\.svg$/,
-        use: {
-          loader: 'svg-inline-loader'
-        }
-      }, {
-        test: /\.webp$/,
-        loaders: ['file-loader']
-      }, {
-        test: /\.ico$/,
-        loaders: ['file-loader']
-      }, {
-        // shiming the module
-        test: path.join(config.alias.srcRoot, 'js/lib/'),
-        use: {
-          loader: 'imports-loader?this=>window'
-        }
       }]
     },
     resolve: {
       modules: [
+        path.join( __dirname, 'node_modules'),
         path.join( __dirname, '../../node_modules'),
         path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
@@ -121,14 +91,15 @@ const init = (config, iEnv) => {
         path.join(config.alias.dirname, 'node_modules')
       ]
     },
-    plugins: [
-      new BuildAsyncRevWebpackPlugin(config),
+    plugins: []
+  };
+
+  if (config.ie8) {
+    webpackconfig.plugins = webpackconfig.plugins.concat([
       new es3ifyWebpackPlugin(),
       new Ie8FixWebpackPlugin()
-      // new webpack.HotModuleReplacementPlugin()
-    ]
-
-  };
+    ]);
+  }
 
   // + html output
   wConfig.plugins = wConfig.plugins.concat((function() { // html 输出
@@ -211,57 +182,7 @@ const init = (config, iEnv) => {
     return r;
   })());
   // - html output
-
-  // env defined
-  // 环境变量 (全局替换 含有这 变量的 js)
-  wConfig.plugins.push((() => {
-    const r = {};
-    Object.keys(iEnv).forEach((key) => {
-      if ( typeof iEnv[key] === 'string') {
-        r[`process.env.${key}`] = JSON.stringify(iEnv[key]);
-      } else {
-        r[`process.env.${key}`] = iEnv[key];
-      }
-    });
-
-    return new webpack.DefinePlugin(r);
-  })());
-
-  // config.module 继承
-  if (config.moduleRules) {
-    wConfig.module.rules = wConfig.module.rules.concat(config.moduleRules);
-  }
-
-  // extend node_modules
-  if (config.resolveModule) {
-    wConfig.resolve.modules.unshift(config.resolveModule);
-    wConfig.resolveLoader.modules.unshift(config.resolveModule);
-  }
-
-  // add seed node_modules 
-  if (config.seed) {
-    const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules');
-    if (fs.existsSync(nodeModulePath)) {
-      wConfig.resolve.modules.unshift(nodeModulePath);
-      wConfig.resolveLoader.modules.unshift(nodeModulePath);
-    }
-  }
-  return wConfig;
-};
-
-init.removeBabel = (wConfig) => {
-  // console.log(wConfig)
-  if (wConfig.module.rules && wConfig.module.rules.length) {
-    wConfig.module.rules = wConfig.module.rules.filter((item) => {
-      const str = 'hello.js';
-      if (util.type(item.test) === 'RegExp') {
-        return str.match(item.test) ? false: true;
-      } else {
-        return true;
-      }
-    });
-  }
-
+  
   return wConfig;
 };
 

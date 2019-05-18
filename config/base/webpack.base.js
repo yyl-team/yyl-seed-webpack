@@ -5,10 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const querystring = require('querystring');
 const extFs = require('yyl-fs');
+const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 
 const util = require('yyl-util');
 
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
+const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const map2Babel = function (str) {
   const nodeModulePath1 = path.join(__dirname, '../../');
@@ -28,9 +30,7 @@ const init = (config, iEnv) => {
         config.alias.srcRoot :
         path.join(__dirname, config.alias.srcRoot);
 
-      let r = {
-        // 'boot': path.join(path.isAbsolute(config.alias.srcRoot)? '': __dirname, config.alias.srcRoot, 'boot/boot.js'),
-      };
+      let r = {};
 
       // 合并 config 中的 entry 字段
       if (config.entry) {
@@ -64,7 +64,7 @@ const init = (config, iEnv) => {
 
           const iQuery = querystring.stringify(queryObj);
           // hotreload
-          if (iEnv.hot) {
+          if (iEnv.hot && !config.ie8) {
             r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
           }
         });
@@ -90,16 +90,16 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+              ['@babel/preset-env', { modules: 'commonjs' }]
             ],
             plugins: [
               // Stage 2
-              [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-              map2Babel('@babel/plugin-proposal-function-sent'),
-              map2Babel('@babel/plugin-proposal-export-namespace-from'),
-              map2Babel('@babel/plugin-proposal-numeric-separator'),
-              map2Babel('@babel/plugin-proposal-throw-expressions'),
-              map2Babel('@babel/plugin-syntax-dynamic-import')
+              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+              '@babel/plugin-proposal-function-sent',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-numeric-separator',
+              '@babel/plugin-proposal-throw-expressions',
+              '@babel/plugin-syntax-dynamic-import'
             ] 
           }
         }]
@@ -165,10 +165,14 @@ const init = (config, iEnv) => {
       }, config.alias)
     },
     plugins: [
-      new BuildAsyncRevWebpackPlugin(config),
-      new webpack.HotModuleReplacementPlugin()
+      new BuildAsyncRevWebpackPlugin(config)
     ]
   };
+
+  // hot reload
+  if (!config.ie8 && iEnv.hot) {
+    webpackconfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+  }
 
   // providePlugin
   if (config.providePlugin) {
