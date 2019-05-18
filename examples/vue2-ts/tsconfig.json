@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es3",
+    "module": "esnext",
+    "target": "es5",
     "moduleResolution": "node",
+    "strict": true,
+    "importHelpers": true,
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": false,
     "allowJs": true,
     "lib": [
@@ -16,12 +21,22 @@
     "paths": {
       "*": [
         "*",
-        "..\\..\\node_modules\\*",
-        "..\\..\\config\\typescript\\node_modules\\*"
+        "../../node_modules/*",
+        "../../config/vue2-ts/node_modules/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "~@/*": [
+        "./src/components/*"
       ]
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

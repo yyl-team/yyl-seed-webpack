@@ -13,8 +13,8 @@ div.p-index
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
-import vDemo from '../../widget/v-demo/v-demo.vue';
-import vNav from '../../widget/v-nav/v-nav.vue';
+import vDemo from '../widget/demo/demo.vue';
+import vNav from '../widget/nav.vue';
 
 export default {
   methods: {

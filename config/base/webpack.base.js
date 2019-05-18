@@ -158,11 +158,7 @@ const init = (config, iEnv) => {
         path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ],
-      alias: util.extend({
-        'actions': path.join(config.alias.srcRoot, 'vuex/actions.js'),
-        'getters': path.join(config.alias.srcRoot, 'vuex/getters.js'),
-        'vue$': 'vue/dist/vue.common.js'
-      }, config.alias)
+      alias: config.alias
     },
     plugins: [
       new BuildAsyncRevWebpackPlugin(config)
