@@ -24,7 +24,7 @@ const map2Babel = function (str) {
 };
 
 const init = (config, iEnv) => {
-  const webpackconfig = {
+  const wConfig = {
     entry: (function() {
       const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
         config.alias.srcRoot :
@@ -171,16 +171,16 @@ const init = (config, iEnv) => {
 
   // hot reload
   if (!config.ie8 && iEnv.hot) {
-    webpackconfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+    wConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   }
 
   // providePlugin
   if (config.providePlugin) {
-    webpackconfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin));
+    wConfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin));
   }
 
   // + html output
-  webpackconfig.plugins = webpackconfig.plugins.concat((function() { // html 输出
+  wConfig.plugins = wConfig.plugins.concat((function() { // html 输出
     const bootPath = util.path.join(config.alias.srcRoot, 'boot');
     const entryPath = util.path.join(config.alias.srcRoot, 'entry');
     let outputPath = [];
@@ -205,12 +205,12 @@ const init = (config, iEnv) => {
 
     const commonChunks = [];
     const pageChunkMap = {};
-    Object.keys(webpackconfig.entry).forEach((key) => {
+    Object.keys(wConfig.entry).forEach((key) => {
       let iPaths = [];
-      if (util.type(webpackconfig.entry[key]) === 'array') {
-        iPaths = webpackconfig.entry[key];
-      } else if (util.type(webpackconfig.entry[key]) === 'string') {
-        iPaths.push(webpackconfig.entry[key]);
+      if (util.type(wConfig.entry[key]) === 'array') {
+        iPaths = wConfig.entry[key];
+      } else if (util.type(wConfig.entry[key]) === 'string') {
+        iPaths.push(wConfig.entry[key]);
       }
 
       let isPageModule = null;
@@ -264,7 +264,7 @@ const init = (config, iEnv) => {
 
   // env defined
   // 环境变量 (全局替换 含有这 变量的 js)
-  webpackconfig.plugins.push((() => {
+  wConfig.plugins.push((() => {
     const r = {};
     Object.keys(iEnv).forEach((key) => {
       if ( typeof iEnv[key] === 'string') {
@@ -277,27 +277,35 @@ const init = (config, iEnv) => {
     return new webpack.DefinePlugin(r);
   })());
 
+  // ie8 格式化
+  if (config.ie8) {
+    wConfig.plugins = wConfig.plugins.concat([
+      new es3ifyWebpackPlugin(),
+      new Ie8FixWebpackPlugin()
+    ]);
+  }
+
   // config.module 继承
   if (config.moduleRules) {
-    webpackconfig.module.rules = webpackconfig.module.rules.concat(config.moduleRules);
+    wConfig.module.rules = wConfig.module.rules.concat(config.moduleRules);
   }
 
   // extend node_modules
   if (config.resolveModule) {
-    webpackconfig.resolve.modules.unshift(config.resolveModule);
-    webpackconfig.resolveLoader.modules.unshift(config.resolveModule);
+    wConfig.resolve.modules.unshift(config.resolveModule);
+    wConfig.resolveLoader.modules.unshift(config.resolveModule);
   }
 
   // add seed node_modules 
   if (config.seed) {
     const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules');
     if (fs.existsSync(nodeModulePath)) {
-      webpackconfig.resolve.modules.unshift(nodeModulePath);
-      webpackconfig.resolveLoader.modules.unshift(nodeModulePath);
+      wConfig.resolve.modules.unshift(nodeModulePath);
+      wConfig.resolveLoader.modules.unshift(nodeModulePath);
     }
   }
 
-  return webpackconfig;
+  return wConfig;
 };
 
 

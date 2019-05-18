@@ -2,7 +2,7 @@ const path = require('path');
 const extFs = require('yyl-fs');
 const fs = require('fs');
 const webpack = require('webpack');
-// const querystring = require('querystring');
+const querystring = require('querystring');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const util = require('yyl-util');
@@ -94,12 +94,7 @@ const init = (config, iEnv) => {
     plugins: []
   };
 
-  if (config.ie8) {
-    webpackconfig.plugins = webpackconfig.plugins.concat([
-      new es3ifyWebpackPlugin(),
-      new Ie8FixWebpackPlugin()
-    ]);
-  }
+  
 
   // + html output
   wConfig.plugins = wConfig.plugins.concat((function() { // html 输出

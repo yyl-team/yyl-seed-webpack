@@ -16,8 +16,8 @@
     "paths": {
       "*": [
         "*",
-        "..\\..\\node_modules\\*",
-        "..\\..\\config\\typescript\\node_modules\\*"
+        "../../node_modules/*",
+        "../../config/typescript/node_modules/*"
       ]
     }
   },
