@@ -10,6 +10,7 @@ div.p-index
   background: #fff;
 }
 </style>
+
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
