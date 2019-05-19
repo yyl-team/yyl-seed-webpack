@@ -1,0 +1,22 @@
+{
+  "name": "vue2-ts",
+  "eslintConfig": {
+    "extends": [
+      "@yy/fe",
+      "@vue/typescript"
+    ]
+  },
+  "eslintIgnore": [
+    "/dev",
+    "/output",
+    "/src/data"
+  ],
+  "devDependencies": {
+    "prettier": "^1.16.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.3"
+  }
+}

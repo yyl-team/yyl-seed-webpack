@@ -12,21 +12,21 @@ div.p-index
 </style>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import { Action } from "vuex-class";
-import Demo from "~@/widget/demo/demo.vue";
-import Nav from "~@/widget/nav.vue";
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import { Action } from 'vuex-class'
+import Demo from '~@/widget/demo/demo.vue'
+import Nav from '~@/widget/nav.vue'
 
-@Component ({
+@Component({
   components: {
     Demo,
     Nav
   }
-}) 
+})
 export default class PageIndex extends Vue {
   @Action addDemoLog: (msg: string) => void;
-  mounted() {
+  mounted () {
     const vm = this
     vm.addDemoLog('page index is ready')
     vm.addDemoLog(`now in ${process.env.NODE_ENV}`)

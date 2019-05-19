@@ -57,9 +57,9 @@ div
 
 </style>
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import { Action, State } from "vuex-class";
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import { Action, State } from 'vuex-class'
 
 const cache = {
   changeKey: 0
@@ -74,20 +74,20 @@ export default class Demo extends Vue {
   rotate: number = 0;
   title: string = '';
 
-  mounted() {
+  mounted () {
     const vm = this
-    let i = 0;
+    let i = 0
     const iClass = [0, 1, 2, 3]
     cache.changeKey = setInterval(() => {
-      const here = iClass.concat([]);
-      here.splice(here.indexOf(i), 1);
-      vm.rotate = here[Math.round(Math.random() * (here.length - 1))];
-      i = vm.rotate;
-    }, 2000);
+      const here = iClass.concat([])
+      here.splice(here.indexOf(i), 1)
+      vm.rotate = here[Math.round(Math.random() * (here.length - 1))]
+      i = vm.rotate
+    }, 2000)
 
     vm.addDemoLog('v-demo is ready')
   }
-  beforeDestory() {
+  beforeDestory () {
     clearInterval(cache.changeKey)
   }
 }

@@ -11,11 +11,11 @@ div.p-sub
 }
 </style>
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import { Action } from "vuex-class";
-import Demo from "~@/widget/demo/demo.vue";
-import Nav from "~@/widget/nav.vue";
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import { Action } from 'vuex-class'
+import Demo from '~@/widget/demo/demo.vue'
+import Nav from '~@/widget/nav.vue'
 
 @Component({
   name: 'PageSub',
@@ -26,7 +26,7 @@ import Nav from "~@/widget/nav.vue";
 })
 export default class PageSub extends Vue {
   @Action addDemoLog:(msg: string) => void;
-  mounted() {
+  mounted () {
     const vm = this
     vm.addDemoLog('page sub is ready')
   }

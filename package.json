@@ -107,7 +107,7 @@
     "webpack-merge": "^4.2.1",
     "yyl-file-replacer": "^0.3.1",
     "yyl-fs": "^0.2.0",
-    "yyl-os": "^0.6.1",
+    "yyl-os": "^0.7.3",
     "yyl-seed-response": "^0.1.0",
     "yyl-util": "^2.2.0"
   },
