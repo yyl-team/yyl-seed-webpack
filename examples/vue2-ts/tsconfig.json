@@ -22,9 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "*": [
-        "*",
-        "../../node_modules/*",
-        "../../config/vue2-ts/node_modules/*"
+        "*"
       ],
       "@/*": [
         "./src/*"
