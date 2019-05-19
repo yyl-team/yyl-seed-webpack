@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.1.2-beta2",
+  "version": "0.2.0-beta1",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
