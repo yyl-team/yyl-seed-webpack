@@ -1,9 +1,9 @@
 import Vue, { AsyncComponent } from 'vue'
 import Router, { RouteConfig, Route, NavigationGuard } from 'vue-router'
-import pageIndex from '~@/page/index.vue';
-// const pageIndex: AsyncComponent = (): any => import(/* webpackChunkName: "pageIndex" */ '~@/page/index.vue')
-import pageSub from '~@/page/sub.vue';
-// const pageSub: AsyncComponent = (): any => import(/* webpackChunkName: "pageSub" */ '~@/page/sub.vue');
+// import pageIndex from '~@/page/index.vue';
+const pageIndex: AsyncComponent = (): any => import(/* webpackChunkName: "pageIndex" */ '~@/page/index.vue')
+// import pageSub from '~@/page/sub.vue';
+const pageSub: AsyncComponent = (): any => import(/* webpackChunkName: "pageSub" */ '~@/page/sub.vue');
 
 Vue.use(Router)
 
