@@ -56,40 +56,36 @@ div
 }
 
 </style>
-<script>
-import { mapGetters, mapActions } from 'vuex';
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Action, State } from "vuex-class";
 
-const cache = {};
+const cache = {
+  changeKey: 0
+}
 
-export default {
-  data() {
-    return {
-      rotate: 0,
-      title: ''
-    };
-  },
-  methods: {
-    ...mapActions(['addDemoLog'])
-  },
-  computed: {
-    ...mapGetters(['demoLogs'])
-  },
+export default class Demo extends Vue {
+  @Action addDemoLog(msg: string): void;
+  @State demoLogs: string[];
+  rotate: number = 0;
+  title: string = '';
+
   mounted() {
-    const vm = this;
-    let i;
-    const iClass = [0, 1, 2, 3];
-
+    const vm = this
+    let i
+    const iClass = [0, 1, 2, 3]
     cache.changeKey = setInterval(() => {
       const here = iClass.concat([]);
       here.splice(here.indexOf(i), 1);
-      vm.$data.rotate = here[Math.round(Math.random() * (here.length - 1))];
+      vm.rotate = here[Math.round(Math.random() * (here.length - 1))];
     }, 2000);
 
-    vm.addDemoLog('v-demo is ready');
-  },
-  beforeDestroy() {
-    clearInterval(cache.changeKey);
+    vm.addDemoLog('v-demo is ready')
   }
-};
+  beforeDestory() {
+    clearInterval(cache.changeKey)
+  }
+}
 
 </script>

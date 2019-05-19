@@ -11,31 +11,24 @@ div.p-index
 }
 </style>
 
-<script>
-import { mapGetters, mapActions } from 'vuex';
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Action } from "vuex-class";
+import vDemo from "~@/widget/demo/demo.vue";
+import vNav from "~@/widget/nav.vue";
 
-import vDemo from '../widget/demo/demo.vue';
-import vNav from '../widget/nav.vue';
-
-export default {
-  methods: {
-    ...mapActions(['addDemoLog'])
-  },
-  computed: {
-    ...mapGetters(['demoLogs'])
-  },
-  data() {
-    return {
-    };
-  },
+@Component
+export default class PageIndex extends Vue {
+  @Action addDemoLog(msg: string): void;
   components: {
     vDemo,
     vNav
-  },
-  mounted() {
-    const vm = this;
-    vm.addDemoLog('p-index is ready');
-    vm.addDemoLog(`now in ${process.env.NODE_ENV}`);
   }
-};
+  mounted() {
+    const vm = this
+    vm.addDemoLog('page index is ready')
+    vm.addDemoLog(`now in ${process.env.NODE_ENV}`)
+  }
+}
 </script>

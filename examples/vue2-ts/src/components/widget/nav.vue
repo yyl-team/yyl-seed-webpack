@@ -26,7 +26,11 @@
     router-link(active-class="current", to="/sub") sub
 </template>
 
-<script>
-export default {
-};
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+@Component
+export default class Nav extends Vue {
+
+}
 </script>

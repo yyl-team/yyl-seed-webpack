@@ -10,31 +10,23 @@ div.p-sub
   height: 100%;
 }
 </style>
-<script>
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Action } from "vuex-class";
+import vDemo from "~@/widget/demo/demo.vue";
+import vNav from "~@/widget/nav.vue";
 
-import vDemo from '../widget/demo/demo.vue';
-import vNav from '../widget/nav.vue';
-
-export default Vue.extend({
-  methods: {
-    ...mapActions(['addDemoLog'])
-  },
-  computed: {
-    ...mapGetters(['demoLogs'])
-  },
-  data() {
-    return {
-    };
-  },
+@Component
+export default class PageSub extends Vue {
+  @Action addDemoLog(msg: string): void;
   components: {
     vDemo,
     vNav
-  },
-  mounted() {
-    const vm = this;
-    vm.addDemoLog('p-sub is ready');
   }
-});
+  mounted() {
+    const vm = this
+    vm.addDemoLog('page sub is ready')
+  }
+}
 </script>
