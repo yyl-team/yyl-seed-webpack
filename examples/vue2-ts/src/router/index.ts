@@ -9,19 +9,19 @@ Vue.use(Router)
 
 const routes: RouteConfig[] = [
   {
-    path: '*',
-    redirect: '/index'
-  }, {
     path: '/index',
     component: pageIndex
   }, {
     path: '/sub',
     component: pageSub
+  }, {
+    path: '*',
+    redirect: '/index'
   }
 ]
 
 const router: Router = new Router({
-  mode: 'history',
+  mode: 'hash',
   base: '/',
   routes
 })

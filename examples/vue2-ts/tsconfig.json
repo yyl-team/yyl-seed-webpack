@@ -4,6 +4,8 @@
     "target": "es5",
     "moduleResolution": "node",
     "strict": true,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": false,
     "importHelpers": true,
     "noImplicitAny": true,
     "removeComments": true,

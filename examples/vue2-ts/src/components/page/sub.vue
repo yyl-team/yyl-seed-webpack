@@ -1,7 +1,7 @@
 <template lang="pug">
 div.p-sub
-  components(is="vNav")
-  components(is="vDemo")
+  Nav
+  Demo
 </template>
 <style lang="scss">
 @charset 'utf-8';
@@ -14,16 +14,18 @@ div.p-sub
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Action } from "vuex-class";
-import vDemo from "~@/widget/demo/demo.vue";
-import vNav from "~@/widget/nav.vue";
+import Demo from "~@/widget/demo/demo.vue";
+import Nav from "~@/widget/nav.vue";
 
-@Component
-export default class PageSub extends Vue {
-  @Action addDemoLog(msg: string): void;
+@Component({
+  name: 'PageSub',
   components: {
-    vDemo,
-    vNav
+    Demo,
+    Nav
   }
+})
+export default class PageSub extends Vue {
+  @Action addDemoLog:(msg: string) => void;
   mounted() {
     const vm = this
     vm.addDemoLog('page sub is ready')

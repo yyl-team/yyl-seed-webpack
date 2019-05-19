@@ -65,20 +65,24 @@ const cache = {
   changeKey: 0
 }
 
+@Component({
+  name: 'Demo'
+})
 export default class Demo extends Vue {
-  @Action addDemoLog(msg: string): void;
+  @Action addDemoLog: (msg: string) => void;
   @State demoLogs: string[];
   rotate: number = 0;
   title: string = '';
 
   mounted() {
     const vm = this
-    let i
+    let i = 0;
     const iClass = [0, 1, 2, 3]
     cache.changeKey = setInterval(() => {
       const here = iClass.concat([]);
       here.splice(here.indexOf(i), 1);
       vm.rotate = here[Math.round(Math.random() * (here.length - 1))];
+      i = vm.rotate;
     }, 2000);
 
     vm.addDemoLog('v-demo is ready')

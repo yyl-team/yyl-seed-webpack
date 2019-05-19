@@ -1,5 +1,5 @@
-declare namespace process {
-  export interface env {
-    NODE_ENV: 'development' | 'production'
+declare var process : {
+  env: {
+    NODE_ENV: string
   }
 }
