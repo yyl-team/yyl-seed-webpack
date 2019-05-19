@@ -29,6 +29,8 @@ const config = {
   // + configBase
   // - configBase
   seed: 'base',
+  px2rem: true,
+  ie8: false,
   localserver: setting.localserver,
   dest: setting.dest,
   plugins: ['yyl-flexlayout'],

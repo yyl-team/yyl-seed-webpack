@@ -5,10 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const querystring = require('querystring');
 const extFs = require('yyl-fs');
+const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 
 const util = require('yyl-util');
 
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
+const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const map2Babel = function (str) {
   const nodeModulePath1 = path.join(__dirname, '../../');
@@ -22,15 +24,13 @@ const map2Babel = function (str) {
 };
 
 const init = (config, iEnv) => {
-  const webpackconfig = {
+  const wConfig = {
     entry: (function() {
       const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
         config.alias.srcRoot :
         path.join(__dirname, config.alias.srcRoot);
 
-      let r = {
-        // 'boot': path.join(path.isAbsolute(config.alias.srcRoot)? '': __dirname, config.alias.srcRoot, 'boot/boot.js'),
-      };
+      let r = {};
 
       // 合并 config 中的 entry 字段
       if (config.entry) {
@@ -64,7 +64,7 @@ const init = (config, iEnv) => {
 
           const iQuery = querystring.stringify(queryObj);
           // hotreload
-          if (iEnv.hot) {
+          if (iEnv.hot && !config.ie8) {
             r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
           }
         });
@@ -90,16 +90,16 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+              ['@babel/preset-env', { modules: 'commonjs' }]
             ],
             plugins: [
               // Stage 2
-              [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-              map2Babel('@babel/plugin-proposal-function-sent'),
-              map2Babel('@babel/plugin-proposal-export-namespace-from'),
-              map2Babel('@babel/plugin-proposal-numeric-separator'),
-              map2Babel('@babel/plugin-proposal-throw-expressions'),
-              map2Babel('@babel/plugin-syntax-dynamic-import')
+              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+              '@babel/plugin-proposal-function-sent',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-numeric-separator',
+              '@babel/plugin-proposal-throw-expressions',
+              '@babel/plugin-syntax-dynamic-import'
             ] 
           }
         }]
@@ -158,25 +158,25 @@ const init = (config, iEnv) => {
         path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ],
-      alias: util.extend({
-        'actions': path.join(config.alias.srcRoot, 'vuex/actions.js'),
-        'getters': path.join(config.alias.srcRoot, 'vuex/getters.js'),
-        'vue$': 'vue/dist/vue.common.js'
-      }, config.alias)
+      alias: config.alias
     },
     plugins: [
-      new BuildAsyncRevWebpackPlugin(config),
-      new webpack.HotModuleReplacementPlugin()
+      new BuildAsyncRevWebpackPlugin(config)
     ]
   };
 
+  // hot reload
+  if (!config.ie8 && iEnv.hot) {
+    wConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+  }
+
   // providePlugin
   if (config.providePlugin) {
-    webpackconfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin));
+    wConfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin));
   }
 
   // + html output
-  webpackconfig.plugins = webpackconfig.plugins.concat((function() { // html 输出
+  wConfig.plugins = wConfig.plugins.concat((function() { // html 输出
     const bootPath = util.path.join(config.alias.srcRoot, 'boot');
     const entryPath = util.path.join(config.alias.srcRoot, 'entry');
     let outputPath = [];
@@ -201,12 +201,12 @@ const init = (config, iEnv) => {
 
     const commonChunks = [];
     const pageChunkMap = {};
-    Object.keys(webpackconfig.entry).forEach((key) => {
+    Object.keys(wConfig.entry).forEach((key) => {
       let iPaths = [];
-      if (util.type(webpackconfig.entry[key]) === 'array') {
-        iPaths = webpackconfig.entry[key];
-      } else if (util.type(webpackconfig.entry[key]) === 'string') {
-        iPaths.push(webpackconfig.entry[key]);
+      if (util.type(wConfig.entry[key]) === 'array') {
+        iPaths = wConfig.entry[key];
+      } else if (util.type(wConfig.entry[key]) === 'string') {
+        iPaths.push(wConfig.entry[key]);
       }
 
       let isPageModule = null;
@@ -260,7 +260,7 @@ const init = (config, iEnv) => {
 
   // env defined
   // 环境变量 (全局替换 含有这 变量的 js)
-  webpackconfig.plugins.push((() => {
+  wConfig.plugins.push((() => {
     const r = {};
     Object.keys(iEnv).forEach((key) => {
       if ( typeof iEnv[key] === 'string') {
@@ -273,27 +273,35 @@ const init = (config, iEnv) => {
     return new webpack.DefinePlugin(r);
   })());
 
+  // ie8 格式化
+  if (config.ie8) {
+    wConfig.plugins = wConfig.plugins.concat([
+      new es3ifyWebpackPlugin(),
+      new Ie8FixWebpackPlugin()
+    ]);
+  }
+
   // config.module 继承
   if (config.moduleRules) {
-    webpackconfig.module.rules = webpackconfig.module.rules.concat(config.moduleRules);
+    wConfig.module.rules = wConfig.module.rules.concat(config.moduleRules);
   }
 
   // extend node_modules
   if (config.resolveModule) {
-    webpackconfig.resolve.modules.unshift(config.resolveModule);
-    webpackconfig.resolveLoader.modules.unshift(config.resolveModule);
+    wConfig.resolve.modules.unshift(config.resolveModule);
+    wConfig.resolveLoader.modules.unshift(config.resolveModule);
   }
 
   // add seed node_modules 
   if (config.seed) {
     const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules');
     if (fs.existsSync(nodeModulePath)) {
-      webpackconfig.resolve.modules.unshift(nodeModulePath);
-      webpackconfig.resolveLoader.modules.unshift(nodeModulePath);
+      wConfig.resolve.modules.unshift(nodeModulePath);
+      wConfig.resolveLoader.modules.unshift(nodeModulePath);
     }
   }
 
-  return webpackconfig;
+  return wConfig;
 };
 
 

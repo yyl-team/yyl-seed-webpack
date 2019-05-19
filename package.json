@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.1.2-beta2",
+  "version": "0.2.0-beta1",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
@@ -17,12 +17,15 @@
     "init:base": "node ./test/run.js init --name base --path ./test/__frag",
     "init:vue2": "node ./test/run.js init --name vue2 --path ./test/__frag",
     "init:typescript": "node ./test/run.js init --name typescript --path ./test/__frag",
+    "init:vue2-ts": "node ./test/run.js init --name vue2-ts --path ./test/__frag",
     "e-base:all": "node ./test/run.js all --config ./examples/base/config.js",
     "e-base:watch": "node ./test/run.js watch --config ./examples/base/config.js",
     "e-vue2:all": "node ./test/run.js all --config ./examples/vue2/config.js",
     "e-vue2:watch": "node ./test/run.js watch --config ./examples/vue2/config.js",
     "e-typescript:all": "node ./test/run.js all --config ./examples/typescript/config.js",
     "e-typescript:watch": "node ./test/run.js watch --config ./examples/typescript/config.js",
+    "e-vue2-ts:all": "node ./test/run.js all --config ./examples/vue2-ts/config.js",
+    "e-vue2-ts:watch": "node ./test/run.js watch --config ./examples/vue2-ts/config.js",
     "frag:all": "node ./test/run.js all --config ./test/__frag/config.js",
     "frag:watch": "node ./test/run.js watch --config ./test/__frag/config.js",
     "c-demo:all": "node ./test/run.js all --config ./test/case/demo/config.js",
@@ -75,6 +78,7 @@
     "babel-loader": "8.0.5",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^1.0.0",
+    "es3ify-webpack-plugin": "^0.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
@@ -103,13 +107,13 @@
     "webpack-merge": "^4.2.1",
     "yyl-file-replacer": "^0.3.1",
     "yyl-fs": "^0.2.0",
-    "yyl-os": "^0.6.1",
+    "yyl-os": "^0.7.3",
     "yyl-seed-response": "^0.1.0",
     "yyl-util": "^2.2.0"
   },
   "devDependencies": {
     "jest": "^24.7.1 ",
-    "yyl-hander": "^0.1.2",
+    "yyl-hander": "^0.1.3-beta3",
     "yyl-print": "^0.4.0",
     "yyl-request": "^0.1.0",
     "yyl-seed-test-util": "^0.4.0"

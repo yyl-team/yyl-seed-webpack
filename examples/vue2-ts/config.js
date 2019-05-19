@@ -1,4 +1,6 @@
+/* eslint indent: ["error", 2, { "SwitchCase": 1 }] */
 const path = require('path');
+
 
 // + vars
 const SRC_ROOT = './src';
@@ -7,8 +9,7 @@ const SRC_ROOT = './src';
 // + setting
 const setting = {
   localserver: {
-    root: './dist',
-    port: 5000
+    root: './dist'
   },
   dest: {
     basePath: '/pc',
@@ -22,30 +23,16 @@ const setting = {
   }
 };
 // - setting
-
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
 
 const config = {
   // + configBase
-  platform: 'pc',
   // - configBase
-  seed: 'typescript',
-  px2rem: false,
-  ie8: true,
+  seed: 'vue2-ts',
+  px2rem: true,
   localserver: setting.localserver,
   dest: setting.dest,
-  concat: {
-    '{$jsDest}/shim.js': [
-      '{$srcRoot}/js/lib/shim/es5-shim.min.js',
-      '{$srcRoot}/js/lib/shim/es5-sham.min.js',
-      '{$srcRoot}/js/lib/shim/json3.min.js',
-      '{$srcRoot}/js/lib/shim/es6-shim.min.js',
-      '{$srcRoot}/js/lib/shim/es6-sham.min.js'
-    ]
-  },
-  providePlugin: {
-    '$': 'jquery'
-  },
+  plugins: ['yyl-flexlayout'],
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径
     'root': DEST_BASE_PATH,
@@ -72,8 +59,8 @@ const config = {
     // tpl 输出地址
     'tplDest': path.join(DEST_BASE_PATH, setting.dest.tplPath),
     // webpackconfig 中的 alias
-    'jquery': path.join('./src/js/lib/jquery/jquery-1.11.1.js'),
-    'babel-polyfill': path.join('./src/js/lib/babel-polyfill/babel-polyfill.js')
+    '@': SRC_ROOT,
+    '~@': path.join(SRC_ROOT, 'components')
     // + yyl make
     // - yyl make
   },
@@ -86,4 +73,3 @@ const config = {
 };
 
 module.exports = config;
-

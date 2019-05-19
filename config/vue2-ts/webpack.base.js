@@ -1,14 +1,13 @@
+const webpackMerge = require('webpack-merge');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
 const path = require('path');
 const extFs = require('yyl-fs');
 const fs = require('fs');
-const webpack = require('webpack');
 const querystring = require('querystring');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const util = require('yyl-util');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
-const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -66,9 +65,15 @@ const init = (config, iEnv) => {
     },
     module: {
       rules: [{
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }, {
         test: /\.tsx?$/,
-        use: ['ts-loader'],
-        exclude: /node_modules/
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
       }]
     },
     resolve: {
@@ -78,8 +83,11 @@ const init = (config, iEnv) => {
         path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ],
-      alias: config.alias,
-      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs'],
+      alias: util.extend({
+        'vue$': 'vue/dist/vue.esm.js',
+        'vue': 'vue/dist/vue.esm.js'
+      }, config.alias),
+      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.vue'],
       plugins: [new TsconfigPathsPlugin({
         configFile: path.join(config.alias.dirname, 'tsconfig.json')
       })]
@@ -91,10 +99,10 @@ const init = (config, iEnv) => {
         path.join(config.alias.dirname, 'node_modules')
       ]
     },
-    plugins: []
+    plugins: [
+      new VueLoaderPlugin()
+    ]
   };
-
-  
 
   // + html output
   wConfig.plugins = wConfig.plugins.concat((function() { // html 输出
@@ -177,8 +185,10 @@ const init = (config, iEnv) => {
     return r;
   })());
   // - html output
-  
-  return wConfig;
+
+  return webpackMerge(
+    wConfig
+  );
 };
 
 module.exports = init;
