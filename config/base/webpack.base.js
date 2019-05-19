@@ -90,16 +90,16 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              ['@babel/preset-env', { modules: 'commonjs' }]
+              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
             ],
             plugins: [
               // Stage 2
-              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-              '@babel/plugin-proposal-function-sent',
-              '@babel/plugin-proposal-export-namespace-from',
-              '@babel/plugin-proposal-numeric-separator',
-              '@babel/plugin-proposal-throw-expressions',
-              '@babel/plugin-syntax-dynamic-import'
+              [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
+              map2Babel('@babel/plugin-proposal-function-sent'),
+              map2Babel('@babel/plugin-proposal-export-namespace-from'),
+              map2Babel('@babel/plugin-proposal-numeric-separator'),
+              map2Babel('@babel/plugin-proposal-throw-expressions'),
+              map2Babel('@babel/plugin-syntax-dynamic-import')
             ] 
           }
         }]
