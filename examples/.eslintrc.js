@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   env: {
@@ -13,9 +13,11 @@ module.exports = {
     Vuex: true,
     VueRouter: true
   },
-  extends: 'airbnb-base',
+  extends: ['standard', 'plugin:vue/recommended'],
   plugins: [
-    'html'
+    'html',
+    "import",
+    "vue"
   ],
   rules: {
     'no-debugger': 2,
