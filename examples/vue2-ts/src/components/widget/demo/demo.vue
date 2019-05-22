@@ -68,7 +68,7 @@ const cache = {
 @Component({
   name: 'Demo'
 })
-export default class Demo extends Vue {
+class Demo extends Vue {
   @Action addDemoLog: (msg: string) => void;
   @State demoLogs: string[];
   rotate: number = 0;
@@ -91,5 +91,5 @@ export default class Demo extends Vue {
     clearInterval(cache.changeKey)
   }
 }
-
+export default Demo
 </script>

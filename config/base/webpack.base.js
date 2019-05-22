@@ -95,12 +95,13 @@ const init = (config, iEnv) => {
             plugins: [
               // Stage 2
               [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
+              [map2Babel('@babel/plugin-proposal-class-properties'), { 'loose': true }],
               map2Babel('@babel/plugin-proposal-function-sent'),
               map2Babel('@babel/plugin-proposal-export-namespace-from'),
               map2Babel('@babel/plugin-proposal-numeric-separator'),
               map2Babel('@babel/plugin-proposal-throw-expressions'),
               map2Babel('@babel/plugin-syntax-dynamic-import')
-            ] 
+            ]
           }
         }]
       }, {
