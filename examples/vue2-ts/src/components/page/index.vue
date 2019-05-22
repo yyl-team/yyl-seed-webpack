@@ -24,7 +24,7 @@ import Nav from '~@/widget/nav.vue'
     Nav
   }
 })
-export default class PageIndex extends Vue {
+class PageIndex extends Vue {
   @Action addDemoLog: (msg: string) => void;
   mounted () {
     const vm = this
@@ -32,4 +32,5 @@ export default class PageIndex extends Vue {
     vm.addDemoLog(`now in ${process.env.NODE_ENV}`)
   }
 }
+export default PageIndex
 </script>

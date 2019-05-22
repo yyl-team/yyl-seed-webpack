@@ -24,11 +24,12 @@ import Nav from '~@/widget/nav.vue'
     Nav
   }
 })
-export default class PageSub extends Vue {
+class PageSub extends Vue {
   @Action addDemoLog:(msg: string) => void;
   mounted () {
     const vm = this
     vm.addDemoLog('page sub is ready')
   }
 }
+export default PageSub
 </script>

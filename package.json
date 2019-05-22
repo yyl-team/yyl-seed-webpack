@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.2.0-beta1",
+  "version": "0.2.0-beta3",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
@@ -59,7 +59,7 @@
   "homepage": "https://github.com/jackness1208/yyl-seed-webpack#readme",
   "dependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
     "@babel/plugin-proposal-function-sent": "^7.0.0",
