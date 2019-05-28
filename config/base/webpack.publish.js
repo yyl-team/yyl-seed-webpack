@@ -1,6 +1,5 @@
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const uglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const path = require('path');
@@ -30,7 +29,12 @@ const init = (config, iEnv) => {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true
+              }
+            },
             {
               loader: 'postcss-loader',
               options: {
@@ -107,7 +111,6 @@ const init = (config, iEnv) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(MODE)
       }),
-      new uglifyjsWebpackPlugin(),
       // 样式分离插件
       new ExtractTextPlugin({
         filename: util.path.join(

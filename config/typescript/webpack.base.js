@@ -1,14 +1,11 @@
 const path = require('path');
 const extFs = require('yyl-fs');
 const fs = require('fs');
-const webpack = require('webpack');
 const querystring = require('querystring');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const util = require('yyl-util');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -94,7 +91,7 @@ const init = (config, iEnv) => {
     plugins: []
   };
 
-  
+
 
   // + html output
   wConfig.plugins = wConfig.plugins.concat((function() { // html 输出
@@ -177,7 +174,7 @@ const init = (config, iEnv) => {
     return r;
   })());
   // - html output
-  
+
   return wConfig;
 };
 

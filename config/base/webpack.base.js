@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const querystring = require('querystring');
 const extFs = require('yyl-fs');
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
 const util = require('yyl-util');
 
@@ -163,7 +164,17 @@ const init = (config, iEnv) => {
     },
     plugins: [
       new BuildAsyncRevWebpackPlugin(config)
-    ]
+    ],
+    optimization: {
+      minimizer: [
+        new UglifyjsWebpackPlugin({
+          uglifyOptions: {
+            ie8: config.ie8 ? true: false
+          }
+        })
+
+      ]
+    }
   };
 
   // hot reload
