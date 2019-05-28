@@ -7,6 +7,7 @@ const querystring = require('querystring');
 const extFs = require('yyl-fs');
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const util = require('yyl-util');
 
@@ -171,8 +172,8 @@ const init = (config, iEnv) => {
           uglifyOptions: {
             ie8: config.ie8 ? true: false
           }
-        })
-
+        }),
+        new OptimizeCSSAssetsPlugin({})
       ]
     }
   };

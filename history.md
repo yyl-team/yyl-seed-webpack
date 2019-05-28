@@ -1,4 +1,10 @@
 # 版本信息
+## 0.2.0-beta4 (2019-05-28)
+* [ADD] 新增 `optimize-css-assets-webpack-plugin` 用于 压缩 css
+* [EDIT] 更换 css 抽离组件为 `mini-css-webpack-plugins`
+* [FIX] 修复 `--isCommit` 下 css-loader 不正常问题
+
+
 ## 0.2.0-beta3 (2019-05-21)
 * [FIX] 修复 编辑器会提示 `export @dec` 错误
 ## 0.2.0-beta2 (2019-05-18)
