@@ -1,6 +1,5 @@
 const webpackMerge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const uglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const path = require('path');
@@ -11,6 +10,44 @@ const util = require('yyl-util');
 
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'production';
+
+  const cssUse = [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {}
+    },
+    {
+      loader: 'css-loader',
+      options: {
+        modules: true,
+        // localIdentName: '[name]__[local]__[hash:base64:5]'
+        localIdentName: '[local]'
+      }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        ident: 'postcss',
+        plugins() {
+          const r = [];
+          if (config.platform === 'pc') {
+            r.push(autoprefixer({
+              browsers: ['> 1%', 'last 2 versions']
+            }));
+          } else {
+            r.push(autoprefixer({
+              browsers: ['iOS >= 7', 'Android >= 4']
+            }));
+            if (config.px2rem !== false) {
+              r.push(px2rem({ remUnit: 75 }));
+            }
+          }
+          return r;
+        }
+      }
+    }
+  ];
+
   const webpackConfig = {
     mode: MODE,
     output: {
@@ -27,65 +64,10 @@ const init = (config, iEnv) => {
     module: {
       rules: [{
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins() {
-                  const r = [];
-                  if (config.platform === 'pc') {
-                    r.push(autoprefixer({
-                      browsers: ['> 1%', 'last 2 versions']
-                    }));
-                  } else {
-                    r.push(autoprefixer({
-                      browsers: ['iOS >= 7', 'Android >= 4']
-                    }));
-                    if (config.px2rem !== false) {
-                      r.push(px2rem({remUnit: 75}));
-                    }
-                  }
-                  return r;
-                }
-              }
-            }
-          ]
-        })
+        use: cssUse
       }, {
         test: /\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins() {
-                  const r = [];
-                  if (config.platform === 'pc') {
-                    r.push(autoprefixer({
-                      browsers: ['> 1%', 'last 2 versions']
-                    }));
-                  } else {
-                    r.push(autoprefixer({
-                      browsers: ['iOS >= 7', 'Android >= 4']
-                    }));
-                    if (config.px2rem !== false) {
-                      r.push(px2rem({remUnit: 75}));
-                    }
-                  }
-                  return r;
-                }
-              }
-            },
-            'sass-loader'
-          ]
-        })
+        use: cssUse.concat(['sass-loader'])
       }, {
         test: /\.(png|jpg|gif)$/,
         use: {
@@ -107,15 +89,15 @@ const init = (config, iEnv) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(MODE)
       }),
-      new uglifyjsWebpackPlugin(),
       // 样式分离插件
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: util.path.join(
           path.relative(
             config.alias.jsDest,
             path.join(config.alias.cssDest, '[name].css')
           )
         ),
+        chunkFilename: '[name]-[hash:8].css',
         allChunks: true
       })
     ]
