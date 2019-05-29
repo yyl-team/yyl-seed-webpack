@@ -20,7 +20,8 @@ const init = (config, iEnv) => {
       loader: 'css-loader',
       options: {
         modules: true,
-        localIdentName: '[name]__[local]__[hash:base64:5]'
+        // localIdentName: '[name]__[local]__[hash:base64:5]'
+        localIdentName: '[local]'
       }
     },
     {
@@ -96,6 +97,7 @@ const init = (config, iEnv) => {
             path.join(config.alias.cssDest, '[name].css')
           )
         ),
+        chunkFilename: '[name]-[hash:8].css',
         allChunks: true
       })
     ]
