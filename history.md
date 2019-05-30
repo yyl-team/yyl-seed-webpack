@@ -1,4 +1,7 @@
 # 版本信息
+## 0.2.0-beta8 (2019-05-30)
+* [FIX] 暂时 只有 在 typescript | vue2-ts seed 下 才会让 css-loader modules 为 true
+
 ## 0.2.0-beta7 (2019-05-30)
 * [FIX] 先用回 ExtractTextWebpackPlugin
 

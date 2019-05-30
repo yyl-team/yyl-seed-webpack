@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.2.0-beta7",
+  "version": "0.2.0-beta8",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
@@ -80,7 +80,6 @@
     "babel-polyfill": "^6.26.0",
     "css-loader": "^1.0.0",
     "es3ify-webpack-plugin": "^0.1.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
