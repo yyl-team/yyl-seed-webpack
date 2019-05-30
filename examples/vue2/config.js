@@ -1,9 +1,9 @@
 /* eslint indent: ["error", 2, { "SwitchCase": 1 }] */
-const path = require('path');
+const path = require('path')
 
 
 // + vars
-const SRC_ROOT = './src';
+const SRC_ROOT = './src'
 // - vars
 
 // + setting
@@ -21,9 +21,9 @@ const setting = {
     tplPath: 'tpl',
     revPath: 'assets'
   }
-};
+}
 // - setting
-const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
+const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath)
 
 const config = {
   // + configBase
@@ -66,10 +66,10 @@ const config = {
   },
   // + configCommit
   commit: {
-    hostname: '//yyweb.yystatic.com/',
-    revAddr: `//yyweb.yystatic.com/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
+    hostname: '/',
+    revAddr: `/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
   // - configCommit
-};
+}
 
-module.exports = config;
+module.exports = config

@@ -1,5 +1,6 @@
 const webpackMerge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const path = require('path');
@@ -12,10 +13,6 @@ const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'production';
 
   const cssUse = [
-    {
-      loader: MiniCssExtractPlugin.loader,
-      options: {}
-    },
     {
       loader: 'css-loader',
       options: {
@@ -64,10 +61,16 @@ const init = (config, iEnv) => {
     module: {
       rules: [{
         test: /\.css$/,
-        use: cssUse
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: cssUse
+        })
       }, {
         test: /\.(scss|sass)$/,
-        use: cssUse.concat(['sass-loader'])
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: cssUse.concat(['sass-loader'])
+        })
       }, {
         test: /\.(png|jpg|gif)$/,
         use: {
@@ -90,14 +93,13 @@ const init = (config, iEnv) => {
         'process.env.NODE_ENV': JSON.stringify(MODE)
       }),
       // 样式分离插件
-      new MiniCssExtractPlugin({
+      new ExtractTextPlugin({
         filename: util.path.join(
           path.relative(
             config.alias.jsDest,
             path.join(config.alias.cssDest, '[name].css')
           )
         ),
-        chunkFilename: '[name]-[hash:8].css',
         allChunks: true
       })
     ]

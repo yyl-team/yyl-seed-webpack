@@ -1,4 +1,7 @@
 # 版本信息
+## 0.2.0-beta7 (2019-05-30)
+* [FIX] 先用回 ExtractTextWebpackPlugin
+
 ## 0.2.0-beta6 (2019-05-29)
 * [FIX] 修复 css-loader 设置 module = true 后 异步引入的 样式不匹配问题
 
