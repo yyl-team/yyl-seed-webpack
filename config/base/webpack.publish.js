@@ -25,7 +25,7 @@ const init = (config, iEnv) => {
         localIdentName: '[local]'
       }
     },
-    'resolve-url-loader',
+    // 'resolve-url-loader',
     {
       loader: 'postcss-loader',
       options: {
@@ -75,7 +75,7 @@ const init = (config, iEnv) => {
         use: {
           loader: 'url-loader',
           options: {
-            limit: 10000,
+            limit: 1,
             name: util.path.join(
               path.relative(
                 config.alias.jsDest,
