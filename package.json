@@ -40,6 +40,8 @@
     "c-extend-webpack:watch": "node ./test/run.js watch --config ./test/case/extend-webpack/config.js",
     "c-extend-webpack2:all": "node ./test/run.js all --config ./test/case/extend-webpack2/config.js",
     "c-extend-webpack2:watch": "node ./test/run.js watch --config ./test/case/extend-webpack2/config.js",
+    "c-tofu-ui:watch": "node ./test/run.js watch --config ./test/case/tofu-ui/config.js",
+    "c-tofu-ui:watch-isCommit": "node ./test/run.js watch --config ./test/case/tofu-ui/config.js --isCommit",
     "examples": "node ./test/run.js examples",
     "make-page": "node ./test/run.js make --config ./test/case/demo/config.js --name p-maketest",
     "make-widget": "node ./test/run.js make --config ./test/case/demo/config.js --name w-maketest"
@@ -79,7 +81,7 @@
     "babel-eslint": "^9.0.0",
     "babel-loader": "8.0.5",
     "babel-polyfill": "^6.26.0",
-    "css-loader": "^1.0.0",
+    "css-loader": "^2.0.1",
     "es3ify-webpack-plugin": "^0.1.0",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",

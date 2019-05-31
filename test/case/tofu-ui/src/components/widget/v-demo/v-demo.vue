@@ -16,7 +16,7 @@ div
   width: 150px;
   height: 116px;
   margin: -58px 0 0 -75px;
-  background: url('images/logo.png') no-repeat;
+  background: url('./images/logo.png') no-repeat;
   background-size: 150px 116px;
   transition: .4s;
 }
@@ -56,40 +56,40 @@ div
 }
 
 </style>
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Action, State } from 'vuex-class'
+<script>
+import { mapGetters, mapActions } from 'vuex';
 
-const cache = {
-  changeKey: 0
-}
+const cache = {};
 
-@Component({
-  name: 'Demo'
-})
-class Demo extends Vue {
-  @Action addDemoLog: (msg: string) => void;
-  @State demoLogs: string[];
-  rotate: number = 0;
-  title: string = '';
+export default {
+  data() {
+    return {
+      rotate: 0,
+      title: ''
+    };
+  },
+  methods: {
+    ...mapActions(['addDemoLog'])
+  },
+  computed: {
+    ...mapGetters(['demoLogs'])
+  },
+  mounted() {
+    const vm = this;
+    let i;
+    const iClass = [0, 1, 2, 3];
 
-  mounted () {
-    const vm = this
-    let i = 0
-    const iClass = [0, 1, 2, 3]
     cache.changeKey = setInterval(() => {
-      const here = iClass.concat([])
-      here.splice(here.indexOf(i), 1)
-      vm.rotate = here[Math.round(Math.random() * (here.length - 1))]
-      i = vm.rotate
-    }, 2000)
+      const here = iClass.concat([]);
+      here.splice(here.indexOf(i), 1);
+      vm.$data.rotate = here[Math.round(Math.random() * (here.length - 1))];
+    }, 2000);
 
-    vm.addDemoLog('v-demo is ready')
+    vm.addDemoLog('v-demo is ready');
+  },
+  beforeDestroy() {
+    clearInterval(cache.changeKey);
   }
-  beforeDestory () {
-    clearInterval(cache.changeKey)
-  }
-}
-export default Demo
+};
+
 </script>
