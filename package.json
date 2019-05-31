@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.2.0-beta9",
+  "version": "0.2.0-beta10",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
@@ -29,6 +29,7 @@
     "e-vue2-ts:watch-isCommit": "node ./test/run.js watch --config ./examples/vue2-ts/config.js --isCommit",
     "frag:all": "node ./test/run.js all --config ./test/__frag/config.js",
     "frag:watch": "node ./test/run.js watch --config ./test/__frag/config.js",
+    "frag:watch-isCommit": "node ./test/run.js watch --config ./test/__frag/config.js --isCommit",
     "c-demo:all": "node ./test/run.js all --config ./test/case/demo/config.js",
     "c-demo:watch": "node ./test/run.js watch --config ./test/case/demo/config.js",
     "c-env-test:all": "node ./test/run.js all --config ./test/case/env-test/config.js --proxy --isCommit",
@@ -96,6 +97,7 @@
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.0.0",
     "raw-loader": "^1.0.0",
+    "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "svg-inline-loader": "^0.8.0",

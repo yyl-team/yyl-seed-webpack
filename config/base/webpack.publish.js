@@ -19,11 +19,13 @@ const init = (config, iEnv) => {
     {
       loader: 'css-loader',
       options: {
-        modules: /typescript|vue2-ts/.test(`${config.seed}`) ? true: false,
+        modules: true,
+        // url: false,
         // localIdentName: '[name]__[local]__[hash:base64:5]'
         localIdentName: '[local]'
       }
     },
+    'resolve-url-loader',
     {
       loader: 'postcss-loader',
       options: {
