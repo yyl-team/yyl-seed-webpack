@@ -17,7 +17,7 @@ const TEST_CTRL = {
   ALL: true
 };
 
-const FRAG_PATH = path.join(__dirname, '__frag');
+const FRAG_PATH = path.join(__dirname, '../__frag');
 const RUNNER_PATH = path.join(__dirname, '../case/demo');
 
 tUtil.frag.init(FRAG_PATH);
