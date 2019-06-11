@@ -1,4 +1,7 @@
 # 版本信息
+## 0.2.0-beta12 (2019-06-11)
+* [ADD] example/typescript 补充 `package.json`
+
 ## 0.2.0-beta10 (2019-05-31)
 * [EDIT] 似乎 绕不开 css-loader modules 问题， 正面解决
 
