@@ -11,6 +11,33 @@ const util = require('yyl-util');
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'development';
 
+  const cssUse = [
+    'style-loader',
+    'css-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        ident: 'postcss',
+        plugins() {
+          const r = [];
+          if (config.platform === 'pc') {
+            r.push(autoprefixer({
+              overrideBrowserslist: ['> 1%', 'last 2 versions']
+            }));
+          } else {
+            r.push(autoprefixer({
+              overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
+            }));
+            if (config.px2rem !== false) {
+              r.push(px2rem({remUnit: 75}));
+            }
+          }
+          return r;
+        }
+      }
+    }
+  ];
+
   const webpackConfig = {
     mode: MODE,
     output: {
@@ -26,61 +53,10 @@ const init = (config, iEnv) => {
     module: {
       rules: [{
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins() {
-                const r = [];
-                if (config.platform === 'pc') {
-                  r.push(autoprefixer({
-                    browsers: ['> 1%', 'last 2 versions']
-                  }));
-                } else {
-                  r.push(autoprefixer({
-                    browsers: ['iOS >= 7', 'Android >= 4']
-                  }));
-                  if (config.px2rem !== false) {
-                    r.push(px2rem({remUnit: 75}));
-                  }
-                }
-                return r;
-              }
-            }
-          }
-        ]
+        use: cssUse
       }, {
         test: /\.(scss|sass)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins() {
-                const r = [];
-                if (config.platform === 'pc') {
-                  r.push(autoprefixer({
-                    browsers: ['> 1%', 'last 2 versions']
-                  }));
-                } else {
-                  r.push(autoprefixer({
-                    browsers: ['iOS >= 7', 'Android >= 4']
-                  }));
-                  if (config.px2rem !== false) {
-                    r.push(px2rem({remUnit: 75}));
-                  }
-                }
-                return r;
-              }
-            }
-          },
-          'sass-loader'
-        ]
+        use: cssUse.concat(['sass-loader'])
       }, {
         test: /\.(png|jpg|gif)$/,
         use: {

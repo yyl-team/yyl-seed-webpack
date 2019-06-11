@@ -34,11 +34,11 @@ const init = (config, iEnv) => {
           const r = [];
           if (config.platform === 'pc') {
             r.push(autoprefixer({
-              browsers: ['> 1%', 'last 2 versions']
+              overrideBrowserslist: ['> 1%', 'last 2 versions']
             }));
           } else {
             r.push(autoprefixer({
-              browsers: ['iOS >= 7', 'Android >= 4']
+              overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
             }));
             if (config.px2rem !== false) {
               r.push(px2rem({ remUnit: 75 }));

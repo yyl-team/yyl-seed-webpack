@@ -1,4 +1,7 @@
 # 版本信息
+## 0.2.0-beta13 (2019-06-11)
+* [FIX] webpack postcss options browsers => overrideBrowserlist
+
 ## 0.2.0-beta12 (2019-06-11)
 * [ADD] example/typescript 补充 `package.json`
 
