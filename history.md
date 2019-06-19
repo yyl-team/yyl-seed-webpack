@@ -1,4 +1,7 @@
 # 版本信息
+## 0.2.0-beta14 (2019-06-19)
+* [ADD] example - typescript 新增 tslint.json
+
 ## 0.2.0-beta13 (2019-06-11)
 * [FIX] webpack postcss options browsers => overrideBrowserlist
 
