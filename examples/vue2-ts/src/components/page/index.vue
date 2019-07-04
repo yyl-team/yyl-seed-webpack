@@ -1,7 +1,7 @@
 <template lang="pug">
 div.p-index
   Nav
-  Demo
+  Demo(title="hello Index")
 </template>
 <style lang="scss">
 @charset 'utf-8';

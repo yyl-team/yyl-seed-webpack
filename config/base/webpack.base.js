@@ -81,7 +81,7 @@ const init = (config, iEnv) => {
     },
     module: {
       rules: [{
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: (file) => (
           /node_modules/.test(file) &&
           !/\.vue\.js/.test(file)

@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.2.0-beta14",
+  "version": "0.3.0-beta1",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "engines": {
@@ -27,6 +27,12 @@
     "e-vue2-ts:all": "node ./test/run.js all --config ./examples/vue2-ts/config.js",
     "e-vue2-ts:watch": "node ./test/run.js watch --config ./examples/vue2-ts/config.js",
     "e-vue2-ts:watch-isCommit": "node ./test/run.js watch --config ./examples/vue2-ts/config.js --isCommit",
+    "e-react-ts:all": "node ./test/run.js all --config ./examples/react-ts/config.js",
+    "e-react-ts:watch": "node ./test/run.js watch --config ./examples/react-ts/config.js",
+    "e-react-ts:watch-isCommit": "node ./test/run.js watch --config ./examples/react-ts/config.js --isCommit",
+    "e-anu-ts:all": "node ./test/run.js all --config ./examples/anu-ts/config.js",
+    "e-anu-ts:watch": "node ./test/run.js watch --config ./examples/anu-ts/config.js",
+    "e-anu-ts:watch-isCommit": "node ./test/run.js watch --config ./examples/anu-ts/config.js --isCommit",
     "frag:all": "node ./test/run.js all --config ./test/__frag/config.js",
     "frag:watch": "node ./test/run.js watch --config ./test/__frag/config.js",
     "frag:watch-isCommit": "node ./test/run.js watch --config ./test/__frag/config.js --isCommit",
@@ -76,6 +82,7 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@types/react-dom": "^16.8.4",
     "acorn": "^6.0.5",
     "autoprefixer": "^9.1.5",
     "babel-eslint": "^9.0.0",
