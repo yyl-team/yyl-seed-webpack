@@ -1,4 +1,7 @@
 # 版本信息
+## 0.2.0 (2019-07-05)
+* [TODO] 遗留问题 e2e test 运行上有点儿问题
+
 ## 0.2.0-beta14 (2019-06-19)
 * [ADD] example - typescript 新增 tslint.json
 
