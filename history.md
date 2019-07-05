@@ -1,6 +1,7 @@
 # 版本信息
 # 0.3.0-beta1 (2019-07-04)
 * [ADD] 新增 `react-ts` seed
+* [ADD] 新增 `react-ts-ie8` seed
 * [TODO] e2e test 依然存在问题，待修复
 
 ## 0.2.0-beta15 (2019-06-20)

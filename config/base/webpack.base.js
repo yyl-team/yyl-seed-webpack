@@ -92,7 +92,8 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }],
+              map2Babel('@babel/preset-react')
             ],
             plugins: [
               // Stage 2
@@ -163,6 +164,7 @@ const init = (config, iEnv) => {
       ],
       alias: config.alias
     },
+    devtool: 'source-map',
     plugins: [
       new BuildAsyncRevWebpackPlugin(config)
     ],
