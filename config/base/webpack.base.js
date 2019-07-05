@@ -92,8 +92,7 @@ const init = (config, iEnv) => {
             babelrc: false,
             cacheDirectory: true,
             presets: [
-              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }],
-              map2Babel('@babel/preset-react')
+              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
             ],
             plugins: [
               // Stage 2

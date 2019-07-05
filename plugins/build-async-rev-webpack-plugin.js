@@ -13,10 +13,10 @@ class BuildAsyncRevWebpackPlugin {
       (compilation, done) => {
         let revMap = {};
         const NO_HASH_REG = /-\w{8}\.js$/;
-        for (let filename in compilation.assets) {
+        Object.keys(compilation.assets).forEach((filename) => {
           const iPath = util.path.join(config.alias.jsDest, filename);
           const revPath = util.path.relative(config.alias.revRoot, iPath);
-          if (/async_component/.test(iPath)) {
+          if (/async_component/.test(iPath) && iPath.match(NO_HASH_REG)) {
             revMap[revPath.replace(NO_HASH_REG, '.js')] = revPath;
 
             // 生成不带hash 的文件
@@ -29,7 +29,8 @@ class BuildAsyncRevWebpackPlugin {
               }
             };
           }
-        }
+        });
+        
         const revPath = util.path.join(config.alias.revDest, 'rev-manifest.json');
         let originRev = null;
         if (fs.existsSync(revPath)) {

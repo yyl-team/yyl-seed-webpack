@@ -13,12 +13,11 @@ jest.setTimeout(30000);
 const TEST_CTRL = {
   EXAMPLES: true,
   INIT: true,
-  MAKE: true,
   ALL: true
 };
 
 const FRAG_PATH = path.join(__dirname, '../__frag');
-const RUNNER_PATH = path.join(__dirname, '../case/demo');
+const TEST_CASE_PATH = path.join(__dirname, '../case');
 
 tUtil.frag.init(FRAG_PATH);
 
@@ -283,129 +282,90 @@ if (TEST_CTRL.INIT) {
   });
 }
 
-if (TEST_CTRL.MAKE) {
-  test('seed.make()', async () => {
-    await tUtil.frag.build();
-    await extFs.copyFiles(RUNNER_PATH, FRAG_PATH);
-
-    const configPath = path.join(FRAG_PATH, 'config.js');
-    const config = tUtil.parseConfig(configPath);
-
-    // page components
-    const pName = 'p-maketest';
-    await util.makeAwait((next) => {
-      seed.make(pName, config)
-        .on('finished', () => {
-          next();
-        });
-    });
-
-
-    const pagePath = path.join(config.alias.srcRoot, `components/page/${pName}/${pName}.vue`);
-
-    expect(fs.existsSync(pagePath)).toEqual(true);
-
-    // widget components
-    const wName = 'w-maketest';
-    await util.makeAwait((next) => {
-      seed.make(wName, config)
-        .on('finished', () => {
-          next();
-        });
-    });
-
-    const widgetPath = path.join(config.alias.srcRoot, `components/widget/${wName}/${wName}.vue`);
-    expect(fs.existsSync(widgetPath)).toEqual(true);
-
-    // default components
-    const dName = 'maketest';
-    await util.makeAwait((next) => {
-      seed.make(dName, config)
-        .on('finished', () => {
-          next();
-        });
-    });
-
-    const dPath = path.join(config.alias.srcRoot, `components/widget/${dName}/${dName}.vue`);
-    expect(fs.existsSync(dPath)).toEqual(true);
-
-    await tUtil.frag.destroy();
-  });
-}
-
 if (TEST_CTRL.ALL) {
-  test('seed.all()', async () => {
-    await tUtil.frag.build();
-    await extFs.copyFiles(RUNNER_PATH, FRAG_PATH);
+  const testCases = fs.readdirSync(TEST_CASE_PATH);
+  testCases.filter((filename) => {
+    if (/^\./.test(filename)) {
+      return false;
+    } else {
+      return true;
+    }
+  }).forEach((filename) => {
+    const PJ_PATH = path.join(TEST_CASE_PATH, filename);
+    test(`seed.all() case:${filename}`, async () => {
+      const TARGET_PATH = path.join(FRAG_PATH, filename);
+      await tUtil.frag.build();
+      await extFs.copyFiles(PJ_PATH, TARGET_PATH);
 
-    const configPath = path.join(FRAG_PATH, 'config.js');
-    const config = tUtil.parseConfig(configPath);
+      const configPath = path.join(TARGET_PATH, 'config.js');
+      const config = tUtil.parseConfig(configPath);
 
-    const opzer = seed.optimize(config, path.dirname(configPath));
+      const opzer = seed.optimize(config, path.dirname(configPath));
 
-    await fn.clearDest(config);
+      await fn.clearDest(config);
 
-    // all
-    await util.makeAwait((next) => {
-      const timePadding = {
-        start: 0,
-        msg: 0,
-        finished: 0
-      };
+      // all
+      await util.makeAwait((next) => {
+        const timePadding = {
+          start: 0,
+          msg: 0,
+          finished: 0
+        };
 
-      opzer.all()
-        .on('start', () => {
-          timePadding.start++;
-        })
-        .on('msg', () => {
-          timePadding.msg++;
-        })
-        .on('finished', () => {
-          timePadding.finished++;
-          // times check
-          expect(timePadding.start).toEqual(1);
-          expect(timePadding.msg).not.toEqual(0);
-          expect(timePadding.finished).toEqual(1);
+        opzer.all()
+          .on('start', () => {
+            timePadding.start++;
+          })
+          .on('msg', () => {
+            timePadding.msg++;
+          })
+          .on('finished', () => {
+            timePadding.finished++;
+            // times check
+            expect(timePadding.start).toEqual(1);
+            expect(timePadding.msg).not.toEqual(0);
+            expect(timePadding.finished).toEqual(1);
 
-          linkCheck(config, () => {
-            next();
+            linkCheck(config, () => {
+              next();
+            });
           });
-        });
-    });
+      });
 
-    await checkAsyncComponent(config);
-    await checkCssFiles(config);
+      await checkAsyncComponent(config);
+      await checkCssFiles(config);
 
-    await fn.clearDest(config);
+      await fn.clearDest(config);
 
-    // all --remote
-    await util.makeAwait((next) => {
-      opzer.all({ remote: true })
-        .on('finished', () => {
-          linkCheck(config, () => {
-            next();
+      // all --remote
+      await util.makeAwait((next) => {
+        opzer.all({ remote: true })
+          .on('finished', () => {
+            linkCheck(config, () => {
+              next();
+            });
           });
-        });
-    });
+      });
 
-    await checkAsyncComponent(config);
-    await checkCssFiles(config);
+      await checkAsyncComponent(config);
+      await checkCssFiles(config);
 
-    await fn.clearDest(config);
+      await fn.clearDest(config);
 
-    // all --isCommit
-    await util.makeAwait((next) => {
-      opzer.all({ isCommit: true })
-        .on('finished', () => {
-          linkCheck(config, () => {
-            next();
+      // all --isCommit
+      await util.makeAwait((next) => {
+        opzer.all({ isCommit: true })
+          .on('finished', () => {
+            linkCheck(config, () => {
+              next();
+            });
           });
-        });
+      });
+
+      await checkAsyncComponent(config);
+      await checkCssFiles(config);
+
+      await tUtil.frag.destroy();
     });
-
-    await checkAsyncComponent(config);
-    await checkCssFiles(config);
-
-    await tUtil.frag.destroy();
   });
 }
