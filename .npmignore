@@ -4,3 +4,4 @@ __frag/
 config/**/node_modules/
 .vscode 
 test/**/node_modules/
+examples/**/node_modules/
