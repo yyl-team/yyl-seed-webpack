@@ -59,6 +59,7 @@ div
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 import { Action, State } from 'vuex-class'
 
 const cache = {
@@ -71,8 +72,8 @@ const cache = {
 class Demo extends Vue {
   @Action addDemoLog: (msg: string) => void;
   @State demoLogs: string[];
+  @Prop({ default: 'hello YY' }) title: string;
   rotate: number = 0;
-  title: string = '';
 
   mounted () {
     const vm = this

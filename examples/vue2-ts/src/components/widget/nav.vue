@@ -34,7 +34,7 @@ import Component from 'vue-class-component'
   name: 'Nav'
 })
 class Nav extends Vue {
-
 }
+
 export default Nav
 </script>

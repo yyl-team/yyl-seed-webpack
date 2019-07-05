@@ -1,6 +1,17 @@
 # 版本信息
+# 0.3.0-beta1 (2019-07-05)
+* [ADD] 新增 `react-ts` seed
+* [ADD] 新增 `react-ts-ie8` seed
+* [DEL] 去掉 `seed.make` 方法
+* [ADD] 新增 `index.d.ts`
+* [FIX] 修复 `plugins/build-async-rev-webpack-plugins` 死循环bug
+* [TODO] e2e test 依然存在问题，待修复
+
 ## 0.2.0 (2019-07-05)
 * [TODO] 遗留问题 e2e test 运行上有点儿问题
+
+## 0.2.0-beta15 (2019-06-20)
+* [ADD] 补充 `vue2-ts` Prop 用法
 
 ## 0.2.0-beta14 (2019-06-19)
 * [ADD] example - typescript 新增 tslint.json
