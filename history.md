@@ -1,4 +1,6 @@
 # 版本信息
+# 0.3.0-beta2 (2019-07-12)
+* [FIX] 补充 `react-ts`, `react-ts-ie8` types 文件
 # 0.3.0-beta1 (2019-07-05)
 * [ADD] 新增 `react-ts` seed
 * [ADD] 新增 `react-ts-ie8` seed
