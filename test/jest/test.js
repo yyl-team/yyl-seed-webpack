@@ -8,7 +8,7 @@ const http = require('http');
 
 const seed = require('../../index.js');
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);
 
 const TEST_CTRL = {
   EXAMPLES: true,
