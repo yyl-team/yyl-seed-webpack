@@ -11,9 +11,9 @@ const App = (
     </div>
     <div className='page-index__tl'/>
   </div>
-);
+)
 
 // import wDemo from '../../components/widget/demo/demo';
 // wDemo();
 
-ReactDom.render(App, document.getElementById('app'));
+ReactDom.render(App, document.getElementById('app'))
