@@ -1,2 +1,8 @@
 {
+  "dependencies": {},
+  "devDependencies": {
+    "@yy/tslint-config-yy-ts": "0.0.3",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  }
 }

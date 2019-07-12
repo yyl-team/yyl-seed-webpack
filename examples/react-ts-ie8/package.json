@@ -6,5 +6,11 @@
     "babel-polyfill": "^6.26.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8"
+  },
+  "devDependencies": {
+    "@yy/tslint-config-yy-react": "0.0.4",
+    "@yy/tslint-config-yy-ts": "0.0.3",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
   }
 }

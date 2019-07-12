@@ -1,33 +1,33 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import './demo.scss';
+import './demo.scss'
 
 interface IProps {
-  title?: string;
+  title?: string
 }
 
 interface IState {
-  type: number;
+  type: number
 }
 
 export class Demo extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
+  constructor (props: IProps) {
+    super(props)
     this.state = {
       type: 0
-    };
+    }
   }
-  public componentDidMount() {
-    let padding = 0;
+  public componentDidMount () {
+    let padding = 0
     const runner = () => {
       this.setState({
         type:  ++padding % 4
-      });
-    };
-    setInterval(runner, 1000);
-    runner();
+      })
+    }
+    setInterval(runner, 1000)
+    runner()
   }
-  public render() {
+  public render () {
     return (
       <div className='demo-circlebox'>
         <img
@@ -37,6 +37,6 @@ export class Demo extends React.Component<IProps, IState> {
         />
         <div className='page-index__tl'>{this.props.title}{this.state.type}</div>
       </div>
-    );
+    )
   }
 }
