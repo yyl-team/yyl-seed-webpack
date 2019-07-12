@@ -1,8 +1,8 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Demo } from '~/components/widget/demo/demo';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { Demo } from '~/components/widget/demo/demo'
 
-import './index.scss';
+import './index.scss'
 
 const App = (
   <div className='page-index'>
@@ -11,9 +11,6 @@ const App = (
     </div>
     <div className='page-index__tl'/>
   </div>
-);
+)
 
-// import wDemo from '../../components/widget/demo/demo';
-// wDemo();
-
-ReactDOM.render(App, document.getElementById('app'));
+ReactDOM.render(App, document.getElementById('app'))
