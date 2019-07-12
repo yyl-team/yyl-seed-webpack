@@ -12,6 +12,9 @@
     "/src/data"
   ],
   "dependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "husky": "^3.0.0",
     "vue": "2.5.22",
     "vue-class-component": "^7.1.0",
     "vue-property-decorator": "^8.1.1",
@@ -27,5 +30,10 @@
     "tslint-config-standard": "^8.0.1",
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.3.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
