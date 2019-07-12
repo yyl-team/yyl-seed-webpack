@@ -2,5 +2,6 @@
 __frag/
 *.log
 **/node_modules/
+**/__frag/
 .vscode 
 test/
