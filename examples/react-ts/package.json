@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "@yy/tslint-config-yy-react": "0.0.4",
-    "@yy/tslint-config-yy-ts": "0.0.3",
     "@types/node": "^12.0.12",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
@@ -11,6 +9,8 @@
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
+    "@yy/tslint-config-yy-react": "0.0.4",
+    "@yy/tslint-config-yy-ts": "0.0.3",
     "husky": "^3.0.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
