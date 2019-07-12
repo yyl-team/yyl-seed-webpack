@@ -1,3 +1,5 @@
+// 需要 连公司 vpn 再进行测试
+
 const util = require('yyl-util');
 const tUtil = require('yyl-seed-test-util');
 const path = require('path');
@@ -8,7 +10,7 @@ const http = require('http');
 
 const seed = require('../../index.js');
 
-jest.setTimeout(60000);
+jest.setTimeout(30000);
 
 const TEST_CTRL = {
   EXAMPLES: true,
