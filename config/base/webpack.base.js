@@ -154,6 +154,10 @@ const init = (config, iEnv) => {
           options: {
             limit: 3000,
             name: '[name].[ext]',
+            outputPath: path.relative(
+              config.alias.jsDest,
+              config.alias.imagesDest
+            ),
             publicPath: (function () {
               let r = util.path.join(
                 config.dest.basePath,
