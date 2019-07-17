@@ -139,10 +139,36 @@ const init = (config, iEnv) => {
         test: /\.ico$/,
         loaders: ['file-loader']
       }, {
+        test: /\.ico$/,
+        loaders: ['file-loader']
+      }, {
         // shiming the module
         test: path.join(config.alias.srcRoot, 'js/lib/'),
         use: {
           loader: 'imports-loader?this=>window'
+        }
+      }, {
+        test: /\.(png|jpg|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 3000,
+            name: '[name].[ext]',
+            publicPath: (function () {
+              let r = util.path.join(
+                config.dest.basePath,
+                path.relative(
+                  config.alias.root,
+                  config.alias.imagesDest
+                ),
+                '/'
+              );
+              if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
+                r = util.path.join(config.commit.hostname, r);
+              }
+              return r;
+            })()
+          }
         }
       }]
     },

@@ -57,20 +57,6 @@ const init = (config, iEnv) => {
       }, {
         test: /\.(scss|sass)$/,
         use: cssUse.concat(['sass-loader'])
-      }, {
-        test: /\.(png|jpg|gif)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 0,
-            name: util.path.join(
-              path.relative(
-                config.alias.jsDest,
-                path.join(config.alias.imagesDest, '[name].[ext]')
-              )
-            )
-          }
-        }
       }]
     },
     plugins: [
