@@ -1,4 +1,6 @@
 # 版本信息
+# 0.3.0-beta8 (2019-07-18)
+* [FIX] 调整 examples 中 `tsconfig` 配置项
 # 0.3.0-beta7 (2019-07-17)
 * [FIX] 修复 url-loader 生成的 图片路径 带有 js/../images/ 这样的写法
 
