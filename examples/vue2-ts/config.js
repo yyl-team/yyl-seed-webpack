@@ -30,6 +30,7 @@ const config = {
   // - configBase
   seed: 'vue2-ts',
   px2rem: true,
+  babelrc: true,
   localserver: setting.localserver,
   dest: setting.dest,
   plugins: ['yyl-flexlayout'],

@@ -86,26 +86,49 @@ const init = (config, iEnv) => {
           /node_modules/.test(file) &&
           !/\.vue\.js/.test(file)
         ),
-        use: [{
-          loader: 'babel-loader',
-          query: {
-            babelrc: false,
-            cacheDirectory: true,
-            presets: [
-              [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
-            ],
-            plugins: [
-              // Stage 2
-              [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-              [map2Babel('@babel/plugin-proposal-class-properties'), { 'loose': true }],
-              map2Babel('@babel/plugin-proposal-function-sent'),
-              map2Babel('@babel/plugin-proposal-export-namespace-from'),
-              map2Babel('@babel/plugin-proposal-numeric-separator'),
-              map2Babel('@babel/plugin-proposal-throw-expressions'),
-              map2Babel('@babel/plugin-syntax-dynamic-import')
-            ]
+        use: (() => {
+          const loaders = [{
+            loader: 'babel-loader',
+            query: (() => {
+              if (!config.babelrc) {
+                return {
+                  babelrc: false,
+                  cacheDirectory: true,
+                  presets: [
+                    [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+                  ],
+                  plugins: [
+                    // Stage 2
+                    [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
+                    [map2Babel('@babel/plugin-proposal-class-properties'), { 'loose': true }],
+                    map2Babel('@babel/plugin-proposal-function-sent'),
+                    map2Babel('@babel/plugin-proposal-export-namespace-from'),
+                    map2Babel('@babel/plugin-proposal-numeric-separator'),
+                    map2Babel('@babel/plugin-proposal-throw-expressions'),
+                    map2Babel('@babel/plugin-syntax-dynamic-import')
+                  ]
+                };
+              } else {
+                return {};
+              }
+            })()
+          }];
+
+          const eslintrcPath = path.join(config.alias.dirname, '.eslintrc.js');
+          if (
+            config.eslint &&
+            fs.existsSync(eslintrcPath)
+          ) {
+            loaders.push({
+              loader: 'eslint-loader',
+              options: {
+                formatter: require('eslint-friendly-formatter')
+              }
+            });
           }
-        }]
+
+          return loaders;
+        })()
       }, {
         test: /\.html$/,
         use: [{
