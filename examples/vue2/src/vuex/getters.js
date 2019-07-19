@@ -1,6 +1,5 @@
 export default {
-  demoLogs(state) {
-    return state.demoLogs;
+  demoLogs (state) {
+    return state.demoLogs
   }
-};
-
+}

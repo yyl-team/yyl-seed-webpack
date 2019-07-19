@@ -1,4 +1,14 @@
 # 版本信息
+# 0.3.0-beta11 (2019-07-19)
+* [EDIT] 调整 eslint 各插件 版本 以兼容
+# 0.3.0-beta10 (2019-07-19)
+* [ADD] 新增 `config.eslint: boolean` 参数, 用于自定义 构建时是否执行 eslint
+
+# 0.3.0-beta9 (2019-07-19)
+* [ADD] 新增 `config.babelrc: boolean` 参数, 用于自定义babelrc 内容
+
+# 0.3.0-beta8 (2019-07-18)
+* [FIX] 调整 examples 中 `tsconfig` 配置项
 # 0.3.0-beta7 (2019-07-17)
 * [FIX] 修复 url-loader 生成的 图片路径 带有 js/../images/ 这样的写法
 

@@ -13,11 +13,10 @@ module.exports = {
     Vuex: true,
     VueRouter: true
   },
-  extends: ['standard', 'plugin:vue/recommended'],
+  extends: ['standard'],
   plugins: [
     'html',
     "import",
-    "vue"
   ],
   rules: {
     'no-debugger': 2,
