@@ -48,6 +48,8 @@
     "c-tofu-ui:watch-isCommit": "node ./test/run.js watch --config ./test/case/tofu-ui/config.js --isCommit",
     "c-vue-js-url:watch": "node ./test/run.js watch --config ./test/case/vue-js-url/config.js",
     "c-vue-js-url:watch-isCommit": "node ./test/run.js watch --config ./test/case/vue-js-url/config.js --isCommit",
+    "c-react-github-package:watch": "node ./test/run.js watch --config ./test/case/react-github-package/config.js",
+    "c-react-github-package:watch-isCommit": "node ./test/run.js watch --config ./test/case/react-github-package/config.js --isCommit",
     "examples": "node ./test/run.js examples",
     "make-page": "node ./test/run.js make --config ./test/case/demo/config.js --name p-maketest",
     "make-widget": "node ./test/run.js make --config ./test/case/demo/config.js --name w-maketest"
