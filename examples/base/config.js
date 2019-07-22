@@ -33,6 +33,7 @@ const config = {
   px2rem: true,
   ie8: false,
   babelrc: true,
+  base64Limit: 3000,
   localserver: setting.localserver,
   dest: setting.dest,
   plugins: ['yyl-flexlayout'],

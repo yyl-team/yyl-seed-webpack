@@ -34,6 +34,7 @@ const config = {
   localserver: setting.localserver,
   dest: setting.dest,
   plugins: ['yyl-flexlayout'],
+  base64Limit: 3000,
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径
     'root': DEST_BASE_PATH,

@@ -175,7 +175,7 @@ const init = (config, iEnv) => {
         use: {
           loader: 'url-loader',
           options: {
-            limit: 3000,
+            limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
             name: '[name].[ext]',
             outputPath: path.relative(
               config.alias.jsDest,

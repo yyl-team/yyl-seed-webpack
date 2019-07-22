@@ -32,6 +32,7 @@ const config = {
   seed: 'typescript',
   px2rem: false,
   ie8: true,
+  base64Limit: 3000,
   localserver: setting.localserver,
   dest: setting.dest,
   concat: {

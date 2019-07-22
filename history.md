@@ -1,6 +1,14 @@
 # 版本信息
+# 0.3.0-beta14 (2019-07-22)
+* [TODO] `npm install tj/react-click-outside` 需要兼容
+
+
+# 0.3.0-beta13 (2019-07-22)
+* [ADD] 新增 `config.base64Limit: number` 参数，用于配置 `url-loader` limit 数值
+
 # 0.3.0-beta11 (2019-07-19)
 * [EDIT] 调整 eslint 各插件 版本 以兼容
+
 # 0.3.0-beta10 (2019-07-19)
 * [ADD] 新增 `config.eslint: boolean` 参数, 用于自定义 构建时是否执行 eslint
 
