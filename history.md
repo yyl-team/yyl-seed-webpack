@@ -1,4 +1,7 @@
 # 版本信息
+# 0.3.0-beta16 (2019-07-25)
+* [FIX] 修复 `webpack vue2` seed 初始化后会报错的问题
+
 # 0.3.0-beta15 (2019-07-25)
 * [FIX] 修复 `webpack vue2` 种子下 没有 `async_component` 模块
 

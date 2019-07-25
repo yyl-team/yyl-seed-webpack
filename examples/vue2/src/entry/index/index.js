@@ -7,8 +7,8 @@ import VueRouter from 'vue-router'
 import store from '../../vuex/store.js'
 import './index.scss'
 
-const pageIndex = () => import(/* webpackChunkName: "pageIndex" */ '../../components/page/p-index/p-index.vue')
-const pageSub = () => import(/* webpackChunkName: "pageSub" */ '../../components/page/p-sub/p-sub.vue')
+const pageIndex = () => import(/* webpackChunkName: "pageIndex" */ '~@/page/p-index/p-index.vue')
+const pageSub = () => import(/* webpackChunkName: "pageSub" */ '~@/page/p-sub/p-sub.vue')
 
 Vue.use(VueRouter)
 
@@ -28,10 +28,10 @@ const router = new VueRouter({
 new Vue({
   store,
   router,
-  methods: {
-    ...mapActions(['addDemoLog'])
-  },
   mounted () {
     this.addDemoLog('index.js ready')
+  },
+  methods: {
+    ...mapActions(['addDemoLog'])
   }
 }).$mount('#app')

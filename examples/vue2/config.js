@@ -29,7 +29,6 @@ const config = {
   // + configBase
   // - configBase
   seed: 'vue2',
-  babelrc: true,
   eslint: true,
   px2rem: true,
   base64Limit: 3000,
