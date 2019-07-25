@@ -1,7 +1,9 @@
 # 版本信息
-# 0.3.0-beta14 (2019-07-22)
-* [TODO] `npm install tj/react-click-outside` 需要兼容
+# 0.3.0-beta15 (2019-07-25)
+* [FIX] 修复 `webpack vue2` 种子下 没有 `async_component` 模块
 
+# 0.3.0-beta14 (2019-07-22)
+* [FIX] `npm install tj/react-click-outside` 兼容问题
 
 # 0.3.0-beta13 (2019-07-22)
 * [ADD] 新增 `config.base64Limit: number` 参数，用于配置 `url-loader` limit 数值

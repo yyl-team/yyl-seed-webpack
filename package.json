@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "0.3.0-beta13",
+  "version": "0.3.0-beta15",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -131,7 +131,7 @@
     "webpack-merge": "^4.2.1",
     "yyl-file-replacer": "^0.4.1",
     "yyl-fs": "^0.3.2",
-    "yyl-os": "^0.9.0",
+    "yyl-os": "^0.9.1",
     "yyl-seed-response": "^0.1.1",
     "yyl-util": "^2.3.3"
   },
