@@ -1,4 +1,8 @@
 # 版本信息
+# 0.3.0-beta17 (2019-07-31)
+* [DEL] 去掉 项目中的 `lodash` plugins
+* [EDIT] 将 jest/test 进行拆分
+
 # 0.3.0-beta16 (2019-07-30)
 * [FIX] 补充 `commitlint`
 

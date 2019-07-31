@@ -6,6 +6,7 @@ const print = require('yyl-print');
 const extOs = require('yyl-os');
 const tUtil = require('yyl-seed-test-util');
 const Hander = require('yyl-hander');
+const chalk = require('chalk');
 
 const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
 const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
@@ -41,7 +42,8 @@ print.log.init({
     concat: {name: 'Concat', color: 'cyan', bgColor: 'bgBlue'},
     update: {name: 'Updated', color: 'cyan', bgColor: 'bgBlue'},
     optimize: {name: 'Optimize', color: 'green', bgColor: 'bgRed'},
-    cmd: {name: 'CMD', color: 'gray', bgColor: 'bgBlack'}
+    cmd: {name: 'CMD', color: 'gray', bgColor: 'bgBlack'},
+    loading: {name: 'LOAD', color: chalk.bgGreen.white}
   }
 });
 
@@ -142,6 +144,9 @@ const handler = {
         })
         .on('clear', () => {
           print.cleanScreen();
+        })
+        .on('loading', (pkgName) => {
+          print.log.loading(`loading module ${chalk.green(pkgName)}`);
         })
         .on('finished', async() => {
           await yh.optimize.afterTask();

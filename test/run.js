@@ -9,7 +9,7 @@ const handler = require('./handler');
   if (ctrl in handler) {
     handler[ctrl](iEnv);
   } else {
-    print.log.warn(`usage: ${Object.keys(runner).join(',')}`);
+    print.log.warn(`usage: ${Object.keys(handler).join(',')}`);
   }
 })();
 
