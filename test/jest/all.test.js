@@ -11,7 +11,7 @@ const http = require('http');
 jest.setTimeout(30000);
 
 // + vars
-const FRAG_PATH = path.join(__dirname, '../__frag/all');
+const FRAG_PATH = path.join(__dirname, '../../../__frag/all');
 const TEST_CASE_PATH = path.join(__dirname, '../case');
 // - vars
 

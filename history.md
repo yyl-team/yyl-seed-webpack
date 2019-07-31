@@ -1,4 +1,7 @@
 # 版本信息
+# 0.3.0-beta19 (2019-07-31)
+* [FIX] 修复 `seed.init` `base` `react-ts` 不能正常运行问题
+
 # 0.3.0-beta18 (2019-07-31)
 * [DEL] 去掉 项目中的 `lodash` plugins
 * [EDIT] 将 jest/test 进行拆分

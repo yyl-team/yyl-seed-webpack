@@ -9,7 +9,7 @@ const tUtil = require('yyl-seed-test-util');
 jest.setTimeout(30000);
 
 // + vars
-const FRAG_PATH = path.join(__dirname, '../__frag/init');
+const FRAG_PATH = path.join(__dirname, '../../../__frag/init');
 const COMMONS_PATH = util.path.join(seed.path, 'commons');
 // - vars
 
