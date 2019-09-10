@@ -1,9 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const { resolveModule } = require('../base/fn');
-
-
 const init = (config) => {
   const wConfig = {
     output: {
@@ -14,7 +11,7 @@ const init = (config) => {
     module: {
       rules: [{
         test: /\.tsx?$/,
-        use: [resolveModule('ts-loader')],
+        use: ['ts-loader'],
         exclude: /node_modules/
       }]
     },

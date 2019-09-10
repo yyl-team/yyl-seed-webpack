@@ -1,5 +1,5 @@
 const resolveModule = function (str) {
-  return str;
+  return require.resolve(str);
 };
 
 module.exports = {

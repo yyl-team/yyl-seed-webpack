@@ -200,16 +200,12 @@ const init = (config, iEnv) => {
     resolveLoader: {
       modules: [
         path.join( __dirname, 'node_modules'),
-        path.join( __dirname, '../../node_modules'),
-        path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ]
     },
     resolve: {
       modules: [
         path.join( __dirname, 'node_modules'),
-        path.join( __dirname, '../../node_modules'),
-        path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ],
       alias: config.alias

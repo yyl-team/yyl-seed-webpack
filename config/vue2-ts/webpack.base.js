@@ -5,8 +5,6 @@ const path = require('path');
 const util = require('yyl-util');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const { resolveModule } = require('../base/fn');
-
 const init = (config) => {
   const wConfig = {
     output: {
@@ -17,10 +15,10 @@ const init = (config) => {
     module: {
       rules: [{
         test: /\.vue$/,
-        loader: resolveModule('vue-loader')
+        loader: 'vue-loader'
       }, {
         test: /\.tsx?$/,
-        loader: resolveModule('ts-loader'),
+        loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/]
