@@ -8,14 +8,16 @@ const BuildBlankCssWebpackPlugin = require('../../plugins/build-blank-css-webpac
 const webpackBase = require('./webpack.base.js');
 const util = require('yyl-util');
 
+const { map2Module } = require('./fn');
+
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'development';
 
   const cssUse = [
-    'style-loader',
-    'css-loader',
+    map2Module('style-loader'),
+    map2Module('css-loader'),
     {
-      loader: 'postcss-loader',
+      loader: map2Module('postcss-loader'),
       options: {
         ident: 'postcss',
         plugins() {
@@ -56,7 +58,7 @@ const init = (config, iEnv) => {
         use: cssUse
       }, {
         test: /\.(scss|sass)$/,
-        use: cssUse.concat(['sass-loader'])
+        use: cssUse.concat([map2Module('sass-loader')])
       }]
     },
     plugins: [

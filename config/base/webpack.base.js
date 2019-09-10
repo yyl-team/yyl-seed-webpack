@@ -10,21 +10,13 @@ const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+const { map2Module } = require('./fn');
+
 const util = require('yyl-util');
 
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
-// const map2Babel = function (str) {
-//   const nodeModulePath1 = path.join(__dirname, '../../');
-//   const nodeModulePath2 = path.join(__dirname, '../../../');
-//   const path1 = path.join(nodeModulePath1, 'node_modules/@babel');
-//   if (fs.existsSync(path1)) {
-//     return util.path.join(nodeModulePath1, 'node_modules', str);
-//   } else {
-//     return util.path.join(nodeModulePath2, str);
-//   }
-// };
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -83,24 +75,24 @@ const init = (config, iEnv) => {
         ),
         use: (() => {
           const loaders = [{
-            loader: 'babel-loader',
+            loader: map2Module('babel-loader'),
             query: (() => {
               if (!config.babelrc) {
                 return {
                   babelrc: false,
                   cacheDirectory: true,
                   presets: [
-                    ['@babel/preset-env', { modules: 'commonjs' }]
+                    [map2Module('@babel/preset-env'), { modules: 'commonjs' }]
                   ],
                   plugins: [
                     // Stage 2
-                    ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-                    ['@babel/plugin-proposal-class-properties', { 'loose': true }],
-                    '@babel/plugin-proposal-function-sent',
-                    '@babel/plugin-proposal-export-namespace-from',
-                    '@babel/plugin-proposal-numeric-separator',
-                    '@babel/plugin-proposal-throw-expressions',
-                    '@babel/plugin-syntax-dynamic-import'
+                    [map2Module('@babel/plugin-proposal-decorators'), { 'legacy': true }],
+                    [map2Module('@babel/plugin-proposal-class-properties'), { 'loose': true }],
+                    map2Module('@babel/plugin-proposal-function-sent'),
+                    map2Module('@babel/plugin-proposal-export-namespace-from'),
+                    map2Module('@babel/plugin-proposal-numeric-separator'),
+                    map2Module('@babel/plugin-proposal-throw-expressions'),
+                    map2Module('@babel/plugin-syntax-dynamic-import')
                   ]
                 };
               } else {
@@ -115,9 +107,9 @@ const init = (config, iEnv) => {
             fs.existsSync(eslintrcPath)
           ) {
             loaders.push({
-              loader: 'eslint-loader',
+              loader: map2Module('eslint-loader'),
               options: {
-                formatter: 'eslint-friendly-formatter'
+                formatter: map2Module('eslint-friendly-formatter')
               }
             });
           }
@@ -126,53 +118,53 @@ const init = (config, iEnv) => {
         })()
       }, {
         test: /\.tsx?$/,
-        use: ['ts-loader'],
+        use: [map2Module('ts-loader')],
         exclude: /node_modules/
       }, {
         test: /\.html$/,
         use: [{
-          loader: 'html-loader'
+          loader: map2Module('html-loader')
         }]
       }, {
         test: /\.pug$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
+          use: [map2Module('pug-plain-loader')]
         }, {
-          use: ['pug-loader']
+          use: [map2Module('pug-loader')]
         }]
       }, {
         test: /\.jade$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
+          use: [map2Module('pug-plain-loader')]
         }, {
-          use: ['pug-loader']
+          use: [map2Module('pug-loader')]
         }]
       }, {
         test: /\.svg$/,
         use: {
-          loader: 'svg-inline-loader'
+          loader: map2Module('svg-inline-loader')
         }
       }, {
         test: /\.webp$/,
-        loaders: ['file-loader']
+        loaders: [map2Module('file-loader')]
       }, {
         test: /\.ico$/,
-        loaders: ['file-loader']
+        loaders: [map2Module('file-loader')]
       }, {
         test: /\.ico$/,
-        loaders: ['file-loader']
+        loaders: [map2Module('file-loader')]
       }, {
         // shiming the module
         test: path.join(config.alias.srcRoot, 'js/lib/'),
         use: {
-          loader: 'imports-loader?this=>window'
+          loader: `${map2Module('imports-loader')}?this=>window`
         }
       }, {
         test: /\.(png|jpg|gif)$/,
         use: {
-          loader: 'url-loader',
+          loader: map2Module('url-loader'),
           options: {
             limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
             name: '[name].[ext]',
@@ -210,10 +202,10 @@ const init = (config, iEnv) => {
         path.join( __dirname, 'node_modules'),
         path.join(config.alias.dirname, 'node_modules')
       ],
-      alias: config.alias
+      alias: config.alias,
+      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.tsx', '.jsx']
     },
     devtool: 'source-map',
-    extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.tsx', '.jsx'],
     plugins: [
       new BuildAsyncRevWebpackPlugin(config),
       new TsconfigPathsPlugin({

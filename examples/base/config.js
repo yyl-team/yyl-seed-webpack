@@ -29,7 +29,7 @@ const config = {
   // + configBase
   platform: 'pc',
   // - configBase
-  seed: 'typescript',
+  seed: 'base',
   px2rem: false,
   ie8: true,
   base64Limit: 3000,

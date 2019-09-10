@@ -8,6 +8,8 @@ const px2rem = require('postcss-px2rem');
 const webpackBase = require('./webpack.base.js');
 const util = require('yyl-util');
 
+const { map2Module } = require('./fn');
+
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'production';
 
@@ -17,7 +19,7 @@ const init = (config, iEnv) => {
       options: {}
     },
     {
-      loader: 'css-loader',
+      loader: map2Module('css-loader'),
       options: {
         modules: true,
         // url: false,
@@ -27,7 +29,7 @@ const init = (config, iEnv) => {
     },
     // 'resolve-url-loader',
     {
-      loader: 'postcss-loader',
+      loader: map2Module('postcss-loader'),
       options: {
         ident: 'postcss',
         plugins() {
@@ -69,7 +71,7 @@ const init = (config, iEnv) => {
         use: cssUse
       }, {
         test: /\.(scss|sass)$/,
-        use: cssUse.concat(['sass-loader'])
+        use: cssUse.concat([map2Module('sass-loader')])
       }]
     },
     plugins: [
