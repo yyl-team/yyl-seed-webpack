@@ -22,8 +22,7 @@ const init = (config) => {
       new VueLoaderPlugin()
     ]
   };
-
   return webpackConfig;
-}
+};
 
 module.exports = init;

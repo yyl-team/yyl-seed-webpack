@@ -1,44 +1,37 @@
-@import '../../sass/base/layout';
+@charset 'utf-8';
+@import "../../sass/normalize";
+@import "../../sass/_mixin";
+body {
+  background: #f0f0f0;
+}
 
-.just-img {
+.page-index {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.page-index__tl {
   position: absolute;
-  left: 10px; /*no*/
-  top: 10px; /*no*/
-  width: 50px;
-  height: auto;
+  left: 50%;
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #333;
+  top: 50%;
+  margin-left: -100px;
+  margin-top: 80px;
+  text-align: center;
 }
 
-.w-demo-logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    width: 150px;
-    height: 116px;
-    margin: -58px 0 0 -75px;
-    background: url('./images/logo.png') no-repeat;
-    background-size: 150px 116px;
-    transition: .4s;
+.page-index-circlebox {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin-left: -75px;
+  margin-top: -75px;
 }
-.w-demo-tl {
-    position: absolute;
-    top: 50%;
-    margin-top: 100px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 18px; /*px*/
-}
-.w-demo-logo-0 {
-    transform: rotate(0deg);
-}
-.w-demo-logo-1 {
-    transform: rotate(90deg);
-}
-.w-demo-logo-2 {
-    transform: rotate(180deg);
-}
-.w-demo-logo-3 {
-    transform: rotate(270deg);
-}
-

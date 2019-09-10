@@ -8,22 +8,23 @@ const extFs = require('yyl-fs');
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const util = require('yyl-util');
 
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
-const map2Babel = function (str) {
-  const nodeModulePath1 = path.join(__dirname, '../../');
-  const nodeModulePath2 = path.join(__dirname, '../../../');
-  const path1 = path.join(nodeModulePath1, 'node_modules/@babel');
-  if (fs.existsSync(path1)) {
-    return util.path.join(nodeModulePath1, 'node_modules', str);
-  } else {
-    return util.path.join(nodeModulePath2, str);
-  }
-};
+// const map2Babel = function (str) {
+//   const nodeModulePath1 = path.join(__dirname, '../../');
+//   const nodeModulePath2 = path.join(__dirname, '../../../');
+//   const path1 = path.join(nodeModulePath1, 'node_modules/@babel');
+//   if (fs.existsSync(path1)) {
+//     return util.path.join(nodeModulePath1, 'node_modules', str);
+//   } else {
+//     return util.path.join(nodeModulePath2, str);
+//   }
+// };
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -39,17 +40,11 @@ const init = (config, iEnv) => {
         r = util.extend(true, r, config.entry);
       }
 
-      // single entry
-      var bootPath = path.join(iSrcRoot, 'boot/boot.js');
-      if (fs.existsSync(bootPath)) {
-        r.boot = bootPath;
-      }
-
       // multi entry
       var entryPath = path.join(iSrcRoot, 'entry');
 
       if (fs.existsSync(entryPath)) {
-        var fileList = extFs.readFilesSync(entryPath, /\.js$/);
+        var fileList = extFs.readFilesSync(entryPath, /\.(js|tsx?)$/);
         fileList.forEach((str) => {
           var key = path.basename(str).replace(/\.[^.]+$/, '');
           if (key) {
@@ -95,17 +90,17 @@ const init = (config, iEnv) => {
                   babelrc: false,
                   cacheDirectory: true,
                   presets: [
-                    [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+                    ['@babel/preset-env', { modules: 'commonjs' }]
                   ],
                   plugins: [
                     // Stage 2
-                    [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-                    [map2Babel('@babel/plugin-proposal-class-properties'), { 'loose': true }],
-                    map2Babel('@babel/plugin-proposal-function-sent'),
-                    map2Babel('@babel/plugin-proposal-export-namespace-from'),
-                    map2Babel('@babel/plugin-proposal-numeric-separator'),
-                    map2Babel('@babel/plugin-proposal-throw-expressions'),
-                    map2Babel('@babel/plugin-syntax-dynamic-import')
+                    ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+                    ['@babel/plugin-proposal-class-properties', { 'loose': true }],
+                    '@babel/plugin-proposal-function-sent',
+                    '@babel/plugin-proposal-export-namespace-from',
+                    '@babel/plugin-proposal-numeric-separator',
+                    '@babel/plugin-proposal-throw-expressions',
+                    '@babel/plugin-syntax-dynamic-import'
                   ]
                 };
               } else {
@@ -122,13 +117,17 @@ const init = (config, iEnv) => {
             loaders.push({
               loader: 'eslint-loader',
               options: {
-                formatter: require('eslint-friendly-formatter')
+                formatter: 'eslint-friendly-formatter'
               }
             });
           }
 
           return loaders;
         })()
+      }, {
+        test: /\.tsx?$/,
+        use: ['ts-loader'],
+        exclude: /node_modules/
       }, {
         test: /\.html$/,
         use: [{
@@ -203,23 +202,23 @@ const init = (config, iEnv) => {
     resolveLoader: {
       modules: [
         path.join( __dirname, 'node_modules'),
-        path.join( __dirname, '../../node_modules'),
-        path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ]
     },
     resolve: {
       modules: [
         path.join( __dirname, 'node_modules'),
-        path.join( __dirname, '../../node_modules'),
-        path.join( __dirname, '../../../'),
         path.join(config.alias.dirname, 'node_modules')
       ],
       alias: config.alias
     },
     devtool: 'source-map',
+    extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.tsx', '.jsx'],
     plugins: [
-      new BuildAsyncRevWebpackPlugin(config)
+      new BuildAsyncRevWebpackPlugin(config),
+      new TsconfigPathsPlugin({
+        configFile: path.join(config.alias.dirname, 'tsconfig.json')
+      })
     ],
     optimization: {
       minimizer: [
@@ -260,7 +259,7 @@ const init = (config, iEnv) => {
 
     const outputMap = {};
     const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css)$/, '');
+      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/, '');
     };
 
     outputPath.forEach((iPath) => {
@@ -314,7 +313,7 @@ const init = (config, iEnv) => {
           chunksSortMode (a, b) {
             return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
           },
-          inlineSource: '.(js|css)\\?__inline$',
+          inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
           minify: false
         };
 
