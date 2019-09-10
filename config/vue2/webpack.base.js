@@ -1,4 +1,5 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { map2SelfModule } = require('../base/fn');
 const path = require('path');
 
 const init = (config) => {

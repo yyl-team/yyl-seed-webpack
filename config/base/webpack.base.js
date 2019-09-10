@@ -109,7 +109,7 @@ const init = (config, iEnv) => {
             loaders.push({
               loader: map2Module('eslint-loader'),
               options: {
-                formatter: map2Module('eslint-friendly-formatter')
+                formatter: require('eslint-friendly-formatter')
               }
             });
           }
@@ -203,14 +203,12 @@ const init = (config, iEnv) => {
         path.join(config.alias.dirname, 'node_modules')
       ],
       alias: config.alias,
-      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.tsx', '.jsx']
+      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.tsx', '.jsx'],
+      plugins: []
     },
     devtool: 'source-map',
     plugins: [
-      new BuildAsyncRevWebpackPlugin(config),
-      new TsconfigPathsPlugin({
-        configFile: path.join(config.alias.dirname, 'tsconfig.json')
-      })
+      new BuildAsyncRevWebpackPlugin(config)
     ],
     optimization: {
       minimizer: [
@@ -223,6 +221,14 @@ const init = (config, iEnv) => {
       ]
     }
   };
+
+  // tsconfig
+  const tsConfigPath = path.join(config.alias.dirname, 'tsconfig.json');
+  if (fs.existsSync(tsConfigPath)) {
+    wConfig.resolve.plugins.push(new TsconfigPathsPlugin({
+      configFile: tsConfigPath
+    }));
+  }
 
   // hot reload
   if (!config.ie8 && iEnv.hot) {
