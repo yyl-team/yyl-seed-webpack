@@ -18,10 +18,7 @@ const init = (config) => {
     },
     resolve: {
       modules: [
-        path.join( __dirname, 'node_modules'),
-        path.join( __dirname, '../../node_modules'),
-        path.join( __dirname, '../../../'),
-        path.join(config.alias.dirname, 'node_modules')
+        path.join( __dirname, 'node_modules')
       ],
       alias: config.alias,
       extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.tsx', '.jsx'],
@@ -31,9 +28,7 @@ const init = (config) => {
     },
     resolveLoader: {
       modules: [
-        path.join( __dirname, '../../node_modules'),
-        path.join( __dirname, '../../../'),
-        path.join(config.alias.dirname, 'node_modules')
+        path.join( __dirname, 'node_modules')
       ]
     },
     plugins: []

@@ -12,11 +12,19 @@ const init = (config) => {
       ]
     },
     resolve: {
+      modules: [
+        path.join( __dirname, 'node_modules')
+      ],
       alias: {
         'actions': path.join(config.alias.srcRoot, 'vuex/actions.js'),
         'getters': path.join(config.alias.srcRoot, 'vuex/getters.js'),
         'vue$': 'vue/dist/vue.common.js'
       }
+    },
+    resolveLoader: {
+      modules: [
+        path.join( __dirname, 'node_modules')
+      ]
     },
     plugins: [
       new VueLoaderPlugin()
