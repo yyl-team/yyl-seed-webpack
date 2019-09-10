@@ -39,17 +39,11 @@ const init = (config, iEnv) => {
         r = util.extend(true, r, config.entry);
       }
 
-      // single entry
-      var bootPath = path.join(iSrcRoot, 'boot/boot.js');
-      if (fs.existsSync(bootPath)) {
-        r.boot = bootPath;
-      }
-
       // multi entry
       var entryPath = path.join(iSrcRoot, 'entry');
 
       if (fs.existsSync(entryPath)) {
-        var fileList = extFs.readFilesSync(entryPath, /\.js$/);
+        var fileList = extFs.readFilesSync(entryPath, /\.(js|tsx?)$/);
         fileList.forEach((str) => {
           var key = path.basename(str).replace(/\.[^.]+$/, '');
           if (key) {
@@ -260,7 +254,7 @@ const init = (config, iEnv) => {
 
     const outputMap = {};
     const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css)$/, '');
+      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/, '');
     };
 
     outputPath.forEach((iPath) => {
@@ -314,7 +308,7 @@ const init = (config, iEnv) => {
           chunksSortMode (a, b) {
             return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
           },
-          inlineSource: '.(js|css)\\?__inline$',
+          inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
           minify: false
         };
 
