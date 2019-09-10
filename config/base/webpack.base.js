@@ -14,6 +14,8 @@ const util = require('yyl-util');
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
+const { resolveModule } = require('./fn');
+
 const map2Babel = function (str) {
   const nodeModulePath1 = path.join(__dirname, '../../');
   const nodeModulePath2 = path.join(__dirname, '../../../');
@@ -82,7 +84,7 @@ const init = (config, iEnv) => {
         ),
         use: (() => {
           const loaders = [{
-            loader: 'babel-loader',
+            loader: resolveModule('babel-loader'),
             query: (() => {
               if (!config.babelrc) {
                 return {
@@ -114,7 +116,7 @@ const init = (config, iEnv) => {
             fs.existsSync(eslintrcPath)
           ) {
             loaders.push({
-              loader: 'eslint-loader',
+              loader: resolveModule('eslint-loader'),
               options: {
                 formatter: require('eslint-friendly-formatter')
               }
@@ -126,48 +128,49 @@ const init = (config, iEnv) => {
       }, {
         test: /\.html$/,
         use: [{
-          loader: 'html-loader'
+          loader: resolveModule('html-loader')
         }]
       }, {
         test: /\.pug$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
+          use: [resolveModule('pug-plain-loader')]
         }, {
-          use: ['pug-loader']
+          use: [resolveModule('pug-loader')]
         }]
       }, {
         test: /\.jade$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
+          use: [resolveModule('pug-plain-loader')]
         }, {
-          use: ['pug-loader']
+          use: [resolveModule('pug-loader')]
         }]
       }, {
         test: /\.svg$/,
         use: {
-          loader: 'svg-inline-loader'
+          loader: resolveModule('svg-inline-loader')
         }
       }, {
         test: /\.webp$/,
-        loaders: ['file-loader']
+        loaders: [resolveModule('file-loader')]
       }, {
         test: /\.ico$/,
-        loaders: ['file-loader']
+        loaders: [resolveModule('file-loader')]
       }, {
         test: /\.ico$/,
-        loaders: ['file-loader']
+        loaders: [resolveModule('file-loader')]
       }, {
         // shiming the module
         test: path.join(config.alias.srcRoot, 'js/lib/'),
         use: {
-          loader: 'imports-loader?this=>window'
+          loader: resolveModule('imports-loader'),
+          query: 'this=>window'
         }
       }, {
         test: /\.(png|jpg|gif)$/,
         use: {
-          loader: 'url-loader',
+          loader: resolveModule('url-loader'),
           options: {
             limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
             name: '[name].[ext]',
