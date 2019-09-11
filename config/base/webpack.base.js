@@ -16,17 +16,6 @@ const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
 const { resolveModule } = require('./fn');
 
-const map2Babel = function (str) {
-  const nodeModulePath1 = path.join(__dirname, '../../');
-  const nodeModulePath2 = path.join(__dirname, '../../../');
-  const path1 = path.join(nodeModulePath1, 'node_modules/@babel');
-  if (fs.existsSync(path1)) {
-    return util.path.join(nodeModulePath1, 'node_modules', str);
-  } else {
-    return util.path.join(nodeModulePath2, str);
-  }
-};
-
 const init = (config, iEnv) => {
   const wConfig = {
     entry: (function() {
@@ -91,17 +80,17 @@ const init = (config, iEnv) => {
                   babelrc: false,
                   cacheDirectory: true,
                   presets: [
-                    [map2Babel('@babel/preset-env'), { modules: 'commonjs' }]
+                    [resolveModule('@babel/preset-env'), { modules: 'commonjs' }]
                   ],
                   plugins: [
                     // Stage 2
-                    [map2Babel('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-                    [map2Babel('@babel/plugin-proposal-class-properties'), { 'loose': true }],
-                    map2Babel('@babel/plugin-proposal-function-sent'),
-                    map2Babel('@babel/plugin-proposal-export-namespace-from'),
-                    map2Babel('@babel/plugin-proposal-numeric-separator'),
-                    map2Babel('@babel/plugin-proposal-throw-expressions'),
-                    map2Babel('@babel/plugin-syntax-dynamic-import')
+                    [resolveModule('@babel/plugin-proposal-decorators'), { 'legacy': true }],
+                    [resolveModule('@babel/plugin-proposal-class-properties'), { 'loose': true }],
+                    resolveModule('@babel/plugin-proposal-function-sent'),
+                    resolveModule('@babel/plugin-proposal-export-namespace-from'),
+                    resolveModule('@babel/plugin-proposal-numeric-separator'),
+                    resolveModule('@babel/plugin-proposal-throw-expressions'),
+                    resolveModule('@babel/plugin-syntax-dynamic-import')
                   ]
                 };
               } else {
@@ -208,7 +197,13 @@ const init = (config, iEnv) => {
         path.join( __dirname, 'node_modules'),
         path.join(config.alias.dirname, 'node_modules')
       ],
-      alias: config.alias
+      alias: util.extend({
+        'webpack-hot-middleware/client': resolveModule('webpack-hot-middleware/client.js'),
+        'ansi-html': resolveModule('ansi-html'),
+        'html-entities': resolveModule('html-entities'),
+        'strip-ansi': resolveModule('strip-ansi'),
+        'ansi-regex': resolveModule('ansi-regex')
+      }, config.alias)
     },
     devtool: 'source-map',
     plugins: [
