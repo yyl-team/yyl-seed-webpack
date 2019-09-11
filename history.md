@@ -1,4 +1,7 @@
 # 版本信息
+## 0.3.1-beta4(2019-09-11)
+* feat: 调整 log
+
 ## 0.3.1-beta3(2019-09-11)
 * feat: 构建信息 中文化
 * feat: 优化 npm install log

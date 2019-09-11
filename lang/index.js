@@ -17,6 +17,7 @@ const LANG = {
   OPTIMIZE: {
     WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化失败, seed 不存在',
     WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建完成',
+    LOADING_WEBPACK: '正在加载 webpack 模块',
     SEED_NOT_EXISTS: 'config.seed 不存在',
     SEED_NOT_SET: 'config.seed 没有配置',
     CHECK_SEED_PKG_START: '开始检查 yyl seed 依赖安装情况',
