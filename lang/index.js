@@ -15,15 +15,17 @@ const LANG = {
     COPY_ESLINT_ERROR: '复制 eslint, editorconfig 发生错误'
   },
   OPTIMIZE: {
-    WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化失败, seed 不存在',
-    WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建完成',
-    LOADING_WEBPACK: '正在加载 webpack 模块',
+    WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
+    WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
+    WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
+    LOADING_WEBPACK_START: '正在加载 webpack 模块',
+    LOADING_WEBPACK_FINISHED: 'webpack 模块 加载完成',
     SEED_NOT_EXISTS: 'config.seed 不存在',
     SEED_NOT_SET: 'config.seed 没有配置',
-    CHECK_SEED_PKG_START: '开始检查 yyl seed 依赖安装情况',
-    CHECK_SEED_PKG_FINISHED: '检查 yyl seed 依赖安装情况完成',
-    CHECK_TARGET_PKG_START: '开始检查项目依赖安装情况',
-    CHECK_TARGET_PKG_FINISHED: '检查项目依赖安装情况完成'
+    CHECK_SEED_PKG_START: 'seed 依赖 开始检查',
+    CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖 检查完成',
+    CHECK_TARGET_PKG_START: '项目依赖 开始检查 ',
+    CHECK_TARGET_PKG_FINISHED: '项目依赖 检查完成'
   }
 };
 
