@@ -1,6 +1,7 @@
 # 版本信息
 ## 0.3.1-beta3(2019-09-11)
 * feat: 构建信息 中文化
+* feat: 优化 npm install log
 
 ## 0.3.1-beta2(2019-09-11)
 * fix: 修复 配置修改后 watch 时 webpack-hot-middleware 报错问题
