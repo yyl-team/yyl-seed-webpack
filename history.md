@@ -1,4 +1,7 @@
 # 版本信息
+## 0.3.1-beta8(2019-09-20)
+* feat: `vue-ts`, `vue` 模块 bugfix
+
 ## 0.3.1-beta7(2019-09-16)
 * feat: 添加 @babel/polyfill 为默认模块
 
