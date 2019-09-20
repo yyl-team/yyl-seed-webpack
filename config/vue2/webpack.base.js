@@ -19,7 +19,8 @@ const init = (config) => {
       alias: {
         'actions': path.join(config.alias.srcRoot, 'vuex/actions.js'),
         'getters': path.join(config.alias.srcRoot, 'vuex/getters.js'),
-        'vue$': 'vue/dist/vue.common.js'
+        'vue$': 'vue/dist/vue.common.js',
+        'setimmediate': require.resolve('setimmediate')
       }
     },
     resolveLoader: {
