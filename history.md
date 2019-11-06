@@ -1,4 +1,9 @@
 # 版本信息
+## 0.3.1(2019-11-06)
+* feat: 拆分单元测试用例
+* feat: 添加 项目中 webpack.config.js type === function 的支持
+* feat: 调整 example > vue2-ts seed
+
 ## 0.3.1-beta8(2019-09-20)
 * feat: `vue-ts`, `vue` 模块 bugfix
 
