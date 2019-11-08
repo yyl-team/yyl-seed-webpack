@@ -1,4 +1,7 @@
 # 版本信息
+## 0.3.2(*)
+* feat: react-ts seed 添加 eslint
+
 ## 0.3.1(2019-11-06)
 * feat: 拆分单元测试用例
 * feat: 添加 项目中 webpack.config.js type === function 的支持
