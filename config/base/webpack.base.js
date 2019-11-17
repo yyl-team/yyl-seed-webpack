@@ -18,7 +18,7 @@ const { resolveModule } = require('./fn');
 
 const init = (config, iEnv) => {
   const wConfig = {
-    entry: (function() {
+    entry: (function () {
       const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
         config.alias.srcRoot :
         path.join(__dirname, config.alias.srcRoot);
@@ -62,7 +62,7 @@ const init = (config, iEnv) => {
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
       filename: '[name].js',
-      chunkFilename: `async_component/[name]${config.disableHash? '' : '-[chunkhash:8]'}.js`
+      chunkFilename: `async_component/[name]${config.disableHash ? '' : '-[chunkhash:8]'}.js`
     },
     module: {
       rules: [{
@@ -163,7 +163,7 @@ const init = (config, iEnv) => {
           options: {
             limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
             name: '[name].[ext]',
-            chunkFilename: `async_component/[name]${config.disableHash? '' : '-[chunkhash:8]'}.js`,
+            chunkFilename: `async_component/[name]${config.disableHash ? '' : '-[chunkhash:8]'}.js`,
             outputPath: path.relative(
               config.alias.jsDest,
               config.alias.imagesDest
@@ -188,13 +188,13 @@ const init = (config, iEnv) => {
     },
     resolveLoader: {
       modules: [
-        path.join( __dirname, 'node_modules'),
+        path.join(__dirname, 'node_modules'),
         path.join(config.alias.dirname, 'node_modules')
       ]
     },
     resolve: {
       modules: [
-        path.join( __dirname, 'node_modules'),
+        path.join(__dirname, 'node_modules'),
         path.join(config.alias.dirname, 'node_modules')
       ],
       alias: util.extend({
@@ -213,7 +213,8 @@ const init = (config, iEnv) => {
       minimizer: [
         new UglifyjsWebpackPlugin({
           uglifyOptions: {
-            ie8: config.ie8 ? true: false
+            ie8: config.ie8 ? true : false,
+            keep_fnames: config.keep_fnames ? true : false
           }
         }),
         new OptimizeCSSAssetsPlugin({})
@@ -232,7 +233,7 @@ const init = (config, iEnv) => {
   }
 
   // + html output
-  wConfig.plugins = wConfig.plugins.concat((function() { // html 输出
+  wConfig.plugins = wConfig.plugins.concat((function () { // html 输出
     const bootPath = util.path.join(config.alias.srcRoot, 'boot');
     const entryPath = util.path.join(config.alias.srcRoot, 'entry');
     let outputPath = [];
@@ -299,7 +300,7 @@ const init = (config, iEnv) => {
           template: iPath,
           filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
           chunks: iChunks,
-          chunksSortMode (a, b) {
+          chunksSortMode(a, b) {
             return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
           },
           inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
@@ -319,7 +320,7 @@ const init = (config, iEnv) => {
   wConfig.plugins.push((() => {
     const r = {};
     Object.keys(iEnv).forEach((key) => {
-      if ( typeof iEnv[key] === 'string') {
+      if (typeof iEnv[key] === 'string') {
         r[`process.env.${key}`] = JSON.stringify(iEnv[key]);
       } else {
         r[`process.env.${key}`] = iEnv[key];
