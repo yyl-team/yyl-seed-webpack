@@ -161,7 +161,7 @@ const handler = {
       print.log.setLogLevel(0);
     } else {
       print.log.setLogLevel(2);
-    } 
+    }
     if (iEnv.config) {
       configPath = path.resolve(process.cwd(), iEnv.config);
       if (!fs.existsSync(configPath)) {
@@ -184,7 +184,6 @@ const handler = {
 
     const opzer = seed.optimize(config, CONFIG_DIR);
 
-    
 
     // 本地服务器
     await tUtil.server.start(config.alias.destRoot, config.localserver.port || 5000);
