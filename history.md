@@ -1,6 +1,7 @@
 # 版本信息
-## 0.3.2(*)
+## 0.3.2(2019-11-17)
 * feat: react-ts seed 添加 eslint
+* fix: 修复 `react-ts` seed 下 与 `@yy/tofu-ui-react` 不兼容问题
 
 ## 0.3.1(2019-11-06)
 * feat: 拆分单元测试用例
