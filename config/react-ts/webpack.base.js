@@ -1,7 +1,24 @@
 const path = require('path');
+const fs = require('fs');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const init = (config) => {
+  const localPkgPath = path.join(config.alias.dirname, 'package.json');
+  const localTsLoaderPath = path.join(config.alias.dirname, 'node_modules', 'ts-loader');
+  const localTsLoaderExists = fs.existsSync(localTsLoaderPath);
+  let useProjectTs = false;
+  if (fs.existsSync(localPkgPath)) {
+    const localPkg = require(localPkgPath);
+    if (
+      localPkg.dependencies &&
+      localPkg.dependencies['ts-loader'] &&
+      localPkg.dependencies['typescript'] &&
+      localTsLoaderExists
+    ) {
+      useProjectTs = true;
+    }
+  }
+
   const wConfig = {
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
@@ -11,7 +28,7 @@ const init = (config) => {
     module: {
       rules: [{
         test: /\.tsx?$/,
-        use: ['ts-loader'],
+        use: [useProjectTs ? require.resolve(localTsLoaderPath) : 'ts-loader'],
         exclude: /node_modules/
       }]
     },

@@ -1,4 +1,7 @@
 # 版本信息
+## 0.3.3(2019-12-03)
+* feat: 若项目中 `pkg.dependence` 含有 `ts-loader`, `typescript` 则使用项目本身的 typescript 作为渲染
+
 ## 0.3.2(2019-11-17)
 * feat: react-ts seed 添加 eslint
 * fix: 修复 `react-ts` seed 下 与 `@yy/tofu-ui-react` 不兼容问题
