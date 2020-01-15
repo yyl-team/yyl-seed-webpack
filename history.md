@@ -1,4 +1,9 @@
 # 版本信息
+## 1.0.0(2020-01-15)
+* feat: 新增 `initPackage`
+* feat: 剥离 init 部分以适配新版 yyl
+* del: 去掉 `examples`, `init`
+
 ## 0.3.3(2019-12-03)
 * feat: 若项目中 `pkg.dependence` 含有 `ts-loader`, `typescript` 则使用项目本身的 typescript 作为渲染
 
