@@ -31,16 +31,6 @@
     "init:vue2": "node ./test/run.js init --name vue2 --path ../__frag",
     "init:vue2-ts": "node ./test/run.js init --name vue2-ts --path ../__frag",
     "init:react-ts": "node ./test/run.js init --name react-ts --path ../__frag",
-    "e-base:all": "node ./test/run.js all --config ./examples/base/config.js",
-    "e-base:watch": "node ./test/run.js watch --config ./examples/base/config.js",
-    "e-vue2:all": "node ./test/run.js all --config ./examples/vue2/config.js",
-    "e-vue2:watch": "node ./test/run.js watch --config ./examples/vue2/config.js",
-    "e-vue2-ts:all": "node ./test/run.js all --config ./examples/vue2-ts/config.js",
-    "e-vue2-ts:watch": "node ./test/run.js watch --config ./examples/vue2-ts/config.js",
-    "e-vue2-ts:watch-isCommit": "node ./test/run.js watch --config ./examples/vue2-ts/config.js --isCommit",
-    "e-react-ts:all": "node ./test/run.js all --config ./examples/react-ts/config.js",
-    "e-react-ts:watch": "node ./test/run.js watch --config ./examples/react-ts/config.js",
-    "e-react-ts:watch-isCommit": "node ./test/run.js watch --config ./examples/react-ts/config.js --isCommit",
     "frag:all": "node ./test/run.js all --config ../__frag/config.js",
     "frag:watch": "node ./test/run.js watch --config ../__frag/config.js",
     "frag:watch-isCommit": "node ./test/run.js watch --config ../__frag/config.js --isCommit",
@@ -57,10 +47,7 @@
     "c-react-github-package:watch": "node ./test/run.js watch --config ./test/case/react-github-package/config.js",
     "c-react-github-package:watch-isCommit": "node ./test/run.js watch --config ./test/case/react-github-package/config.js --isCommit",
     "c-local-wconfig-fn:all": "node ./test/run.js all --config ./test/case/local-webpack-config-type-function/config.js",
-    "c-local-wconfig-fn:watch": "node ./test/run.js watch --config ./test/case/local-webpack-config-type-function/config.js",
-    "examples": "node ./test/run.js examples",
-    "make-page": "node ./test/run.js make --config ./test/case/demo/config.js --name p-maketest",
-    "make-widget": "node ./test/run.js make --config ./test/case/demo/config.js --name w-maketest"
+    "c-local-wconfig-fn:watch": "node ./test/run.js watch --config ./test/case/local-webpack-config-type-function/config.js"
   },
   "repository": {
     "type": "git",
@@ -143,7 +130,7 @@
     "yyl-util": "2.3.3"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "yyl-hander": "^0.3.1",
     "yyl-print": "^0.7.3",
     "yyl-request": "^0.1.0",
