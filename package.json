@@ -185,21 +185,25 @@
     "webpack-dev-middleware": "3.4.0",
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1",
+    "yyl-concat-webpack-plugin": "0.2.4",
+    "yyl-copy-webpack-plugin": "0.2.4",
     "yyl-file-replacer": "0.4.1",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
+    "yyl-rev-webpack-plugin": "0.1.0",
     "yyl-seed-response": "0.1.1",
+    "yyl-sugar-webpack-plugin": "0.1.2",
     "yyl-util": "2.3.3"
   },
   "devDependencies": {
     "chalk": "^3.0.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-html": "^6.0.0",
-    "eslint-plugin-node": "^11.0.0",
-    "jest": "^24.9.0",
-    "yyl-hander": "^0.3.1",
-    "yyl-print": "^0.7.3",
-    "yyl-request": "^0.1.0",
-    "yyl-seed-test-util": "^0.4.0"
+    "eslint": "6.8.0",
+    "eslint-plugin-html": "6.0.0",
+    "eslint-plugin-node": "11.0.0",
+    "jest": "24.9.0",
+    "yyl-hander": "0.3.1",
+    "yyl-print": "0.7.3",
+    "yyl-request": "0.1.0",
+    "yyl-seed-test-util": "0.4.0"
   }
 }

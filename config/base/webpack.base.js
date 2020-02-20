@@ -11,8 +11,10 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const util = require('yyl-util')
 
-const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin')
-const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin')
+const YylConcatWebpackPlugin = require('yyl-concat-webpack-plugin')
+const YylCopyWebpackPlugin = require('yyl-copy-webpack-plugin')
+const YylSugarWebpackPlugin = require('yyl-sugar-webpack-plugin')
+const YylRevWebpackPlugin = require('yyl-rev-webpack-plugin')
 
 const { resolveModule } = require('./util')
 
@@ -61,8 +63,8 @@ const init = (config, iEnv) => {
     })(),
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
-      filename: '[name].js',
-      chunkFilename: `async_component/[name]${config.disableHash ? '' : '-[chunkhash:8]'}.js`
+      filename: '[name]-[hash:8].js',
+      chunkFilename: `async_component/[name]-[chunkhash:8].js`
     },
     module: {
       rules: [{
@@ -149,8 +151,8 @@ const init = (config, iEnv) => {
           loader: resolveModule('url-loader'),
           options: {
             limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
-            name: '[name].[ext]',
-            chunkFilename: `async_component/[name]${config.disableHash ? '' : '-[chunkhash:8]'}.js`,
+            name: '[name]-[hash:8].[ext]',
+            chunkFilename: `async_component/[name]-[chunkhash:8].js`,
             outputPath: path.relative(
               config.alias.jsDest,
               config.alias.imagesDest
@@ -194,7 +196,6 @@ const init = (config, iEnv) => {
     },
     devtool: 'source-map',
     plugins: [
-      new BuildAsyncRevWebpackPlugin(config)
     ],
     optimization: {
       minimizer: [
@@ -320,8 +321,7 @@ const init = (config, iEnv) => {
   // ie8 格式化
   if (config.ie8) {
     wConfig.plugins = wConfig.plugins.concat([
-      new es3ifyWebpackPlugin(),
-      new Ie8FixWebpackPlugin()
+      new es3ifyWebpackPlugin()
     ])
   }
 
@@ -344,6 +344,72 @@ const init = (config, iEnv) => {
       wConfig.resolveLoader.modules.unshift(nodeModulePath)
     }
   }
+
+  // 添加 yyl 脚本， 没有挂 hooks 所以放最后比较稳
+  wConfig.plugins = wConfig.plugins.concat([
+    // config.concat
+    new YylConcatWebpackPlugin({
+      fileMap: config.concat || {},
+      fileName: '[name]-[hash:8].[ext]',
+      uglify: iEnv.isCommit ? true : false
+    }),
+    // config.resource
+    new YylCopyWebpackPlugin((() => {
+      const r = []
+      if (config.resource) {
+        Object.keys(config.resource).forEach((dist) => {
+          r.push({
+            from: config.resource[dist],
+            to: dist,
+            fileName: '[name]-[hash:8].[ext]',
+            basePath: __dirname,
+            uglify: iEnv.isCommit ? true : false
+          })
+        })
+      }
+      return r
+    })()),
+    // {$alias}
+    new YylSugarWebpackPlugin({
+      basePath: __dirname
+    }),
+    // rev
+    new YylRevWebpackPlugin({
+      name: util.path.join(
+        path.relative(
+          config.alias.jsDest,
+          config.alias.revDest
+        ),
+        'rev-manifest.json'
+      ),
+      revRoot: config.alias.revRoot,
+      remote: iEnv.remote,
+      remoteAddr: config.commit.revAddr,
+      remoteBlankCss: iEnv.isCommit ? false : true,
+      extends: (() => {
+        const r = {
+          version: util.makeCssJsDate(),
+          staticRemotePath: config.commit.staticHost || config.commit.hostname,
+          mainRemotePath: config.commit.mainHost || config.commit.hostname
+        }
+        Object.keys(iEnv).filter((key) => {
+          return [
+            'isCommit',
+            'logLevel',
+            'proxy',
+            'name',
+            'config',
+            'workflow',
+            'hot'
+          ].indexOf(key) === -1
+        }).forEach((key) => {
+          r[key] = iEnv[key]
+        })
+        return r
+      })()
+    })
+  ])
+
 
   return wConfig
 }

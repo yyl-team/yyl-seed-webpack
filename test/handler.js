@@ -174,7 +174,7 @@ const handler = {
     await fn.clearDest(config)
 
     return util.makeAwait((next) => {
-      let isUpdate = false
+      // let isUpdate = false
       opzer.watch(iEnv)
         .on('clear', () => {
           if (!iEnv.silent) {
@@ -192,12 +192,12 @@ const handler = {
           }
         })
         .on('finished', async() => {
-          if (!isUpdate) {
-            await yh.optimize.afterTask()
-            isUpdate = true
-          } else {
-            await yh.optimize.afterTask(true)
-          }
+          // if (!isUpdate) {
+          //   await yh.optimize.afterTask()
+          //   isUpdate = true
+          // } else {
+          //   await yh.optimize.afterTask(true)
+          // }
           if (!iEnv.silent) {
             print.log.success('task finished')
           }

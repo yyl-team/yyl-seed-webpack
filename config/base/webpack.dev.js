@@ -4,7 +4,6 @@ const autoprefixer = require('autoprefixer')
 const path = require('path')
 const px2rem = require('postcss-px2rem')
 
-const BuildBlankCssWebpackPlugin = require('../../plugins/build-blank-css-webpack-plugin')
 const webpackBase = require('./webpack.base.js')
 const util = require('yyl-util')
 const sass = require('sass')
@@ -72,7 +71,6 @@ const init = (config, iEnv) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(MODE)
       }),
-      new BuildBlankCssWebpackPlugin(config)
     ]
   }
   return webpackMerge(webpackBase(config, iEnv), webpackConfig)

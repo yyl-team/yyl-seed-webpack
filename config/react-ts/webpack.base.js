@@ -20,11 +20,6 @@ const init = (config) => {
   }
 
   const wConfig = {
-    output: {
-      path: path.resolve(__dirname, config.alias.jsDest),
-      filename: '[name].js',
-      chunkFilename: `async_component/[name]${config.disableHash? '' : '-[chunkhash:8]'}.js`
-    },
     module: {
       rules: [{
         test: /\.tsx?$/,
