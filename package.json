@@ -185,14 +185,14 @@
     "webpack-dev-middleware": "3.4.0",
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1",
-    "yyl-concat-webpack-plugin": "0.2.4",
-    "yyl-copy-webpack-plugin": "0.2.4",
+    "yyl-concat-webpack-plugin": "0.2.6",
+    "yyl-copy-webpack-plugin": "0.2.6",
     "yyl-file-replacer": "0.4.1",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
-    "yyl-rev-webpack-plugin": "0.1.0",
+    "yyl-rev-webpack-plugin": "0.1.1",
     "yyl-seed-response": "0.1.1",
-    "yyl-sugar-webpack-plugin": "0.1.2",
+    "yyl-sugar-webpack-plugin": "0.1.4",
     "yyl-util": "2.3.3"
   },
   "devDependencies": {

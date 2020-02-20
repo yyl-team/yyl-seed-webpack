@@ -126,7 +126,7 @@ const handler = {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
         })
         .on('finished', async() => {
-          await yh.optimize.afterTask()
+          // await yh.optimize.afterTask()
           print.log.success('task finished')
           next()
         })

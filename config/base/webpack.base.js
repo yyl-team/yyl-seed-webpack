@@ -350,32 +350,41 @@ const init = (config, iEnv) => {
     // config.concat
     new YylConcatWebpackPlugin({
       fileMap: config.concat || {},
-      fileName: '[name]-[hash:8].[ext]',
-      uglify: iEnv.isCommit ? true : false
+      filename: '[name]-[hash:8].[ext]',
+      logBasePath: config.alias.dirname,
+      minify: iEnv.isCommit ? true : false
     }),
     // config.resource
     new YylCopyWebpackPlugin((() => {
-      const r = []
+      const r = {
+        files: [],
+        minify: iEnv.isCommit ? true : false,
+        logBasePath: config.alias.dirname,
+      }
       if (config.resource) {
         Object.keys(config.resource).forEach((dist) => {
-          r.push({
+          r.files.push({
             from: config.resource[dist],
             to: dist,
-            fileName: '[name]-[hash:8].[ext]',
-            basePath: __dirname,
-            uglify: iEnv.isCommit ? true : false
+            matcher: ['*.html', '!**/.*'],
+            filename: '[name].[ext]'
+          })
+
+          r.files.push({
+            from: config.resource[dist],
+            to: dist,
+            matcher: ['!*.html', '!**/.*'],
+            filename: '[name]-[hash:8].[ext]'
           })
         })
       }
       return r
     })()),
     // {$alias}
-    new YylSugarWebpackPlugin({
-      basePath: __dirname
-    }),
+    new YylSugarWebpackPlugin({}),
     // rev
     new YylRevWebpackPlugin({
-      name: util.path.join(
+      filename: util.path.join(
         path.relative(
           config.alias.jsDest,
           config.alias.revDest
