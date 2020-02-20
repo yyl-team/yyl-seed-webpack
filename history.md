@@ -1,4 +1,7 @@
 # 版本信息
+## 1.1.0(*)
+* feat: 接入 `yyl-concat-webpack-plugin`, `yyl-copy-webpack-plugin`, `yyl-sugar-webpack-plugin`, `yyl-rev-webpack-plugin`
+
 ## 1.0.0(2020-01-15)
 * feat: 新增 `initPackage`
 * feat: 剥离 init 部分以适配新版 yyl

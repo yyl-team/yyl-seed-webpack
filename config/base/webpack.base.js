@@ -99,19 +99,6 @@ const init = (config, iEnv) => {
             })()
           }];
 
-          const eslintrcPath = path.join(config.alias.dirname, '.eslintrc.js');
-          if (
-            config.eslint &&
-            fs.existsSync(eslintrcPath)
-          ) {
-            loaders.push({
-              loader: resolveModule('eslint-loader'),
-              options: {
-                formatter: require('eslint-friendly-formatter')
-              }
-            });
-          }
-
           return loaders;
         })()
       }, {
