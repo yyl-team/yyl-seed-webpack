@@ -5,6 +5,7 @@
 * feat: `node-sass` 废弃， 改用 `sass`
 * del: 去掉 `typescript`, `react-ts-ie8` 配置项
 * del: 去掉 `config.eslint` 配置项
+* TODO: 待补充 test-case 覆盖 copy， concat， rev 用例
 
 ## 1.0.0(2020-01-15)
 * feat: 新增 `initPackage`
