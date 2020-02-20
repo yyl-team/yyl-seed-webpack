@@ -69,37 +69,6 @@ const fn = {
 }
 
 const handler = {
-  examples() {
-    console.log(seed.examples)
-  },
-  async init(iEnv) {
-    if (!iEnv.path) {
-      return print.log.warn('task need --path options')
-    }
-    const initPath = path.resolve(process.cwd(), iEnv.path)
-
-    // build path
-    await extFs.mkdirSync(initPath)
-
-
-    // init
-    return await util.makeAwait((next) => {
-      seed.init(iEnv.name, initPath)
-        .on('msg', (...argv) => {
-          const [type, iArgv] = argv
-          let iType = type
-          if (!print.log[type]) {
-            iType = 'info'
-          }
-          print.log[iType](iArgv)
-        })
-        .on('finished', () => {
-          extOs.openPath(initPath)
-          next()
-        })
-    })
-  },
-
   async all(iEnv) {
     let configPath
     if (iEnv.silent) {
@@ -110,10 +79,18 @@ const handler = {
 
     if (iEnv.config) {
       configPath = path.resolve(process.cwd(), iEnv.config)
+      
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
         iEnv.workflow = WORKFLOW
+        const configDir = path.dirname(configPath)
+        if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
+          print.log.info('start install package')
+          await extOs.runCMD('npm i ', configDir)
+        } else {
+          print.log.info('package exists')
+        }
         config = await yh.parseConfig(configPath, iEnv)
       }
     } else {
@@ -168,6 +145,10 @@ const handler = {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
         iEnv.workflow = WORKFLOW
+        const configDir = path.dirname(configPath)
+        if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
+          await extOs.runCMD('npm i ', configDir)
+        }
         config = await yh.parseConfig(configPath, iEnv)
       }
     } else {
@@ -226,40 +207,6 @@ const handler = {
   },
   async abort() {
     return await tUtil.server.abort()
-  },
-  async make(iEnv) {
-    let configPath
-    if (iEnv.config) {
-      configPath = path.resolve(process.cwd(), iEnv.config)
-      if (!fs.existsSync(configPath)) {
-        return print.log.warn(`config path not exists: ${configPath}`)
-      } else {
-        iEnv.workflow = WORKFLOW
-        config = await yh.parseConfig(configPath, iEnv)
-      }
-    } else {
-      return print.log.warn('task need --config options')
-    }
-
-    await fn.clearDest(config)
-    await util.makeAwait((next) => {
-      seed.make(iEnv.name, config)
-        .on('start', () => {
-          print.cleanScreen()
-        })
-        .on('msg', (...argv) => {
-          const [type, iArgv] = argv
-          let iType = type
-          if (!print.log[type]) {
-            iType = 'info'
-          }
-          print.log[iType](iArgv)
-        })
-        .on('finished', () => {
-          print.log.success('task finished')
-          next()
-        })
-    })
   }
 }
 

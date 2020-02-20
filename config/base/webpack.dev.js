@@ -16,12 +16,7 @@ const init = (config, iEnv) => {
 
   const cssUse = [
     resolveModule('style-loader'),
-    {
-      loader: resolveModule('css-loader'),
-      option: {
-        implementation: sass
-      }
-    },
+    resolveModule('css-loader'),
     {
       loader: resolveModule('postcss-loader'),
       options: {
@@ -64,7 +59,12 @@ const init = (config, iEnv) => {
         use: cssUse
       }, {
         test: /\.(scss|sass)$/,
-        use: cssUse.concat([resolveModule('sass-loader')])
+        use: cssUse.concat([{
+          loader: resolveModule('sass-loader'),
+          options: {
+            implementation: sass
+          }
+        }])
       }]
     },
     plugins: [
