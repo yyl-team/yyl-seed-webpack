@@ -63,7 +63,12 @@
         "error",
         "consistent"
       ],
-      "no-empty": ["error", { "allowEmptyCatch": true }]
+      "no-empty": [
+        "error",
+        {
+          "allowEmptyCatch": true
+        }
+      ]
     }
   },
   "eslintIgnore": [
@@ -106,9 +111,6 @@
     "c-react-github-package:watch-isCommit": "node ./test/run.js watch --config ./test/case/react-github-package/config.js --isCommit",
     "c-local-wconfig-fn:all": "node ./test/run.js all --config ./test/case/local-webpack-config-type-function/config.js",
     "c-local-wconfig-fn:watch": "node ./test/run.js watch --config ./test/case/local-webpack-config-type-function/config.js",
-    "cba": "node ./test/run.js all --config ./test/case/base/config.js",
-    "cbw": "node ./test/run.js watch --config ./test/case/base/config.js",
-    "cbwc": "node ./test/run.js watch --config ./test/case/base/config.js --isCommit",
     "cra": "node ./test/run.js all --config ./test/case/react-ts/config.js",
     "crw": "node ./test/run.js watch --config ./test/case/react-ts/config.js",
     "crwc": "node ./test/run.js watch --config ./test/case/react-ts/config.js --isCommit",
@@ -151,7 +153,7 @@
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "acorn": "6.0.5",
-    "autoprefixer": "9.1.5",
+    "autoprefixer": "^9.7.4",
     "babel-eslint": "9.0.0",
     "babel-loader": "8.0.5",
     "babel-polyfill": "6.26.0",
