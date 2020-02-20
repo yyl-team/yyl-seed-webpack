@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const path = require('path');
 const px2rem = require('postcss-px2rem');
 
-const { resolveModule } = require('./fn');
+const { resolveModule } = require('./util');
 
 const webpackBase = require('./webpack.base.js');
 const util = require('yyl-util');

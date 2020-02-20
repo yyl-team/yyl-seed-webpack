@@ -1,4 +1,3 @@
-const webpackMerge = require('webpack-merge');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const path = require('path');
@@ -48,9 +47,7 @@ const init = (config) => {
     ]
   };
 
-  return webpackMerge(
-    wConfig
-  );
+  return wConfig;
 };
 
 module.exports = init;

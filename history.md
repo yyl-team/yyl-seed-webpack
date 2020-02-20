@@ -1,6 +1,10 @@
 # 版本信息
-## 1.1.0(*)
+## 2.0.0(*)
 * feat: 接入 `yyl-concat-webpack-plugin`, `yyl-copy-webpack-plugin`, `yyl-sugar-webpack-plugin`, `yyl-rev-webpack-plugin`
+* feat: 升级 webpack 到 `4.41.6`
+* feat: `node-sass` 废弃， 改用 `sass`
+* del: 去掉 `typescript`, `react-ts-ie8` 配置项
+* del: 去掉 `config.eslint` 配置项
 
 ## 1.0.0(2020-01-15)
 * feat: 新增 `initPackage`

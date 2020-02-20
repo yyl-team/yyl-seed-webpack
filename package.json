@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -22,7 +22,9 @@
       "plugin:node/recommended"
     ],
     "rules": {
-      "node/no-unpublished-require": [0],
+      "node/no-unpublished-require": [
+        0
+      ],
       "node/exports-style": [
         "error",
         "module.exports"
@@ -131,7 +133,7 @@
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-syntax-import-meta": "7.0.0",
     "@babel/plugin-transform-runtime": "7.0.0",
-    "@babel/polyfill": "7.0.0",
+    "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "acorn": "6.0.5",
@@ -155,13 +157,14 @@
     "pug-loader": "2.4.0",
     "pug-plain-loader": "1.0.0",
     "raw-loader": "1.0.0",
+    "sass": "1.25.0",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
     "svg-inline-loader": "0.8.0",
     "uglifyjs-webpack-plugin": "2.2.0",
     "url-loader": "1.1.1",
     "watch": "1.0.2",
-    "webpack": "^4.41.6",
+    "webpack": "4.41.6",
     "webpack-combine-loaders": "2.0.4",
     "webpack-dev-middleware": "3.4.0",
     "webpack-hot-middleware": "2.24.3",

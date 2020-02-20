@@ -8,7 +8,7 @@ const BuildBlankCssWebpackPlugin = require('../../plugins/build-blank-css-webpac
 const webpackBase = require('./webpack.base.js');
 const util = require('yyl-util');
 
-const { resolveModule } = require('./fn');
+const { resolveModule } = require('./util');
 
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'development';

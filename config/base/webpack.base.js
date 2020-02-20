@@ -14,7 +14,7 @@ const util = require('yyl-util');
 const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
 const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
 
-const { resolveModule } = require('./fn');
+const { resolveModule } = require('./util');
 
 const init = (config, iEnv) => {
   const wConfig = {
