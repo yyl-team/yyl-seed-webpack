@@ -1,24 +1,24 @@
-const path = require('path');
-const util = require('yyl-util');
+const path = require('path')
+const util = require('yyl-util')
 // 生成 空白 css 插件
 class BuildBlankCssWebpackPlugin {
   constructor(config) {
-    this.config = config;
+    this.config = config
   }
   apply(compiler) {
-    const config = this.config;
+    const config = this.config
     compiler.hooks.emit.tapAsync(
       'buildBlankCss',
       (compilation, done) => {
-        const files = [];
+        const files = []
         for (let filename in compilation.assets) {
-          let iPath = util.path.join(filename);
+          let iPath = util.path.join(filename)
           if (
             !/^\.\.\//.test(iPath) &&
             path.extname(iPath) === '.js' &&
             iPath.split('/').length === 1
           ) {
-            files.push(iPath.replace(/\.js/, ''));
+            files.push(iPath.replace(/\.js/, ''))
           }
         }
 
@@ -26,20 +26,20 @@ class BuildBlankCssWebpackPlugin {
           const rPath = path.relative(
             config.alias.jsDest,
             path.join(config.alias.cssDest, `${name}.css`)
-          );
+          )
           compilation.assets[rPath] = {
             source() {
-              return '';
+              return ''
             },
             size() {
-              return 0;
+              return 0
             }
-          };
-        });
-        done();
+          }
+        })
+        done()
       }
-    );
+    )
   }
 }
 
-module.exports = BuildBlankCssWebpackPlugin;
+module.exports = BuildBlankCssWebpackPlugin

@@ -1,8 +1,8 @@
-const webpackMerge = require('webpack-merge');
-const path = require('path');
+const webpackMerge = require('webpack-merge')
+const path = require('path')
 
-const webpackDev = require('./webpack.dev.js');
-const util = require('yyl-util');
+const webpackDev = require('./webpack.dev.js')
+const util = require('yyl-util')
 
 const init = (config, iEnv) => {
   const webpackConfig = {
@@ -17,11 +17,11 @@ const init = (config, iEnv) => {
         '/'
       )
     }
-  };
+  }
   return webpackMerge(
     webpackDev(config, iEnv),
     webpackConfig
-  );
-};
+  )
+}
 
-module.exports = init;
+module.exports = init

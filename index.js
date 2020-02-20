@@ -1,5 +1,5 @@
-const opzer = require('./lib/optimize.js');
-const pkg = require('./package.json');
+const opzer = require('./lib/optimize.js')
+const pkg = require('./package.json')
 const cmd = {
   name: 'webpack',
   version: pkg.version,
@@ -12,7 +12,7 @@ const cmd = {
       '@yy/init-me-seed-yyl-vue'
     ]
   }
-};
+}
 
-module.exports = cmd;
+module.exports = cmd
 

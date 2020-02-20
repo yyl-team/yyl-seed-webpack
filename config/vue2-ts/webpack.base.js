@@ -1,8 +1,7 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-const path = require('path');
-const util = require('yyl-util');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require('path')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const init = (config) => {
   const wConfig = {
@@ -28,7 +27,7 @@ const init = (config) => {
       modules: [
         path.join( __dirname, 'node_modules')
       ],
-      alias: util.extend({
+      alias: Object.assign({
         'vue$': 'vue/dist/vue.esm.js',
         'vue': 'vue/dist/vue.esm.js'
       }, config.alias),
@@ -45,9 +44,9 @@ const init = (config) => {
     plugins: [
       new VueLoaderPlugin()
     ]
-  };
+  }
 
-  return wConfig;
-};
+  return wConfig
+}
 
-module.exports = init;
+module.exports = init

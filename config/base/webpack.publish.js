@@ -1,17 +1,17 @@
-const webpackMerge = require('webpack-merge');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
-const path = require('path');
-const px2rem = require('postcss-px2rem');
+const webpackMerge = require('webpack-merge')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const autoprefixer = require('autoprefixer')
+const webpack = require('webpack')
+const path = require('path')
+const px2rem = require('postcss-px2rem')
 
-const { resolveModule } = require('./util');
+const { resolveModule } = require('./util')
 
-const webpackBase = require('./webpack.base.js');
-const util = require('yyl-util');
+const webpackBase = require('./webpack.base.js')
+const util = require('yyl-util')
 
 const init = (config, iEnv) => {
-  const MODE = iEnv.NODE_ENV || 'production';
+  const MODE = iEnv.NODE_ENV || 'production'
 
   const cssUse = [
     {
@@ -33,24 +33,24 @@ const init = (config, iEnv) => {
       options: {
         ident: 'postcss',
         plugins() {
-          const r = [];
+          const r = []
           if (config.platform === 'pc') {
             r.push(autoprefixer({
               overrideBrowserslist: ['> 1%', 'last 2 versions']
-            }));
+            }))
           } else {
             r.push(autoprefixer({
               overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
-            }));
+            }))
             if (config.px2rem !== false) {
-              r.push(px2rem({ remUnit: 75 }));
+              r.push(px2rem({ remUnit: 75 }))
             }
           }
-          return r;
+          return r
         }
       }
     }
-  ];
+  ]
 
   const webpackConfig = {
     mode: MODE,
@@ -91,8 +91,8 @@ const init = (config, iEnv) => {
         allChunks: true
       })
     ]
-  };
-  return webpackMerge(webpackBase(config, iEnv), webpackConfig);
-};
+  }
+  return webpackMerge(webpackBase(config, iEnv), webpackConfig)
+}
 
-module.exports = init;
+module.exports = init

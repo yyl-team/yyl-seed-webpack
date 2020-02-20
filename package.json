@@ -22,6 +22,10 @@
       "plugin:node/recommended"
     ],
     "rules": {
+      "semi": [
+        "error",
+        "never"
+      ],
       "node/no-unpublished-require": [
         0
       ],
@@ -54,11 +58,12 @@
         "always"
       ],
       "node/prefer-promises/dns": "error",
-      "node/prefer-promises/fs": "error",
+      "node/prefer-promises/fs": 0,
       "quote-props": [
         "error",
         "consistent"
-      ]
+      ],
+      "no-empty": ["error", { "allowEmptyCatch": true }]
     }
   },
   "eslintIgnore": [
@@ -69,6 +74,7 @@
   ],
   "scripts": {
     "eslint": "eslint ./",
+    "eslint:fix": "eslint ./ --fix",
     "test": "jest ./test/jest/ --env=node --verbose",
     "test:all.case.demo": "jest ./test/jest/all.case.demo.test.js --env=node --verbose",
     "test:all.case.env-test": "jest ./test/jest/all.case.env-test.test.js --env=node --verbose",
@@ -83,10 +89,6 @@
     "test:init.vue2-ts": "jest ./test/jest/init.vue2-ts.test.js --env=node --verbose",
     "test:init.vue2": "jest ./test/jest/init.vue2.test.js --env=node --verbose",
     "ui-test": "yyt",
-    "init:base": "node ./test/run.js init --name base --path ../__frag",
-    "init:vue2": "node ./test/run.js init --name vue2 --path ../__frag",
-    "init:vue2-ts": "node ./test/run.js init --name vue2-ts --path ../__frag",
-    "init:react-ts": "node ./test/run.js init --name react-ts --path ../__frag",
     "frag:all": "node ./test/run.js all --config ../__frag/config.js",
     "frag:watch": "node ./test/run.js watch --config ../__frag/config.js",
     "frag:watch-isCommit": "node ./test/run.js watch --config ../__frag/config.js --isCommit",
@@ -103,7 +105,19 @@
     "c-react-github-package:watch": "node ./test/run.js watch --config ./test/case/react-github-package/config.js",
     "c-react-github-package:watch-isCommit": "node ./test/run.js watch --config ./test/case/react-github-package/config.js --isCommit",
     "c-local-wconfig-fn:all": "node ./test/run.js all --config ./test/case/local-webpack-config-type-function/config.js",
-    "c-local-wconfig-fn:watch": "node ./test/run.js watch --config ./test/case/local-webpack-config-type-function/config.js"
+    "c-local-wconfig-fn:watch": "node ./test/run.js watch --config ./test/case/local-webpack-config-type-function/config.js",
+    "cba": "node ./test/run.js all --config ./test/case/base/config.js",
+    "cbw": "node ./test/run.js watch --config ./test/case/base/config.js",
+    "cbwc": "node ./test/run.js watch --config ./test/case/base/config.js --isCommit",
+    "cra": "node ./test/run.js all --config ./test/case/react-ts/config.js",
+    "crw": "node ./test/run.js watch --config ./test/case/react-ts/config.js",
+    "crwc": "node ./test/run.js watch --config ./test/case/react-ts/config.js --isCommit",
+    "cva": "node ./test/run.js all --config ./test/case/vue2/config.js",
+    "cvw": "node ./test/run.js watch --config ./test/case/vue2/config.js",
+    "cvwc": "node ./test/run.js watch --config ./test/case/vue2/config.js --isCommit",
+    "cvta": "node ./test/run.js all --config ./test/case/vue2-ts/config.js",
+    "cvtw": "node ./test/run.js watch --config ./test/case/vue2-ts/config.js",
+    "cvtwc": "node ./test/run.js watch --config ./test/case/vue2-ts/config.js --isCommit"
   },
   "repository": {
     "type": "git",
@@ -178,6 +192,7 @@
   "devDependencies": {
     "chalk": "^3.0.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-node": "^11.0.0",
     "jest": "^24.9.0",
     "yyl-hander": "^0.3.1",

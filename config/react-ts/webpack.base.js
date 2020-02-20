@@ -1,21 +1,21 @@
-const path = require('path');
-const fs = require('fs');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require('path')
+const fs = require('fs')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const init = (config) => {
-  const localPkgPath = path.join(config.alias.dirname, 'package.json');
-  const localTsLoaderPath = path.join(config.alias.dirname, 'node_modules', 'ts-loader');
-  const localTsLoaderExists = fs.existsSync(localTsLoaderPath);
-  let useProjectTs = false;
+  const localPkgPath = path.join(config.alias.dirname, 'package.json')
+  const localTsLoaderPath = path.join(config.alias.dirname, 'node_modules', 'ts-loader')
+  const localTsLoaderExists = fs.existsSync(localTsLoaderPath)
+  let useProjectTs = false
   if (fs.existsSync(localPkgPath)) {
-    const localPkg = require(localPkgPath);
+    const localPkg = require(localPkgPath)
     if (
       localPkg.dependencies &&
       localPkg.dependencies['ts-loader'] &&
       localPkg.dependencies['typescript'] &&
       localTsLoaderExists
     ) {
-      useProjectTs = true;
+      useProjectTs = true
     }
   }
 
@@ -48,11 +48,11 @@ const init = (config) => {
       ]
     },
     plugins: []
-  };
+  }
 
 
 
-  return wConfig;
-};
+  return wConfig
+}
 
-module.exports = init;
+module.exports = init

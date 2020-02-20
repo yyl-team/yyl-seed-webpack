@@ -1,44 +1,50 @@
-const webpackMerge = require('webpack-merge');
-const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const path = require('path');
-const px2rem = require('postcss-px2rem');
+const webpackMerge = require('webpack-merge')
+const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
+const path = require('path')
+const px2rem = require('postcss-px2rem')
 
-const BuildBlankCssWebpackPlugin = require('../../plugins/build-blank-css-webpack-plugin');
-const webpackBase = require('./webpack.base.js');
-const util = require('yyl-util');
+const BuildBlankCssWebpackPlugin = require('../../plugins/build-blank-css-webpack-plugin')
+const webpackBase = require('./webpack.base.js')
+const util = require('yyl-util')
+const sass = require('sass')
 
-const { resolveModule } = require('./util');
+const { resolveModule } = require('./util')
 
 const init = (config, iEnv) => {
-  const MODE = iEnv.NODE_ENV || 'development';
+  const MODE = iEnv.NODE_ENV || 'development'
 
   const cssUse = [
     resolveModule('style-loader'),
-    resolveModule('css-loader'),
+    {
+      loader: resolveModule('css-loader'),
+      option: {
+        implementation: sass
+      }
+    },
     {
       loader: resolveModule('postcss-loader'),
       options: {
         ident: 'postcss',
         plugins() {
-          const r = [];
+          const r = []
           if (config.platform === 'pc') {
             r.push(autoprefixer({
               overrideBrowserslist: ['> 1%', 'last 2 versions']
-            }));
+            }))
           } else {
             r.push(autoprefixer({
               overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
-            }));
+            }))
             if (config.px2rem !== false) {
-              r.push(px2rem({remUnit: 75}));
+              r.push(px2rem({remUnit: 75}))
             }
           }
-          return r;
+          return r
         }
       }
     }
-  ];
+  ]
 
   const webpackConfig = {
     mode: MODE,
@@ -68,8 +74,8 @@ const init = (config, iEnv) => {
       }),
       new BuildBlankCssWebpackPlugin(config)
     ]
-  };
-  return webpackMerge(webpackBase(config, iEnv), webpackConfig);
-};
+  }
+  return webpackMerge(webpackBase(config, iEnv), webpackConfig)
+}
 
-module.exports = init;
+module.exports = init

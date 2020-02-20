@@ -6,22 +6,22 @@ class Ie8FixWebpackPlugin {
       'ie8Fix',
       (compilation, done) => {
         Object.keys(compilation.assets).forEach((key) => {
-          let cnt = compilation.assets[key].source();
+          let cnt = compilation.assets[key].source()
           if (typeof cnt === 'string') {
-            cnt = cnt.replace(/(\w+)\.default\(/g, '$1[\'default\'](');
+            cnt = cnt.replace(/(\w+)\.default\(/g, '$1[\'default\'](')
             compilation.assets[key] = {
               source() {
-                return cnt;
+                return cnt
               },
               size() {
-                return cnt.length;
+                return cnt.length
               }
-            };
+            }
           }
-        });
-        done();
+        })
+        done()
       }
-    );
+    )
   }
 }
-module.exports = Ie8FixWebpackPlugin;
+module.exports = Ie8FixWebpackPlugin

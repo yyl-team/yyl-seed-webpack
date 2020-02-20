@@ -1,63 +1,63 @@
-'use strict';
-const path = require('path');
-const fs = require('fs');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const querystring = require('querystring');
-const extFs = require('yyl-fs');
-const es3ifyWebpackPlugin = require('es3ify-webpack-plugin');
-const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+'use strict'
+const path = require('path')
+const fs = require('fs')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+const querystring = require('querystring')
+const extFs = require('yyl-fs')
+const es3ifyWebpackPlugin = require('es3ify-webpack-plugin')
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const util = require('yyl-util');
+const util = require('yyl-util')
 
-const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin');
-const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin');
+const BuildAsyncRevWebpackPlugin = require('../../plugins/build-async-rev-webpack-plugin')
+const Ie8FixWebpackPlugin = require('../../plugins/ie8-fix-webpack-plugin')
 
-const { resolveModule } = require('./util');
+const { resolveModule } = require('./util')
 
 const init = (config, iEnv) => {
   const wConfig = {
     entry: (function () {
       const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
         config.alias.srcRoot :
-        path.join(__dirname, config.alias.srcRoot);
+        path.join(__dirname, config.alias.srcRoot)
 
-      let r = {};
+      let r = {}
 
       // 合并 config 中的 entry 字段
       if (config.entry) {
-        r = util.extend(true, r, config.entry);
+        r = util.extend(true, r, config.entry)
       }
 
       // multi entry
-      var entryPath = path.join(iSrcRoot, 'entry');
+      var entryPath = path.join(iSrcRoot, 'entry')
 
       if (fs.existsSync(entryPath)) {
-        var fileList = extFs.readFilesSync(entryPath, /\.(js|tsx?)$/);
+        var fileList = extFs.readFilesSync(entryPath, /\.(js|tsx?)$/)
         fileList.forEach((str) => {
-          var key = path.basename(str).replace(/\.[^.]+$/, '');
+          var key = path.basename(str).replace(/\.[^.]+$/, '')
           if (key) {
-            r[key] = [str];
+            r[key] = [str]
           }
 
           const queryObj = {
             name: key
-          };
+          }
 
           if (config.localserver && config.localserver.port) {
-            queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`;
+            queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`
           }
 
-          const iQuery = querystring.stringify(queryObj);
+          const iQuery = querystring.stringify(queryObj)
           // hotreload
           if (iEnv.hot && !config.ie8) {
-            r[key].unshift(`webpack-hot-middleware/client?${iQuery}`);
+            r[key].unshift(`webpack-hot-middleware/client?${iQuery}`)
           }
-        });
+        })
       }
 
-      return r;
+      return r
     })(),
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
@@ -92,14 +92,14 @@ const init = (config, iEnv) => {
                     resolveModule('@babel/plugin-proposal-throw-expressions'),
                     resolveModule('@babel/plugin-syntax-dynamic-import')
                   ]
-                };
+                }
               } else {
-                return {};
+                return {}
               }
             })()
-          }];
+          }]
 
-          return loaders;
+          return loaders
         })()
       }, {
         test: /\.html$/,
@@ -163,11 +163,11 @@ const init = (config, iEnv) => {
                   config.alias.imagesDest
                 ),
                 '/'
-              );
+              )
               if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
-                r = util.path.join(config.commit.hostname, r);
+                r = util.path.join(config.commit.hostname, r)
               }
-              return r;
+              return r
             })()
           }
         }
@@ -207,78 +207,78 @@ const init = (config, iEnv) => {
         new OptimizeCSSAssetsPlugin({})
       ]
     }
-  };
+  }
 
   // hot reload
   if (!config.ie8 && iEnv.hot) {
-    wConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+    wConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
   }
 
   // providePlugin
   if (config.providePlugin) {
-    wConfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin));
+    wConfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin))
   }
 
   // + html output
   wConfig.plugins = wConfig.plugins.concat((function () { // html 输出
-    const bootPath = util.path.join(config.alias.srcRoot, 'boot');
-    const entryPath = util.path.join(config.alias.srcRoot, 'entry');
-    let outputPath = [];
-    const r = [];
+    const bootPath = util.path.join(config.alias.srcRoot, 'boot')
+    const entryPath = util.path.join(config.alias.srcRoot, 'entry')
+    let outputPath = []
+    const r = []
 
     if (fs.existsSync(bootPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(bootPath, /(\.jade|\.pug|\.html)$/));
+      outputPath = outputPath.concat(extFs.readFilesSync(bootPath, /(\.jade|\.pug|\.html)$/))
     }
 
     if (fs.existsSync(entryPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(entryPath, /(\.jade|\.pug|\.html)$/));
+      outputPath = outputPath.concat(extFs.readFilesSync(entryPath, /(\.jade|\.pug|\.html)$/))
     }
 
-    const outputMap = {};
+    const outputMap = {}
     const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/, '');
-    };
+      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/, '')
+    }
 
     outputPath.forEach((iPath) => {
-      outputMap[ignoreExtName(iPath)] = iPath;
-    });
+      outputMap[ignoreExtName(iPath)] = iPath
+    })
 
-    const commonChunks = [];
-    const pageChunkMap = {};
+    const commonChunks = []
+    const pageChunkMap = {}
     Object.keys(wConfig.entry).forEach((key) => {
-      let iPaths = [];
+      let iPaths = []
       if (util.type(wConfig.entry[key]) === 'array') {
-        iPaths = wConfig.entry[key];
+        iPaths = wConfig.entry[key]
       } else if (util.type(wConfig.entry[key]) === 'string') {
-        iPaths.push(wConfig.entry[key]);
+        iPaths.push(wConfig.entry[key])
       }
 
-      let isPageModule = null;
+      let isPageModule = null
       iPaths.some((iPath) => {
-        const baseName = ignoreExtName(iPath);
+        const baseName = ignoreExtName(iPath)
         if (outputMap[baseName]) {
-          isPageModule = baseName;
-          return true;
+          isPageModule = baseName
+          return true
         }
-        return false;
-      });
+        return false
+      })
 
       if (!isPageModule) {
-        commonChunks.push(key);
+        commonChunks.push(key)
       } else {
-        pageChunkMap[isPageModule] = key;
+        pageChunkMap[isPageModule] = key
       }
-    });
+    })
 
     outputPath.forEach((iPath) => {
-      const iBaseName = ignoreExtName(iPath);
-      const iChunkName = pageChunkMap[iBaseName];
-      const fileName = ignoreExtName(path.basename(iPath));
-      let iChunks = [];
+      const iBaseName = ignoreExtName(iPath)
+      const iChunkName = pageChunkMap[iBaseName]
+      const fileName = ignoreExtName(path.basename(iPath))
+      let iChunks = []
 
-      iChunks = iChunks.concat(commonChunks);
+      iChunks = iChunks.concat(commonChunks)
       if (iChunkName) {
-        iChunks.push(iChunkName);
+        iChunks.push(iChunkName)
       }
 
 
@@ -288,71 +288,71 @@ const init = (config, iEnv) => {
           filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
           chunks: iChunks,
           chunksSortMode(a, b) {
-            return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0]);
+            return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0])
           },
           inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
           minify: false
-        };
+        }
 
-        r.push(new HtmlWebpackPlugin(opts));
+        r.push(new HtmlWebpackPlugin(opts))
       }
-    });
+    })
 
-    return r;
-  })());
+    return r
+  })())
   // - html output
 
   // env defined
   // 环境变量 (全局替换 含有这 变量的 js)
   wConfig.plugins.push((() => {
-    const r = {};
+    const r = {}
     Object.keys(iEnv).forEach((key) => {
       if (typeof iEnv[key] === 'string') {
-        r[`process.env.${key}`] = JSON.stringify(iEnv[key]);
+        r[`process.env.${key}`] = JSON.stringify(iEnv[key])
       } else {
-        r[`process.env.${key}`] = iEnv[key];
+        r[`process.env.${key}`] = iEnv[key]
       }
-    });
+    })
 
-    return new webpack.DefinePlugin(r);
-  })());
+    return new webpack.DefinePlugin(r)
+  })())
 
   // ie8 格式化
   if (config.ie8) {
     wConfig.plugins = wConfig.plugins.concat([
       new es3ifyWebpackPlugin(),
       new Ie8FixWebpackPlugin()
-    ]);
+    ])
   }
 
   // config.module 继承
   if (config.moduleRules) {
-    wConfig.module.rules = wConfig.module.rules.concat(config.moduleRules);
+    wConfig.module.rules = wConfig.module.rules.concat(config.moduleRules)
   }
 
   // extend node_modules
   if (config.resolveModule) {
-    wConfig.resolve.modules.unshift(config.resolveModule);
-    wConfig.resolveLoader.modules.unshift(config.resolveModule);
+    wConfig.resolve.modules.unshift(config.resolveModule)
+    wConfig.resolveLoader.modules.unshift(config.resolveModule)
   }
 
   // add seed node_modules 
   if (config.seed) {
-    const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules');
+    const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules')
     if (fs.existsSync(nodeModulePath)) {
-      wConfig.resolve.modules.unshift(nodeModulePath);
-      wConfig.resolveLoader.modules.unshift(nodeModulePath);
+      wConfig.resolve.modules.unshift(nodeModulePath)
+      wConfig.resolveLoader.modules.unshift(nodeModulePath)
     }
   }
 
-  return wConfig;
-};
+  return wConfig
+}
 
 
 
 
 
-module.exports = init;
+module.exports = init
 
 
 
