@@ -360,17 +360,17 @@ const init = (config, iEnv) => {
         logBasePath: config.alias.dirname,
       }
       if (config.resource) {
-        Object.keys(config.resource).forEach((dist) => {
+        Object.keys(config.resource).forEach((from) => {
           r.files.push({
-            from: config.resource[dist],
-            to: dist,
+            from,
+            to: config.resource[from],
             matcher: ['*.html', '!**/.*'],
             filename: '[name].[ext]'
           })
 
           r.files.push({
-            from: config.resource[dist],
-            to: dist,
+            from,
+            to: config.resource[from],
             matcher: ['!*.html', '!**/.*'],
             filename: '[name]-[hash:8].[ext]'
           })
