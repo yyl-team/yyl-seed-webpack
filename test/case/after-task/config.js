@@ -44,6 +44,12 @@ const config = {
       '{$srcRoot}/js/lib/shim/es6-sham.min.js'
     ]
   },
+  resource: {
+    'src/source/html': path.join(DEST_BASE_PATH, setting.dest.htmlPath),
+    'src/source/js': path.join(DEST_BASE_PATH, setting.dest.jsPath),
+    'src/source/css': path.join(DEST_BASE_PATH, setting.dest.cssPath),
+    'src/source/images': path.join(DEST_BASE_PATH, setting.dest.imagesPath)
+  },
   providePlugin: {
     '$': 'jquery'
   },
@@ -71,10 +77,8 @@ const config = {
     // assets 输出地址
     'revDest': path.join(DEST_BASE_PATH, setting.dest.revPath),
     // tpl 输出地址
-    'tplDest': path.join(DEST_BASE_PATH, setting.dest.tplPath),
+    'tplDest': path.join(DEST_BASE_PATH, setting.dest.tplPath)
     // webpackconfig 中的 alias
-    'jquery': path.join('./src/js/lib/jquery/jquery-1.11.1.js'),
-    'babel-polyfill': path.join('./src/js/lib/babel-polyfill/babel-polyfill.js')
     // + yyl make
     // - yyl make
   },

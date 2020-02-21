@@ -3,6 +3,7 @@
 * feat: 接入 `yyl-concat-webpack-plugin`, `yyl-copy-webpack-plugin`, `yyl-sugar-webpack-plugin`, `yyl-rev-webpack-plugin`
 * feat: 升级 webpack 到 `4.41.6`
 * feat: `node-sass` 废弃， 改用 `sass`
+* feat: `uglify-webpack-plugin` 废弃， 改用 `terser-webpack-plugin`
 * del: 去掉 `typescript`, `react-ts-ie8` 配置项
 * del: 去掉 `config.eslint` 配置项
 * TODO: 待补充 test-case 覆盖 copy， concat， rev 用例
