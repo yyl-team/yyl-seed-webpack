@@ -125,7 +125,7 @@ const handler = {
         })
         .on('finished', async() => {
           print.log.success('task finished')
-          next()
+          next(config)
         })
     })
   },

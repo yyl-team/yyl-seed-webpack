@@ -1,101 +1,64 @@
 const path = require('path')
-const util = require('yyl-util')
 const extFs = require('yyl-fs')
-const seed = require('../../index')
 const tUtil = require('yyl-seed-test-util')
+const handler = require('../handler')
 
 const {
-  clearDest,
-  linkCheck,
-  checkAsyncComponent,
-  checkCssFiles
+  linkCheck
 } = require('./fn.all')
 
-async function handleAll (pjPath) {
+function handleAll (pjPath) {
   // + vars
   const filename =  path.basename(pjPath)
   const FRAG_PATH = path.join(__dirname, `../__frag/all-${filename}`)
   const TEST_CASE_PATH = path.join(__dirname, '../case')
   const PJ_PATH = path.join(TEST_CASE_PATH, filename)
+  const TARGET_PATH = path.join(FRAG_PATH, filename)
   // - vars
 
-  const TARGET_PATH = path.join(FRAG_PATH, filename)
+  describe(`seed.all test - ${filename}`, () => {
+    beforeEach(async () => {
+      await tUtil.frag.init(FRAG_PATH)
+      await tUtil.frag.build()
+      await extFs.copyFiles(PJ_PATH, TARGET_PATH, (iPath) => {
+        const rPath = path.relative(PJ_PATH, iPath)
+        return !/node_modules/.test(rPath)
+      })
+    })
 
-  await tUtil.frag.build()
-  await extFs.copyFiles(PJ_PATH, TARGET_PATH, (iPath) => {
-    const rPath = path.relative(PJ_PATH, iPath)
-    return !/node_modules/.test(rPath)
+    it('all', async () => {
+      const config = await handler.all({
+        config: path.join(TARGET_PATH, 'config.js'),
+        silent: true
+      })
+
+      await linkCheck(config)
+    })
+
+    it('all --remote', async () => {
+      const config = await handler.all({
+        config: path.join(TARGET_PATH, 'config.js'),
+        silent: true,
+        remote: true
+      })
+
+      await linkCheck(config)
+    })
+    
+    it('all --isCommit', async () => {
+      const config = await handler.all({
+        config: path.join(TARGET_PATH, 'config.js'),
+        silent: true,
+        isCommit: true
+      })
+
+      await linkCheck(config)
+    })
+
+    afterEach(async () => {
+      await tUtil.frag.destroy()
+    })
   })
-
-  const configPath = path.join(TARGET_PATH, 'config.js')
-  const config = tUtil.parseConfig(configPath)
-
-  const opzer = seed.optimize(config, path.dirname(configPath))
-
-  await clearDest(config)
-
-  // all
-  await util.makeAwait((next) => {
-    const timePadding = {
-      start: 0,
-      msg: 0,
-      finished: 0
-    }
-
-    opzer.all({ silent: true })
-      .on('start', () => {
-        timePadding.start++
-      })
-      .on('msg', () => {
-        timePadding.msg++
-      })
-      .on('finished', () => {
-        timePadding.finished++
-        // times check
-        expect(timePadding.start).toEqual(1)
-        expect(timePadding.msg).not.toEqual(0)
-        expect(timePadding.finished).toEqual(1)
-
-        linkCheck(config, () => {
-          next()
-        })
-      })
-  })
-
-  await checkAsyncComponent(config)
-  await checkCssFiles(config)
-
-  await clearDest(config)
-
-  // all --remote
-  await util.makeAwait((next) => {
-    opzer.all({ remote: true, silent: true })
-      .on('finished', () => {
-        linkCheck(config, () => {
-          next()
-        })
-      })
-  })
-
-  await checkAsyncComponent(config)
-  await checkCssFiles(config)
-
-  await clearDest(config)
-
-  // all --isCommit
-  await util.makeAwait((next) => {
-    opzer.all({ isCommit: true, silent: true })
-      .on('finished', () => {
-        linkCheck(config, () => {
-          next()
-        })
-      })
-  })
-
-  await checkAsyncComponent(config)
-  await checkCssFiles(config)
-
-  await tUtil.frag.destroy()
 }
 module.exports = {
   handleAll

@@ -7,6 +7,4 @@ const { handleAll } = require('../fn/handle.all')
 const casePath = path.join(__dirname, '../case/react-ts')
 // - vars
 
-test(`seed.all() case:${path.basename(casePath)}`, async () => {
-  await handleAll(casePath)
-})
+handleAll(casePath)

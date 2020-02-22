@@ -5,9 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const querystring = require('querystring')
 const extFs = require('yyl-fs')
+
+const autoprefixer = require('autoprefixer')
+const px2rem = require('postcss-px2rem')
+const sass = require('sass')
+
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const util = require('yyl-util')
 
@@ -17,6 +23,7 @@ const YylSugarWebpackPlugin = require('yyl-sugar-webpack-plugin')
 const YylRevWebpackPlugin = require('yyl-rev-webpack-plugin')
 
 const { resolveModule } = require('./util')
+
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -217,6 +224,66 @@ const init = (config, iEnv) => {
   if (config.providePlugin) {
     wConfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin))
   }
+
+  // + css & sass
+  const cssUse = [
+    resolveModule('style-loader'),
+    resolveModule('css-loader'),
+    {
+      loader: resolveModule('postcss-loader'),
+      options: {
+        ident: 'postcss',
+        plugins() {
+          const r = []
+          if (config.platform === 'pc') {
+            r.push(autoprefixer({
+              overrideBrowserslist: ['> 1%', 'last 2 versions']
+            }))
+          } else {
+            r.push(autoprefixer({
+              overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
+            }))
+            if (config.px2rem !== false) {
+              r.push(px2rem({remUnit: 75}))
+            }
+          }
+          return r
+        }
+      }
+    }
+  ]
+  if (iEnv.isCommit) { // 发版
+    cssUse.unshift({
+      loader: MiniCssExtractPlugin.loader,
+      options: {}
+    })
+    wConfig.plugins.push(
+      // 样式分离插件
+      new MiniCssExtractPlugin({
+        filename: util.path.join(
+          path.relative(
+            config.alias.jsDest,
+            path.join(config.alias.cssDest, '[name]-[hash:8].css')
+          )
+        ),
+        chunkFilename: '[name]-[hash:8].css',
+        allChunks: true
+      })
+    )
+  }
+  wConfig.module.rules = wConfig.module.rules.concat([{
+    test: /\.css$/,
+    use: cssUse
+  }, {
+    test: /\.(scss|sass)$/,
+    use: cssUse.concat([{
+      loader: resolveModule('sass-loader'),
+      options: {
+        implementation: sass
+      }
+    }])
+  }])
+  // - css & sass
 
   // + html output
   wConfig.plugins = wConfig.plugins.concat((function () { // html 输出

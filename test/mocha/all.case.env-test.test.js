@@ -2,11 +2,8 @@
 const path = require('path')
 const { handleAll } = require('../fn/handle.all')
 
-
 // + vars
 const casePath = path.join(__dirname, '../case/env-test')
 // - vars
 
-test(`seed.all() case:${path.basename(casePath)}`, async () => {
-  await handleAll(casePath)
-})
+handleAll(casePath)

@@ -4,9 +4,7 @@ const { handleAll } = require('../fn/handle.all')
 
 
 // + vars
-const casePath = path.join(__dirname, '../case/demo')
+const casePath = path.join(__dirname, '../case/tufo-ui')
 // - vars
 
-test(`seed.all() case:${path.basename(casePath)}`, async () => {
-  await handleAll(casePath)
-})
+handleAll(casePath)

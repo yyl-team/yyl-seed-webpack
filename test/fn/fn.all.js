@@ -4,10 +4,9 @@ const extFs = require('yyl-fs')
 const fs = require('fs')
 const frp = require('yyl-file-replacer')
 const tUtil = require('yyl-seed-test-util')
+const { expect } = require('chai')
 
 const http = require('http')
-
-jest.setTimeout(200000)
 
 function clearDest(config) {
   return new Promise((next) => {
@@ -17,7 +16,7 @@ function clearDest(config) {
   })
 }
 
-const linkCheck = function (config, next) {
+const linkCheck = function (config) {
   const htmlArr = extFs.readFilesSync(config.alias.destRoot, /\.html$/)
   const cssArr = extFs.readFilesSync(config.alias.destRoot, /\.css$/)
   const jsArr = extFs.readFilesSync(config.alias.destRoot, /\.js$/)
@@ -37,13 +36,17 @@ const linkCheck = function (config, next) {
     if (iPath.match(LOCAL_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(destRoot, iPath.replace(LOCAL_SOURCE_REG, ''))
+          util.path.join(
+            path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, ''))
+          )
         )
       )
     } else if (iPath.match(ABSOLUTE_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(destRoot, iPath.replace(LOCAL_SOURCE_REG, '$1'))
+          util.path.join(
+            path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, '$1'))
+          )
         )
       )
     } else if (iPath.match(REMOTE_SOURCE_REG)) {
@@ -51,7 +54,7 @@ const linkCheck = function (config, next) {
     } else if (iPath.match(RELATIVE_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(dir, iPath)
+          util.path.resolve(dir, iPath)
         )
       )
     }
@@ -84,80 +87,49 @@ const linkCheck = function (config, next) {
     }
   })
 
-  let padding = remoteSource.length +  notMatchLocalSource.length
-  const paddingCheck = function () {
-    if (!padding) {
-      next()
-    }
-  }
-
-  remoteSource.forEach((iPath) => {
-    var rPath = iPath
-    if (rPath.match(NO_PROTOCOL)) {
-      rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
+  return new Promise((next) => {
+    let padding = remoteSource.length +  notMatchLocalSource.length
+    const paddingCheck = function () {
+      if (!padding) {
+        next()
+      }
     }
 
+    remoteSource.forEach((iPath) => {
+      var rPath = iPath
+      if (rPath.match(NO_PROTOCOL)) {
+        rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
+      }
 
-    http.get(rPath, (res) => {
-      expect([rPath, res.statusCode]).toEqual([rPath, 200])
-      padding--
-      paddingCheck()
+
+      http.get(rPath, (res) => {
+        expect([rPath, res.statusCode]).to.deep.equal([rPath, 200])
+        padding--
+        paddingCheck()
+      })
     })
-  })
 
-  notMatchLocalSource.forEach((iPath) => {
-    var rPath = util.path.join(
-      config.commit.hostname,
-      util.path.relative(config.alias.destRoot, iPath)
-    )
-    if (rPath.match(NO_PROTOCOL)) {
-      rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
-    }
+    notMatchLocalSource.forEach((iPath) => {
+      var rPath = util.path.join(
+        config.commit.hostname,
+        util.path.relative(config.alias.destRoot, iPath)
+      )
+      console.log(iPath)
+      if (rPath.match(NO_PROTOCOL)) {
+        rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
+      }
 
-    http.get(rPath, (res) => {
-      expect([iPath, rPath, res.statusCode]).toEqual([iPath, rPath, 200])
-      padding--
-      paddingCheck()
+      http.get(rPath, (res) => {
+        expect([iPath, rPath, res.statusCode]).to.deep.equal([iPath, rPath, 200])
+        padding--
+        paddingCheck()
+      })
     })
-  })
-  paddingCheck()
-}
-
-// 检查 assets async components
-async function checkAsyncComponent (config) {
-  const asyncPath = path.join(config.alias.jsDest, 'async_component')
-  if (fs.existsSync(asyncPath) && fs.readdirSync(asyncPath).length) {
-    const assetsPath = path.join(config.alias.revDest, 'rev-manifest.json')
-    expect(fs.existsSync(assetsPath)).toEqual(true)
-    const assetJson = JSON.parse(fs.readFileSync(assetsPath).toString())
-
-    Object.keys(assetJson).forEach((key) => {
-      const aPath = path.join(config.alias.revRoot, key)
-      const bPath = path.join(config.alias.revRoot, assetJson[key])
-      const aPathExists = fs.existsSync(aPath)
-      const bPathExists = fs.existsSync(bPath)
-
-      expect([aPath, aPathExists]).toEqual([aPath, true])
-      expect([bPath, bPathExists]).toEqual([bPath, true])
-    })
-  }
-}
-
-// 检查 blank css file
-async function checkCssFiles (config) {
-  const htmlArr = await extFs.readFilePaths(config.alias.htmlDest, /\.html$/, true)
-  htmlArr.forEach((htmlPath) => {
-    const filename = path.relative(config.alias.htmlDest, htmlPath)
-    const cssFile = filename.replace(/\.html$/, '.css')
-    const cssPath = path.join(config.alias.cssDest, cssFile)
-
-    expect(fs.existsSync(cssPath)).toEqual(true)
+    paddingCheck()
   })
 }
 
 module.exports = {
   clearDest,
-  linkCheck,
-  checkAsyncComponent,
-  checkCssFiles
+  linkCheck
 }
