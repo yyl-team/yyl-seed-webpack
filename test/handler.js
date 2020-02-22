@@ -51,9 +51,7 @@ const fn = {
   clearDest() {
     return new Promise((next) => {
       extFs.removeFiles(config.alias.destRoot).then(() => {
-        extFs.copyFiles(config.resource).then(() => {
-          next()
-        })
+        next()
       })
     })
   },
@@ -120,13 +118,12 @@ const handler = {
           print.log[iType](iArgv)
         })
         .on('clear', () => {
-          print.cleanScreen()
+          // print.cleanScreen()
         })
         .on('loading', (pkgName) => {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
         })
         .on('finished', async() => {
-          // await yh.optimize.afterTask()
           print.log.success('task finished')
           next()
         })
@@ -174,7 +171,6 @@ const handler = {
     await fn.clearDest(config)
 
     return util.makeAwait((next) => {
-      // let isUpdate = false
       opzer.watch(iEnv)
         .on('clear', () => {
           if (!iEnv.silent) {
@@ -192,15 +188,7 @@ const handler = {
           }
         })
         .on('finished', async() => {
-          // if (!isUpdate) {
-          //   await yh.optimize.afterTask()
-          //   isUpdate = true
-          // } else {
-          //   await yh.optimize.afterTask(true)
-          // }
-          if (!iEnv.silent) {
-            print.log.success('task finished')
-          }
+          print.log.success('task finished')
           next()
         })
     })

@@ -3,5 +3,5 @@
   let padding = 0;
   setInterval(() => {
     boxEl.className = `box box--${padding++ % 4}`
-  }, 1000)
+  }, 1003)
 })()

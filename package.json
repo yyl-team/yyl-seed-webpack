@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.0-beta1",
+  "version": "2.0.0-beta2",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -194,7 +194,7 @@
     "yyl-file-replacer": "0.4.1",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
-    "yyl-rev-webpack-plugin": "0.1.1",
+    "yyl-rev-webpack-plugin": "0.1.2",
     "yyl-seed-response": "0.1.1",
     "yyl-sugar-webpack-plugin": "0.1.4",
     "yyl-util": "2.3.3"

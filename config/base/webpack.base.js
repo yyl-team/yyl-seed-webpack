@@ -380,7 +380,7 @@ const init = (config, iEnv) => {
     })()),
     // {$alias}
     new YylSugarWebpackPlugin({}),
-    // rev
+    // // rev
     new YylRevWebpackPlugin({
       filename: util.path.join(
         path.relative(

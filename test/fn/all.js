@@ -9,16 +9,10 @@ const http = require('http')
 
 jest.setTimeout(200000)
 
-function clearDest(config, copyFont) {
+function clearDest(config) {
   return new Promise((next) => {
     extFs.removeFiles(config.alias.destRoot).then(() => {
-      if (copyFont) {
-        extFs.copyFiles(config.resource).then(() => {
-          next()
-        })
-      } else {
-        next()
-      }
+      next()
     })
   })
 }
