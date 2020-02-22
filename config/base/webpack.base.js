@@ -253,6 +253,10 @@ const init = (config, iEnv) => {
     }
   ]
   if (iEnv.isCommit) { // 发版
+    // 去掉 style-loader
+    cssUse.shift()
+
+    // 添加 mini-css-extract-plugin loader
     cssUse.unshift({
       loader: MiniCssExtractPlugin.loader,
       options: {}

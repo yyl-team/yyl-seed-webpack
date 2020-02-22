@@ -26,7 +26,7 @@ const linkCheck = function (config) {
   const REMOTE_SOURCE_REG = /^(http[s]?:|\/\/\w)/
   const ABSOLUTE_SOURCE_REG = /^\/(\w)/
   const RELATIVE_SOURCE_REG = /^\./
-  const NO_PROTOCOL = /^\/\/(\w)/
+  const NO_PROTOCOL = /^[/]{2}(\w)/
 
   const localSource = []
   const remoteSource = []
@@ -110,20 +110,24 @@ const linkCheck = function (config) {
     })
 
     notMatchLocalSource.forEach((iPath) => {
-      var rPath = util.path.join(
+      var rPath = util.path.resolve(
         config.commit.hostname,
         util.path.relative(config.alias.destRoot, iPath)
       )
-      console.log(iPath)
       if (rPath.match(NO_PROTOCOL)) {
         rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
       }
 
-      http.get(rPath, (res) => {
-        expect([iPath, rPath, res.statusCode]).to.deep.equal([iPath, rPath, 200])
+      if (/^\//.test(rPath)) {
         padding--
         paddingCheck()
-      })
+      } else {
+        http.get(rPath, (res) => {
+          expect([iPath, rPath, res.statusCode]).to.deep.equal([iPath, rPath, 200])
+          padding--
+          paddingCheck()
+        })
+      }
     })
     paddingCheck()
   })
