@@ -26,7 +26,7 @@ function handleAll (pjPath) {
       })
     })
 
-    it('all', async () => {
+    it(`${filename} all`, async () => {
       const config = await handler.all({
         config: path.join(TARGET_PATH, 'config.js'),
         silent: true
@@ -35,7 +35,7 @@ function handleAll (pjPath) {
       await linkCheck(config)
     })
 
-    it('all --remote', async () => {
+    it(`${filename} all --remote`, async () => {
       const config = await handler.all({
         config: path.join(TARGET_PATH, 'config.js'),
         silent: true,
@@ -45,7 +45,7 @@ function handleAll (pjPath) {
       await linkCheck(config)
     })
     
-    it('all --isCommit', async () => {
+    it(`${filename} all --isCommit`, async () => {
       const config = await handler.all({
         config: path.join(TARGET_PATH, 'config.js'),
         silent: true,

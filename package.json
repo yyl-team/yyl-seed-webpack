@@ -22,53 +22,19 @@
       "plugin:node/recommended"
     ],
     "rules": {
-      "semi": [
-        "error",
-        "never"
-      ],
-      "node/no-unpublished-require": [
-        0
-      ],
-      "node/exports-style": [
-        "error",
-        "module.exports"
-      ],
-      "node/file-extension-in-import": [
-        "error",
-        "always"
-      ],
-      "node/prefer-global/buffer": [
-        "error",
-        "always"
-      ],
-      "node/prefer-global/console": [
-        "error",
-        "always"
-      ],
-      "node/prefer-global/process": [
-        "error",
-        "always"
-      ],
-      "node/prefer-global/url-search-params": [
-        "error",
-        "always"
-      ],
-      "node/prefer-global/url": [
-        "error",
-        "always"
-      ],
+      "semi": [ "error", "never" ],
+      "node/no-unpublished-require": [ 0 ],
+      "node/exports-style": [ "error", "module.exports" ],
+      "node/file-extension-in-import": [ "error", "always" ],
+      "node/prefer-global/buffer": [ "error", "always" ],
+      "node/prefer-global/console": [ "error", "always" ],
+      "node/prefer-global/process": [ "error", "always" ],
+      "node/prefer-global/url-search-params": [ "error", "always" ],
+      "node/prefer-global/url": [ "error", "always" ],
       "node/prefer-promises/dns": "error",
       "node/prefer-promises/fs": 0,
-      "quote-props": [
-        "error",
-        "consistent"
-      ],
-      "no-empty": [
-        "error",
-        {
-          "allowEmptyCatch": true
-        }
-      ]
+      "quote-props": [ "error", "consistent" ],
+      "no-empty": [ "error", { "allowEmptyCatch": true } ]
     }
   },
   "eslintIgnore": [
@@ -83,7 +49,7 @@
     "test": "mocha ./test/mocha/ --timeout 1200000",
     "test:all.case.demo": "mocha ./test/mocha/all.case.demo.test.js --timeout 120000",
     "test:all.case.env-test": "mocha ./test/mocha/all.case.env-test.test.js --timeout 120000",
-    "test:all.case.local-webpack-config-function": "mocha ./test/mocha/all.case.local-webpack-config-function.test.js --timeout 120000",
+    "test:all.case.local-webpack-config-function": "mocha ./test/mocha/all.case.local-webpack-config-type-function.test.js --timeout 120000",
     "test:all.case.react-github-package": "mocha ./test/mocha/all.case.react-github-package.test.js --timeout 120000",
     "test:all.case.tofu-ui": "mocha ./test/mocha/all.case.tofu-ui.test.js --timeout 120000",
     "test:all.case.vue-js-url": "mocha ./test/mocha/all.case.vue-js-url.test.js --timeout 120000",
