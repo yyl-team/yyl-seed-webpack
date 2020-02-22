@@ -7,7 +7,6 @@
 * feat: 单元测试框架变更 `jest` -> `mocha`
 * del: 去掉 `typescript`, `react-ts-ie8` 配置项
 * del: 去掉 `config.eslint` 配置项
-* del: 去掉 `@babel/polyfill`组件
 * TODO: 待补充 test-case 覆盖 copy， concat， rev 用例
 
 ## 1.0.0(2020-01-15)
