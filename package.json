@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.0-beta3",
+  "version": "2.0.0-beta4",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -22,19 +22,53 @@
       "plugin:node/recommended"
     ],
     "rules": {
-      "semi": [ "error", "never" ],
-      "node/no-unpublished-require": [ 0 ],
-      "node/exports-style": [ "error", "module.exports" ],
-      "node/file-extension-in-import": [ "error", "always" ],
-      "node/prefer-global/buffer": [ "error", "always" ],
-      "node/prefer-global/console": [ "error", "always" ],
-      "node/prefer-global/process": [ "error", "always" ],
-      "node/prefer-global/url-search-params": [ "error", "always" ],
-      "node/prefer-global/url": [ "error", "always" ],
+      "semi": [
+        "error",
+        "never"
+      ],
+      "node/no-unpublished-require": [
+        0
+      ],
+      "node/exports-style": [
+        "error",
+        "module.exports"
+      ],
+      "node/file-extension-in-import": [
+        "error",
+        "always"
+      ],
+      "node/prefer-global/buffer": [
+        "error",
+        "always"
+      ],
+      "node/prefer-global/console": [
+        "error",
+        "always"
+      ],
+      "node/prefer-global/process": [
+        "error",
+        "always"
+      ],
+      "node/prefer-global/url-search-params": [
+        "error",
+        "always"
+      ],
+      "node/prefer-global/url": [
+        "error",
+        "always"
+      ],
       "node/prefer-promises/dns": "error",
       "node/prefer-promises/fs": 0,
-      "quote-props": [ "error", "consistent" ],
-      "no-empty": [ "error", { "allowEmptyCatch": true } ]
+      "quote-props": [
+        "error",
+        "consistent"
+      ],
+      "no-empty": [
+        "error",
+        {
+          "allowEmptyCatch": true
+        }
+      ]
     }
   },
   "eslintIgnore": [
@@ -158,7 +192,7 @@
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1",
     "yyl-concat-webpack-plugin": "0.2.8",
-    "yyl-copy-webpack-plugin": "0.2.8",
+    "yyl-copy-webpack-plugin": "0.2.9",
     "yyl-file-replacer": "0.4.1",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
