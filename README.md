@@ -27,14 +27,6 @@ seed.version
 seed.path
 ```
 
-### seed.example
-```
-/**
- * @return {Array} seed example list
- */
-seed.path
-```
-
 ### seed.optimize()
 ```
 /**
