@@ -154,7 +154,6 @@
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-syntax-import-meta": "7.0.0",
     "@babel/plugin-transform-runtime": "7.0.0",
-    "@babel/polyfill": "7.6.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "acorn": "6.0.5",
@@ -193,13 +192,13 @@
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1",
     "yyl-concat-webpack-plugin": "0.2.8",
-    "yyl-copy-webpack-plugin": "0.2.9",
+    "yyl-copy-webpack-plugin": "0.2.10",
     "yyl-file-replacer": "0.4.1",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
     "yyl-rev-webpack-plugin": "0.1.2",
     "yyl-seed-response": "0.1.1",
-    "yyl-sugar-webpack-plugin": "0.1.4",
+    "yyl-sugar-webpack-plugin": "0.1.5",
     "yyl-util": "2.3.3"
   },
   "devDependencies": {

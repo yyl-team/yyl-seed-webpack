@@ -432,19 +432,36 @@ const init = (config, iEnv) => {
       }
       if (config.resource) {
         Object.keys(config.resource).forEach((from) => {
-          r.files.push({
-            from,
-            to: config.resource[from],
-            matcher: ['*.html', '!**/.*'],
-            filename: '[name].[ext]'
-          })
+          const iExt = path.extname(from)
+          if (iExt) {
+            if (['.html'].indexOf(iExt) !== -1) {
+              r.files.push({
+                from,
+                to: config.resource[from],
+                filename: '[name].[ext]'
+              })
+            } else {
+              r.files.push({
+                from,
+                to: config.resource[from],
+                filename: '[name]-[hash:8].[ext]'
+              })
+            }
+          } else {
+            r.files.push({
+              from,
+              to: config.resource[from],
+              matcher: ['*.html', '!**/.*'],
+              filename: '[name].[ext]'
+            })
 
-          r.files.push({
-            from,
-            to: config.resource[from],
-            matcher: ['!*.html', '!**/.*'],
-            filename: '[name]-[hash:8].[ext]'
-          })
+            r.files.push({
+              from,
+              to: config.resource[from],
+              matcher: ['!*.html', '!**/.*'],
+              filename: '[name]-[hash:8].[ext]'
+            })
+          }
         })
       }
       return r
