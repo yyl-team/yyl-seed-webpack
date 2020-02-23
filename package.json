@@ -208,7 +208,7 @@
     "eslint-plugin-html": "6.0.0",
     "eslint-plugin-node": "11.0.0",
     "mocha": "7.0.1",
-    "yyl-hander": "0.3.1",
+    "yyl-hander": "0.8.1",
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
     "yyl-seed-test-util": "0.4.0"
