@@ -4,6 +4,7 @@
 * feat: 升级 webpack 到 `4.41.6`
 * feat: `node-sass` 废弃， 改用 `sass`
 * feat: `uglify-webpack-plugin` 废弃， 改用 `terser-webpack-plugin`
+* feat: 迁移 `@babel/polyfill` 到具体 pack
 * feat: 单元测试框架变更 `jest` -> `mocha`
 * del: 去掉 `typescript`, `react-ts-ie8` 配置项
 * del: 去掉 `config.eslint` 配置项

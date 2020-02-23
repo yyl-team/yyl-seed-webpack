@@ -45,10 +45,11 @@ const config = {
     ]
   },
   resource: {
-    'src/source/html': path.join(DEST_BASE_PATH, setting.dest.htmlPath),
-    'src/source/js': path.join(DEST_BASE_PATH, setting.dest.jsPath),
-    'src/source/css': path.join(DEST_BASE_PATH, setting.dest.cssPath),
-    'src/source/images': path.join(DEST_BASE_PATH, setting.dest.imagesPath)
+    'src/source/html/demo.html': '{$htmlDest}/demo.html',
+    'src/source/html/anything.html': '{$htmlDest}/anything.html',
+    'src/source/js': '{$jsDest}',
+    'src/source/css': '{$cssDest}',
+    'src/source/images': '{$imagesDest}'
   },
   providePlugin: {
     '$': 'jquery'
