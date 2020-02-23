@@ -2,20 +2,19 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const { HappyPack, happyPackLoader } = require('../base/happypack')
 
 const init = (config) => {
   const wConfig = {
     module: {
       rules: [{
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: happyPackLoader('vue')
       }, {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
-        options: {
-          appendTsSuffixTo: [/\.vue$/]
-        }
+        options: happyPackLoader('ts')
       }]
     },
     resolve: {
@@ -37,7 +36,20 @@ const init = (config) => {
       ]
     },
     plugins: [
-      new VueLoaderPlugin()
+      new VueLoaderPlugin(),
+      new HappyPack({
+        id: 'vue',
+        loaders: [path.resolve('vue-loader')]
+      }),
+      new HappyPack({
+        id: 'ts',
+        loaders: [{
+          loader: path.resolve('ts-loader'),
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          }
+        }]
+      })
     ]
   }
 

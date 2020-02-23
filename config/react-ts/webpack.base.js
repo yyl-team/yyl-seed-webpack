@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const { HappyPack, happyPackLoader } = require('../base/happypack')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const init = (config) => {
@@ -23,7 +24,7 @@ const init = (config) => {
     module: {
       rules: [{
         test: /\.tsx?$/,
-        use: [useProjectTs ? require.resolve(localTsLoaderPath) : 'ts-loader'],
+        use: happyPackLoader('ts'),
         exclude: /node_modules/
       }]
     },
@@ -42,7 +43,12 @@ const init = (config) => {
         path.join( __dirname, 'node_modules')
       ]
     },
-    plugins: []
+    plugins: [
+      new HappyPack({
+        id: 'ts',
+        loaders: [useProjectTs ? require.resolve(localTsLoaderPath) : 'ts-loader']
+      })
+    ]
   }
 
 

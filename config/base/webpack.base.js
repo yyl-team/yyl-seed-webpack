@@ -1,19 +1,12 @@
 'use strict'
 const path = require('path')
 const fs = require('fs')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpackMerge = require('webpack-merge')
 const webpack = require('webpack')
-const querystring = require('querystring')
-const extFs = require('yyl-fs')
-
-const autoprefixer = require('autoprefixer')
-const px2rem = require('postcss-px2rem')
-const sass = require('sass')
 
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const util = require('yyl-util')
 
@@ -24,163 +17,15 @@ const YylRevWebpackPlugin = require('yyl-rev-webpack-plugin')
 
 const { resolveModule } = require('./util')
 
+const webpackBaseEntry = require('./webpack.base.entry')
+const webpackBaseModule = require('./webpack.base.module')
 
 const init = (config, iEnv) => {
   const wConfig = {
-    entry: (function () {
-      const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
-        config.alias.srcRoot :
-        path.join(__dirname, config.alias.srcRoot)
-
-      let r = {}
-
-      // 合并 config 中的 entry 字段
-      if (config.entry) {
-        r = util.extend(true, r, config.entry)
-      }
-
-      // multi entry
-      var entryPath = path.join(iSrcRoot, 'entry')
-
-      if (fs.existsSync(entryPath)) {
-        var fileList = extFs.readFilesSync(entryPath, /\.(js|tsx?)$/)
-        fileList.forEach((str) => {
-          var key = path.basename(str).replace(/\.[^.]+$/, '')
-          if (key) {
-            r[key] = [str]
-          }
-
-          const queryObj = {
-            name: key
-          }
-
-          if (config.localserver && config.localserver.port) {
-            queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`
-          }
-
-          const iQuery = querystring.stringify(queryObj)
-          // hotreload
-          if (iEnv.hot && !config.ie8) {
-            r[key].unshift(`webpack-hot-middleware/client?${iQuery}`)
-          }
-        })
-      }
-
-      return r
-    })(),
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
       filename: '[name]-[hash:8].js',
       chunkFilename: `async_component/[name]-[chunkhash:8].js`
-    },
-    module: {
-      rules: [{
-        test: /\.jsx?$/,
-        exclude: (file) => (
-          /node_modules/.test(file) &&
-          !/\.vue\.js/.test(file)
-        ),
-        use: (() => {
-          const loaders = [{
-            loader: resolveModule('babel-loader'),
-            query: (() => {
-              if (!config.babelrc) {
-                return {
-                  babelrc: false,
-                  cacheDirectory: true,
-                  presets: [
-                    [resolveModule('@babel/preset-env'), { modules: 'commonjs' }]
-                  ],
-                  plugins: [
-                    // Stage 2
-                    [resolveModule('@babel/plugin-proposal-decorators'), { 'legacy': true }],
-                    [resolveModule('@babel/plugin-proposal-class-properties'), { 'loose': true }],
-                    resolveModule('@babel/plugin-proposal-function-sent'),
-                    resolveModule('@babel/plugin-proposal-export-namespace-from'),
-                    resolveModule('@babel/plugin-proposal-numeric-separator'),
-                    resolveModule('@babel/plugin-proposal-throw-expressions'),
-                    resolveModule('@babel/plugin-syntax-dynamic-import')
-                  ]
-                }
-              } else {
-                return {}
-              }
-            })()
-          }]
-
-          return loaders
-        })()
-      }, {
-        test: /\.html$/,
-        use: [{
-          loader: resolveModule('html-loader')
-        }]
-      }, {
-        test: /\.pug$/,
-        oneOf: [{
-          resourceQuery: /^\?vue/,
-          use: [resolveModule('pug-plain-loader')]
-        }, {
-          use: [resolveModule('pug-loader')]
-        }]
-      }, {
-        test: /\.jade$/,
-        oneOf: [{
-          resourceQuery: /^\?vue/,
-          use: [resolveModule('pug-plain-loader')]
-        }, {
-          use: [resolveModule('pug-loader')]
-        }]
-      }, {
-        test: /\.svg$/,
-        use: {
-          loader: resolveModule('svg-inline-loader')
-        }
-      }, {
-        test: /\.webp$/,
-        loaders: [resolveModule('file-loader')]
-      }, {
-        test: /\.ico$/,
-        loaders: [resolveModule('file-loader')]
-      }, {
-        test: /\.ico$/,
-        loaders: [resolveModule('file-loader')]
-      }, {
-        // shiming the module
-        test: path.join(config.alias.srcRoot, 'js/lib/'),
-        use: {
-          loader: resolveModule('imports-loader'),
-          query: 'this=>window'
-        }
-      }, {
-        test: /\.(png|jpg|gif)$/,
-        use: {
-          loader: resolveModule('url-loader'),
-          options: {
-            limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
-            name: '[name]-[hash:8].[ext]',
-            chunkFilename: `async_component/[name]-[chunkhash:8].js`,
-            outputPath: path.relative(
-              config.alias.jsDest,
-              config.alias.imagesDest
-            ),
-            publicPath: (function () {
-              let r = util.path.join(
-                config.dest.basePath,
-                path.relative(
-                  config.alias.root,
-                  config.alias.imagesDest
-                ),
-                '/'
-              )
-              if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
-                r = util.path.join(config.commit.hostname, r)
-              }
-              return r
-            })()
-          }
-        }
-      }]
     },
     resolveLoader: {
       modules: [
@@ -224,153 +69,6 @@ const init = (config, iEnv) => {
   if (config.providePlugin) {
     wConfig.plugins.push(new webpack.ProvidePlugin(config.providePlugin))
   }
-
-  // + css & sass
-  const cssUse = [
-    resolveModule('style-loader'),
-    resolveModule('css-loader'),
-    {
-      loader: resolveModule('postcss-loader'),
-      options: {
-        ident: 'postcss',
-        plugins() {
-          const r = []
-          if (config.platform === 'pc') {
-            r.push(autoprefixer({
-              overrideBrowserslist: ['> 1%', 'last 2 versions']
-            }))
-          } else {
-            r.push(autoprefixer({
-              overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
-            }))
-            if (config.px2rem !== false) {
-              r.push(px2rem({remUnit: 75}))
-            }
-          }
-          return r
-        }
-      }
-    }
-  ]
-  if (iEnv.isCommit) { // 发版
-    // 去掉 style-loader
-    cssUse.shift()
-
-    // 添加 mini-css-extract-plugin loader
-    cssUse.unshift({
-      loader: MiniCssExtractPlugin.loader,
-      options: {}
-    })
-    wConfig.plugins.push(
-      // 样式分离插件
-      new MiniCssExtractPlugin({
-        filename: util.path.join(
-          path.relative(
-            config.alias.jsDest,
-            path.join(config.alias.cssDest, '[name]-[hash:8].css')
-          )
-        ),
-        chunkFilename: '[name]-[hash:8].css',
-        allChunks: true
-      })
-    )
-  }
-  wConfig.module.rules = wConfig.module.rules.concat([{
-    test: /\.css$/,
-    use: cssUse
-  }, {
-    test: /\.(scss|sass)$/,
-    use: cssUse.concat([{
-      loader: resolveModule('sass-loader'),
-      options: {
-        implementation: sass
-      }
-    }])
-  }])
-  // - css & sass
-
-  // + html output
-  wConfig.plugins = wConfig.plugins.concat((function () { // html 输出
-    const bootPath = util.path.join(config.alias.srcRoot, 'boot')
-    const entryPath = util.path.join(config.alias.srcRoot, 'entry')
-    let outputPath = []
-    const r = []
-
-    if (fs.existsSync(bootPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(bootPath, /(\.jade|\.pug|\.html)$/))
-    }
-
-    if (fs.existsSync(entryPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(entryPath, /(\.jade|\.pug|\.html)$/))
-    }
-
-    const outputMap = {}
-    const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/, '')
-    }
-
-    outputPath.forEach((iPath) => {
-      outputMap[ignoreExtName(iPath)] = iPath
-    })
-
-    const commonChunks = []
-    const pageChunkMap = {}
-    Object.keys(wConfig.entry).forEach((key) => {
-      let iPaths = []
-      if (util.type(wConfig.entry[key]) === 'array') {
-        iPaths = wConfig.entry[key]
-      } else if (util.type(wConfig.entry[key]) === 'string') {
-        iPaths.push(wConfig.entry[key])
-      }
-
-      let isPageModule = null
-      iPaths.some((iPath) => {
-        const baseName = ignoreExtName(iPath)
-        if (outputMap[baseName]) {
-          isPageModule = baseName
-          return true
-        }
-        return false
-      })
-
-      if (!isPageModule) {
-        commonChunks.push(key)
-      } else {
-        pageChunkMap[isPageModule] = key
-      }
-    })
-
-    outputPath.forEach((iPath) => {
-      const iBaseName = ignoreExtName(iPath)
-      const iChunkName = pageChunkMap[iBaseName]
-      const fileName = ignoreExtName(path.basename(iPath))
-      let iChunks = []
-
-      iChunks = iChunks.concat(commonChunks)
-      if (iChunkName) {
-        iChunks.push(iChunkName)
-      }
-
-
-      if (iChunkName) {
-        const opts = {
-          template: iPath,
-          filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
-          chunks: iChunks,
-          chunksSortMode(a, b) {
-            return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0])
-          },
-          inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
-          minify: false
-        }
-
-        r.push(new HtmlWebpackPlugin(opts))
-      }
-    })
-
-    return r
-  })())
-  // - html output
 
   // env defined
   // 环境变量 (全局替换 含有这 变量的 js)
@@ -506,14 +204,11 @@ const init = (config, iEnv) => {
   ])
 
 
-  return wConfig
+  return webpackMerge(
+    webpackBaseEntry(config, iEnv),
+    webpackBaseModule(config, iEnv),
+    wConfig
+  )
 }
 
-
-
-
-
 module.exports = init
-
-
-
