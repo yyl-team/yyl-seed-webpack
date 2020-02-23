@@ -4,7 +4,7 @@ const { handleAll } = require('../fn/handle.all')
 
 
 // + vars
-const casePath = path.join(__dirname, '../case/tufo-ui')
+const casePath = path.join(__dirname, '../case/tofu-ui')
 // - vars
 
 handleAll(casePath)

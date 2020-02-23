@@ -104,6 +104,7 @@
     "c-env-test:watch": "node ./test/run.js watch --config ./test/case/env-test/config.js  --proxy --isCommit",
     "c-webpack:all": "node ./test/run.js all --config ./test/case/webpack/config.js",
     "c-webpack:watch": "node ./test/run.js watch --config ./test/case/webpack/config.js",
+    "c-tofu-ui:all": "node ./test/run.js all --config ./test/case/tofu-ui/config.js",
     "c-tofu-ui:watch": "node ./test/run.js watch --config ./test/case/tofu-ui/config.js",
     "c-tofu-ui:watch-isCommit": "node ./test/run.js watch --config ./test/case/tofu-ui/config.js --isCommit",
     "c-vue-js-url:watch": "node ./test/run.js watch --config ./test/case/vue-js-url/config.js",
