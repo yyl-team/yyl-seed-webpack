@@ -1,5 +1,4 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const { HappyPack, happyPackLoader } = require('../base/happypack')
 const path = require('path')
 
 
@@ -9,7 +8,7 @@ const init = (config) => {
       rules: [
         {
           test: /\.vue$/,
-          loader: happyPackLoader('vue')
+          loader: 'vue-loader'
         }
       ]
     },
@@ -30,11 +29,7 @@ const init = (config) => {
       ]
     },
     plugins: [
-      new VueLoaderPlugin(),
-      new HappyPack({
-        id: 'vue',
-        loaders: [path.resolve('vue-loader')]
-      })
+      new VueLoaderPlugin()
     ]
   }
 

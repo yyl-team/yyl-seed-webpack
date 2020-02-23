@@ -46,7 +46,13 @@ const init = (config) => {
     plugins: [
       new HappyPack({
         id: 'ts',
-        loaders: [useProjectTs ? require.resolve(localTsLoaderPath) : 'ts-loader']
+        verbose: false,
+        loaders: [{
+          loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
+          options: {
+            happyPackMode: true
+          }
+        }]
       })
     ]
   }

@@ -18,47 +18,65 @@ const init = (config, iEnv) => {
           /node_modules/.test(file) &&
           !/\.vue\.js/.test(file)
         ),
-        use: happyPackLoader('jsx')
+        use: happyPackLoader('js')
       }, {
         test: /\.html$/,
-        use: happyPackLoader('html')
+        use: resolveModule('html-loader')
       }, {
-        test: /\.pug$/,
+        test: /\.(pug|jade)$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
-          use: happyPackLoader('pug4vue')
+          use: resolveModule('pug-plain-loader')
         }, {
-          use: happyPackLoader('pug')
-        }]
-      }, {
-        test: /\.jade$/,
-        oneOf: [{
-          resourceQuery: /^\?vue/,
-          use: happyPackLoader('pug4vue')
-        }, {
-          use: happyPackLoader('pug')
+          use: resolveModule('pug-loader')
         }]
       }, {
         test: /\.svg$/,
-        use: happyPackLoader('svg')
+        use: resolveModule('svg-inline-loader')
       }, {
-        test: /\.webp$/,
-        use: happyPackLoader('url')
-      }, {
-        test: /\.ico$/,
-        use: happyPackLoader('url')
+        test: /\.(webp|ico)$/,
+        use: resolveModule('url-loader')
       }, {
         // shiming the module
         test: path.join(config.alias.srcRoot, 'js/lib/'),
-        use: happyPackLoader('jslib')
+        use: [{
+          loader: resolveModule('imports-loader'),
+          query: 'this=>window'
+        }]
       }, {
         test: /\.(png|jpg|gif)$/,
-        use: happyPackLoader('images')
+        use: [{
+          loader: resolveModule('url-loader'),
+          options: {
+            limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
+            name: '[name]-[hash:8].[ext]',
+            chunkFilename: `async_component/[name]-[chunkhash:8].js`,
+            outputPath: path.relative(
+              config.alias.jsDest,
+              config.alias.imagesDest
+            ),
+            publicPath: (function () {
+              let r = util.path.join(
+                config.dest.basePath,
+                path.relative(
+                  config.alias.root,
+                  config.alias.imagesDest
+                ),
+                '/'
+              )
+              if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
+                r = util.path.join(config.commit.hostname, r)
+              }
+              return r
+            })()
+          }
+        }]
       }]
     },
     plugins: [
       new HappyPack({
-        id: 'jsx',
+        id: 'js',
+        verbose: false,
         loaders: (() => {
           const loaders = [{
             loader: resolveModule('babel-loader'),
@@ -89,68 +107,6 @@ const init = (config, iEnv) => {
 
           return loaders
         })()
-      }),
-      new HappyPack({
-        id: 'html',
-        loaders: [resolveModule('html-loader')]
-      }),
-
-      new HappyPack({
-        id: 'pug4vue',
-        loaders: [resolveModule('pug-plain-loader')]
-      }),
-
-      new HappyPack({
-        id: 'pug',
-        loaders: [resolveModule('pug-loader')]
-      }),
-
-      new HappyPack({
-        id: 'svg',
-        loaders: [resolveModule('svg-inline-loader')]
-      }),
-
-      new HappyPack({
-        id: 'url',
-        loaders: [resolveModule('file-loader')]
-      }),
-
-      new HappyPack({
-        id: 'jslib',
-        loaders: [{
-          loader: resolveModule('imports-loader'),
-          query: 'this=>window'
-        }]
-      }),
-
-      new HappyPack({
-        id: 'images',
-        loaders: [{
-          loader: resolveModule('url-loader'),
-          options: {
-            limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
-            name: '[name]-[hash:8].[ext]',
-            chunkFilename: `async_component/[name]-[chunkhash:8].js`,
-            outputPath: path.relative(
-              config.alias.jsDest,
-              config.alias.imagesDest
-            ),
-            publicPath: (function () {
-              let r = util.path.join(
-                config.dest.basePath,
-                path.relative(
-                  config.alias.root,
-                  config.alias.imagesDest
-                ),
-                '/'
-              )
-              if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
-                r = util.path.join(config.commit.hostname, r)
-              }
-              return r
-            })()
-          }
-        }]
       })
     ]
   }
@@ -207,27 +163,18 @@ const init = (config, iEnv) => {
   }
   wConfig.module.rules = wConfig.module.rules.concat([{
     test: /\.css$/,
-    use: happyPackLoader('css')
+    use: cssUse
   }, {
     test: /\.(scss|sass)$/,
-    use: happyPackLoader('scss')
-  }])
-
-  wConfig.plugins = wConfig.plugins.concat([
-    new HappyPack({
-      id: 'css',
-      loaders: cssUse
-    }),
-    new HappyPack({
-      id: 'scss',
-      loaders: cssUse.concat([{
+    use: cssUse.concat([
+      {
         loader: resolveModule('sass-loader'),
         options: {
           implementation: sass
         }
-      }])
-    })
-  ])
+      }
+    ])
+  }])
   // - css & sass
 
   return wConfig

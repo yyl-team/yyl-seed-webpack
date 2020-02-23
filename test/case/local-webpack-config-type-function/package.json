@@ -15,6 +15,5 @@
     "@babel/preset-env": "^7.5.5",
     "vconsole-webpack-plugin": "^1.4.2"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

@@ -9,7 +9,7 @@ const init = (config) => {
     module: {
       rules: [{
         test: /\.vue$/,
-        loader: happyPackLoader('vue')
+        loader: 'vue-loader'
       }, {
         test: /\.tsx?$/,
         loader: 'ts-loader',
@@ -38,15 +38,12 @@ const init = (config) => {
     plugins: [
       new VueLoaderPlugin(),
       new HappyPack({
-        id: 'vue',
-        loaders: [path.resolve('vue-loader')]
-      }),
-      new HappyPack({
         id: 'ts',
         loaders: [{
           loader: path.resolve('ts-loader'),
           options: {
-            appendTsSuffixTo: [/\.vue$/]
+            appendTsSuffixTo: [/\.vue$/],
+            happyPackMode: true
           }
         }]
       })
