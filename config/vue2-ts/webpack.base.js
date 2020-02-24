@@ -1,8 +1,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const path = require('path')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const { HappyPack, happyPackLoader } = require('../base/happypack')
+const { happyPackLoader } = require('../base/happypack')
 
 const init = (config) => {
   const wConfig = {
@@ -30,10 +29,8 @@ const init = (config) => {
         'vue$': 'vue/dist/vue.esm.js',
         'vue': 'vue/dist/vue.esm.js'
       }, config.alias),
-      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.vue'],
-      plugins: [new TsconfigPathsPlugin({
-        configFile: path.join(config.alias.dirname, 'tsconfig.json')
-      })]
+      extensions: ['.vue'],
+      plugins: []
     },
     resolveLoader: {
       modules: [
@@ -41,17 +38,7 @@ const init = (config) => {
       ]
     },
     plugins: [
-      new VueLoaderPlugin(),
-      new HappyPack({
-        id: 'ts',
-        loaders: [{
-          loader: require.resolve('ts-loader'),
-          options: {
-            appendTsSuffixTo: [/\.vue$/],
-            happyPackMode: true
-          }
-        }]
-      })
+      new VueLoaderPlugin()
     ]
   }
 

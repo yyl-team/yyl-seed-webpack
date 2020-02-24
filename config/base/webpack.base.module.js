@@ -1,13 +1,21 @@
+const fs = require('fs')
+const path = require('path')
+const util = require('yyl-util')
+
 const { resolveModule } = require('./util')
 const { HappyPack, happyPackLoader } = require('./happypack')
 
+// + ts plugin
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+// - ts plugin
+
+// + sass plugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const autoprefixer = require('autoprefixer')
 const px2rem = require('postcss-px2rem')
 const sass = require('sass')
-
-const path = require('path')
-const util = require('yyl-util')
+// - sass plugin
 
 const init = (config, iEnv) => {
   const wConfig = {
@@ -74,6 +82,7 @@ const init = (config, iEnv) => {
       }]
     },
     plugins: [
+      // + happypack
       new HappyPack({
         id: 'js',
         verbose: false,
@@ -107,46 +116,47 @@ const init = (config, iEnv) => {
 
           return loaders
         })()
+      }),
+      new HappyPack({
+        id: 'css',
+        verbose: false,
+        loader: resolveModule('css-loader'),
+        options: {
+          ident: 'postcss',
+          plugins() {
+            const r = []
+            if (config.platform === 'pc') {
+              r.push(autoprefixer({
+                overrideBrowserslist: ['> 1%', 'last 2 versions']
+              }))
+            } else {
+              r.push(autoprefixer({
+                overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
+              }))
+              if (config.px2rem !== false) {
+                r.push(px2rem({remUnit: 75}))
+              }
+            }
+            return r
+          }
+        }
       })
+      // - happypack
     ]
   }
 
   // + css & sass
   const cssUse = [
     resolveModule('style-loader'),
-    resolveModule('css-loader'),
-    {
-      loader: resolveModule('postcss-loader'),
-      options: {
-        ident: 'postcss',
-        plugins() {
-          const r = []
-          if (config.platform === 'pc') {
-            r.push(autoprefixer({
-              overrideBrowserslist: ['> 1%', 'last 2 versions']
-            }))
-          } else {
-            r.push(autoprefixer({
-              overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
-            }))
-            if (config.px2rem !== false) {
-              r.push(px2rem({remUnit: 75}))
-            }
-          }
-          return r
-        }
-      }
-    }
+    happyPackLoader('css')
   ]
   if (iEnv.isCommit) { // 发版
-    // 去掉 style-loader
-    cssUse.shift()
-
-    // 添加 mini-css-extract-plugin loader
-    cssUse.unshift({
+    // 去掉 style-loader, 添加 mini-css-extract-plugin loader
+    cssUse.splice(0, 1, {
       loader: MiniCssExtractPlugin.loader,
       options: {}
     })
+
     wConfig.plugins.push(
       // 样式分离插件
       new MiniCssExtractPlugin({
@@ -177,6 +187,53 @@ const init = (config, iEnv) => {
   }])
   // - css & sass
 
+  // + ts
+  const localTsConfigPath = path.join(config.alias.dirname, 'tsconfig.js')
+  if (fs.existsSync(localTsConfigPath)) {
+    const localPkgPath = path.join(config.alias.dirname, 'package.json')
+    const localTsLoaderPath = path.join(config.alias.dirname, 'node_modules', 'ts-loader')
+    const localTsLoaderExists = fs.existsSync(localTsLoaderPath)
+    let useProjectTs = false
+    if (fs.existsSync(localPkgPath)) {
+      const localPkg = require(localPkgPath)
+      if (
+        localPkg.dependencies &&
+        localPkg.dependencies['ts-loader'] &&
+        localPkg.dependencies['typescript'] &&
+        localTsLoaderExists
+      ) {
+        useProjectTs = true
+      }
+
+      wConfig.module.rules.push({
+        test: /\.tsx?$/,
+        use: happyPackLoader('ts'),
+        exclude: /node_modules/
+      })
+
+      wConfig.plugins.splice(
+        wConfig.plugins.length,
+        0,
+        new HappyPack({
+          id: 'ts',
+          verbose: false,
+          loaders: [{
+            loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
+            options: {
+              appendTsSuffixTo: [/\.vue$/],
+              happyPackMode: true,
+              transpileOnly: true
+            }
+          }]
+        }),
+        new TsconfigPathsPlugin({
+          configFile: localTsConfigPath
+        }),
+        new ForkTsCheckerWebpackPlugin()
+      )
+    }
+  }
+  // - ts
   return wConfig
 }
 
