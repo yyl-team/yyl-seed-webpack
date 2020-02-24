@@ -225,7 +225,9 @@ const init = (config, iEnv) => {
         })
       )
 
-      wConfig.resolve.extensions.splice(wConfig.resolve.extensions.length, 0, '.tsx', '.ts')
+      wConfig.resolve.extensions = wConfig.resolve.extensions.concat(
+        ['.tsx', '.ts']
+      )
     }
   }
   // - ts
