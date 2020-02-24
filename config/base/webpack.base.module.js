@@ -81,6 +81,10 @@ const init = (config, iEnv) => {
         }]
       }]
     },
+    resolve: {
+      extensions: ['.js', '.json', '.wasm', '.mjs', '.jsx'],
+      plugins: []
+    },
     plugins: [
       // + happypack
       new HappyPack({
@@ -185,7 +189,7 @@ const init = (config, iEnv) => {
   // - css & sass
 
   // + ts
-  const localTsConfigPath = path.join(config.alias.dirname, 'tsconfig.js')
+  const localTsConfigPath = path.join(config.alias.dirname, 'tsconfig.json')
   if (fs.existsSync(localTsConfigPath)) {
     const localPkgPath = path.join(config.alias.dirname, 'package.json')
     const localTsLoaderPath = path.join(config.alias.dirname, 'node_modules', 'ts-loader')
@@ -204,30 +208,24 @@ const init = (config, iEnv) => {
 
       wConfig.module.rules.push({
         test: /\.tsx?$/,
-        use: happyPackLoader('ts'),
+        use: [{
+          loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+            // happyPackMode: true
+            // transpileOnly: true
+          }
+        }],
         exclude: /node_modules/
       })
 
-      wConfig.plugins.splice(
-        wConfig.plugins.length,
-        0,
-        new HappyPack({
-          id: 'ts',
-          verbose: false,
-          loaders: [{
-            loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-              happyPackMode: true,
-              transpileOnly: true
-            }
-          }]
-        }),
+      wConfig.resolve.plugins.push(
         new TsconfigPathsPlugin({
           configFile: localTsConfigPath
-        }),
-        new ForkTsCheckerWebpackPlugin()
+        })
       )
+
+      wConfig.resolve.extensions.splice(wConfig.resolve.extensions.length, 0, '.tsx', '.ts')
     }
   }
   // - ts
