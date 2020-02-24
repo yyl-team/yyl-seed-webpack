@@ -50,7 +50,7 @@ const init = (config, iEnv) => {
           options: {
             limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
             name: '[name]-[hash:8].[ext]',
-            chunkFilename: `async_component/[name]-[chunkhash:8].js`,
+            chunkFilename: 'async_component/[name]-[chunkhash:8].js',
             outputPath: path.relative(
               config.alias.jsDest,
               config.alias.imagesDest

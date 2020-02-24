@@ -68,7 +68,8 @@
         {
           "allowEmptyCatch": true
         }
-      ]
+      ],
+      "indent": ["warn", 2]
     }
   },
   "eslintIgnore": [

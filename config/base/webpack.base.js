@@ -25,7 +25,7 @@ const init = (config, iEnv) => {
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
       filename: '[name]-[hash:8].js',
-      chunkFilename: `async_component/[name]-[chunkhash:8].js`
+      chunkFilename: 'async_component/[name]-[chunkhash:8].js'
     },
     resolveLoader: {
       modules: [
@@ -126,7 +126,7 @@ const init = (config, iEnv) => {
       const r = {
         files: [],
         minify: iEnv.isCommit ? true : false,
-        logBasePath: config.alias.dirname,
+        logBasePath: config.alias.dirname
       }
       if (config.resource) {
         Object.keys(config.resource).forEach((from) => {

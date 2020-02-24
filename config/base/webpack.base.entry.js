@@ -116,7 +116,10 @@ const init = (config, iEnv) => {
       if (iChunkName) {
         const opts = {
           template: iPath,
-          filename: path.relative(config.alias.jsDest, path.join(config.alias.htmlDest, `${fileName}.html`)),
+          filename: path.relative(
+            config.alias.jsDest,
+            path.join(config.alias.htmlDest, `${fileName}.html`)
+          ),
           chunks: iChunks,
           chunksSortMode(a, b) {
             return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0])

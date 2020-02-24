@@ -24,7 +24,7 @@ const init = (config, iEnv) => {
       // 环境变量 (全局替换 含有这 变量的 js)
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(MODE)
-      }),
+      })
     ]
   }
   return webpackMerge(webpackBase(config, iEnv), webpackConfig)
