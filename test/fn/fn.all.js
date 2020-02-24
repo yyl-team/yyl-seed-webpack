@@ -118,7 +118,7 @@ const linkCheck = function (config) {
         rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
       }
 
-      if (/^\//.test(rPath)) {
+      if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP)) {
         padding--
         paddingCheck()
       } else {

@@ -11,14 +11,9 @@ const init = (config) => {
         loader: require.resolve('vue-loader'),
         options: {
           loaders: {
-            js: happyPackLoader('js'),
-            ts: happyPackLoader('ts')
+            js: happyPackLoader('js')
           }
         }
-      }, {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: happyPackLoader('ts')
       }]
     },
     resolve: {

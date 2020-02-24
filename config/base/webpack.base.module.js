@@ -7,7 +7,6 @@ const { HappyPack, happyPackLoader } = require('./happypack')
 
 // + ts plugin
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // - ts plugin
 
 // + sass plugin
@@ -212,8 +211,6 @@ const init = (config, iEnv) => {
           loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
           options: {
             appendTsSuffixTo: [/\.vue$/]
-            // happyPackMode: true
-            // transpileOnly: true
           }
         }],
         exclude: /node_modules/
