@@ -7,6 +7,7 @@ const { HappyPack, happyPackLoader } = require('./happypack')
 
 // + ts plugin
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 // - ts plugin
 
 // + sass plugin
@@ -207,12 +208,15 @@ const init = (config, iEnv) => {
 
       wConfig.module.rules.push({
         test: /\.tsx?$/,
-        use: [{
-          loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
-          options: {
-            appendTsSuffixTo: [/\.vue$/]
+        use: [
+          // happyPackLoader('ts')
+          {
+            loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
+            options: {
+              appendTsSuffixTo: [/\.vue$/]
+            }
           }
-        }],
+        ],
         exclude: /node_modules/
       })
 
@@ -225,6 +229,26 @@ const init = (config, iEnv) => {
       wConfig.resolve.extensions = wConfig.resolve.extensions.concat(
         ['.tsx', '.ts']
       )
+
+      // + happpack
+      // wConfig.plugins = wConfig.plugins.concat([
+      //   new ForkTsCheckerWebpackPlugin({
+      //     checkSyntacticErrors: true,
+      //     configFile: localTsConfigPath
+      //   }),
+      //   new HappyPack({
+      //     id: 'ts',
+      //     loaders: [{
+      //       loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
+      //       options: {
+      //         appendTsSuffixTo: [/\.vue$/],
+      //         happyPackMode: true
+      //         // transpileOnly: true
+      //       }
+      //     }]
+      //   })
+      // ])
+      // - happpack
     }
   }
   // - ts

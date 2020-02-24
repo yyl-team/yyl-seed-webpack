@@ -1,7 +1,7 @@
 # 版本信息
 ## 2.0.0(*)
 * feat: 接入 `yyl-concat-webpack-plugin`, `yyl-copy-webpack-plugin`, `yyl-sugar-webpack-plugin`, `yyl-rev-webpack-plugin`
-* feat: 接入 `happypack`
+* feat: 使用 `happypack` 接入 `babel` 解析,
 * feat: 整个 webpack 支持 ts
 * feat: 升级 webpack 到 `4.41.6`
 * feat: `node-sass` 废弃， 改用 `sass`
