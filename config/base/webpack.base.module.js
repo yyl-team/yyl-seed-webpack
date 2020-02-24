@@ -113,33 +113,8 @@ const init = (config, iEnv) => {
               }
             })()
           }]
-
           return loaders
         })()
-      }),
-      new HappyPack({
-        id: 'css',
-        verbose: false,
-        loader: resolveModule('css-loader'),
-        options: {
-          ident: 'postcss',
-          plugins() {
-            const r = []
-            if (config.platform === 'pc') {
-              r.push(autoprefixer({
-                overrideBrowserslist: ['> 1%', 'last 2 versions']
-              }))
-            } else {
-              r.push(autoprefixer({
-                overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
-              }))
-              if (config.px2rem !== false) {
-                r.push(px2rem({remUnit: 75}))
-              }
-            }
-            return r
-          }
-        }
       })
       // - happypack
     ]
@@ -148,7 +123,29 @@ const init = (config, iEnv) => {
   // + css & sass
   const cssUse = [
     resolveModule('style-loader'),
-    happyPackLoader('css')
+    resolveModule('css-loader'),
+    {
+      loader: resolveModule('postcss-loader'),
+      options: {
+        ident: 'postcss',
+        plugins() {
+          const r = []
+          if (config.platform === 'pc') {
+            r.push(autoprefixer({
+              overrideBrowserslist: ['> 1%', 'last 2 versions']
+            }))
+          } else {
+            r.push(autoprefixer({
+              overrideBrowserslist: ['iOS >= 7', 'Android >= 4']
+            }))
+            if (config.px2rem !== false) {
+              r.push(px2rem({remUnit: 75}))
+            }
+          }
+          return r
+        }
+      }
+    }
   ]
   if (iEnv.isCommit) { // 发版
     // 去掉 style-loader, 添加 mini-css-extract-plugin loader
@@ -171,7 +168,7 @@ const init = (config, iEnv) => {
       })
     )
   }
-  wConfig.module.rules = wConfig.module.rules.concat([{
+  wConfig.module.rules.splice( wConfig.module.rules.length, 0, {
     test: /\.css$/,
     use: cssUse
   }, {
@@ -184,7 +181,7 @@ const init = (config, iEnv) => {
         }
       }
     ])
-  }])
+  })
   // - css & sass
 
   // + ts
