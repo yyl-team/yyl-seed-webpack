@@ -42,7 +42,8 @@ const init = (config, iEnv) => {
         'ansi-html': resolveModule('ansi-html'),
         'html-entities': resolveModule('html-entities'),
         'strip-ansi': resolveModule('strip-ansi'),
-        'ansi-regex': resolveModule('ansi-regex')
+        'ansi-regex': resolveModule('ansi-regex'),
+        'isarray': resolveModule('isarray')
       }, config.alias)
     },
     devtool: 'source-map',

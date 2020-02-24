@@ -1,5 +1,8 @@
 # 版本信息
-## 2.0.0(*)
+## 2.0.0-beta7(2020-02-24)
+* fix: 修复 react 项目中会提示 `isarray` 找不到的问题
+
+## 2.0.0-beta6(2020-02-24)
 * feat: 接入 `yyl-concat-webpack-plugin`, `yyl-copy-webpack-plugin`, `yyl-sugar-webpack-plugin`, `yyl-rev-webpack-plugin`
 * feat: 使用 `happypack` 接入 `babel` 解析,
 * feat: 整个 webpack 支持 ts
