@@ -1,27 +1,18 @@
-const webpackMerge = require('webpack-merge');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-const path = require('path');
-const util = require('yyl-util');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require('path')
+const { happyPackLoader } = require('../base/happypack')
 
 const init = (config) => {
   const wConfig = {
-    output: {
-      path: path.resolve(__dirname, config.alias.jsDest),
-      filename: '[name].js',
-      chunkFilename: `async_component/[name]${config.disableHash? '' : '-[chunkhash:8]'}.js`
-    },
     module: {
       rules: [{
         test: /\.vue$/,
-        loader: 'vue-loader'
-      }, {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
+        loader: require.resolve('vue-loader'),
         options: {
-          appendTsSuffixTo: [/\.vue$/]
+          loaders: {
+            js: happyPackLoader('js')
+          }
         }
       }]
     },
@@ -29,14 +20,12 @@ const init = (config) => {
       modules: [
         path.join( __dirname, 'node_modules')
       ],
-      alias: util.extend({
+      alias: Object.assign({
         'vue$': 'vue/dist/vue.esm.js',
         'vue': 'vue/dist/vue.esm.js'
       }, config.alias),
-      extensions: ['.ts', '.js', '.json', '.wasm', '.mjs', '.vue'],
-      plugins: [new TsconfigPathsPlugin({
-        configFile: path.join(config.alias.dirname, 'tsconfig.json')
-      })]
+      extensions: ['.vue'],
+      plugins: []
     },
     resolveLoader: {
       modules: [
@@ -46,11 +35,9 @@ const init = (config) => {
     plugins: [
       new VueLoaderPlugin()
     ]
-  };
+  }
 
-  return webpackMerge(
-    wConfig
-  );
-};
+  return wConfig
+}
 
-module.exports = init;
+module.exports = init

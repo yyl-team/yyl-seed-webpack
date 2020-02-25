@@ -1,39 +1,39 @@
-const fs = require('fs');
-const path = require('path');
-const util = require('yyl-util');
-const extFs = require('yyl-fs');
-const print = require('yyl-print');
-const extOs = require('yyl-os');
-const tUtil = require('yyl-seed-test-util');
-const Hander = require('yyl-hander');
-const chalk = require('chalk');
+const fs = require('fs')
+const path = require('path')
+const util = require('yyl-util')
+const extFs = require('yyl-fs')
+const print = require('yyl-print')
+const extOs = require('yyl-os')
+const tUtil = require('yyl-seed-test-util')
+const Hander = require('yyl-hander')
+const chalk = require('chalk')
 
-const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME'];
-const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack');
-const WORKFLOW = 'webpack';
+const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME']
+const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack')
+const WORKFLOW = 'webpack'
 
-const seed = require('../index.js');
+const seed = require('../index.js')
 const yh = new Hander({
   log: function (type, status, args) {
     switch (type) {
       case 'msg':
         if (print.log[status]) {
-          print.log[status](args);
+          print.log[status](args)
         } else {
-          print.log.info(args);
+          print.log.info(args)
         }
-        break;
+        break
 
       default:
-        break;
+        break
     }
   },
   vars: {
     PROJECT_PATH: process.cwd()
   }
-});
+})
 
-let config = {};
+let config = {}
 
 print.log.init({
   maxSize: 8,
@@ -45,222 +45,157 @@ print.log.init({
     cmd: {name: 'CMD', color: 'gray', bgColor: 'bgBlack'},
     loading: {name: 'LOAD', color: chalk.bgGreen.white}
   }
-});
+})
 
 const fn = {
   clearDest() {
     return new Promise((next) => {
       extFs.removeFiles(config.alias.destRoot).then(() => {
-        extFs.copyFiles(config.resource).then(() => {
-          next();
-        });
-      });
-    });
+        next()
+      })
+    })
   },
   async initPlugins(config) {
     if (config.plugins && config.plugins.length) {
       if (!fs.existsSync(RESOLVE_PATH)) {
-        extFs.mkdirSync(RESOLVE_PATH);
+        extFs.mkdirSync(RESOLVE_PATH)
       }
-      await tUtil.initPlugins(config.plugins, RESOLVE_PATH);
+      await tUtil.initPlugins(config.plugins, RESOLVE_PATH)
     }
-    return config;
+    return config
   }
-};
+}
 
 const handler = {
-  examples() {
-    console.log(seed.examples);
-  },
-  async init(iEnv) {
-    if (!iEnv.path) {
-      return print.log.warn('task need --path options');
-    }
-    const initPath = path.resolve(process.cwd(), iEnv.path);
-
-    // build path
-    await extFs.mkdirSync(initPath);
-
-
-    // init
-    return await util.makeAwait((next) => {
-      seed.init(iEnv.name, initPath)
-        .on('msg', (...argv) => {
-          const [type, iArgv] = argv;
-          let iType = type;
-          if (!print.log[type]) {
-            iType = 'info';
-          }
-          print.log[iType](iArgv);
-        })
-        .on('finished', () => {
-          extOs.openPath(initPath);
-          next();
-        });
-    });
-  },
-
   async all(iEnv) {
-    let configPath;
+    let configPath
     if (iEnv.silent) {
-      print.log.setLogLevel(0);
+      print.log.setLogLevel(0)
     } else {
-      print.log.setLogLevel(2);
+      print.log.setLogLevel(2)
     }
 
     if (iEnv.config) {
-      configPath = path.resolve(process.cwd(), iEnv.config);
+      configPath = path.resolve(process.cwd(), iEnv.config)
+      
       if (!fs.existsSync(configPath)) {
-        return print.log.warn(`config path not exists: ${configPath}`);
+        return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        iEnv.workflow = WORKFLOW;
-        config = await yh.parseConfig(configPath, iEnv);
+        iEnv.workflow = WORKFLOW
+        const configDir = path.dirname(configPath)
+        if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
+          print.log.info('start install package')
+          await extOs.runCMD('npm i ', configDir)
+        } else {
+          print.log.info('package exists')
+        }
+        config = await yh.parseConfig(configPath, iEnv)
       }
     } else {
-      return print.log.warn('task need --config options');
+      return print.log.warn('task need --config options')
     }
 
-    const CONFIG_DIR = path.dirname(configPath);
+    const CONFIG_DIR = path.dirname(configPath)
     yh.setVars({
       PROJECT_PATH: CONFIG_DIR
-    });
+    })
 
-    yh.optimize.init({config, iEnv});
-    await yh.optimize.initPlugins();
+    yh.optimize.init({config, iEnv})
+    await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize(config, CONFIG_DIR);
+    const opzer = seed.optimize(config, CONFIG_DIR)
 
-    await fn.clearDest(config);
+    await fn.clearDest(config)
 
     return await util.makeAwait((next) => {
       opzer.all(iEnv)
         .on('msg', (...argv) => {
-          const [type, iArgv] = argv;
-          let iType = type;
+          const [type, iArgv] = argv
+          let iType = type
           if (!print.log[type]) {
-            iType = 'info';
+            iType = 'info'
           }
-          print.log[iType](iArgv);
+          print.log[iType](iArgv)
         })
         .on('clear', () => {
-          print.cleanScreen();
+          // print.cleanScreen()
         })
         .on('loading', (pkgName) => {
-          print.log.loading(`loading module ${chalk.green(pkgName)}`);
+          print.log.loading(`loading module ${chalk.green(pkgName)}`)
         })
         .on('finished', async() => {
-          await yh.optimize.afterTask();
-          print.log.success('task finished');
-          next();
-        });
-    });
+          print.log.success('task finished')
+          next(config)
+        })
+    })
   },
   async watch(iEnv) {
-    let configPath;
+    let configPath
     if (iEnv.silent) {
-      print.log.setLogLevel(0);
+      print.log.setLogLevel(0)
     } else {
-      print.log.setLogLevel(2);
+      print.log.setLogLevel(2)
     }
     if (iEnv.config) {
-      configPath = path.resolve(process.cwd(), iEnv.config);
+      configPath = path.resolve(process.cwd(), iEnv.config)
       if (!fs.existsSync(configPath)) {
-        return print.log.warn(`config path not exists: ${configPath}`);
+        return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        iEnv.workflow = WORKFLOW;
-        config = await yh.parseConfig(configPath, iEnv);
+        iEnv.workflow = WORKFLOW
+        const configDir = path.dirname(configPath)
+        if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
+          await extOs.runCMD('npm i ', configDir)
+        }
+        config = await yh.parseConfig(configPath, iEnv)
       }
     } else {
-      return print.log.warn('task need --config options');
+      return print.log.warn('task need --config options')
     }
 
-    const CONFIG_DIR = path.dirname(configPath);
+    const CONFIG_DIR = path.dirname(configPath)
     yh.setVars({
       PROJECT_PATH: CONFIG_DIR
-    });
+    })
 
-    yh.optimize.init({config, iEnv});
-    await yh.optimize.initPlugins();
+    yh.optimize.init({config, iEnv})
+    await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize(config, CONFIG_DIR);
+    const opzer = seed.optimize(config, CONFIG_DIR)
 
 
     // 本地服务器
-    await tUtil.server.start(config.alias.destRoot, config.localserver.port || 5000);
+    await tUtil.server.start(config.alias.destRoot, config.localserver.port || 5000)
 
-    opzer.initServerMiddleWare(tUtil.server.getAppSync(), iEnv);
+    opzer.initServerMiddleWare(tUtil.server.getAppSync(), iEnv)
 
-    await fn.clearDest(config);
+    await fn.clearDest(config)
 
     return util.makeAwait((next) => {
-      let isUpdate = false;
       opzer.watch(iEnv)
         .on('clear', () => {
           if (!iEnv.silent) {
-            print.cleanScreen();
+            print.cleanScreen()
           }
         })
         .on('msg', (...argv) => {
-          const [type, iArgv] = argv;
-          let iType = type;
+          const [type, iArgv] = argv
+          let iType = type
           if (!print.log[type]) {
-            iType = 'info';
+            iType = 'info'
           }
           if (!iEnv.silent) {
-            print.log[iType](iArgv);
+            print.log[iType](iArgv)
           }
         })
         .on('finished', async() => {
-          if (!isUpdate) {
-            await yh.optimize.afterTask();
-            isUpdate = true;
-          } else {
-            await yh.optimize.afterTask(true);
-          }
-          if (!iEnv.silent) {
-            print.log.success('task finished');
-          }
-          next();
-        });
-    });
+          print.log.success('task finished')
+          next()
+        })
+    })
   },
   async abort() {
-    return await tUtil.server.abort();
-  },
-  async make(iEnv) {
-    let configPath;
-    if (iEnv.config) {
-      configPath = path.resolve(process.cwd(), iEnv.config);
-      if (!fs.existsSync(configPath)) {
-        return print.log.warn(`config path not exists: ${configPath}`);
-      } else {
-        iEnv.workflow = WORKFLOW;
-        config = await yh.parseConfig(configPath, iEnv);
-      }
-    } else {
-      return print.log.warn('task need --config options');
-    }
-
-    await fn.clearDest(config);
-    await util.makeAwait((next) => {
-      seed.make(iEnv.name, config)
-        .on('start', () => {
-          print.cleanScreen();
-        })
-        .on('msg', (...argv) => {
-          const [type, iArgv] = argv;
-          let iType = type;
-          if (!print.log[type]) {
-            iType = 'info';
-          }
-          print.log[iType](iArgv);
-        })
-        .on('finished', () => {
-          print.log.success('task finished');
-          next();
-        });
-    });
+    return await tUtil.server.abort()
   }
-};
+}
 
-module.exports = handler;
+module.exports = handler

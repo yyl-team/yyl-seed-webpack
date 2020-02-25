@@ -1,4 +1,19 @@
 # 版本信息
+## 2.0.0-beta7(2020-02-24)
+* fix: 修复 react 项目中会提示 `isarray` 找不到的问题
+
+## 2.0.0-beta6(2020-02-24)
+* feat: 接入 `yyl-concat-webpack-plugin`, `yyl-copy-webpack-plugin`, `yyl-sugar-webpack-plugin`, `yyl-rev-webpack-plugin`
+* feat: 使用 `happypack` 接入 `babel` 解析,
+* feat: 整个 webpack 支持 ts
+* feat: 升级 webpack 到 `4.41.6`
+* feat: `node-sass` 废弃， 改用 `sass`
+* feat: `uglify-webpack-plugin` 废弃， 改用 `terser-webpack-plugin`
+* feat: test-case 覆盖 copy， concat， rev 用例
+* feat: 单元测试框架变更 `jest` -> `mocha`
+* del: 去掉 `typescript`, `react-ts-ie8` 配置项
+* del: 去掉 `config.eslint` 配置项
+
 ## 1.0.0(2020-01-15)
 * feat: 新增 `initPackage`
 * feat: 剥离 init 部分以适配新版 yyl

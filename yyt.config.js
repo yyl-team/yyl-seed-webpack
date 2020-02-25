@@ -14,4 +14,4 @@ module.exports = {
       headless: true
     }
   }
-};
+}

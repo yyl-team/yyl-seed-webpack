@@ -27,6 +27,6 @@ const LANG = {
     CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
     CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成'
   }
-};
+}
 
-module.exports = LANG;
+module.exports = LANG
