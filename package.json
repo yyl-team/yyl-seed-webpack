@@ -119,7 +119,7 @@
     "c-local-wconfig-fn:watch": "node ./test/run.js watch --config ./test/case/local-webpack-config-type-function/config.js",
     "cra": "node ./test/run.js all --config ./test/case/react-ts/config.js",
     "crac": "node ./test/run.js watch --config ./test/case/react-ts/config.js --isCommit",
-    "crw": "node ./test/run.js watch --config ./test/case/react-ts/config.js --isCommit",
+    "crw": "node ./test/run.js watch --config ./test/case/react-ts/config.js --proxy",
     "crwc": "node ./test/run.js watch --config ./test/case/react-ts/config.js --isCommit",
     "cva": "node ./test/run.js all --config ./test/case/vue2/config.js",
     "cvw": "node ./test/run.js watch --config ./test/case/vue2/config.js",
@@ -223,6 +223,7 @@
     "yyl-hander": "0.8.1",
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
-    "yyl-seed-test-util": "0.4.0"
+    "yyl-seed-test-util": "0.4.0",
+    "yyl-server": "^0.3.3"
   }
 }

@@ -6,6 +6,7 @@ const print = require('yyl-print')
 const extOs = require('yyl-os')
 const tUtil = require('yyl-seed-test-util')
 const Hander = require('yyl-hander')
+const { Runner } = require('yyl-server')
 const chalk = require('chalk')
 
 const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME']
@@ -16,16 +17,16 @@ const seed = require('../index.js')
 const yh = new Hander({
   log: function (type, status, args) {
     switch (type) {
-      case 'msg':
-        if (print.log[status]) {
-          print.log[status](args)
-        } else {
-          print.log.info(args)
-        }
-        break
+    case 'msg':
+      if (print.log[status]) {
+        print.log[status](args)
+      } else {
+        print.log.info(args)
+      }
+      break
 
-      default:
-        break
+    default:
+      break
     }
   },
   vars: {
@@ -65,6 +66,8 @@ const fn = {
     return config
   }
 }
+
+const cache = {}
 
 const handler = {
   async all(iEnv) {
@@ -163,14 +166,29 @@ const handler = {
     const opzer = seed.optimize(config, CONFIG_DIR)
 
 
-    // 本地服务器
-    await tUtil.server.start(config.alias.destRoot, config.localserver.port || 5000)
+    cache.runner = new Runner({
+      config,
+      env: iEnv,
+      cwd: iEnv.config ? path.dirname(iEnv.config) : CONFIG_DIR,
+      log(status, args) {
+        if (print.log[status]) {
+          print.log[status](args)
+        } else {
+          print.log.info(args)
+        }
+      }
+    })
 
-    opzer.initServerMiddleWare(tUtil.server.getAppSync(), iEnv)
+    cache.runner.start()
+
+    if (opzer.initServerMiddleWare) {
+      opzer.initServerMiddleWare(cache.runner.app, iEnv)
+    }
 
     await fn.clearDest(config)
 
     return util.makeAwait((next) => {
+      let isUpdate = false
       opzer.watch(iEnv)
         .on('clear', () => {
           if (!iEnv.silent) {
@@ -188,13 +206,32 @@ const handler = {
           }
         })
         .on('finished', async() => {
-          print.log.success('task finished')
-          next()
+          const homePage = await yh.optimize.getHomePage()
+          print.log.success(`open homepage: ${homePage}`)
+          // 第一次构建 打开 对应页面
+          if (!isUpdate && !iEnv.silent && iEnv.proxy) {
+            extOs.openBrowser(homePage)
+          }
+
+          if (isUpdate) {
+            // 刷新页面
+            if (!opzer.ignoreLiveReload || iEnv.livereload) {
+              print.log.success('刷个新')
+              await yh.optimize.livereload()
+            }
+            print.log.success('finished')
+          } else {
+            isUpdate = 1
+            print.log.success('finished')
+            next(config, opzer)
+          }
         })
     })
   },
   async abort() {
-    return await tUtil.server.abort()
+    if (cache.runner) {
+      await cache.runner.abort()
+    }
   }
 }
 

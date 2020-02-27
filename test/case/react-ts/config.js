@@ -10,6 +10,10 @@ const setting = {
     root: './dist',
     port: 5000
   },
+  proxy: {
+    port: 8887,
+    localRemote: {}
+  },
   dest: {
     basePath: '/pc',
     jsPath: 'js',
@@ -34,6 +38,7 @@ const config = {
   ie8: false,
   base64Limit: 3000,
   localserver: setting.localserver,
+  proxy: setting.proxy,
   dest: setting.dest,
   concat: {
     '{$jsDest}/shim.js': [
@@ -80,7 +85,7 @@ const config = {
   },
   // + configCommit
   commit: {
-    hostname: '/',
+    hostname: '//testu.yy.com',
     revAddr: `/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
   // - configCommit
