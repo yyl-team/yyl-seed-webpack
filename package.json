@@ -201,6 +201,7 @@
     "webpack": "4.41.6",
     "webpack-combine-loaders": "2.0.4",
     "webpack-dev-middleware": "3.4.0",
+    "webpack-dev-server": "3.10.3",
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1",
     "yyl-concat-webpack-plugin": "0.2.8",
