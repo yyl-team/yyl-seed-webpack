@@ -106,16 +106,26 @@ const handler = {
     yh.optimize.init({config, iEnv})
     await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
+    let opzer
+    try {
+      opzer = seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
+    } catch (er) {
+      print.log.error(er.message)
+      return
+    }
 
     await fn.clearDest(config)
 
     return await util.makeAwait((next) => {
+      let hasError = false
       opzer.all(iEnv)
         .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
             iType = 'info'
+          }
+          if (type === 'error')  {
+            hasError = argv
           }
           print.log[iType](...argv)
         })
@@ -126,7 +136,11 @@ const handler = {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
         })
         .on('finished', async() => {
-          print.log.success('task finished')
+          if (hasError) {
+            print.log.error('task run error', hasError)
+          } else {
+            print.log.success('task finished')
+          }
           next(config)
         })
     })

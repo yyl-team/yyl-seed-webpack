@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -132,7 +132,9 @@
     "cawc": "node ./test/run.js watch --config ./test/case/after-task/config.js --isCommit",
     "cda": "node ./test/run.js all --config ./test/case/dev-server-config/config.js",
     "cdw": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --proxy",
-    "cdwc": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --isCommit"
+    "cdwc": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --isCommit",
+    "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
+    "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js"
   },
   "repository": {
     "type": "git",
@@ -228,6 +230,6 @@
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
     "yyl-seed-test-util": "0.4.0",
-    "yyl-server": "^0.3.3"
+    "yyl-server": "^0.3.4"
   }
 }
