@@ -129,7 +129,10 @@
     "cvtwc": "node ./test/run.js watch --config ./test/case/vue2-ts/config.js --isCommit",
     "caa": "node ./test/run.js all --config ./test/case/after-task/config.js",
     "caw": "node ./test/run.js watch --config ./test/case/after-task/config.js",
-    "cawc": "node ./test/run.js watch --config ./test/case/after-task/config.js --isCommit"
+    "cawc": "node ./test/run.js watch --config ./test/case/after-task/config.js --isCommit",
+    "cda": "node ./test/run.js all --config ./test/case/dev-server-config/config.js",
+    "cdw": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --proxy",
+    "cdwc": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --isCommit"
   },
   "repository": {
     "type": "git",
