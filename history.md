@@ -1,4 +1,8 @@
 # 版本信息
+## 2.0.2(2020-02-26)
+* feat: 现在允许定义 wConfig.devServer 属性了， 构建工具发现用户设置 后会切换到 devServer 启动服务
+* feat: 整理 error 
+
 ## 2.0.1(2020-02-26)
 * fix: 修复 yyl-sugar-webpack-plugin 替换结果不符合预期的bug
 

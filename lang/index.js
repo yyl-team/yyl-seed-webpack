@@ -25,7 +25,11 @@ const LANG = {
     CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
     CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
     CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
-    CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成'
+    CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成',
+    USE_MIDDLEWARE: '使用 server 中间件',
+    USE_DEV_SERVER: '使用 webpack-dev-server',
+    DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
+    DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败'
   }
 }
 

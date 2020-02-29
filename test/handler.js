@@ -106,19 +106,28 @@ const handler = {
     yh.optimize.init({config, iEnv})
     await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize(config, CONFIG_DIR)
+    let opzer
+    try {
+      opzer = seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
+    } catch (er) {
+      print.log.error(er.message)
+      return
+    }
 
     await fn.clearDest(config)
 
     return await util.makeAwait((next) => {
+      let hasError = false
       opzer.all(iEnv)
-        .on('msg', (...argv) => {
-          const [type, iArgv] = argv
+        .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
             iType = 'info'
           }
-          print.log[iType](iArgv)
+          if (type === 'error')  {
+            hasError = argv
+          }
+          print.log[iType](...argv)
         })
         .on('clear', () => {
           // print.cleanScreen()
@@ -127,7 +136,11 @@ const handler = {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
         })
         .on('finished', async() => {
-          print.log.success('task finished')
+          if (hasError) {
+            print.log.error('task run error', hasError)
+          } else {
+            print.log.success('task finished')
+          }
           next(config)
         })
     })
@@ -163,27 +176,30 @@ const handler = {
     yh.optimize.init({config, iEnv})
     await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize(config, CONFIG_DIR)
-
+    const opzer = seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
 
     cache.runner = new Runner({
       config,
       env: iEnv,
       cwd: iEnv.config ? path.dirname(iEnv.config) : CONFIG_DIR,
+      ignoreServer: opzer.ignoreServer,
       log(status, args) {
         if (print.log[status]) {
-          print.log[status](args)
+          print.log[status](...args)
         } else {
-          print.log.info(args)
+          print.log.info(...args)
         }
       }
     })
 
-    cache.runner.start()
+    await cache.runner.start()
 
-    if (opzer.initServerMiddleWare) {
-      opzer.initServerMiddleWare(cache.runner.app, iEnv)
+    if (!opzer.ignoreServer) {
+      if (opzer.initServerMiddleWare) {
+        opzer.initServerMiddleWare(cache.runner.app, iEnv)
+      }
     }
+    
 
     await fn.clearDest(config)
 
@@ -192,17 +208,16 @@ const handler = {
       opzer.watch(iEnv)
         .on('clear', () => {
           if (!iEnv.silent) {
-            print.cleanScreen()
+            // print.cleanScreen()
           }
         })
-        .on('msg', (...argv) => {
-          const [type, iArgv] = argv
+        .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
             iType = 'info'
           }
           if (!iEnv.silent) {
-            print.log[iType](iArgv)
+            print.log[iType](...argv)
           }
         })
         .on('finished', async() => {
