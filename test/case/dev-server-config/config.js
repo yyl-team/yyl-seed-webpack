@@ -13,7 +13,7 @@ const setting = {
   proxy: {
     port: 8887,
     localRemote: {
-      'http://testme.yy.com/': 'http://127.0.0.1:5000/',
+      'http://testme.yy.com/': 'http://127.0.0.1:5000/pc/html/',
     },
     homePage: 'http://testme.yy.com/'
   },
