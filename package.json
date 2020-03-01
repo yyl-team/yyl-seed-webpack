@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -131,7 +131,7 @@
     "caw": "node ./test/run.js watch --config ./test/case/after-task/config.js",
     "cawc": "node ./test/run.js watch --config ./test/case/after-task/config.js --isCommit",
     "cda": "node ./test/run.js all --config ./test/case/dev-server-config/config.js",
-    "cdw": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --proxy",
+    "cdw": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --proxy --logLevel 2",
     "cdwc": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --isCommit",
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js"

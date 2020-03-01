@@ -37,7 +37,7 @@ const init = (config, iEnv) => {
           if (config.localserver && config.localserver.port) {
             queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`
           }
-
+          
           const iQuery = querystring.stringify(queryObj)
           // hotreload
           if (iEnv.hot && !config.ie8) {

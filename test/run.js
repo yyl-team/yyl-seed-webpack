@@ -3,11 +3,11 @@ const util = require('yyl-util')
 const handler = require('./handler');
 
 (() => {
-  const ctrl = process.argv[2]
-  const iEnv = util.envParse(process.argv.slice(3))
+  const { env, cmds } = util.cmdParse(process.argv)
 
+  const ctrl = cmds[1]
   if (ctrl in handler) {
-    handler[ctrl](iEnv)
+    handler[ctrl](env)
   } else {
     print.log.warn(`usage: ${Object.keys(handler).join(',')}`)
   }
