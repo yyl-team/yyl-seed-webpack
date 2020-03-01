@@ -13,19 +13,19 @@ const setting = {
   proxy: {
     port: 8887,
     localRemote: {
-      'http://testme.yy.com/': 'http://127.0.0.1:5000/pc/html/',
+      'http://www.jackness.org/': 'http://127.0.0.1:5000/',
     },
-    homePage: 'http://testme.yy.com/'
+    homePage: 'http://www.jackness.org/'
   },
   dest: {
-    basePath: '/pc',
-    jsPath: 'js',
-    jslibPath: 'js/lib',
-    cssPath: 'css',
-    htmlPath: 'html',
-    imagesPath: 'images',
-    tplPath: 'tpl',
-    revPath: 'assets'
+    basePath: '/',
+    jsPath: 'assets/js',
+    jslibPath: 'assets/js/lib',
+    cssPath: 'assets/css',
+    htmlPath: '',
+    imagesPath: 'assets/images',
+    tplPath: 'assets/tpl',
+    revPath: 'assets/rev'
   }
 }
 // - setting
@@ -88,7 +88,7 @@ const config = {
   },
   // + configCommit
   commit: {
-    hostname: '//teststatic.yy.com',
+    hostname: '//www.jackness.org',
     revAddr: `/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
   // - configCommit
