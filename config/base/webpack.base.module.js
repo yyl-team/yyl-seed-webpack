@@ -39,10 +39,7 @@ const init = (config, iEnv) => {
           use: resolveModule('pug-loader')
         }]
       }, {
-        test: /\.svg$/,
-        use: resolveModule('svg-inline-loader')
-      }, {
-        test: /\.(webp|ico)$/,
+        test: /\.(webp|ico|svg)$/,
         use: resolveModule('url-loader')
       }, {
         // shiming the module
