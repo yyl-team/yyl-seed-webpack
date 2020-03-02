@@ -9,34 +9,46 @@ const {
   linkCheck
 } = require('./fn.all')
 
-function runAll ({ targetPath }) {
-  const TARGET_PATH = targetPath
+function runAll ({ targetPath, silent }) {
   const filename =  path.basename(targetPath)
+  let pjConfigPath = ''
+  const configPath = path.join(targetPath, 'yyl.config.js')
+  const legacyConfigPath = path.join(targetPath, 'config.js')
+  if (fs.existsSync(configPath)) {
+    pjConfigPath = configPath
+  } else if (fs.existsSync(legacyConfigPath)) {
+    pjConfigPath = legacyConfigPath
+  } else {
+    throw new Error(`配置不存在: ${configPath}|${legacyConfigPath}`)
+  }
+
+  let extEnv = {
+    config: pjConfigPath,
+    silent
+  }
+
+  const localConfig = require(pjConfigPath)
+  if (localConfig.pc) {
+    extEnv.name = 'pc'
+  }
 
   it(`${filename} all`, async () => {
-    const config = await handler.all({
-      config: path.join(TARGET_PATH, 'config.js'),
-      silent: true
-    })
+    const config = await handler.all(Object.assign({}, extEnv))
 
     await linkCheck(config)
   })
 
   it(`${filename} all --remote`, async () => {
-    const config = await handler.all({
-      config: path.join(TARGET_PATH, 'config.js'),
-      silent: true,
+    const config = await handler.all(Object.assign({
       remote: true
-    })
+    }, extEnv))
 
     await linkCheck(config)
   })
   it(`${filename} all --isCommit`, async () => {
-    const config = await handler.all({
-      config: path.join(TARGET_PATH, 'config.js'),
-      silent: true,
+    const config = await handler.all(Object.assign({
       isCommit: true
-    })
+    }, extEnv))
 
     await linkCheck(config)
   })
@@ -61,7 +73,7 @@ module.exports.handleAll = function (pjPath) {
       })
     })
 
-    runAll({ targetPath: TARGET_PATH })
+    runAll({ targetPath: TARGET_PATH, silent: true })
 
     afterEach(async () => {
       await tUtil.frag.destroy()

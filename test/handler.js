@@ -83,7 +83,6 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        iEnv.workflow = WORKFLOW
         const configDir = path.dirname(configPath)
         if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
           print.log.info('start install package')
@@ -92,6 +91,10 @@ const handler = {
           print.log.info('package exists')
         }
         config = await yh.parseConfig(configPath, iEnv)
+        iEnv.workflow = WORKFLOW
+        if (!config.workflow) {
+          config.workflow = WORKFLOW
+        }
       }
     } else {
       return print.log.warn('task need --config options')
@@ -156,12 +159,15 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        iEnv.workflow = WORKFLOW
         const configDir = path.dirname(configPath)
         if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
           await extOs.runCMD('npm i ', configDir)
         }
         config = await yh.parseConfig(configPath, iEnv)
+        iEnv.workflow = WORKFLOW
+        if (!config.workflow) {
+          config.workflow = WORKFLOW
+        }
       }
     } else {
       return print.log.warn('task need --config options')

@@ -95,7 +95,7 @@
     "test:all.case.vue2": "mocha ./test/mocha/all.case.vue2.test.js --timeout 120000",
     "test:all.case.vue2-ts": "mocha ./test/mocha/all.case.vue2-ts.test.js --timeout 120000",
     "test:all.case.react-ts": "mocha ./test/mocha/all.case.react-ts.test.js --timeout 120000",
-    "test:all.git.usercenter": "mocha ./test/mocha/allgit.usercenter.test.js --timeout 120000",
+    "test:all.git.usercenter": "mocha ./test/mocha/all.git.usercenter.test.js --timeout 120000",
     "tav": "mocha ./test/mocha/all.case.vue2.test.js --timeout 120000",
     "tavt": "mocha ./test/mocha/all.case.vue2-ts.test.js --timeout 120000",
     "tar": "mocha ./test/mocha/all.case.react-ts.test.js --timeout 120000",
@@ -138,7 +138,8 @@
     "chw": "node ./test/run.js watch --config ./test/case/hmr/config.js --proxy --logLevel 2",
     "chwc": "node ./test/run.js watch --config ./test/case/hmr/config.js --isCommit",
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
-    "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js"
+    "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js",
+    "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc"
   },
   "repository": {
     "type": "git",
