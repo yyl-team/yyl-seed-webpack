@@ -30,19 +30,18 @@ const init = (config, iEnv) => {
             r[key] = [str]
           }
 
-          const queryObj = {
-            name: key
-          }
-
-          if (config.localserver && config.localserver.port) {
-            queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`
-          }
-          
-          const iQuery = querystring.stringify(queryObj)
-          // hotreload
-          if (iEnv.hot && !config.ie8) {
+          // + hot-middleware
+          if (iEnv.useHotPlugin && !config.ie8) {
+            const queryObj = {
+              name: key
+            }
+            if (config.localserver && config.localserver.port) {
+              queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`
+            }
+            const iQuery = querystring.stringify(queryObj)
             r[key].unshift(`webpack-hot-middleware/client?${iQuery}`)
           }
+          // - hot-middleware
         })
       }
 

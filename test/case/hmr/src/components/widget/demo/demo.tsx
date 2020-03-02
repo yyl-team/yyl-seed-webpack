@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { DemoProps } from './types'
+import { CircleBox } from './styled'
 
 import './demo.scss'
 
@@ -27,7 +28,7 @@ export class Demo extends React.Component<DemoProps, IState> {
   }
   public render () {
     return (
-      <div className='demo-circlebox'>
+      <CircleBox>
         <img
           className={`demo-circlebox__img demo-circlebox__img--type${this.state.type}`}
           alt=''
@@ -35,7 +36,7 @@ export class Demo extends React.Component<DemoProps, IState> {
         />
         {/* step02 - 修改对应这个 */}
         <div className='page-index__tl'>{this.props.title}{this.state.type}</div>
-      </div>
+      </CircleBox>
     )
   }
 }
