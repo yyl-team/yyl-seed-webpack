@@ -9,7 +9,7 @@ const Hander = require('yyl-hander')
 const { Runner } = require('yyl-server')
 const chalk = require('chalk')
 
-const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME']
+const USERPROFILE = process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
 const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack')
 const WORKFLOW = 'webpack'
 
@@ -80,7 +80,6 @@ const handler = {
 
     if (iEnv.config) {
       configPath = path.resolve(process.cwd(), iEnv.config)
-      
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
@@ -199,7 +198,6 @@ const handler = {
         opzer.initServerMiddleWare(cache.runner.app, iEnv)
       }
     }
-    
 
     await fn.clearDest(config)
 

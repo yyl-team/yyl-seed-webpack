@@ -133,6 +133,9 @@
     "cda": "node ./test/run.js all --config ./test/case/dev-server-config/config.js",
     "cdw": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --proxy --logLevel 2",
     "cdwc": "node ./test/run.js watch --config ./test/case/dev-server-config/config.js --isCommit",
+    "cha": "node ./test/run.js all --config ./test/case/hmr/config.js",
+    "chw": "node ./test/run.js watch --config ./test/case/hmr/config.js --proxy --logLevel 2",
+    "chwc": "node ./test/run.js watch --config ./test/case/hmr/config.js --isCommit",
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js"
   },
