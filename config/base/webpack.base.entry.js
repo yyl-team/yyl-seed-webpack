@@ -124,7 +124,11 @@ const init = (config, iEnv) => {
             return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0])
           },
           inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
-          minify: false
+          minify: false,
+          inject: 'body',
+          process: {
+            env: iEnv
+          }
         }
 
         r.push(new HtmlWebpackPlugin(opts))

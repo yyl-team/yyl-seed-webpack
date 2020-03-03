@@ -27,6 +27,7 @@ const COMMON_PATH = '../commons';
 
 // + base
 Object.assign(config, {
+  workflow: 'webpack',
   localserver: setting.localserver,
   dest: setting.dest,
   platform: 'pc',

@@ -96,6 +96,8 @@
     "test:all.case.vue2-ts": "mocha ./test/mocha/all.case.vue2-ts.test.js --timeout 120000",
     "test:all.case.react-ts": "mocha ./test/mocha/all.case.react-ts.test.js --timeout 120000",
     "test:all.git.usercenter": "mocha ./test/mocha/all.git.usercenter.test.js --timeout 120000",
+    "test:all.git.yycom_h5_live": "mocha ./test/mocha/all.git.yycom_h5_live.test.js --timeout 120000",
+    "test:all.git.yycom_header": "mocha ./test/mocha/all.git.yycom_header.test.js --timeout 120000",
     "tav": "mocha ./test/mocha/all.case.vue2.test.js --timeout 120000",
     "tavt": "mocha ./test/mocha/all.case.vue2-ts.test.js --timeout 120000",
     "tar": "mocha ./test/mocha/all.case.react-ts.test.js --timeout 120000",
@@ -141,10 +143,10 @@
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js",
     "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
     "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --logLevel 2",
-    "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/config.js --name pc --logLevel 2",
-    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/config.js --name pc --proxy --logLevel 2",
-    "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/config.js --name pc --logLevel 2",
-    "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/config.js --name pc --proxy --logLevel 2"
+    "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --logLevel 2",
+    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2",
+    "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
+    "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2"
   },
   "repository": {
     "type": "git",
@@ -223,7 +225,7 @@
     "yyl-copy-webpack-plugin": "0.2.10",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
-    "yyl-rev-webpack-plugin": "0.1.2",
+    "yyl-rev-webpack-plugin": "0.1.3",
     "yyl-seed-response": "0.1.1",
     "yyl-sugar-webpack-plugin": "0.1.6",
     "yyl-util": "2.3.3"

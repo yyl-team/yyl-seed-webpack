@@ -90,7 +90,7 @@ const handler = {
         } else {
           print.log.info('package exists')
         }
-        iEnv.workflow = WORKFLOW
+        // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
           config.workflow = WORKFLOW
@@ -163,7 +163,7 @@ const handler = {
         if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
           await extOs.runCMD('npm i ', configDir)
         }
-        iEnv.workflow = WORKFLOW
+        // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
           config.workflow = WORKFLOW

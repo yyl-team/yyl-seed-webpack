@@ -6,4 +6,6 @@ html(lang="en")
     title seed typescript
   body
     div#app
+    - const mode = self.htmlWebpackPlugin.options.process.env.config
+    #{mode}
     script(src="{$jsDest}/shim.js")
