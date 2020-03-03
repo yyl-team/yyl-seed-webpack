@@ -1,4 +1,7 @@
 # 版本信息
+## 2.0.5 (2020-03-03)
+* fix: 补回 svg-inline-loader
+
 ## 2.0.4 (2020-03-03)
 * feat: 新增 git 项目的测试用例
 * feat: entry/*.html, *.pug 支持 process.env 变量
