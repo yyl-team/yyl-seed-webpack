@@ -90,8 +90,8 @@ const handler = {
         } else {
           print.log.info('package exists')
         }
-        config = await yh.parseConfig(configPath, iEnv)
         iEnv.workflow = WORKFLOW
+        config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
           config.workflow = WORKFLOW
         }
@@ -110,7 +110,7 @@ const handler = {
 
     let opzer
     try {
-      opzer = seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
+      opzer = await seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
     } catch (er) {
       print.log.error(er.message)
       return
@@ -163,8 +163,8 @@ const handler = {
         if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
           await extOs.runCMD('npm i ', configDir)
         }
-        config = await yh.parseConfig(configPath, iEnv)
         iEnv.workflow = WORKFLOW
+        config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
           config.workflow = WORKFLOW
         }
@@ -181,7 +181,7 @@ const handler = {
     yh.optimize.init({config, iEnv})
     await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
+    const opzer = await seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
 
     cache.runner = new Runner({
       config,

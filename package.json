@@ -139,7 +139,12 @@
     "chwc": "node ./test/run.js watch --config ./test/case/hmr/config.js --isCommit",
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js",
-    "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc"
+    "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
+    "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --logLevel 2",
+    "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/config.js --name pc --logLevel 2",
+    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/config.js --name pc --proxy --logLevel 2",
+    "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/config.js --name pc --logLevel 2",
+    "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/config.js --name pc --proxy --logLevel 2"
   },
   "repository": {
     "type": "git",
@@ -178,6 +183,7 @@
     "babel-eslint": "9.0.0",
     "babel-loader": "8.0.5",
     "babel-polyfill": "6.26.0",
+    "browserlist": "^1.0.1",
     "css-loader": "2.0.1",
     "es3ify-webpack-plugin": "0.1.0",
     "file-loader": "2.0.0",

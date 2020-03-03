@@ -11,34 +11,39 @@ const {
 
 function runAll ({ targetPath, silent }) {
   const filename =  path.basename(targetPath)
-  let pjConfigPath = ''
-  const configPath = path.join(targetPath, 'yyl.config.js')
-  const legacyConfigPath = path.join(targetPath, 'config.js')
-  if (fs.existsSync(configPath)) {
-    pjConfigPath = configPath
-  } else if (fs.existsSync(legacyConfigPath)) {
-    pjConfigPath = legacyConfigPath
-  } else {
-    throw new Error(`配置不存在: ${configPath}|${legacyConfigPath}`)
-  }
+  const initEnv = function () {
+    let pjConfigPath = ''
+    const configPath = path.join(targetPath, 'yyl.config.js')
+    const legacyConfigPath = path.join(targetPath, 'config.js')
+    if (fs.existsSync(configPath)) {
+      pjConfigPath = configPath
+    } else if (fs.existsSync(legacyConfigPath)) {
+      pjConfigPath = legacyConfigPath
+    } else {
+      throw new Error(`配置不存在: ${configPath}|${legacyConfigPath}`)
+    }
 
-  let extEnv = {
-    config: pjConfigPath,
-    silent
-  }
+    let extEnv = {
+      config: pjConfigPath,
+      silent
+    }
 
-  const localConfig = require(pjConfigPath)
-  if (localConfig.pc) {
-    extEnv.name = 'pc'
+    const localConfig = require(pjConfigPath)
+    if (localConfig.pc) {
+      extEnv.name = 'pc'
+    }
+    return extEnv
   }
 
   it(`${filename} all`, async () => {
+    const extEnv = initEnv()
     const config = await handler.all(Object.assign({}, extEnv))
 
     await linkCheck(config)
   })
 
   it(`${filename} all --remote`, async () => {
+    const extEnv = initEnv()
     const config = await handler.all(Object.assign({
       remote: true
     }, extEnv))
@@ -46,6 +51,7 @@ function runAll ({ targetPath, silent }) {
     await linkCheck(config)
   })
   it(`${filename} all --isCommit`, async () => {
+    const extEnv = initEnv()
     const config = await handler.all(Object.assign({
       isCommit: true
     }, extEnv))
@@ -54,29 +60,26 @@ function runAll ({ targetPath, silent }) {
   })
 }
 
-module.exports.handleAll = function (pjPath) {
+module.exports.handleAll = function (PJ_PATH) {
   // + vars
-  const filename =  path.basename(pjPath)
+  const filename =  path.basename(PJ_PATH)
   const FRAG_PATH = path.join(__dirname, `../__frag/all-${filename}`)
-  const TEST_CASE_PATH = path.join(__dirname, '../case')
-  const PJ_PATH = path.join(TEST_CASE_PATH, filename)
-  const TARGET_PATH = path.join(FRAG_PATH, filename)
   // - vars
 
   describe(`seed.all test - ${filename}`, () => {
     beforeEach(async () => {
       await tUtil.frag.init(FRAG_PATH)
       await tUtil.frag.build()
-      await extFs.copyFiles(PJ_PATH, TARGET_PATH, (iPath) => {
+      await extFs.copyFiles(PJ_PATH, FRAG_PATH, (iPath) => {
         const rPath = path.relative(PJ_PATH, iPath)
         return !/node_modules/.test(rPath)
       })
     })
 
-    runAll({ targetPath: TARGET_PATH, silent: true })
+    runAll({ targetPath: FRAG_PATH, silent: true })
 
     afterEach(async () => {
-      await tUtil.frag.destroy()
+      // await tUtil.frag.destroy()
     })
   })
 }
