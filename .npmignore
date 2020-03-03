@@ -3,6 +3,7 @@ __frag/
 *.log
 **/node_modules/
 **/__frag/
+**/__gitcase/
 .vscode 
 test/
 ui-test/

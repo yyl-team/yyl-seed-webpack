@@ -27,22 +27,27 @@ const init = (config, iEnv) => {
           !/\.vue\.js/.test(file)
         ),
         use: happyPackLoader('js')
-      }, {
-        test: /\.html$/,
-        use: resolveModule('html-loader')
+      // }, {
+      //   test: /\.html$/,
+      //   use: [
+      //     resolveModule('html-loader')
+      //   ]
       }, {
         test: /\.(pug|jade)$/,
         oneOf: [{
           resourceQuery: /^\?vue/,
-          use: resolveModule('pug-plain-loader')
+          loader: resolveModule('pug-plain-loader'),
+          options: {
+            self: true
+          }
         }, {
-          use: resolveModule('pug-loader')
+          loader: resolveModule('pug-loader'),
+          options: {
+            self: true
+          }
         }]
       }, {
-        test: /\.svg$/,
-        use: resolveModule('svg-inline-loader')
-      }, {
-        test: /\.(webp|ico)$/,
+        test: /\.(webp|ico|svg)$/,
         use: resolveModule('url-loader')
       }, {
         // shiming the module

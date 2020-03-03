@@ -63,7 +63,7 @@ const init = (config, iEnv) => {
   }
 
   // hot reload
-  if (!config.ie8 && iEnv.hot) {
+  if (!config.ie8 && iEnv.useHotPlugin) {
     wConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
   }
 
@@ -195,7 +195,8 @@ const init = (config, iEnv) => {
             'name',
             'config',
             'workflow',
-            'hot'
+            'useHotPlugin',
+            'hmr'
           ].indexOf(key) === -1
         }).forEach((key) => {
           r[key] = iEnv[key]

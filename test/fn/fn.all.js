@@ -4,9 +4,8 @@ const extFs = require('yyl-fs')
 const fs = require('fs')
 const frp = require('yyl-file-replacer')
 const tUtil = require('yyl-seed-test-util')
+const extRequest = require('yyl-request')
 const { expect } = require('chai')
-
-const http = require('http')
 
 function clearDest(config) {
   return new Promise((next) => {
@@ -95,38 +94,36 @@ const linkCheck = function (config) {
       }
     }
 
-    remoteSource.forEach((iPath) => {
-      var rPath = iPath
-      if (rPath.match(NO_PROTOCOL)) {
-        rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
-      }
+    remoteSource.forEach(async (iPath) => {
+      // var rPath = iPath
+      // if (rPath.match(NO_PROTOCOL)) {
+      //   rPath = `http:${rPath}`
+      // }
+      // const [err, res] = await extRequest(rPath)
 
-
-      http.get(rPath, (res) => {
-        expect([rPath, res.statusCode]).to.deep.equal([rPath, 200])
-        padding--
-        paddingCheck()
-      })
+      // expect(err).to.equal(undefined)
+      // expect([rPath, res.statusCode]).not.to.deep.equal([rPath, 404])
+      padding--
+      paddingCheck()
     })
 
-    notMatchLocalSource.forEach((iPath) => {
+    notMatchLocalSource.forEach(async (iPath) => {
       var rPath = util.path.resolve(
         config.commit.hostname,
         util.path.relative(config.alias.destRoot, iPath)
       )
       if (rPath.match(NO_PROTOCOL)) {
-        rPath = rPath.replace(NO_PROTOCOL, 'http://$1')
+        rPath = `http:${rPath}`
       }
 
       if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP)) {
         padding--
         paddingCheck()
       } else {
-        http.get(rPath, (res) => {
-          expect([iPath, rPath, res.statusCode]).to.deep.equal([iPath, rPath, 200])
-          padding--
-          paddingCheck()
-        })
+        const [, res] = await extRequest(rPath)
+        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([iPath, rPath, 404])
+        padding--
+        paddingCheck()
       }
     })
     paddingCheck()

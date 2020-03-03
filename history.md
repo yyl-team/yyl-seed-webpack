@@ -1,4 +1,9 @@
 # 版本信息
+## 2.0.4 (2020-03-03)
+* feat: 新增 git 项目的测试用例
+* feat: entry/*.html, *.pug 支持 process.env 变量
+* fix: 修复 vue2 项目运行报错问题
+
 ## 2.0.3(2020-03-02)
 * feat: 在 proxy 情况下现在可以使用 `historyApiFallback` 进行调试了
 * fix: 修复 devServer 启动后 hmr 不正常问题

@@ -9,7 +9,7 @@ const Hander = require('yyl-hander')
 const { Runner } = require('yyl-server')
 const chalk = require('chalk')
 
-const USERPROFILE = process.env[process.platform == 'win32'? 'USERPROFILE': 'HOME']
+const USERPROFILE = process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
 const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack')
 const WORKFLOW = 'webpack'
 
@@ -80,11 +80,9 @@ const handler = {
 
     if (iEnv.config) {
       configPath = path.resolve(process.cwd(), iEnv.config)
-      
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        iEnv.workflow = WORKFLOW
         const configDir = path.dirname(configPath)
         if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
           print.log.info('start install package')
@@ -92,7 +90,11 @@ const handler = {
         } else {
           print.log.info('package exists')
         }
+        // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
+        if (!config.workflow) {
+          config.workflow = WORKFLOW
+        }
       }
     } else {
       return print.log.warn('task need --config options')
@@ -108,7 +110,7 @@ const handler = {
 
     let opzer
     try {
-      opzer = seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
+      opzer = await seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
     } catch (er) {
       print.log.error(er.message)
       return
@@ -157,12 +159,15 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        iEnv.workflow = WORKFLOW
         const configDir = path.dirname(configPath)
         if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
           await extOs.runCMD('npm i ', configDir)
         }
+        // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
+        if (!config.workflow) {
+          config.workflow = WORKFLOW
+        }
       }
     } else {
       return print.log.warn('task need --config options')
@@ -176,7 +181,7 @@ const handler = {
     yh.optimize.init({config, iEnv})
     await yh.optimize.initPlugins()
 
-    const opzer = seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
+    const opzer = await seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
 
     cache.runner = new Runner({
       config,
@@ -199,7 +204,6 @@ const handler = {
         opzer.initServerMiddleWare(cache.runner.app, iEnv)
       }
     }
-    
 
     await fn.clearDest(config)
 

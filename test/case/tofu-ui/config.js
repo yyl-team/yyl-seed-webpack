@@ -26,6 +26,7 @@ const setting = {
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
 
 const config = {
+  workflow: 'webpack',
   // + configBase
   // - configBase
   seed: 'vue2',
