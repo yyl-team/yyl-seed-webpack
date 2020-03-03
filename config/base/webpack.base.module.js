@@ -47,8 +47,11 @@ const init = (config, iEnv) => {
           }
         }]
       }, {
-        test: /\.(webp|ico|svg)$/,
+        test: /\.(webp|ico)$/,
         use: resolveModule('url-loader')
+      }, {
+        test: /\.(svg)$/,
+        use: resolveModule('svg-inline-loader')
       }, {
         // shiming the module
         test: path.join(config.alias.srcRoot, 'js/lib/'),
