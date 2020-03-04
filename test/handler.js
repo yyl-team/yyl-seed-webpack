@@ -209,13 +209,12 @@ const handler = {
 
     return util.makeAwait((next) => {
       let isUpdate = false
-      opzer.watch(iEnv)
+      opzer
         .on('clear', () => {
           if (!iEnv.silent) {
             // print.cleanScreen()
           }
-        })
-        .on('msg', (type, ...argv) => {
+        }).on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
             iType = 'info'
@@ -244,7 +243,7 @@ const handler = {
             print.log.success('finished')
             next(config, opzer)
           }
-        })
+        }).watch(iEnv)
     })
   },
   async abort() {
