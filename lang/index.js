@@ -17,7 +17,7 @@ const LANG = {
   OPTIMIZE: {
     WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
     WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
-    WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置插件',
+    WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置依赖',
     WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
     LOADING_WEBPACK_START: '正在加载 webpack 模块',
     LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',

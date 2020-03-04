@@ -22,7 +22,7 @@ const webpackBaseModule = require('./webpack.base.module')
 
 const init = (config, iEnv) => {
   const wConfig = {
-    // context: path.resolve(__dirname, config.alias.dirname),
+    context: path.resolve(__dirname, config.alias.dirname),
     output: {
       path: path.resolve(__dirname, config.alias.jsDest),
       filename: '[name]-[hash:8].js',

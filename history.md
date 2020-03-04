@@ -1,4 +1,7 @@
 # 版本信息
+## 2.0.8 (2020-03-04)
+* feat: wConfig.context 补充回来, 补全 historyApiCallback 例子
+
 ## 2.0.7 (2020-03-04)
 * feat: 补充 `opzer.on` 方法
 
