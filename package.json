@@ -144,11 +144,15 @@
     "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
     "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --logLevel 2",
     "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --logLevel 2",
-    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote",
+    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy",
     "ghwl": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote --livereload",
     "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
     "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2",
-    "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2"
+    "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2",
+    "cr:o": "node ./test/run.js all --ctx o --config ./test/case/react-ts/config.js",
+    "cr:w": "node ./test/run.js watch --ctx w --config ./test/case/react-ts/config.js",
+    "cr:d": "node ./test/run.js watch --ctx d --config ./test/case/react-ts/config.js",
+    "cr:r": "node ./test/run.js watch --ctx r --config ./test/case/react-ts/config.js"
   },
   "repository": {
     "type": "git",

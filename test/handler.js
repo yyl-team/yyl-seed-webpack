@@ -70,7 +70,7 @@ const fn = {
 const cache = {}
 
 const handler = {
-  async all(iEnv) {
+  async all(iEnv, ctx) {
     let configPath
     if (iEnv.silent) {
       print.log.setLogLevel(0)
@@ -120,7 +120,7 @@ const handler = {
 
     return await util.makeAwait((next) => {
       let hasError = false
-      opzer.all(iEnv)
+      opzer
         .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
@@ -132,7 +132,9 @@ const handler = {
           print.log[iType](...argv)
         })
         .on('clear', () => {
-          // print.cleanScreen()
+          if (!iEnv.silent && iEnv.logLevel !== 2) {
+            print.cleanScreen()
+          }
         })
         .on('loading', (pkgName) => {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
@@ -145,9 +147,10 @@ const handler = {
           }
           next(config)
         })
+      opzer[ctx || 'all'](iEnv)
     })
   },
-  async watch(iEnv) {
+  async watch(iEnv, ctx) {
     let configPath
     if (iEnv.silent) {
       print.log.setLogLevel(0)
@@ -211,8 +214,8 @@ const handler = {
       let isUpdate = false
       opzer
         .on('clear', () => {
-          if (!iEnv.silent) {
-            // print.cleanScreen()
+          if (!iEnv.silent && iEnv.logLevel !== 2) {
+            print.cleanScreen()
           }
         }).on('msg', (type, ...argv) => {
           let iType = type
@@ -243,7 +246,8 @@ const handler = {
             print.log.success('finished')
             next(config, opzer)
           }
-        }).watch(iEnv)
+        })
+      opzer[ctx || 'watch'](iEnv)
     })
   },
   async abort() {

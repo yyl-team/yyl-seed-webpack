@@ -40,8 +40,16 @@ interface wInit {
 }
 
 interface Opzer {
-  watch(iEnv: AnyObject, done: Callback): Res;
-  all(iEnv: AnyObject): Res;
+  watch(): Res;
+  all(): Res;
+  /** 本地开发 */
+  d(): Res;
+  /** 同 watch */
+  w(): Res;
+  /** 远程调试 */
+  r(): Res;
+  /** 压缩 */
+  o(): Res;
   getConfigSync(): IConfig;
   response: Res;
   ignoreLiveReload: boolean;
@@ -55,13 +63,22 @@ interface Optimize {
   withServer: boolean;
 }
 
-interface Icmd {
+interface Cmd {
+  /** seed 包名称 */
   name: string,
+  /** 版本 */
   version: string,
+  /** 当前目录 */
   path: string,
-  examples: string[],
+  /** 压缩句柄 */
   optimize: Optimize,
-  init: wInit;
+  /** 初始化配置 */
+  initPackage: {
+    /** 外网 seed name */
+    default: string[]
+    /** 内网 seed name */
+    yy: string[]
+  };
 }
-declare const cmd:Icmd;
+declare const cmd: Cmd;
 export=cmd;
