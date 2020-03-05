@@ -70,7 +70,7 @@ const fn = {
 const cache = {}
 
 const handler = {
-  async all(iEnv) {
+  async all(iEnv, ctx) {
     let configPath
     if (iEnv.silent) {
       print.log.setLogLevel(0)
@@ -120,7 +120,7 @@ const handler = {
 
     return await util.makeAwait((next) => {
       let hasError = false
-      opzer.all(iEnv)
+      opzer
         .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
@@ -132,7 +132,9 @@ const handler = {
           print.log[iType](...argv)
         })
         .on('clear', () => {
-          // print.cleanScreen()
+          if (!iEnv.silent && iEnv.logLevel !== 2) {
+            print.cleanScreen()
+          }
         })
         .on('loading', (pkgName) => {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
@@ -145,9 +147,10 @@ const handler = {
           }
           next(config)
         })
+      opzer[ctx || 'all'](iEnv)
     })
   },
-  async watch(iEnv) {
+  async watch(iEnv, ctx) {
     let configPath
     if (iEnv.silent) {
       print.log.setLogLevel(0)
@@ -209,13 +212,12 @@ const handler = {
 
     return util.makeAwait((next) => {
       let isUpdate = false
-      opzer.watch(iEnv)
+      opzer
         .on('clear', () => {
-          if (!iEnv.silent) {
-            // print.cleanScreen()
+          if (!iEnv.silent && iEnv.logLevel !== 2) {
+            print.cleanScreen()
           }
-        })
-        .on('msg', (type, ...argv) => {
+        }).on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
             iType = 'info'
@@ -245,6 +247,7 @@ const handler = {
             next(config, opzer)
           }
         })
+      opzer[ctx || 'watch'](iEnv)
     })
   },
   async abort() {

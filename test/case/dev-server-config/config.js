@@ -15,17 +15,17 @@ const setting = {
     localRemote: {
       'http://www.jackness.org/': 'http://127.0.0.1:5000/',
     },
-    homePage: 'http://www.jackness.org/'
+    homePage: 'http://www.jackness.org/html/'
   },
   dest: {
     basePath: '/',
-    jsPath: 'assets/js',
-    jslibPath: 'assets/js/lib',
-    cssPath: 'assets/css',
-    htmlPath: '',
-    imagesPath: 'assets/images',
-    tplPath: 'assets/tpl',
-    revPath: 'assets/rev'
+    jsPath: 'js',
+    jslibPath: 'js/lib',
+    cssPath: 'css',
+    htmlPath: 'html',
+    imagesPath: 'images',
+    tplPath: 'tpl',
+    revPath: 'rev'
   }
 }
 // - setting

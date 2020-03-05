@@ -17,7 +17,7 @@ const LANG = {
   OPTIMIZE: {
     WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
     WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
-    WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置插件',
+    WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置依赖',
     WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
     LOADING_WEBPACK_START: '正在加载 webpack 模块',
     LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
@@ -30,7 +30,9 @@ const LANG = {
     USE_MIDDLEWARE: '使用 server 中间件',
     USE_DEV_SERVER: '使用 webpack-dev-server',
     DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
-    DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败'
+    DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
+    USE_HMR: '使用 hmr 模式',
+    USE_LIVERELOAD: '使用 livereload 模式'
   }
 }
 

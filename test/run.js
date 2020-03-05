@@ -7,7 +7,13 @@ const handler = require('./handler');
 
   const ctrl = cmds[1]
   if (ctrl in handler) {
-    handler[ctrl](env)
+    if (env.ctx) {
+      const ctx = env.ctx
+      delete env.ctx
+      handler[ctrl](env, ctx)
+    } else {
+      handler[ctrl](env)
+    }
   } else {
     print.log.warn(`usage: ${Object.keys(handler).join(',')}`)
   }

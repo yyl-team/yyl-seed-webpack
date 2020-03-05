@@ -1,4 +1,20 @@
 # 版本信息
+## 2.0.10 (2020-03-05)
+* feat: 文件 watch 改为默认不打开 hmr 模式
+* feat: 添加 `--livereload` 功能 若打开，则文件更新方式为自动刷新当前页
+* feat: 添加 `--hmr` 功能 若打开，则文件更新方式为热更新
+* feat: 新增 w() 方法， 等同于 `watch`
+* feat: 新增 d() 方法， 等同于 `watch --proxy --hmr`
+* feat: 新增 r() 方法， 等同于 `watch --proxy --remote --hmr`
+* feat: 新增 o() 方法， 等同于 `all --isCommit`
+* fix: 修复 执行 `--remote` 时 `hot-update` 文件 会覆盖掉入口文件, 导致 js 执行不符合预期问题
+
+## 2.0.8 (2020-03-04)
+* feat: wConfig.context 补充回来, 补全 historyApiCallback 例子
+
+## 2.0.7 (2020-03-04)
+* feat: 补充 `opzer.on` 方法
+
 ## 2.0.6 (2020-03-03)
 * fix: 修复 打包 `vue2` 类型项目时会出现 inherits 模块没找到问题
 

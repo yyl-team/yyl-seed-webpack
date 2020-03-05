@@ -159,7 +159,7 @@ const init = (config, iEnv) => {
       }
     }
   ]
-  if (iEnv.isCommit) { // 发版
+  if (iEnv.isCommit || iEnv.remote) { // 发版
     // 去掉 style-loader, 添加 mini-css-extract-plugin loader
     cssUse.splice(0, 1, {
       loader: MiniCssExtractPlugin.loader,
