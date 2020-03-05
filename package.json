@@ -145,6 +145,7 @@
     "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --logLevel 2",
     "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --logLevel 2",
     "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote",
+    "ghwl": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote --livereload",
     "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
     "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2",
     "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2"

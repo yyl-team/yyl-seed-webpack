@@ -30,7 +30,9 @@ const LANG = {
     USE_MIDDLEWARE: '使用 server 中间件',
     USE_DEV_SERVER: '使用 webpack-dev-server',
     DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
-    DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败'
+    DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
+    USE_HMR: '使用 hmr 模式',
+    USE_LIVERELOAD: '使用 livereload 模式'
   }
 }
 
