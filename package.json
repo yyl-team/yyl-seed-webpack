@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -144,7 +144,7 @@
     "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
     "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --logLevel 2",
     "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --logLevel 2",
-    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2",
+    "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote",
     "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
     "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2",
     "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2"
@@ -223,13 +223,13 @@
     "webpack-dev-server": "3.10.3",
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1",
-    "yyl-concat-webpack-plugin": "0.2.8",
+    "yyl-concat-webpack-plugin": "0.2.9",
     "yyl-copy-webpack-plugin": "0.2.10",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
-    "yyl-rev-webpack-plugin": "0.1.3",
+    "yyl-rev-webpack-plugin": "0.1.4",
     "yyl-seed-response": "0.1.1",
-    "yyl-sugar-webpack-plugin": "0.1.6",
+    "yyl-sugar-webpack-plugin": "0.1.9",
     "yyl-util": "2.3.3"
   },
   "devDependencies": {
