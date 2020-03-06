@@ -42,14 +42,6 @@ interface wInit {
 interface Opzer {
   watch(): Res;
   all(): Res;
-  /** 本地开发 */
-  d(): Res;
-  /** 同 watch */
-  w(): Res;
-  /** 远程调试 */
-  r(): Res;
-  /** 压缩 */
-  o(): Res;
   getConfigSync(): IConfig;
   response: Res;
   ignoreLiveReload: boolean;
