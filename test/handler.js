@@ -42,6 +42,7 @@ print.log.init({
     rev: {name: 'rev', color: 'yellow', bgColor: 'bgBlack'},
     concat: {name: 'Concat', color: 'cyan', bgColor: 'bgBlue'},
     update: {name: 'Updated', color: 'cyan', bgColor: 'bgBlue'},
+    create: {name: 'ADD', color: 'cyan', bgColor: 'bgBlue'},
     optimize: {name: 'Optimize', color: 'green', bgColor: 'bgRed'},
     cmd: {name: 'CMD', color: 'gray', bgColor: 'bgBlack'},
     loading: {name: 'LOAD', color: chalk.bgGreen.white}
