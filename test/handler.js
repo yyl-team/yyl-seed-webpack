@@ -38,6 +38,9 @@ let config = {}
 
 print.log.init({
   maxSize: 8,
+  mode0: {
+    allowTypes: ['error', 'warn']
+  },
   type: {
     rev: {name: 'rev', color: 'yellow', bgColor: 'bgBlack'},
     concat: {name: 'Concat', color: 'cyan', bgColor: 'bgBlue'},
@@ -121,7 +124,7 @@ const handler = {
 
     return await util.makeAwait((next) => {
       let hasError = false
-      opzer
+      opzer.response
         .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
@@ -223,9 +226,7 @@ const handler = {
           if (!print.log[type]) {
             iType = 'info'
           }
-          if (!iEnv.silent) {
-            print.log[iType](...argv)
-          }
+          print.log[iType](...argv)
         })
         .on('finished', async() => {
           const homePage = await yh.optimize.getHomePage()
