@@ -1,4 +1,7 @@
 # 版本信息
+## 2.0.19 (*)
+* fix: 修复 devServer 参数错误问题 livereload -> liveReload
+
 ## 2.0.18 (2020-03-11)
 * feat: log 调整
 
