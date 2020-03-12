@@ -1,5 +1,5 @@
 # 版本信息
-## 2.0.19 (*)
+## 2.0.19 (2020-03-12)
 * fix: 修复 devServer 参数错误问题 livereload -> liveReload
 * fix: 修复 在没有启动 hmr 模式情况下， 控制台依然显示 hmr 的问题
 
