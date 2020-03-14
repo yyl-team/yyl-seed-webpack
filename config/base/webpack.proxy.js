@@ -5,6 +5,7 @@ const webpackDev = require('./webpack.dev.js')
 const util = require('yyl-util')
 
 const init = (config, iEnv) => {
+  const resolveRoot = config.alias.root
   const webpackConfig = {
     output: {
       publicPath: util.path.join(
@@ -12,7 +13,7 @@ const init = (config, iEnv) => {
         config.dest.basePath,
         path.relative(
           config.alias.root,
-          config.alias.jsDest
+          resolveRoot
         ),
         '/'
       )

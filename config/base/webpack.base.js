@@ -21,12 +21,20 @@ const webpackBaseEntry = require('./webpack.base.entry')
 const webpackBaseModule = require('./webpack.base.module')
 
 const init = (config, iEnv) => {
+  const resolveRoot = config.alias.root
+
   const wConfig = {
     context: path.resolve(__dirname, config.alias.dirname),
     output: {
-      path: path.resolve(__dirname, config.alias.jsDest),
-      filename: '[name]-[hash:8].js',
-      chunkFilename: 'async_component/[name]-[chunkhash:8].js'
+      path: resolveRoot,
+      filename: util.path.relative(
+        resolveRoot,
+        path.join(config.alias.jsDest, '[name]-[hash:8].js')
+      ),
+      chunkFilename: util.path.relative(
+        resolveRoot,
+        path.join(config.alias.jsDest, 'async_component/[name]-[chunkhash:8].js')
+      )
     },
     resolveLoader: {
       modules: [
