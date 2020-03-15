@@ -180,7 +180,7 @@ const init = (config, iEnv) => {
     new YylRevWebpackPlugin({
       filename: util.path.join(
         path.relative(
-          config.alias.jsDest,
+          resolveRoot,
           config.alias.revDest
         ),
         'rev-manifest.json'
