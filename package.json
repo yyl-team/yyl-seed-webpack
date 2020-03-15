@@ -142,7 +142,7 @@
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js",
     "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
-    "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --silent",
+    "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy",
     "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --silent",
     "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --silent",
     "ghwl": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote --livereload",
@@ -245,6 +245,6 @@
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
     "yyl-seed-test-util": "0.4.0",
-    "yyl-server": "^0.3.4"
+    "yyl-server": "0.3.6"
   }
 }

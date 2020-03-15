@@ -32,6 +32,8 @@ const LANG = {
     DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
     DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
     USE_HMR: '使用 hmr 模式',
+    WRITE_TO_DISK: '写入硬盘',
+    MOMERY_ADDRESS: '缓存访问地址',
     USE_LIVERELOAD: '使用 livereload 模式'
   }
 }
