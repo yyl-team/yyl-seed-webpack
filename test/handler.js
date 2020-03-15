@@ -195,6 +195,9 @@ const handler = {
       env: iEnv,
       cwd: iEnv.config ? path.dirname(iEnv.config) : CONFIG_DIR,
       ignoreServer: opzer.ignoreServer,
+      serverOption: {
+        appWillMount: opzer.appWillMount
+      },
       log(status, args) {
         if (print.log[status]) {
           print.log[status](...args)
@@ -205,12 +208,6 @@ const handler = {
     })
 
     await cache.runner.start()
-
-    if (!opzer.ignoreServer) {
-      if (opzer.initServerMiddleWare) {
-        opzer.initServerMiddleWare(cache.runner.app, iEnv)
-      }
-    }
 
     await fn.clearDest(config)
 
