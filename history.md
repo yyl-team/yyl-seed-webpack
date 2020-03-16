@@ -1,4 +1,10 @@
 # 版本信息
+## 2.1.1 (2020-03-16)
+* feat: 修复 构建工具在 `windows` 上执行路径不对问题
+
+## 2.1.0 (2020-03-15)
+* feat: 构建工具 默认设置 `writeToDisk: false`, `iEnv.remote`, `iEnv.isCommit` 时为 `true`
+
 ## 2.0.19 (2020-03-12)
 * fix: 修复 devServer 参数错误问题 livereload -> liveReload
 * fix: 修复 在没有启动 hmr 模式情况下， 控制台依然显示 hmr 的问题

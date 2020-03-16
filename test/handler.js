@@ -122,6 +122,7 @@ const handler = {
 
     await fn.clearDest(config)
 
+
     return await util.makeAwait((next) => {
       let hasError = false
       opzer.response
@@ -134,6 +135,7 @@ const handler = {
             hasError = argv
           }
           print.log[iType](...argv)
+          
         })
         .on('clear', () => {
           if (!iEnv.silent && iEnv.logLevel !== 2) {
@@ -189,6 +191,7 @@ const handler = {
     await yh.optimize.initPlugins()
 
     const opzer = await seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
+    const htmlSet = new Set()
 
     cache.runner = new Runner({
       config,
@@ -223,10 +226,23 @@ const handler = {
           if (!print.log[type]) {
             iType = 'info'
           }
+          if (['create', 'update'].indexOf(type) !== -1) {
+            if (/\.html$/.test(argv[0])) {
+              htmlSet.add(argv[0])
+            }
+          }
           print.log[iType](...argv)
         })
         .on('finished', async() => {
-          const homePage = await yh.optimize.getHomePage()
+          const homePage = await yh.optimize.getHomePage({
+            files: (() => {
+              const r = []
+              htmlSet.forEach((item) => {
+                r.push(item)
+              })
+              return r
+            })()
+          })
           print.log.success(`open homepage: ${homePage}`)
           // 第一次构建 打开 对应页面
           if (!isUpdate && !iEnv.silent && iEnv.proxy) {

@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.19",
+  "version": "2.1.1",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -241,7 +241,7 @@
     "eslint-plugin-node": "11.0.0",
     "mocha": "7.0.1",
     "yyl-file-replacer": "0.6.2",
-    "yyl-hander": "0.8.1",
+    "yyl-hander": "0.9.0",
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
     "yyl-seed-test-util": "0.4.0",

@@ -21,7 +21,7 @@ const webpackBaseEntry = require('./webpack.base.entry')
 const webpackBaseModule = require('./webpack.base.module')
 
 const init = (config, iEnv) => {
-  const resolveRoot = config.alias.root
+  const resolveRoot = path.resolve(__dirname, config.alias.root)
 
   const wConfig = {
     context: path.resolve(__dirname, config.alias.dirname),

@@ -18,7 +18,7 @@ const sass = require('sass')
 // - sass plugin
 
 const init = (config, iEnv) => {
-  const resolveRoot = config.alias.root
+  const resolveRoot = path.resolve(__dirname, config.alias.root)
 
   const wConfig = {
     module: {
