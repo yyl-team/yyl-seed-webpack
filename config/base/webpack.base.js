@@ -14,6 +14,7 @@ const YylConcatWebpackPlugin = require('yyl-concat-webpack-plugin')
 const YylCopyWebpackPlugin = require('yyl-copy-webpack-plugin')
 const YylSugarWebpackPlugin = require('yyl-sugar-webpack-plugin')
 const YylRevWebpackPlugin = require('yyl-rev-webpack-plugin')
+const YylEnvPopPlugin = require('yyl-env-pop-webpack-plugin')
 
 const { resolveModule } = require('./util')
 
@@ -124,6 +125,12 @@ const init = (config, iEnv) => {
 
   // 添加 yyl 脚本， 没有挂 hooks 所以放最后比较稳
   wConfig.plugins = wConfig.plugins.concat([
+    // pop
+    new YylEnvPopPlugin({
+      enable: iEnv.proxy || iEnv.remote,
+      text: `YYL: ${iEnv.remote ? 'REMOTE' : 'PROXY'}`,
+      duration: 3000
+    }),
     // config.concat
     new YylConcatWebpackPlugin({
       fileMap: config.concat || {},

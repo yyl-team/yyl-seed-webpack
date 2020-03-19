@@ -1,6 +1,10 @@
 # 版本信息
+## 2.2.0 (2020-03-19)
+* feat: 添加环境提示 pop 注入到 entry 里面
+
 ## 2.1.1 (2020-03-16)
-* feat: 修复 构建工具在 `windows` 上执行路径不对问题
+
+* fix: 修复 构建工具在 `windows` 上执行路径不对问题
 
 ## 2.1.0 (2020-03-15)
 * feat: 构建工具 默认设置 `writeToDisk: false`, `iEnv.remote`, `iEnv.isCommit` 时为 `true`
