@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -226,7 +226,7 @@
     "webpack-merge": "4.2.1",
     "yyl-concat-webpack-plugin": "0.2.10",
     "yyl-copy-webpack-plugin": "0.2.11",
-    "yyl-env-pop-webpack-plugin": "0.1.4",
+    "yyl-env-pop-webpack-plugin": "0.1.5",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
     "yyl-rev-webpack-plugin": "0.1.5",

@@ -3,6 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const webpackMerge = require('webpack-merge')
 const webpack = require('webpack')
+const extOs = require('yyl-os')
 
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
@@ -128,7 +129,7 @@ const init = (config, iEnv) => {
     // pop
     new YylEnvPopPlugin({
       enable: iEnv.tips,
-      text: `YYL: ${iEnv.remote ? 'REMOTEING' : 'PROXYING'}`,
+      text: `${iEnv.remote ? 'REMOTEING' : 'PROXYING'}: ${extOs.LOCAL_IP}`,
       duration: 3000
     }),
     // config.concat

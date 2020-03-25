@@ -1,4 +1,10 @@
 # 版本信息
+## 2.2.2 (2020-03-25)
+* feat: 更新 `yyl-env-pop-webpack-plugin@0.1.5`
+* feat: 兼容同时出现多个情况
+* feat: 优化 pop 文案
+
+
 ## 2.2.1 (2020-03-25)
 * feat: 更新 `yyl-env-pop-webpack-plugin@0.1.4`
 * fix: 修复插入 pop 模块后，主程序 export 不能问题
