@@ -127,8 +127,8 @@ const init = (config, iEnv) => {
   wConfig.plugins = wConfig.plugins.concat([
     // pop
     new YylEnvPopPlugin({
-      enable: iEnv.proxy || iEnv.remote,
-      text: `YYL: ${iEnv.remote ? 'REMOTE' : 'PROXY'}`,
+      enable: iEnv.tips,
+      text: `YYL: ${iEnv.remote ? 'REMOTEING' : 'PROXYING'}`,
       duration: 3000
     }),
     // config.concat
