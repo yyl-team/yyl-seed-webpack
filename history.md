@@ -1,4 +1,7 @@
 # 版本信息
+## 2.3.0 (2020-03-26)
+* feat: style-loader 现会自动配置 `data-module` 为 `yConfig.name` || `inline-style`
+
 ## 2.2.2 (2020-03-25)
 * feat: 更新 `yyl-env-pop-webpack-plugin@0.1.5`
 * feat: 兼容同时出现多个情况

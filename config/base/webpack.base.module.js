@@ -133,7 +133,14 @@ const init = (config, iEnv) => {
 
   // + css & sass
   const cssUse = [
-    resolveModule('style-loader'),
+    {
+      loader: resolveModule('style-loader'),
+      options: {
+        attrs: {
+          'data-module': config.name || 'inline-style'
+        }
+      }
+    },
     resolveModule('css-loader'),
     {
       loader: resolveModule('postcss-loader'),
