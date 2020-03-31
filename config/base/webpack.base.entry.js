@@ -6,6 +6,8 @@ const querystring = require('querystring')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const init = (config, iEnv) => {
+  const resolveRoot = path.resolve(__dirname, config.alias.root)
+
   const wConfig = {
     entry: (function () {
       const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
@@ -115,8 +117,8 @@ const init = (config, iEnv) => {
       if (iChunkName) {
         const opts = {
           template: iPath,
-          filename: path.relative(
-            config.alias.jsDest,
+          filename: util.path.relative(
+            resolveRoot,
             path.join(config.alias.htmlDest, `${fileName}.html`)
           ),
           chunks: iChunks,

@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.0.19",
+  "version": "2.3.1",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -142,7 +142,7 @@
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js",
     "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
-    "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy --silent",
+    "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy",
     "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --silent",
     "ghw": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --silent",
     "ghwl": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote --livereload",
@@ -226,6 +226,7 @@
     "webpack-merge": "4.2.1",
     "yyl-concat-webpack-plugin": "0.2.10",
     "yyl-copy-webpack-plugin": "0.2.11",
+    "yyl-env-pop-webpack-plugin": "0.1.5",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.10.0",
     "yyl-rev-webpack-plugin": "0.1.5",
@@ -241,10 +242,10 @@
     "eslint-plugin-node": "11.0.0",
     "mocha": "7.0.1",
     "yyl-file-replacer": "0.6.2",
-    "yyl-hander": "0.8.1",
+    "yyl-hander": "0.9.0",
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
     "yyl-seed-test-util": "0.4.0",
-    "yyl-server": "^0.3.4"
+    "yyl-server": "0.3.6"
   }
 }

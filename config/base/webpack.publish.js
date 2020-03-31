@@ -7,6 +7,7 @@ const util = require('yyl-util')
 
 const init = (config, iEnv) => {
   const MODE = iEnv.NODE_ENV || 'production'
+  const resolveRoot = path.resolve(__dirname, config.alias.root)
 
   const webpackConfig = {
     mode: MODE,
@@ -16,7 +17,7 @@ const init = (config, iEnv) => {
         config.dest.basePath,
         path.relative(
           config.alias.root,
-          config.alias.jsDest
+          resolveRoot 
         ),
         '/'
       )

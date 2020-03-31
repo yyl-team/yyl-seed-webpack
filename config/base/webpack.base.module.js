@@ -18,6 +18,8 @@ const sass = require('sass')
 // - sass plugin
 
 const init = (config, iEnv) => {
+  const resolveRoot = path.resolve(__dirname, config.alias.root)
+
   const wConfig = {
     module: {
       rules: [{
@@ -47,9 +49,6 @@ const init = (config, iEnv) => {
           }
         }]
       }, {
-        test: /\.(webp|ico)$/,
-        use: resolveModule('url-loader')
-      }, {
         test: /\.(svg)$/,
         use: resolveModule('svg-inline-loader')
       }, {
@@ -60,22 +59,22 @@ const init = (config, iEnv) => {
           query: 'this=>window'
         }]
       }, {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|webp|ico)$/,
         use: [{
           loader: resolveModule('url-loader'),
           options: {
             limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
             name: '[name]-[hash:8].[ext]',
-            chunkFilename: 'async_component/[name]-[chunkhash:8].js',
+            chunkFilename: 'async_component/[name]-[chunkhash:8].[ext]',
             outputPath: path.relative(
-              config.alias.jsDest,
+              resolveRoot,
               config.alias.imagesDest
             ),
             publicPath: (function () {
               let r = util.path.join(
                 config.dest.basePath,
                 path.relative(
-                  config.alias.root,
+                  resolveRoot,
                   config.alias.imagesDest
                 ),
                 '/'
@@ -134,7 +133,14 @@ const init = (config, iEnv) => {
 
   // + css & sass
   const cssUse = [
-    resolveModule('style-loader'),
+    {
+      loader: resolveModule('style-loader'),
+      options: {
+        attrs: {
+          'data-module': config.name || 'inline-style'
+        }
+      }
+    },
     resolveModule('css-loader'),
     {
       loader: resolveModule('postcss-loader'),
@@ -169,13 +175,14 @@ const init = (config, iEnv) => {
     wConfig.plugins.push(
       // 样式分离插件
       new MiniCssExtractPlugin({
-        filename: util.path.join(
-          path.relative(
-            config.alias.jsDest,
-            path.join(config.alias.cssDest, '[name]-[hash:8].css')
-          )
+        filename: util.path.relative(
+          resolveRoot,
+          path.join(config.alias.cssDest, '[name]-[hash:8].css')
         ),
-        chunkFilename: '[name]-[hash:8].css',
+        chunkFilename: util.path.relative(
+          resolveRoot,
+          path.join(config.alias.cssDest, '[name]-[chunkhash:8].css')
+        ),
         allChunks: true
       })
     )

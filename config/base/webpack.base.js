@@ -3,6 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const webpackMerge = require('webpack-merge')
 const webpack = require('webpack')
+const extOs = require('yyl-os')
 
 const es3ifyWebpackPlugin = require('es3ify-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
@@ -14,6 +15,7 @@ const YylConcatWebpackPlugin = require('yyl-concat-webpack-plugin')
 const YylCopyWebpackPlugin = require('yyl-copy-webpack-plugin')
 const YylSugarWebpackPlugin = require('yyl-sugar-webpack-plugin')
 const YylRevWebpackPlugin = require('yyl-rev-webpack-plugin')
+const YylEnvPopPlugin = require('yyl-env-pop-webpack-plugin')
 
 const { resolveModule } = require('./util')
 
@@ -21,12 +23,20 @@ const webpackBaseEntry = require('./webpack.base.entry')
 const webpackBaseModule = require('./webpack.base.module')
 
 const init = (config, iEnv) => {
+  const resolveRoot = path.resolve(__dirname, config.alias.root)
+
   const wConfig = {
     context: path.resolve(__dirname, config.alias.dirname),
     output: {
-      path: path.resolve(__dirname, config.alias.jsDest),
-      filename: '[name]-[hash:8].js',
-      chunkFilename: 'async_component/[name]-[chunkhash:8].js'
+      path: resolveRoot,
+      filename: util.path.relative(
+        resolveRoot,
+        path.join(config.alias.jsDest, '[name]-[hash:8].js')
+      ),
+      chunkFilename: util.path.relative(
+        resolveRoot,
+        path.join(config.alias.jsDest, 'async_component/[name]-[chunkhash:8].js')
+      )
     },
     resolveLoader: {
       modules: [
@@ -116,6 +126,12 @@ const init = (config, iEnv) => {
 
   // 添加 yyl 脚本， 没有挂 hooks 所以放最后比较稳
   wConfig.plugins = wConfig.plugins.concat([
+    // pop
+    new YylEnvPopPlugin({
+      enable: iEnv.tips,
+      text: `${iEnv.remote ? 'REMOTEING' : 'PROXYING'}: ${extOs.LOCAL_IP}`,
+      duration: 3000
+    }),
     // config.concat
     new YylConcatWebpackPlugin({
       fileMap: config.concat || {},
@@ -127,7 +143,7 @@ const init = (config, iEnv) => {
     new YylCopyWebpackPlugin((() => {
       const r = {
         files: [],
-        minify: iEnv.isCommit ? true : false,
+        minify: false,
         logBasePath: config.alias.dirname
       }
       if (config.resource) {
@@ -172,7 +188,7 @@ const init = (config, iEnv) => {
     new YylRevWebpackPlugin({
       filename: util.path.join(
         path.relative(
-          config.alias.jsDest,
+          resolveRoot,
           config.alias.revDest
         ),
         'rev-manifest.json'

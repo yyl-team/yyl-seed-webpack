@@ -1,4 +1,31 @@
 # 版本信息
+## 2.3.1 (2020-03-31)
+* fix: 修复在启用 `webpack-dev-server` 时， 若 `webpack.config.js` 返回为 function 时，仍旧会启动 `webpack-hot-middleware` 插件的问题
+## 2.3.0 (2020-03-26)
+* feat: style-loader 现会自动配置 `data-module` 为 `yConfig.name` || `inline-style`
+
+## 2.2.2 (2020-03-25)
+* feat: 更新 `yyl-env-pop-webpack-plugin@0.1.5`
+* feat: 兼容同时出现多个情况
+* feat: 优化 pop 文案
+
+
+## 2.2.1 (2020-03-25)
+* feat: 更新 `yyl-env-pop-webpack-plugin@0.1.4`
+* fix: 修复插入 pop 模块后，主程序 export 不能问题
+* feat: pop 模块改为输入 `--tips` 后才出现
+* feat: 新增 `--writeToDisk` 参数, 用于控制 构建是否写入硬盘
+
+## 2.2.0 (2020-03-19)
+* feat: 添加环境提示 pop 注入到 entry 里面
+
+## 2.1.1 (2020-03-16)
+
+* fix: 修复 构建工具在 `windows` 上执行路径不对问题
+
+## 2.1.0 (2020-03-15)
+* feat: 构建工具 默认设置 `writeToDisk: false`, `iEnv.remote`, `iEnv.isCommit` 时为 `true`
+
 ## 2.0.19 (2020-03-12)
 * fix: 修复 devServer 参数错误问题 livereload -> liveReload
 * fix: 修复 在没有启动 hmr 模式情况下， 控制台依然显示 hmr 的问题
