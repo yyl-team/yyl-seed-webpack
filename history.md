@@ -1,4 +1,6 @@
 # 版本信息
+## 2.3.1 (2020-03-31)
+* fix: 修复在启用 `webpack-dev-server` 时， 若 `webpack.config.js` 返回为 function 时，仍旧会启动 `webpack-hot-middleware` 插件的问题
 ## 2.3.0 (2020-03-26)
 * feat: style-loader 现会自动配置 `data-module` 为 `yConfig.name` || `inline-style`
 

@@ -143,7 +143,7 @@ const init = (config, iEnv) => {
     new YylCopyWebpackPlugin((() => {
       const r = {
         files: [],
-        minify: iEnv.isCommit ? true : false,
+        minify: false,
         logBasePath: config.alias.dirname
       }
       if (config.resource) {
