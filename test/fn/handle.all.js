@@ -5,12 +5,10 @@ const fs = require('fs')
 const tUtil = require('yyl-seed-test-util')
 const handler = require('../handler')
 
-const {
-  linkCheck
-} = require('./fn.all')
+const { linkCheck } = require('./fn.all')
 
-function runAll ({ targetPath, silent }) {
-  const filename =  path.basename(targetPath)
+function runAll({ targetPath, silent }) {
+  const filename = path.basename(targetPath)
   const initEnv = function () {
     let pjConfigPath = ''
     const configPath = path.join(targetPath, 'yyl.config.js')
@@ -44,17 +42,27 @@ function runAll ({ targetPath, silent }) {
 
   it(`${filename} all --remote`, async () => {
     const extEnv = initEnv()
-    const config = await handler.all(Object.assign({
-      remote: true
-    }, extEnv))
+    const config = await handler.all(
+      Object.assign(
+        {
+          remote: true
+        },
+        extEnv
+      )
+    )
 
     await linkCheck(config)
   })
   it(`${filename} all --isCommit`, async () => {
     const extEnv = initEnv()
-    const config = await handler.all(Object.assign({
-      isCommit: true
-    }, extEnv))
+    const config = await handler.all(
+      Object.assign(
+        {
+          isCommit: true
+        },
+        extEnv
+      )
+    )
 
     await linkCheck(config)
   })
@@ -62,7 +70,7 @@ function runAll ({ targetPath, silent }) {
 
 module.exports.handleAll = function (PJ_PATH) {
   // + vars
-  const filename =  path.basename(PJ_PATH)
+  const filename = path.basename(PJ_PATH)
   const FRAG_PATH = path.join(__dirname, `../__frag/all-${filename}`)
   // - vars
 
@@ -107,4 +115,3 @@ module.exports.handleAllGit = function (gitPath) {
     runAll({ targetPath: pjPath })
   })
 }
-

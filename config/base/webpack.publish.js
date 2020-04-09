@@ -15,10 +15,7 @@ const init = (config, iEnv) => {
       publicPath: util.path.join(
         config.commit.hostname,
         config.dest.basePath,
-        path.relative(
-          config.alias.root,
-          resolveRoot 
-        ),
+        path.relative(config.alias.root, resolveRoot),
         '/'
       )
     },

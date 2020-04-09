@@ -15,10 +15,7 @@ const init = (config, iEnv) => {
     output: {
       publicPath: util.path.join(
         config.dest.basePath,
-        path.relative(
-          config.alias.root,
-          resolveRoot
-        ),
+        path.relative(config.alias.root, resolveRoot),
         '/'
       )
     },

@@ -3,7 +3,10 @@ const path = require('path')
 const { handleAll } = require('../fn/handle.all')
 
 // + vars
-const casePath = path.join(__dirname, '../case/local-webpack-config-type-function')
+const casePath = path.join(
+  __dirname,
+  '../case/local-webpack-config-type-function'
+)
 // - vars
 
 handleAll(casePath)

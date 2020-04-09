@@ -10,9 +10,9 @@ const init = (config, iEnv) => {
 
   const wConfig = {
     entry: (function () {
-      const iSrcRoot = path.isAbsolute(config.alias.srcRoot) ?
-        config.alias.srcRoot :
-        path.join(__dirname, config.alias.srcRoot)
+      const iSrcRoot = path.isAbsolute(config.alias.srcRoot)
+        ? config.alias.srcRoot
+        : path.join(__dirname, config.alias.srcRoot)
 
       let r = {}
 
@@ -52,93 +52,102 @@ const init = (config, iEnv) => {
     plugins: []
   }
   // + html output
-  wConfig.plugins = wConfig.plugins.concat((function () { // html 输出
-    const bootPath = util.path.join(config.alias.srcRoot, 'boot')
-    const entryPath = util.path.join(config.alias.srcRoot, 'entry')
-    let outputPath = []
-    const r = []
+  wConfig.plugins = wConfig.plugins.concat(
+    (function () {
+      // html 输出
+      const bootPath = util.path.join(config.alias.srcRoot, 'boot')
+      const entryPath = util.path.join(config.alias.srcRoot, 'entry')
+      let outputPath = []
+      const r = []
 
-    if (fs.existsSync(bootPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(bootPath, /(\.jade|\.pug|\.html)$/))
-    }
-
-    if (fs.existsSync(entryPath)) {
-      outputPath = outputPath.concat(extFs.readFilesSync(entryPath, /(\.jade|\.pug|\.html)$/))
-    }
-
-    const outputMap = {}
-    const ignoreExtName = function (iPath) {
-      return iPath.replace(/(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/, '')
-    }
-
-    outputPath.forEach((iPath) => {
-      outputMap[ignoreExtName(iPath)] = iPath
-    })
-
-    const commonChunks = []
-    const pageChunkMap = {}
-    Object.keys(wConfig.entry).forEach((key) => {
-      let iPaths = []
-      if (util.type(wConfig.entry[key]) === 'array') {
-        iPaths = wConfig.entry[key]
-      } else if (util.type(wConfig.entry[key]) === 'string') {
-        iPaths.push(wConfig.entry[key])
+      if (fs.existsSync(bootPath)) {
+        outputPath = outputPath.concat(
+          extFs.readFilesSync(bootPath, /(\.jade|\.pug|\.html)$/)
+        )
       }
 
-      let isPageModule = null
-      iPaths.some((iPath) => {
-        const baseName = ignoreExtName(iPath)
-        if (outputMap[baseName]) {
-          isPageModule = baseName
-          return true
-        }
-        return false
+      if (fs.existsSync(entryPath)) {
+        outputPath = outputPath.concat(
+          extFs.readFilesSync(entryPath, /(\.jade|\.pug|\.html)$/)
+        )
+      }
+
+      const outputMap = {}
+      const ignoreExtName = function (iPath) {
+        return iPath.replace(
+          /(\.jade|.pug|\.html|\.js|\.css|\.ts|\.tsx|\.jsx)$/,
+          ''
+        )
+      }
+
+      outputPath.forEach((iPath) => {
+        outputMap[ignoreExtName(iPath)] = iPath
       })
 
-      if (!isPageModule) {
-        commonChunks.push(key)
-      } else {
-        pageChunkMap[isPageModule] = key
-      }
-    })
-
-    outputPath.forEach((iPath) => {
-      const iBaseName = ignoreExtName(iPath)
-      const iChunkName = pageChunkMap[iBaseName]
-      const fileName = ignoreExtName(path.basename(iPath))
-      let iChunks = []
-
-      iChunks = iChunks.concat(commonChunks)
-      if (iChunkName) {
-        iChunks.push(iChunkName)
-      }
-
-
-      if (iChunkName) {
-        const opts = {
-          template: iPath,
-          filename: util.path.relative(
-            resolveRoot,
-            path.join(config.alias.htmlDest, `${fileName}.html`)
-          ),
-          chunks: iChunks,
-          chunksSortMode(a, b) {
-            return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0])
-          },
-          inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
-          minify: false,
-          inject: 'body',
-          process: {
-            env: iEnv
-          }
+      const commonChunks = []
+      const pageChunkMap = {}
+      Object.keys(wConfig.entry).forEach((key) => {
+        let iPaths = []
+        if (util.type(wConfig.entry[key]) === 'array') {
+          iPaths = wConfig.entry[key]
+        } else if (util.type(wConfig.entry[key]) === 'string') {
+          iPaths.push(wConfig.entry[key])
         }
 
-        r.push(new HtmlWebpackPlugin(opts))
-      }
-    })
+        let isPageModule = null
+        iPaths.some((iPath) => {
+          const baseName = ignoreExtName(iPath)
+          if (outputMap[baseName]) {
+            isPageModule = baseName
+            return true
+          }
+          return false
+        })
 
-    return r
-  })())
+        if (!isPageModule) {
+          commonChunks.push(key)
+        } else {
+          pageChunkMap[isPageModule] = key
+        }
+      })
+
+      outputPath.forEach((iPath) => {
+        const iBaseName = ignoreExtName(iPath)
+        const iChunkName = pageChunkMap[iBaseName]
+        const fileName = ignoreExtName(path.basename(iPath))
+        let iChunks = []
+
+        iChunks = iChunks.concat(commonChunks)
+        if (iChunkName) {
+          iChunks.push(iChunkName)
+        }
+
+        if (iChunkName) {
+          const opts = {
+            template: iPath,
+            filename: util.path.relative(
+              resolveRoot,
+              path.join(config.alias.htmlDest, `${fileName}.html`)
+            ),
+            chunks: iChunks,
+            chunksSortMode(a, b) {
+              return iChunks.indexOf(a.names[0]) - iChunks.indexOf(b.names[0])
+            },
+            inlineSource: '.(js|css|ts|tsx|jsx)\\?__inline$',
+            minify: false,
+            inject: 'body',
+            process: {
+              env: iEnv
+            }
+          }
+
+          r.push(new HtmlWebpackPlugin(opts))
+        }
+      })
+
+      return r
+    })()
+  )
   // - html output
   return wConfig
 }
