@@ -11,18 +11,12 @@ const init = (config, iEnv) => {
       publicPath: util.path.join(
         config.commit.hostname,
         config.dest.basePath,
-        path.relative(
-          config.alias.root,
-          resolveRoot
-        ),
+        path.relative(config.alias.root, resolveRoot),
         '/'
       )
     }
   }
-  return webpackMerge(
-    webpackDev(config, iEnv),
-    webpackConfig
-  )
+  return webpackMerge(webpackDev(config, iEnv), webpackConfig)
 }
 
 module.exports = init

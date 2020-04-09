@@ -9,7 +9,8 @@ const Hander = require('yyl-hander')
 const { Runner } = require('yyl-server')
 const chalk = require('chalk')
 
-const USERPROFILE = process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
+const USERPROFILE =
+  process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
 const RESOLVE_PATH = path.join(USERPROFILE, '.yyl/plugins/webpack')
 const WORKFLOW = 'webpack'
 
@@ -17,16 +18,16 @@ const seed = require('../index.js')
 const yh = new Hander({
   log: function (type, status, args) {
     switch (type) {
-    case 'msg':
-      if (print.log[status]) {
-        print.log[status](args)
-      } else {
-        print.log.info(args)
-      }
-      break
+      case 'msg':
+        if (print.log[status]) {
+          print.log[status](args)
+        } else {
+          print.log.info(args)
+        }
+        break
 
-    default:
-      break
+      default:
+        break
     }
   },
   vars: {
@@ -42,13 +43,13 @@ print.log.init({
     allowTypes: ['error', 'warn']
   },
   type: {
-    rev: {name: 'rev', color: 'yellow', bgColor: 'bgBlack'},
-    concat: {name: 'Concat', color: 'cyan', bgColor: 'bgBlue'},
-    update: {name: 'Updated', color: 'cyan', bgColor: 'bgBlue'},
-    create: {name: 'ADD', color: 'cyan', bgColor: 'bgBlue'},
-    optimize: {name: 'Optimize', color: 'green', bgColor: 'bgRed'},
-    cmd: {name: 'CMD', color: 'gray', bgColor: 'bgBlack'},
-    loading: {name: 'LOAD', color: chalk.bgGreen.white}
+    rev: { name: 'rev', color: 'yellow', bgColor: 'bgBlack' },
+    concat: { name: 'Concat', color: 'cyan', bgColor: 'bgBlue' },
+    update: { name: 'Updated', color: 'cyan', bgColor: 'bgBlue' },
+    create: { name: 'ADD', color: 'cyan', bgColor: 'bgBlue' },
+    optimize: { name: 'Optimize', color: 'green', bgColor: 'bgRed' },
+    cmd: { name: 'CMD', color: 'gray', bgColor: 'bgBlack' },
+    loading: { name: 'LOAD', color: chalk.bgGreen.white }
   }
 })
 
@@ -87,13 +88,13 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        const configDir = path.dirname(configPath)
-        if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
-          print.log.info('start install package')
-          await extOs.runCMD('npm i ', configDir)
-        } else {
-          print.log.info('package exists')
-        }
+        // const configDir = path.dirname(configPath)
+        // if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
+        //   print.log.info('start install package')
+        //   await extOs.runCMD('npm i ', configDir)
+        // } else {
+        //   print.log.info('package exists')
+        // }
         // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
@@ -109,19 +110,23 @@ const handler = {
       PROJECT_PATH: CONFIG_DIR
     })
 
-    yh.optimize.init({config, iEnv})
+    yh.optimize.init({ config, iEnv })
     await yh.optimize.initPlugins()
 
     let opzer
     try {
-      opzer = await seed.optimize({config, iEnv, ctx: 'all', root: CONFIG_DIR})
+      opzer = await seed.optimize({
+        config,
+        iEnv,
+        ctx: 'all',
+        root: CONFIG_DIR
+      })
     } catch (er) {
       print.log.error(er.message)
       return
     }
 
     await fn.clearDest(config)
-
 
     return await util.makeAwait((next) => {
       let hasError = false
@@ -131,11 +136,10 @@ const handler = {
           if (!print.log[type]) {
             iType = 'info'
           }
-          if (type === 'error')  {
+          if (type === 'error') {
             hasError = argv
           }
           print.log[iType](...argv)
-          
         })
         .on('clear', () => {
           if (!iEnv.silent && iEnv.logLevel !== 2) {
@@ -145,7 +149,7 @@ const handler = {
         .on('loading', (pkgName) => {
           print.log.loading(`loading module ${chalk.green(pkgName)}`)
         })
-        .on('finished', async() => {
+        .on('finished', async () => {
           if (hasError) {
             print.log.error('task run error', hasError)
           } else {
@@ -168,10 +172,10 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        const configDir = path.dirname(configPath)
-        if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
-          await extOs.runCMD('npm i ', configDir)
-        }
+        // const configDir = path.dirname(configPath)
+        // if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
+        //   await extOs.runCMD('npm i ', configDir)
+        // }
         // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
@@ -187,10 +191,15 @@ const handler = {
       PROJECT_PATH: CONFIG_DIR
     })
 
-    yh.optimize.init({config, iEnv})
+    yh.optimize.init({ config, iEnv })
     await yh.optimize.initPlugins()
 
-    const opzer = await seed.optimize({config, iEnv, ctx: 'watch', root: CONFIG_DIR})
+    const opzer = await seed.optimize({
+      config,
+      iEnv,
+      ctx: 'watch',
+      root: CONFIG_DIR
+    })
     const htmlSet = new Set()
 
     cache.runner = new Runner({
@@ -221,7 +230,8 @@ const handler = {
           if (!iEnv.silent && iEnv.logLevel !== 2) {
             print.cleanScreen()
           }
-        }).on('msg', (type, ...argv) => {
+        })
+        .on('msg', (type, ...argv) => {
           let iType = type
           if (!print.log[type]) {
             iType = 'info'
@@ -233,7 +243,7 @@ const handler = {
           }
           print.log[iType](...argv)
         })
-        .on('finished', async() => {
+        .on('finished', async () => {
           const homePage = await yh.optimize.getHomePage({
             files: (() => {
               const r = []

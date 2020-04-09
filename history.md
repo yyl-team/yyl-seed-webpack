@@ -1,4 +1,10 @@
 # 版本信息
+## 2.4.0 (*)
+* feat: 升级 `yyl-hander@0.10.0`
+* feat: 升级 `yyl-os@0.11.0`
+* feat: 支持 `config.yarn` 配置项
+* feat: 调整开发工具 `prettier` `eslint` 配置
+
 ## 2.3.1 (2020-03-31)
 * fix: 修复在启用 `webpack-dev-server` 时， 若 `webpack.config.js` 返回为 function 时，仍旧会启动 `webpack-hot-middleware` 插件的问题
 ## 2.3.0 (2020-03-26)
@@ -8,7 +14,6 @@
 * feat: 更新 `yyl-env-pop-webpack-plugin@0.1.5`
 * feat: 兼容同时出现多个情况
 * feat: 优化 pop 文案
-
 
 ## 2.2.1 (2020-03-25)
 * feat: 更新 `yyl-env-pop-webpack-plugin@0.1.4`

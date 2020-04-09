@@ -51,11 +51,7 @@ const linkCheck = function (config) {
     } else if (iPath.match(REMOTE_SOURCE_REG)) {
       remoteSource.push(iPath)
     } else if (iPath.match(RELATIVE_SOURCE_REG)) {
-      localSource.push(
-        tUtil.hideUrlTail(
-          util.path.resolve(dir, iPath)
-        )
-      )
+      localSource.push(tUtil.hideUrlTail(util.path.resolve(dir, iPath)))
     }
   }
 
@@ -87,14 +83,14 @@ const linkCheck = function (config) {
   })
 
   return new Promise((next) => {
-    let padding = remoteSource.length +  notMatchLocalSource.length
+    let padding = remoteSource.length + notMatchLocalSource.length
     const paddingCheck = function () {
       if (!padding) {
         next()
       }
     }
 
-    remoteSource.forEach(async (iPath) => {
+    remoteSource.forEach(async () => {
       // var rPath = iPath
       // if (rPath.match(NO_PROTOCOL)) {
       //   rPath = `http:${rPath}`
@@ -121,7 +117,11 @@ const linkCheck = function (config) {
         paddingCheck()
       } else {
         const [, res] = await extRequest(rPath)
-        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([iPath, rPath, 404])
+        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([
+          iPath,
+          rPath,
+          404
+        ])
         padding--
         paddingCheck()
       }

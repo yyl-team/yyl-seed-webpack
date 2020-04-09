@@ -35,30 +35,33 @@ const init = (config, iEnv) => {
       ),
       chunkFilename: util.path.relative(
         resolveRoot,
-        path.join(config.alias.jsDest, 'async_component/[name]-[chunkhash:8].js')
+        path.join(
+          config.alias.jsDest,
+          'async_component/[name]-[chunkhash:8].js'
+        )
       )
     },
     resolveLoader: {
-      modules: [
-        path.join(config.alias.dirname, 'node_modules')
-      ]
+      modules: [path.join(config.alias.dirname, 'node_modules')]
     },
     resolve: {
-      modules: [
-        path.join(config.alias.dirname, 'node_modules')
-      ],
-      alias: util.extend({
-        'webpack-hot-middleware/client': resolveModule('webpack-hot-middleware/client.js'),
-        'ansi-html': resolveModule('ansi-html'),
-        'html-entities': resolveModule('html-entities'),
-        'strip-ansi': resolveModule('strip-ansi'),
-        'ansi-regex': resolveModule('ansi-regex'),
-        'isarray': resolveModule('isarray')
-      }, config.alias)
+      modules: [path.join(config.alias.dirname, 'node_modules')],
+      alias: util.extend(
+        {
+          'webpack-hot-middleware/client': resolveModule(
+            'webpack-hot-middleware/client.js'
+          ),
+          'ansi-html': resolveModule('ansi-html'),
+          'html-entities': resolveModule('html-entities'),
+          'strip-ansi': resolveModule('strip-ansi'),
+          'ansi-regex': resolveModule('ansi-regex'),
+          'isarray': resolveModule('isarray')
+        },
+        config.alias
+      )
     },
     devtool: 'source-map',
-    plugins: [
-    ],
+    plugins: [],
     optimization: {
       minimizer: [
         new TerserWebpackPlugin({
@@ -84,24 +87,24 @@ const init = (config, iEnv) => {
 
   // env defined
   // 环境变量 (全局替换 含有这 变量的 js)
-  wConfig.plugins.push((() => {
-    const r = {}
-    Object.keys(iEnv).forEach((key) => {
-      if (typeof iEnv[key] === 'string') {
-        r[`process.env.${key}`] = JSON.stringify(iEnv[key])
-      } else {
-        r[`process.env.${key}`] = iEnv[key]
-      }
-    })
+  wConfig.plugins.push(
+    (() => {
+      const r = {}
+      Object.keys(iEnv).forEach((key) => {
+        if (typeof iEnv[key] === 'string') {
+          r[`process.env.${key}`] = JSON.stringify(iEnv[key])
+        } else {
+          r[`process.env.${key}`] = iEnv[key]
+        }
+      })
 
-    return new webpack.DefinePlugin(r)
-  })())
+      return new webpack.DefinePlugin(r)
+    })()
+  )
 
   // ie8 格式化
   if (config.ie8) {
-    wConfig.plugins = wConfig.plugins.concat([
-      new es3ifyWebpackPlugin()
-    ])
+    wConfig.plugins = wConfig.plugins.concat([new es3ifyWebpackPlugin()])
   }
 
   // config.module 继承
@@ -115,9 +118,14 @@ const init = (config, iEnv) => {
     wConfig.resolveLoader.modules.unshift(config.resolveModule)
   }
 
-  // add seed node_modules 
+  // add seed node_modules
   if (config.seed) {
-    const nodeModulePath = path.join(__dirname, '../', config.seed, 'node_modules')
+    const nodeModulePath = path.join(
+      __dirname,
+      '../',
+      config.seed,
+      'node_modules'
+    )
     if (fs.existsSync(nodeModulePath)) {
       wConfig.resolve.modules.unshift(nodeModulePath)
       wConfig.resolveLoader.modules.unshift(nodeModulePath)
@@ -140,57 +148,56 @@ const init = (config, iEnv) => {
       minify: iEnv.isCommit ? true : false
     }),
     // config.resource
-    new YylCopyWebpackPlugin((() => {
-      const r = {
-        files: [],
-        minify: false,
-        logBasePath: config.alias.dirname
-      }
-      if (config.resource) {
-        Object.keys(config.resource).forEach((from) => {
-          const iExt = path.extname(from)
-          if (iExt) {
-            if (['.html'].indexOf(iExt) !== -1) {
-              r.files.push({
-                from,
-                to: config.resource[from],
-                filename: '[name].[ext]'
-              })
+    new YylCopyWebpackPlugin(
+      (() => {
+        const r = {
+          files: [],
+          minify: false,
+          logBasePath: config.alias.dirname
+        }
+        if (config.resource) {
+          Object.keys(config.resource).forEach((from) => {
+            const iExt = path.extname(from)
+            if (iExt) {
+              if (['.html'].indexOf(iExt) !== -1) {
+                r.files.push({
+                  from,
+                  to: config.resource[from],
+                  filename: '[name].[ext]'
+                })
+              } else {
+                r.files.push({
+                  from,
+                  to: config.resource[from],
+                  filename: '[name]-[hash:8].[ext]'
+                })
+              }
             } else {
               r.files.push({
                 from,
                 to: config.resource[from],
+                matcher: ['*.html', '!**/.*'],
+                filename: '[name].[ext]'
+              })
+
+              r.files.push({
+                from,
+                to: config.resource[from],
+                matcher: ['!*.html', '!**/.*'],
                 filename: '[name]-[hash:8].[ext]'
               })
             }
-          } else {
-            r.files.push({
-              from,
-              to: config.resource[from],
-              matcher: ['*.html', '!**/.*'],
-              filename: '[name].[ext]'
-            })
-
-            r.files.push({
-              from,
-              to: config.resource[from],
-              matcher: ['!*.html', '!**/.*'],
-              filename: '[name]-[hash:8].[ext]'
-            })
-          }
-        })
-      }
-      return r
-    })()),
+          })
+        }
+        return r
+      })()
+    ),
     // {$alias}
     new YylSugarWebpackPlugin({}),
     // rev
     new YylRevWebpackPlugin({
       filename: util.path.join(
-        path.relative(
-          resolveRoot,
-          config.alias.revDest
-        ),
+        path.relative(resolveRoot, config.alias.revDest),
         'rev-manifest.json'
       ),
       revRoot: config.alias.revRoot,
@@ -203,25 +210,28 @@ const init = (config, iEnv) => {
           staticRemotePath: config.commit.staticHost || config.commit.hostname,
           mainRemotePath: config.commit.mainHost || config.commit.hostname
         }
-        Object.keys(iEnv).filter((key) => {
-          return [
-            'isCommit',
-            'logLevel',
-            'proxy',
-            'name',
-            'config',
-            'workflow',
-            'useHotPlugin',
-            'hmr'
-          ].indexOf(key) === -1
-        }).forEach((key) => {
-          r[key] = iEnv[key]
-        })
+        Object.keys(iEnv)
+          .filter((key) => {
+            return (
+              [
+                'isCommit',
+                'logLevel',
+                'proxy',
+                'name',
+                'config',
+                'workflow',
+                'useHotPlugin',
+                'hmr'
+              ].indexOf(key) === -1
+            )
+          })
+          .forEach((key) => {
+            r[key] = iEnv[key]
+          })
         return r
       })()
     })
   ])
-
 
   return webpackMerge(
     webpackBaseEntry(config, iEnv),

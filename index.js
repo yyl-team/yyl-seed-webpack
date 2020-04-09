@@ -7,12 +7,8 @@ const cmd = {
   optimize: opzer,
   initPackage: {
     default: ['init-me-seed-yyl-webpack'],
-    yy: [
-      '@yy/init-me-seed-yyl-react',
-      '@yy/init-me-seed-yyl-vue'
-    ]
+    yy: ['@yy/init-me-seed-yyl-react', '@yy/init-me-seed-yyl-vue']
   }
 }
 
 module.exports = cmd
-

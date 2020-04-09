@@ -1,8 +1,8 @@
 const print = require('yyl-print')
 const util = require('yyl-util')
-const handler = require('./handler');
+const handler = require('./handler')
 
-(() => {
+;(() => {
   const { env, cmds } = util.cmdParse(process.argv)
 
   const ctrl = cmds[1]
@@ -18,5 +18,3 @@ const handler = require('./handler');
     print.log.warn(`usage: ${Object.keys(handler).join(',')}`)
   }
 })()
-
-

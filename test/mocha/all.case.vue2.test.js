@@ -2,7 +2,6 @@
 const path = require('path')
 const { handleAll } = require('../fn/handle.all')
 
-
 // + vars
 const casePath = path.join(__dirname, '../case/vue2')
 // - vars
