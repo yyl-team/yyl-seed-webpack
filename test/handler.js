@@ -88,13 +88,13 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        const configDir = path.dirname(configPath)
-        if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
-          print.log.info('start install package')
-          await extOs.runCMD('npm i ', configDir)
-        } else {
-          print.log.info('package exists')
-        }
+        // const configDir = path.dirname(configPath)
+        // if (!fs.existsSync(path.join(configDir, 'node_modules'))) {
+        //   print.log.info('start install package')
+        //   await extOs.runCMD('npm i ', configDir)
+        // } else {
+        //   print.log.info('package exists')
+        // }
         // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
@@ -172,10 +172,10 @@ const handler = {
       if (!fs.existsSync(configPath)) {
         return print.log.warn(`config path not exists: ${configPath}`)
       } else {
-        const configDir = path.dirname(configPath)
-        if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
-          await extOs.runCMD('npm i ', configDir)
-        }
+        // const configDir = path.dirname(configPath)
+        // if (!fs.existsSync(path.join(configDir, 'node_moduels'))) {
+        //   await extOs.runCMD('npm i ', configDir)
+        // }
         // iEnv.workflow = WORKFLOW
         config = await yh.parseConfig(configPath, iEnv)
         if (!config.workflow) {
