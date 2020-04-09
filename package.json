@@ -51,6 +51,7 @@
     "test:all.case.vue2": "mocha ./test/mocha/all.case.vue2.test.js --timeout 120000",
     "test:all.case.vue2-ts": "mocha ./test/mocha/all.case.vue2-ts.test.js --timeout 120000",
     "test:all.case.react-ts": "mocha ./test/mocha/all.case.react-ts.test.js --timeout 120000",
+    "test:all.case.yarn": "mocha ./test/mocha/all.case.yarn.test.js --timeout 120000",
     "test:all.git.usercenter": "mocha ./test/mocha/all.git.usercenter.test.js --timeout 120000",
     "test:all.git.yycom_h5_live": "mocha ./test/mocha/all.git.yycom_h5_live.test.js --timeout 120000",
     "test:all.git.yycom_header": "mocha ./test/mocha/all.git.yycom_header.test.js --timeout 120000",
@@ -104,7 +105,8 @@
     "ghwl": "node ./test/run.js watch --config ./test/__gitcase/yycom_header/yyl.config.js --proxy --logLevel 2 --remote --livereload",
     "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
     "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2",
-    "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2"
+    "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2",
+    "cya": "node ./test/run.js all --config ./test/case/yarn/config.js"
   },
   "repository": {
     "type": "git",

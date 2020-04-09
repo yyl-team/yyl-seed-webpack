@@ -7,7 +7,7 @@ const handler = require('../handler')
 
 const { linkCheck } = require('./fn.all')
 
-function runAll({ targetPath, silent }) {
+function runAll({ targetPath, silent, extFn }) {
   const filename = path.basename(targetPath)
   const initEnv = function () {
     let pjConfigPath = ''
@@ -66,9 +66,15 @@ function runAll({ targetPath, silent }) {
 
     await linkCheck(config)
   })
+
+  if (extFn) {
+    it(`${filename} ext function`, async () => {
+      await extFn({ targetPath })
+    })
+  }
 }
 
-module.exports.handleAll = function (PJ_PATH) {
+module.exports.handleAll = function (PJ_PATH, extFn) {
   // + vars
   const filename = path.basename(PJ_PATH)
   const FRAG_PATH = path.join(__dirname, `../__frag/all-${filename}`)
@@ -84,7 +90,7 @@ module.exports.handleAll = function (PJ_PATH) {
       })
     })
 
-    runAll({ targetPath: FRAG_PATH, silent: true })
+    runAll({ targetPath: FRAG_PATH, silent: true, extFn })
 
     afterEach(async () => {
       // await tUtil.frag.destroy()
