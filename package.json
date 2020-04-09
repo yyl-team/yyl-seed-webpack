@@ -40,7 +40,7 @@
     "eslint:fix": "eslint ./ --fix",
     "prettier": "prettier --write ./**/*.js",
     "test": "mocha ./test/mocha/ --timeout 1200000",
-    "prepublishOnly": "npm run prettier",
+    "prepublishOnly": "npm run prettier & npm run test:all.case.vue2 & npm run test:all.case.vue2-ts &b test:all.case.react-ts",
     "test:all.case.demo": "mocha ./test/mocha/all.case.demo.test.js --timeout 120000",
     "test:all.case.env-test": "mocha ./test/mocha/all.case.env-test.test.js --timeout 120000",
     "test:all.case.local-webpack-config-function": "mocha ./test/mocha/all.case.local-webpack-config-type-function.test.js --timeout 120000",
