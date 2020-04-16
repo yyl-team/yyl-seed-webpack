@@ -1,6 +1,8 @@
 # 版本信息
+## 2.4.2 (2020-04-16)
+* feat: 支持通过 `env.port` 配置 本地服务 port (`webpack-dev-server` 激活时) 
 ## 2.4.1 (2020-04-16)
-* fix: 当使用 webpack-dev-server 并进行 https watch 时， 暂时屏蔽掉 hmr 和 hotrerload(有报错)
+* fix: 当使用 `webpack-dev-server` 并进行 https watch 时， 暂时屏蔽掉 hmr 和 hotrerload(有报错)
 
 ## 2.4.0 (2020-04-09)
 * feat: 升级 `yyl-hander@0.10.0`
