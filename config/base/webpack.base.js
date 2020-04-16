@@ -148,7 +148,7 @@ const init = (config, iEnv) => {
     // pop
     new YylEnvPopPlugin({
       enable: iEnv.tips,
-      text: `${pjName}: ${extOs.LOCAL_IP}${serverPort}`,
+      text: `${pjName} - ${extOs.LOCAL_IP}${serverPort}`,
       duration: 3000
     }),
     // config.concat
