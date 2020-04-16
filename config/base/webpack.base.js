@@ -23,7 +23,18 @@ const webpackBaseEntry = require('./webpack.base.entry')
 const webpackBaseModule = require('./webpack.base.module')
 
 const init = (config, iEnv) => {
+  // + pop log
   const resolveRoot = path.resolve(__dirname, config.alias.root)
+  const pjName = config.name || 'PROXY'
+  let serverPort = ''
+  if (config.localserver && config.localserver.port) {
+    serverPort = `:${config.localserver.port}`
+  }
+
+  if (iEnv.port) {
+    serverPort = `:${iEnv.port}`
+  }
+  // - pop log
 
   const wConfig = {
     context: path.resolve(__dirname, config.alias.dirname),
@@ -137,7 +148,7 @@ const init = (config, iEnv) => {
     // pop
     new YylEnvPopPlugin({
       enable: iEnv.tips,
-      text: `${iEnv.remote ? 'REMOTEING' : 'PROXYING'}: ${extOs.LOCAL_IP}`,
+      text: `${pjName}: ${extOs.LOCAL_IP}${serverPort}`,
       duration: 3000
     }),
     // config.concat
