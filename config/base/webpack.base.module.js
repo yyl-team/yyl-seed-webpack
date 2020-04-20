@@ -290,18 +290,7 @@ const init = (config, iEnv) => {
               appendTsSuffixTo: [/\.vue$/]
             }
           }
-        ],
-        exclude: (file) => {
-          if (/node_modules/.test(file)) {
-            if (isModuleInclude(file, config.tsLoaderIncludes)) {
-              return false
-            } else {
-              return true
-            }
-          } else {
-            return true
-          }
-        }
+        ]
       })
 
       wConfig.resolve.plugins.push(

@@ -1,6 +1,9 @@
 # 版本信息
-## 2.5.0 (*)
-* feat: 新增 `config.tsLoaderIncludes`, `config.babelLoaderIncludes` 参数
+## 2.5.1 (2020-04-20)
+* del: 去掉 `config.tsLoaderIncludes` 参数 (没必要)
+## 2.5.0 (2020-04-20)
+* feat: 新增 `config.babelLoaderIncludes` 参数
+* feat: 新增 `config.tsLoaderIncludes` 参数
 
 ## 2.4.4 (2020-04-16)
 * feat: 调整 pop 提示信息
