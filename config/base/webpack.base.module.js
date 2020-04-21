@@ -19,14 +19,35 @@ const sass = require('sass')
 
 const init = (config, iEnv) => {
   const resolveRoot = path.resolve(__dirname, config.alias.root)
+  const isModuleInclude = (iPath, arr) => {
+    if (util.type(arr) !== 'array') {
+      return false
+    }
+    const matchModule = arr.filter((pkg) => {
+      const pkgPath = path.join('node_modules', pkg)
+      return iPath.includes(pkgPath)
+    })
+    return !!matchModule[0]
+  }
 
   const wConfig = {
     module: {
       rules: [
         {
           test: /\.jsx?$/,
-          exclude: (file) =>
-            /node_modules/.test(file) && !/\.vue\.js/.test(file),
+          exclude: (file) => {
+            if (/node_modules/.test(file)) {
+              if (isModuleInclude(file, config.babelLoaderIncludes)) {
+                return false
+              } else if (/\.vue\.js/.test(file)) {
+                return false
+              } else {
+                return true
+              }
+            } else {
+              return true
+            }
+          },
           use: happyPackLoader('js')
           // }, {
           //   test: /\.html$/,
@@ -269,8 +290,7 @@ const init = (config, iEnv) => {
               appendTsSuffixTo: [/\.vue$/]
             }
           }
-        ],
-        exclude: /node_modules/
+        ]
       })
 
       wConfig.resolve.plugins.push(

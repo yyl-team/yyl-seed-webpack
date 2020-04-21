@@ -37,7 +37,9 @@ const init = (config, iEnv) => {
             const queryObj = {
               name: key
             }
-            if (config.localserver && config.localserver.port) {
+            if (iEnv.port) {
+              queryObj.path = `http://127.0.0.1:${iEnv.port}/__webpack_hmr`
+            } else if (config.localserver && config.localserver.port) {
               queryObj.path = `http://127.0.0.1:${config.localserver.port}/__webpack_hmr`
             }
             const iQuery = querystring.stringify(queryObj)

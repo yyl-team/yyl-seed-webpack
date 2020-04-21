@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.4.4",
+  "version": "2.5.2",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -98,6 +98,7 @@
     "chwc": "node ./test/run.js watch --config ./test/case/hmr/config.js --isCommit",
     "cea": "node ./test/run.js all --config ./test/case/err-init/config.js",
     "ceo": "node ./test/run.js all --config ./test/case/err-optimize/config.js",
+    "cesa": "node ./test/run.js all --config ./test/case/es6/config.js",
     "gua": "node ./test/run.js all --config ./test/__gitcase/usercenter/config.js --name pc --logLevel 2",
     "guw": "node ./test/run.js watch --config ./test/__gitcase/usercenter/config.js --name pc --proxy",
     "gha": "node ./test/run.js all --config ./test/__gitcase/yycom_header/yyl.config.js --silent",
