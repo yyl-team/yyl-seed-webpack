@@ -1,6 +1,9 @@
 # 版本信息
+## 2.5.6 (2020-04-23)
+* feat: 运行 webpack-dev-server 不再需要项目内安装 `webpack`, `webpack-dev-server` 了
 ## 2.5.5 (2020-04-23)
 * fix: 修复 js 不会只想 babel-loader 问题
+
 ## 2.5.4 (2020-04-21)
 * feat: 优化 端口被占用时文案
 
