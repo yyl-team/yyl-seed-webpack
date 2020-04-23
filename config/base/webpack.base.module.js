@@ -45,7 +45,7 @@ const init = (config, iEnv) => {
                 return true
               }
             } else {
-              return true
+              return false
             }
           },
           use: happyPackLoader('js')
