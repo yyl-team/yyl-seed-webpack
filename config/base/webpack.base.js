@@ -68,7 +68,9 @@ const init = (config, iEnv) => {
           'ansi-regex': resolveModule('ansi-regex'),
           'isarray': resolveModule('isarray'),
           'loglevel': resolveModule('loglevel'),
-          'sockjs-client/dist/sockjs': resolveModule('sockjs-client/dist/sockjs')
+          'sockjs-client/dist/sockjs': resolveModule(
+            'sockjs-client/dist/sockjs'
+          )
         },
         config.alias
       )
