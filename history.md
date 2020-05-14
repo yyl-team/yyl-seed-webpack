@@ -1,4 +1,8 @@
 # 版本信息
+## 2.5.7 (2020-05-14)
+* feat: update `yyl-sugar-webpack-plugin@0.1.14`
+* fix: 修复 当 js 有 sugar 需要替换，而正好 html 引入了这个 js时，会出现 hash 不对的情况
+
 ## 2.5.6 (2020-04-23)
 * feat: 运行 webpack-dev-server 不再需要项目内安装 `webpack`, `webpack-dev-server` 了
 ## 2.5.5 (2020-04-23)
