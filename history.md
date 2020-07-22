@@ -1,4 +1,7 @@
 # 版本信息
+## 2.5.8 (2020-07-22)
+* fix: 兼容 node@14
+
 ## 2.5.7 (2020-05-14)
 * feat: update `yyl-sugar-webpack-plugin@0.1.14`
 * fix: 修复 当 js 有 sugar 需要替换，而正好 html 引入了这个 js时，会出现 hash 不对的情况
