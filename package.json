@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.5.8",
+  "version": "2.5.9",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -157,7 +157,6 @@
     "isarray": "^2.0.5",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.7.0",
-    "node-sass": "4.14.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss-loader": "3.0.0",
     "postcss-px2rem": "0.3.0",
