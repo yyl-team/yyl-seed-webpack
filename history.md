@@ -1,4 +1,6 @@
 # 版本信息
+## 2.5.10 (2020-08-31)
+* feat: 兼容 当 `yconfig.localserver.entry` 时 writeDisk 自动设为 true
 ## 2.5.9 (2020-07-22)
 * del: 去掉没用的依赖 `node-sass`
 ## 2.5.8 (2020-07-22)
