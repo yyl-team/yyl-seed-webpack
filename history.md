@@ -1,4 +1,6 @@
 # 版本信息
+## 2.5.11 (*)
+* feat: 添加 `aquaman` 例子
 ## 2.5.10 (2020-08-31)
 * feat: 兼容 当 `yconfig.localserver.entry` 时 writeDisk 自动设为 true
 ## 2.5.9 (2020-07-22)
