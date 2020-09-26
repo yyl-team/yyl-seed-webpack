@@ -9143,10 +9143,10 @@ yyl-seed-test-util@0.4.0:
     yyl-os "^0.2.0"
     yyl-util "^2.1.0"
 
-yyl-server@0.3.16:
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/yyl-server/-/yyl-server-0.3.16.tgz#496b3b72fe1855b7ac70c0f8541528105271e1e4"
-  integrity sha512-snBUGH1Pn5dYE/j9efYiMT1g5J8S4d9Kheq6Kbr0bBTwbjtdcNwEpBJBXTiQIG6NUZPU6aJTCxQu11Q/0zIDyg==
+yyl-server@0.3.17:
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/yyl-server/-/yyl-server-0.3.17.tgz#501fbee3577778f4130a28412a58037257d20820"
+  integrity sha512-15LsYUnqfa+95F+E2o+/J9HEXeTTWZd1BSSdFlPSBex0D8mOUQTnDnc4IYl8+KbAYys+TiR0Txz6+PhVt6zZww==
   dependencies:
     "@types/connect" "3.4.33"
     anyproxy "4.1.3"

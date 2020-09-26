@@ -2,6 +2,7 @@
 __frag/
 *.log
 **/node_modules/
+**/package-lock.json
 **/__frag/
 **/__gitcase/
 .vscode 
