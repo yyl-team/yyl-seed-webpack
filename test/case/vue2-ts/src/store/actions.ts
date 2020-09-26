@@ -1,9 +1,11 @@
 import { ActionTree } from 'vuex'
 
 const actions: ActionTree<any, any> = {
-  addDemoLog({ commit }, msg) {
-    commit('ADD_DEMO_LOG', msg);
+  async addDemoLog({ commit }, msg) {
+    await new Promise(() => {
+      commit('ADD_DEMO_LOG', msg)
+    })
   }
 }
 
-export default actions;
+export default actions

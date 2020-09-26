@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.5.10",
+  "version": "2.5.11",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -107,7 +107,9 @@
     "gla": "node ./test/run.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
     "glw": "node ./test/run.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2",
     "gca": "node ./test/run.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2",
-    "cya": "node ./test/run.js all --config ./test/case/yarn/config.js"
+    "cya": "node ./test/run.js all --config ./test/case/yarn/config.js",
+    "caqa": "node ./test/run.js all --config ./test/case/aquaman/config.js",
+    "caqw": "node ./test/run.js watch --config ./test/case/aquaman/config.js --proxy"
   },
   "repository": {
     "type": "git",
@@ -204,6 +206,6 @@
     "yyl-print": "0.7.3",
     "yyl-request": "0.1.0",
     "yyl-seed-test-util": "0.4.0",
-    "yyl-server": "0.3.6"
+    "yyl-server": "0.3.17"
   }
 }
