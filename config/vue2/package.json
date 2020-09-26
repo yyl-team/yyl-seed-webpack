@@ -3,6 +3,7 @@
   "engines": {
     "node": ">= 8.0.0"
   },
+  "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
     "inherits": "^2.0.4",

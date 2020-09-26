@@ -1,4 +1,7 @@
 # 版本信息
+## 2.5.12 (2020-09-27)
+* feat: 补充 `license`
+
 ## 2.5.11 (2020-09-27)
 * feat: 添加 `aquaman` 例子
 * del: 去掉多余的 `package-lock.json`
