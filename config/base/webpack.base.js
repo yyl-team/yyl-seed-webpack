@@ -70,6 +70,11 @@ const init = (config, iEnv) => {
           'loglevel': resolveModule('loglevel'),
           'sockjs-client/dist/sockjs': resolveModule(
             'sockjs-client/dist/sockjs'
+          ),
+          'webpack/hot/emitter': resolveModule('webpack/hot/emitter.js'),
+          'webpack/hot': path.join(
+            resolveModule('webpack/hot/emitter.js'),
+            '..'
           )
         },
         config.alias
