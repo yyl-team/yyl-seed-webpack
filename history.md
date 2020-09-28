@@ -1,4 +1,8 @@
 # 版本信息
+## 2.5.14 (2020-09-28)
+* feat: 兼容 webpack.devServer.historyApiFallback.rewrite 配置项
+* fix: 修复 启动 `webpack.devServer` 时，如项目未安装 webpack 会报错的问题
+
 ## 2.5.13 (2020-09-27)
 * del: 去掉多余的依赖
 ## 2.5.12 (2020-09-27)
