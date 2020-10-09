@@ -1,57 +1,46 @@
+import { YylConfig, Env } from 'yyl-config-types'
 type Callback = (...args: any[]) => any;
-type AnyObject = { [key: string]: any};
-
-interface Localserver {
-  root: string;
-  [key: string]: any;
-}
-
-interface Commit {
-  hostname: string;
-  revAddr: string;
-  [key: string]: any;
-}
-
-interface Config {
-  [key: string]: any;
-  seed: string;
-  px2rem?: boolean;
-  localserver: localserver
-  dest: string;
-  plugins: string[];
-  alias: AnyObject;
-  commit: Commit
-}
 
 interface Res {
-  on(eventName: string, fn: Callback): this;
+  /** 事件绑定 */
+  on(eventName: string, fn: () => void): this;
+  /** 事件触发 */
   trigger(eventName: string, args: any[]): this;
 }
 
-interface Filter {
-  COPY_FILTER: RegExp;
-  EXAMPLE_FILTER: RegExp;
-}
-
-interface wInit {
-  (type: string, targetPath: string): Res;
-  examples: string[];
-  FILTER: Filter;
-}
-
 interface Opzer {
+  /** watch */
   watch(): Res;
+  /** 打包 */
   all(): Res;
-  getConfigSync(): IConfig;
+  /** 获取 runtime config */
+  getConfigSync(): YylConfig;
+  /** 事件句柄 */
   response: Res;
+  /** 禁止 热刷新 */
   ignoreLiveReload: boolean;
+  /** 初始化 server 中间件 */
   initServerMiddleWare(app: any): void;
+  /** 事件绑定 */
   on(eventName: string, fn: Callback): this;
 }
 
+interface OptimizeOption {
+  /** yyl.config */
+  config: YylConfig 
+  /** 项目根目录 */
+  root: string
+  /** watch|all */
+  ctx?: string
+  /** cli 参数 */
+  iEnv?: Env
+}
+
 interface Optimize {
-  (config: IConfig, root: string): Opzer;
-  handles: string[]
+  (option: OptimizeOption): Promise<Opzer>;
+  /** 允许执行的方法 */
+  handles: string[];
+  /** 是否自带server */
   withServer: boolean;
 }
 
