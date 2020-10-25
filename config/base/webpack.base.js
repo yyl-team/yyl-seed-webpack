@@ -85,6 +85,7 @@ const init = (config, iEnv) => {
     optimization: {
       minimizer: [
         new TerserWebpackPlugin({
+          extractComments: false,
           terserOptions: {
             ie8: config.ie8 ? true : false,
             keep_fnames: config.keep_fnames ? true : false
