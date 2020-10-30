@@ -1,4 +1,6 @@
 # 版本信息
+## 2.6.0 (2020-10-30)
+* feat: 新增 `config.urlLoaderMatch` 属性, 用于配置 其他 需要用到 url-loader 的文件
 ## 2.5.16 (2020-10-25)
 * feat: 禁掉 publish 时 会生成 sourcemap 的操作
 ## 2.5.15 (2020-10-10)
