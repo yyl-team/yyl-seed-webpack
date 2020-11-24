@@ -9042,10 +9042,10 @@ yyl-request@0.1.1, yyl-request@^0.1.0, yyl-request@^0.1.1:
   dependencies:
     request "^2.88.0"
 
-yyl-rev-webpack-plugin@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.npmjs.org/yyl-rev-webpack-plugin/-/yyl-rev-webpack-plugin-0.1.6.tgz#0b644cba60accb425d779a07ac8d3177c3aa987b"
-  integrity sha512-uJ+lkqyPg8tNEkw0gu9WuK9Ny6WYY51DQj2nQw7K2Ebs1vtnMRt24Uj2lKITpiGWCOky0+kJmhQIteStx+lsAA==
+yyl-rev-webpack-plugin@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/yyl-rev-webpack-plugin/-/yyl-rev-webpack-plugin-0.1.7.tgz#03ea959b230794639771e1ac721952d9f86c0a6a"
+  integrity sha512-x78AOV/d4j1nmYKFDVehu5zV27LmZ7Rss545dPi0opSDwGGkh2hfMgg+VM8mJe3bGjcjytQwH9aRBO6XdKHnMQ==
   dependencies:
     chalk "^3.0.0"
     tapable "^1.1.3"
