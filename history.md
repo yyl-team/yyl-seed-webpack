@@ -1,4 +1,6 @@
 # 版本信息
+## 2.6.1 (2020-11-24)
+* feat: 更新 `yyl-rev-webpack-plugin@0.1.6` 优化 rev remote 时 的 log显示
 ## 2.6.0 (2020-10-30)
 * feat: 新增 `config.urlLoaderMatch` 属性, 用于配置 其他 需要用到 url-loader 的文件
 ## 2.5.16 (2020-10-25)
