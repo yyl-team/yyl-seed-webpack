@@ -30,6 +30,25 @@ const init = (config, iEnv) => {
     return !!matchModule[0]
   }
 
+  // url-loader options
+  const urlLoaderOptions = {
+    limit: isNaN(config.base64Limit) ? 3000 : Number(config.base64Limit),
+    name: '[name]-[hash:8].[ext]',
+    chunkFilename: 'async_component/[name]-[chunkhash:8].[ext]',
+    outputPath: path.relative(resolveRoot, config.alias.imagesDest),
+    publicPath: (function () {
+      let r = util.path.join(
+        config.dest.basePath,
+        path.relative(resolveRoot, config.alias.imagesDest),
+        '/'
+      )
+      if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
+        r = util.path.join(config.commit.hostname, r)
+      }
+      return r
+    })()
+  }
+
   const wConfig = {
     module: {
       rules: [
@@ -92,25 +111,7 @@ const init = (config, iEnv) => {
           use: [
             {
               loader: resolveModule('url-loader'),
-              options: {
-                limit: isNaN(config.base64Limit)
-                  ? 3000
-                  : Number(config.base64Limit),
-                name: '[name]-[hash:8].[ext]',
-                chunkFilename: 'async_component/[name]-[chunkhash:8].[ext]',
-                outputPath: path.relative(resolveRoot, config.alias.imagesDest),
-                publicPath: (function () {
-                  let r = util.path.join(
-                    config.dest.basePath,
-                    path.relative(resolveRoot, config.alias.imagesDest),
-                    '/'
-                  )
-                  if (iEnv.proxy || iEnv.remote || iEnv.isCommit) {
-                    r = util.path.join(config.commit.hostname, r)
-                  }
-                  return r
-                })()
-              }
+              options: urlLoaderOptions
             }
           ]
         }
@@ -173,6 +174,20 @@ const init = (config, iEnv) => {
       // - happypack
     ]
   }
+
+  // + urlLoaderMatch
+  if (util.type(config.urlLoaderMatch) === 'regexp') {
+    wConfig.module.rules.push({
+      test: config.urlLoaderMatch,
+      use: [
+        {
+          loader: resolveModule('url-loader'),
+          options: urlLoaderOptions
+        }
+      ]
+    })
+  }
+  // - urlLoaderMatch
 
   // + css & sass
   const cssUse = [
@@ -303,26 +318,6 @@ const init = (config, iEnv) => {
         '.tsx',
         '.ts'
       ])
-
-      // + happpack
-      // wConfig.plugins = wConfig.plugins.concat([
-      //   new ForkTsCheckerWebpackPlugin({
-      //     checkSyntacticErrors: true,
-      //     configFile: localTsConfigPath
-      //   }),
-      //   new HappyPack({
-      //     id: 'ts',
-      //     loaders: [{
-      //       loader: useProjectTs ? require.resolve(localTsLoaderPath) : require.resolve('ts-loader'),
-      //       options: {
-      //         appendTsSuffixTo: [/\.vue$/],
-      //         happyPackMode: true
-      //         // transpileOnly: true
-      //       }
-      //     }]
-      //   })
-      // ])
-      // - happpack
     }
   }
   // - ts

@@ -19,6 +19,7 @@ const init = (config, iEnv) => {
         '/'
       )
     },
+    devtool: false,
     plugins: [
       // 环境变量 (全局替换 含有这 变量的 js)
       new webpack.DefinePlugin({

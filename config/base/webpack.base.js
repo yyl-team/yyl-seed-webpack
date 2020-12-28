@@ -65,11 +65,18 @@ const init = (config, iEnv) => {
           'ansi-html': resolveModule('ansi-html'),
           'html-entities': resolveModule('html-entities'),
           'strip-ansi': resolveModule('strip-ansi'),
+          'base64-js': resolveModule('base64-js'),
+          'ieee754': resolveModule('ieee754'),
           'ansi-regex': resolveModule('ansi-regex'),
           'isarray': resolveModule('isarray'),
           'loglevel': resolveModule('loglevel'),
           'sockjs-client/dist/sockjs': resolveModule(
             'sockjs-client/dist/sockjs'
+          ),
+          'webpack/hot/emitter': resolveModule('webpack/hot/emitter.js'),
+          'webpack/hot': path.join(
+            resolveModule('webpack/hot/emitter.js'),
+            '..'
           )
         },
         config.alias
@@ -80,6 +87,7 @@ const init = (config, iEnv) => {
     optimization: {
       minimizer: [
         new TerserWebpackPlugin({
+          extractComments: false,
           terserOptions: {
             ie8: config.ie8 ? true : false,
             keep_fnames: config.keep_fnames ? true : false

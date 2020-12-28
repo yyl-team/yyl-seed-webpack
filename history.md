@@ -1,4 +1,29 @@
 # 版本信息
+## 2.6.3 (2020-12-28)
+* feat: 更新 webpack.base.js alias 依赖 新增 `base64-js`, `ieee754`
+## 2.6.2 (2020-11-24)
+* feat: 更新 `yyl-rev-webpack-plugin@0.1.7` 优化 rev remote 时 的 log显示
+## 2.6.1 (2020-11-24)
+* feat: 更新 `yyl-rev-webpack-plugin@0.1.6` 优化 rev remote 时 的 log显示
+## 2.6.0 (2020-10-30)
+* feat: 新增 `config.urlLoaderMatch` 属性, 用于配置 其他 需要用到 url-loader 的文件
+## 2.5.16 (2020-10-25)
+* feat: 禁掉 publish 时 会生成 sourcemap 的操作
+## 2.5.15 (2020-10-10)
+* feat: 完善 d.ts
+## 2.5.14 (2020-09-28)
+* feat: 兼容 webpack.devServer.historyApiFallback.rewrite 配置项
+* fix: 修复 启动 `webpack.devServer` 时，如项目未安装 webpack 会报错的问题
+
+## 2.5.13 (2020-09-27)
+* del: 去掉多余的依赖
+## 2.5.12 (2020-09-27)
+* feat: 补充 `license`
+
+## 2.5.11 (2020-09-27)
+* feat: 添加 `aquaman` 例子
+* del: 去掉多余的 `package-lock.json`
+
 ## 2.5.10 (2020-08-31)
 * feat: 兼容 当 `yconfig.localserver.entry` 时 writeDisk 自动设为 true
 ## 2.5.9 (2020-07-22)
