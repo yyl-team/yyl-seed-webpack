@@ -65,6 +65,8 @@ const init = (config, iEnv) => {
           'ansi-html': resolveModule('ansi-html'),
           'html-entities': resolveModule('html-entities'),
           'strip-ansi': resolveModule('strip-ansi'),
+          'base64-js': resolveModule('base64-js'),
+          'ieee754': resolveModule('ieee754'),
           'ansi-regex': resolveModule('ansi-regex'),
           'isarray': resolveModule('isarray'),
           'loglevel': resolveModule('loglevel'),
