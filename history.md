@@ -1,4 +1,6 @@
 # 版本信息
+## 2.6.4 (2021-01-27)
+* fix: 更新 browserlist
 ## 2.6.3 (2020-12-28)
 * feat: 更新 webpack.base.js alias 依赖 新增 `base64-js`, `ieee754`
 ## 2.6.2 (2020-11-24)

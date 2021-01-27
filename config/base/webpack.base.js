@@ -77,6 +77,9 @@ const init = (config, iEnv) => {
           'webpack/hot': path.join(
             resolveModule('webpack/hot/emitter.js'),
             '..'
+          ),
+          'webpack/lib/ModuleFilenameHelpers': resolveModule(
+            'webpack/lib/ModuleFilenameHelpers.js'
           )
         },
         config.alias
