@@ -9277,6 +9277,11 @@ yyl-rev-webpack-plugin@1.0.4:
     tapable "^2.2.0"
     yyl-webpack-plugin-base "^0.1.6"
 
+yyl-seed-base@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/yyl-seed-base/-/yyl-seed-base-0.1.0.tgz#2c9ddf430fbd1c7434cf97518affddc05061dbc6"
+  integrity sha512-izwZ1nry1xtvZSJzgknXZHXEUj985jwHU9Olvw3W1YkpKjXoNVdbrdG9Vnn5VFCT1cET4cic428laWCGoH+BaA==
+
 yyl-seed-response@0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/yyl-seed-response/-/yyl-seed-response-0.2.0.tgz#91a5f43e32f37ea6ee820f07bb9ea315772e012c"

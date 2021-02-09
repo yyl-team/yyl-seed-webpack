@@ -2,45 +2,19 @@ import fs from 'fs'
 import path from 'path'
 import extOs from 'yyl-os'
 import SeedResponse, { ResponseFn } from 'yyl-seed-response'
+import { SeedOptimize, SeedOptimizeOption, SeedOptimizeResult } from 'yyl-seed-base'
 import { webpack } from 'webpack'
-import { YylConfig, Env } from 'yyl-config-types'
 import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
 import { LANG, HOOK_NAME } from './const'
 import WebpackDevServer from 'webpack-dev-server'
 
-export interface OptimizeOption {
-  /** yylConfig */
-  yylConfig: YylConfig
-  /** 项目根目录 */
-  root: string
-  /** cli 传参 */
-  env: Env
-  /** 操作符 */
-  ctx: string
-}
+export interface OptimizeOption extends SeedOptimizeOption {}
 
 /** optimize 返回 */
-export interface OptimizeResult {
-  /** 获取 yylConfig 的运行配置 */
-  getConfigSync(): YylConfig
-  /** 消息处理对象  */
-  response: SeedResponse
-  /** 项目根目录 */
-  root: string
-  /** 通知父应用不运行本地 server */
-  ignoreServer?: boolean
-  /** 消息监听 */
-  on<A extends any[] = any[]>(eventName: string, fn: ResponseFn): OptimizeResult
-  /** 构建 */
-  all(): OptimizeResult
-  /** 监听并构建 */
-  watch(): OptimizeResult
-  /** 可操作句柄 */
-  handles: string[]
-}
+export interface OptimizeResult extends SeedOptimizeResult {}
 
 /** 构建函数 */
-export async function optimize(option: OptimizeOption): Promise<OptimizeResult | undefined> {
+export const optimize: SeedOptimize = async (option: OptimizeOption) => {
   let { yylConfig, root, env, ctx } = option
   // response 初始化
   const iRes = new SeedResponse()
@@ -142,6 +116,3 @@ export async function optimize(option: OptimizeOption): Promise<OptimizeResult |
   }
   return opzer
 }
-
-/** optimze 类型 */
-export type Optimize = typeof optimize

@@ -1,23 +1,9 @@
-import { optimize, Optimize } from './optimize'
+import { optimize } from './optimize'
+import { SeedEntry } from 'yyl-seed-base'
+
 const pkg = require('../package.json')
 
-export interface Entry {
-  /** seed 名称 */
-  name: string
-  /** 版本 */
-  version: string
-  /** 所在地址 */
-  path: string
-  /** 构建处理 */
-  optimize: Optimize
-  /** seed 包初始化用对象 */
-  initPackage: {
-    default: string[]
-    yy: string[]
-  }
-}
-
-const entry: Entry = {
+const entry: SeedEntry = {
   name: 'webpack',
   version: pkg.version,
   path: __dirname,
