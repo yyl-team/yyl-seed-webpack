@@ -1,9 +1,11 @@
 # yyl-seed-webpack
+
 yyl 构建种子 - `webpack`
 
 ## SDK
 
 ### seed.name
+
 ```
 /**
  * @return {String} seed 包名称
@@ -12,6 +14,7 @@ seed.name
 ```
 
 ### seed.version
+
 ```
 /**
  * @return {String} seed 包版本
@@ -20,6 +23,7 @@ seed.version
 ```
 
 ### seed.path
+
 ```
 /**
  * @return {String} seed 所在目录
@@ -28,6 +32,7 @@ seed.path
 ```
 
 ### seed.optimize()
+
 ```
 /**
  * @param  {Object} config       配置文件
@@ -56,6 +61,7 @@ seed.optimize(config, projectPath)
 ```
 
 ### opzer
+
 ```
 /**
  * @param  {Object}  op 参数
@@ -72,7 +78,9 @@ opzer.html(op)
 opzer.tpl(op)
 opzer.images(op)
 ```
+
 ### ctrler.on()
+
 ```
 /**
  * @param {String} eventName 需要监听的事件，目前有
@@ -86,9 +94,10 @@ opzer.on(eventName, fn)
 ```
 
 ### ctrler.off()
+
 ```
 /**
- * @param  {String} eventName 要解除绑定的 eventName, 
+ * @param  {String} eventName 要解除绑定的 eventName,
  *                            不填则全部都解绑
  * @return {Void}
  */
@@ -96,6 +105,7 @@ opzer.off(eventName)
 ```
 
 ### ctrler.trigger()
+
 ```
 /**
  * @param {String} eventName 需要触发的事件
@@ -105,6 +115,7 @@ opzer.trigger(eventName, argv)
 ```
 
 ### seed.initServerMiddleWare(app)
+
 ```
 /**
  * 配置server 中间件
@@ -114,6 +125,7 @@ seed.initServerMiddleWare(app)
 ```
 
 ### seed.ignoreLiveReload
+
 ```
 /**
  * 不需要系统hot reload
