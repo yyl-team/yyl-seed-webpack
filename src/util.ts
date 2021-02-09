@@ -2,6 +2,7 @@ import path from 'path'
 import { YylConfig, Env } from 'yyl-config-types'
 import SeedResponse from 'yyl-seed-response'
 import { wConfig as baseWConfig } from './config/base'
+import { wConfig as vue2WConfig } from './config/vue2'
 import { Compiler, Compilation, Configuration } from 'webpack'
 import { HOOK_NAME } from './const'
 import fs from 'fs'
@@ -65,6 +66,9 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
   switch (yylConfig.seed) {
     case 'vue2':
     case 'vue2-ts':
+      wConfig = vue2WConfig({ env, yylConfig }) as Configuration
+      break
+
     case 'base':
     case 'react-ts':
     default:
