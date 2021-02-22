@@ -4,6 +4,7 @@ export interface WConfigOption {
   env: Env
   yylConfig: YylConfig
 }
+// TODO: ProgressPlugin
 export function wConfig(option: WConfigOption) {
   const { env, yylConfig } = option
   return initBaseWebpackConfig({

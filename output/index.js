@@ -51,6 +51,7 @@ function __awaiter(thisArg, _arguments, P, generator) {
     });
 }
 
+// TODO: ProgressPlugin
 function wConfig(option) {
     var _a;
     const { env, yylConfig } = option;
