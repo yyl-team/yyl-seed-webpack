@@ -21,16 +21,16 @@ const logger = (type, ctx, ext) => {
   switch (type) {
     case 'msg':
       if (ctx in print.log) {
-        print.log[ctx](ext)
+        print.log[ctx](...ext)
       } else {
-        print.log.info(ext)
+        print.log.info(...ext)
       }
       break
     case 'start':
-      print.log.info(['task start'])
+      print.log.info('task start')
       break
     case 'finished':
-      print.log.success(['task finished'])
+      print.log.success('task finished')
       break
     case 'cmd':
       print.log.cmd(ext)

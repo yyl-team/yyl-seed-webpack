@@ -9265,10 +9265,10 @@ yyl-fs@^0.3.3:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.3.3.tgz#aa409a5ea451cd0da287315665f338b1a24d4324"
   integrity sha512-3I+zY97ZJz91whuiBcdv3qdTQzErI8Dm2YSfJNK3XIAXmzWOSj1nSf6x59KrG4buzIaS3t2LEHVq4kPSYqu/9Q==
 
-yyl-hander@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/yyl-hander/-/yyl-hander-1.1.0.tgz#33e3af290977ea5534f076d37a01b38c8a117107"
-  integrity sha512-Tidkec2zlYRYsv0CFBfBFiYIAtZQ+D23rzs3CrlZbP9GfjOXLtIaAfRVNRptGyLK4fEIlEkuPGISpjIa1db7Dw==
+yyl-hander@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.1.1.tgz#34a0b94389767a671d7002003053016112e2c20e"
+  integrity sha512-UMCtxeDDEmP5mcS7y8VlrUOYMc+pDPX/1BDkJ4vsoP8trBcduNjlk+anSwf73CUqNThJV6KyhXREotfKjyR2IA==
   dependencies:
     "@types/request" "^2.48.5"
     "@types/request-promise" "^4.1.47"

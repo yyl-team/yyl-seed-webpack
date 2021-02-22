@@ -9,9 +9,9 @@ const handler = require('./handler')
     if (env.ctx) {
       const ctx = env.ctx
       delete env.ctx
-      handler[ctrl](env, ctx)
+      handler[ctrl]({env, ctx})
     } else {
-      handler[ctrl](env)
+      handler[ctrl]({ env })
     }
   } else {
     print.log.warn(`usage: ${Object.keys(handler).join(',')}`)
