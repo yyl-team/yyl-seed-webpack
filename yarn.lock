@@ -1406,7 +1406,7 @@
     "@types/bluebird" "*"
     "@types/request" "*"
 
-"@types/request@*":
+"@types/request@*", "@types/request@^2.48.5":
   version "2.48.5"
   resolved "https://registry.npmjs.org/@types/request/-/request-2.48.5.tgz#019b8536b402069f6d11bee1b2c03e7f232937a0"
   integrity sha512-/LO7xRVnL3DxJ1WkPGDQrp4VTV1reX9RkC85mJ+Qzykj2Bdw+mG15aAfDahc76HtknjzE16SX/Yddn6MxVbmGQ==
@@ -9226,6 +9226,11 @@ yyl-config-types@0.3.17, yyl-config-types@^0.3.17:
   resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.3.17.tgz#f40c9c5e86bf9042eab76acfb5da98621a2748d0"
   integrity sha512-JfOwJDVU+5nNcMYIlKALDHaDF0094GdvuOjCeHht09Ms7GUh/ruYt44sdPmrG6+jyml2sXg7EdptRa0EnebOOg==
 
+yyl-config-types@^0.3.18:
+  version "0.3.18"
+  resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.3.18.tgz#899b8588a8995edcebc5313a2ec37b08a9d9cc0d"
+  integrity sha512-A3a4U8ajABLUIIFn6TTg0fr8GRKav8F+OBf0k9EiClh2GAVmqk1A6ssWY0VCt+tmNBLyDWxPLl8XuhxIXYGisA==
+
 yyl-copy-webpack-plugin@1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/yyl-copy-webpack-plugin/-/yyl-copy-webpack-plugin-1.0.4.tgz#50cd5c9b59d48d3841fe1c40c9aecaff1a0aa325"
@@ -9260,12 +9265,35 @@ yyl-fs@^0.3.3:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.3.3.tgz#aa409a5ea451cd0da287315665f338b1a24d4324"
   integrity sha512-3I+zY97ZJz91whuiBcdv3qdTQzErI8Dm2YSfJNK3XIAXmzWOSj1nSf6x59KrG4buzIaS3t2LEHVq4kPSYqu/9Q==
 
+yyl-hander@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/yyl-hander/-/yyl-hander-1.1.0.tgz#33e3af290977ea5534f076d37a01b38c8a117107"
+  integrity sha512-Tidkec2zlYRYsv0CFBfBFiYIAtZQ+D23rzs3CrlZbP9GfjOXLtIaAfRVNRptGyLK4fEIlEkuPGISpjIa1db7Dw==
+  dependencies:
+    "@types/request" "^2.48.5"
+    "@types/request-promise" "^4.1.47"
+    chalk "^4.1.0"
+    request "^2.88.2"
+    request-promise "^4.2.6"
+    yyl-config-types "^0.3.18"
+    yyl-fs "^0.3.3"
+    yyl-os "^0.11.4"
+    yyl-seed-base "^0.1.1"
+    yyl-util "^2.3.9"
+
 yyl-os@^0.11.4:
   version "0.11.4"
   resolved "https://registry.npmjs.org/yyl-os/-/yyl-os-0.11.4.tgz#635172b344ab92d2a517bc8c011b8836a30f4e40"
   integrity sha512-R2YvkA4BMCCk6BdJliBThG3ISN6FZOqeqfiuTXATG8XXF6XVdcL+Ik1H1udWZS99WMLLz+783iKs88KM5CQR0Q==
   dependencies:
     yyl-util "^2.3.5"
+
+yyl-print@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.npmjs.org/yyl-print/-/yyl-print-0.9.1.tgz#05db00a432f8f15d90a3d387b6531006415a58ee"
+  integrity sha512-LY/D9xPxmcjdcMgAkR8ah0oq3vr/IBjnwzl7GNV46yenvMAjWOiJkp147ztOTpDmufCYSERs3dtzBYqxyH2/lA==
+  dependencies:
+    chalk "^2.4.2"
 
 yyl-rev-webpack-plugin@1.0.4:
   version "1.0.4"
@@ -9281,6 +9309,11 @@ yyl-seed-base@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/yyl-seed-base/-/yyl-seed-base-0.1.0.tgz#2c9ddf430fbd1c7434cf97518affddc05061dbc6"
   integrity sha512-izwZ1nry1xtvZSJzgknXZHXEUj985jwHU9Olvw3W1YkpKjXoNVdbrdG9Vnn5VFCT1cET4cic428laWCGoH+BaA==
+
+yyl-seed-base@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/yyl-seed-base/-/yyl-seed-base-0.1.1.tgz#64ec6f6defee48d8dcbedd4032fdf4192bbbfdda"
+  integrity sha512-v29uRwJ4G6VhJPHMv6/KWaKpJA+am9bxOC1TYTYVABlnadnHxbCizbu314JC227sUaaYpM8CSCnOERjzv8iDyg==
 
 yyl-seed-response@0.2.0:
   version "0.2.0"
