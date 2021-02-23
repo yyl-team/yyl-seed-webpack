@@ -3,9 +3,10 @@ import path from 'path'
 import extOs from 'yyl-os'
 import SeedResponse, { ResponseFn } from 'yyl-seed-response'
 import { SeedOptimize, SeedOptimizeOption, SeedOptimizeResult } from 'yyl-seed-base'
-import { webpack } from 'webpack'
-import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
-import { LANG, HOOK_NAME } from './const'
+import { ProgressPlugin, webpack } from 'webpack'
+import { merge } from 'webpack-merge'
+import { buildWConfig, envInit, toCtx } from './util'
+import { LANG } from './const'
 import WebpackDevServer from 'webpack-dev-server'
 
 export interface OptimizeOption extends SeedOptimizeOption {}
@@ -46,7 +47,15 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     ctx
   })
 
-  const compiler = webpack(wConfig)
+  const compiler = webpack(
+    merge(wConfig, {
+      plugins: [
+        new ProgressPlugin((percentage, message, ...args) => {
+          console.log(percentage, message, args)
+        })
+      ]
+    })
+  )
 
   // 启动 devServer
   if (ctx === 'watch') {
@@ -83,33 +92,32 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     },
 
     all() {
-      iRes.trigger('start', ['watch'])
+      iRes.trigger('start', ['all'])
       iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START])
-      compiler.run(() => undefined)
-      initCompilerLog({ compiler, response: iRes, env })
+      compiler.run((er) => {
+        if (er) {
+          iRes.trigger('msg', ['error', env.logLevel === 2 ? er : er.message || er])
+        }
+        iRes.trigger('finished', [])
+      })
+      // initCompilerLog({ compiler, response: iRes, env })
       return opzer
     },
 
     watch() {
-      compiler.hooks.watchRun.tap(HOOK_NAME, () => {
-        iRes.trigger('clear', [])
-        iRes.trigger('start', ['watch'])
-        iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START])
-        if (env.livereload) {
-          iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_LIVERELOAD])
-        }
-        if (env.hmr) {
-          iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_HMR])
-        }
-      })
-
-      initCompilerLog({ compiler, response: iRes, env })
-
+      iRes.trigger('start', ['watch'])
+      iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START])
       compiler.watch(
         {
           aggregateTimeout: 1000
         },
-        () => undefined
+        (er) => {
+          if (er) {
+            iRes.trigger('msg', ['error', env.logLevel === 2 ? er : er.message || er])
+          }
+          // TODO: error handle
+          iRes.trigger('finished', [])
+        }
       )
       return opzer
     }

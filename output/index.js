@@ -12,8 +12,8 @@ var path = require('path');
 var extOs = require('yyl-os');
 var SeedResponse = require('yyl-seed-response');
 var webpack = require('webpack');
-var initBaseWebpackConfig = require('yyl-base-webpack-config');
 var merge = require('webpack-merge');
+var initBaseWebpackConfig = require('yyl-base-webpack-config');
 var WebpackDevServer = require('webpack-dev-server');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -22,8 +22,8 @@ var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
 var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 var extOs__default = /*#__PURE__*/_interopDefaultLegacy(extOs);
 var SeedResponse__default = /*#__PURE__*/_interopDefaultLegacy(SeedResponse);
-var initBaseWebpackConfig__default = /*#__PURE__*/_interopDefaultLegacy(initBaseWebpackConfig);
 var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
+var initBaseWebpackConfig__default = /*#__PURE__*/_interopDefaultLegacy(initBaseWebpackConfig);
 var WebpackDevServer__default = /*#__PURE__*/_interopDefaultLegacy(WebpackDevServer);
 
 /*! *****************************************************************************
@@ -201,7 +201,13 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         root,
         ctx
     });
-    const compiler = webpack.webpack(wConfig);
+    const compiler = webpack.webpack(merge.merge(wConfig, {
+        plugins: [
+            new webpack.ProgressPlugin((percentage, message, ...args) => {
+                console.log(percentage, message, args);
+            })
+        ]
+    }));
     // 启动 devServer
     if (ctx === 'watch') {
         iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_DEV_SERVER]);
@@ -237,7 +243,9 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         all() {
             iRes.trigger('start', ['watch']);
             iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START]);
-            compiler.run(() => undefined);
+            compiler.run(() => {
+                console.log('done');
+            });
             initCompilerLog({ compiler, response: iRes, env });
             return opzer;
         },

@@ -1,6 +1,3 @@
-/** hooks 名称 */
-export const HOOK_NAME = 'yyl-seed'
-
 export const LANG = {
   INIT: {
     TYPE_NOT_EXISTS: 'seed 类型(type) 没找到',
