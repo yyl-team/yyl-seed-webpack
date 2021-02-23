@@ -1,3 +1,3 @@
-import './sub.scss';
+import './sub.scss'
 
-throw new Error('it is a  error page');
+throw new Error('it is a  error page')

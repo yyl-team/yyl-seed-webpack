@@ -4,29 +4,28 @@ import { CircleBox } from './styled'
 
 import './demo.scss'
 
-
 interface IState {
   type: number
 }
 
 export class Demo extends React.Component<DemoProps, IState> {
-  constructor (props: DemoProps) {
+  constructor(props: DemoProps) {
     super(props)
     this.state = {
       type: 0
     }
   }
-  public componentDidMount () {
+  public componentDidMount() {
     let padding = 0
     const runner = () => {
       this.setState({
-        type:  ++padding % 4
+        type: ++padding % 4
       })
     }
     setInterval(runner, 1000)
     runner()
   }
-  public render () {
+  public render() {
     return (
       <CircleBox>
         <img
@@ -35,7 +34,10 @@ export class Demo extends React.Component<DemoProps, IState> {
           src={require('./images/logo.png')}
         />
         {/* step02 - 修改对应这个 */}
-        <div className='page-index__tl'>{this.props.title}{this.state.type}</div>
+        <div className='page-index__tl'>
+          {this.props.title}
+          {this.state.type}
+        </div>
       </CircleBox>
     )
   }

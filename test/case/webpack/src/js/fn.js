@@ -1,4 +1,4 @@
-import './ref.js';
+import './ref.js'
 module.exports = function () {
-  console.log('hello fn');
-};
+  console.log('hello fn')
+}

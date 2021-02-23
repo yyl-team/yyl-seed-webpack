@@ -15,31 +15,15 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": false,
     "allowJs": true,
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "*"
-      ],
-      "@/*": [
-        "./src/*"
-      ],
-      "~@/*": [
-        "./src/components/*"
-      ],
-      "~/*": [
-        "./src/*"
-      ]
+      "*": ["*"],
+      "@/*": ["./src/*"],
+      "~@/*": ["./src/components/*"],
+      "~/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.vue"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "exclude": ["node_modules"]
 }

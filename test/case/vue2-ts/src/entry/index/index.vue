@@ -4,14 +4,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator'
 
 export default class EntryIndex extends Vue {}
 </script>
 <style lang="scss">
 @charset "utf-8";
-@import "../../sass/normalize";
-@import "../../sass/_mixin";
+@import '../../sass/normalize';
+@import '../../sass/_mixin';
 $psdWidth: 750;
 
 .just-img {

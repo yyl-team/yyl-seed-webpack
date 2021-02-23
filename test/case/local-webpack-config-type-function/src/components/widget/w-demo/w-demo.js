@@ -1,5 +1,5 @@
 const wDemo = {
-  init () {
+  init() {
     const logoEl = document.getElementById('logo')
     let i
     const iClass = [0, 1, 2, 3]

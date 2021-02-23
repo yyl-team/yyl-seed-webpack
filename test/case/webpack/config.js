@@ -1,11 +1,11 @@
 /* eslint indent: ["error", 2, { "SwitchCase": 1 }] */
-const path = require('path');
+const path = require('path')
 
-const config = {};
+const config = {}
 
 // + vars
-const COMMON_PATH = '../commons';
-const SRC_ROOT = './src';
+const COMMON_PATH = '../commons'
+const SRC_ROOT = './src'
 // - vars
 
 // + setting
@@ -23,7 +23,7 @@ const setting = {
     tplPath: 'tpl',
     revPath: 'assets'
   }
-};
+}
 // - setting
 
 // + base
@@ -33,13 +33,13 @@ Object.assign(config, {
   dest: setting.dest,
   plugins: [],
   seed: 'vue2'
-});
+})
 // - base
 
-config.plugins.push('yyl-flexlayout');
+config.plugins.push('yyl-flexlayout')
 
 // + alias
-const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
+const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath)
 Object.assign(config, {
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径
@@ -78,8 +78,7 @@ Object.assign(config, {
     // + yyl make
     // - yyl make
   }
-});
-
+})
 
 // + commit
 Object.assign(config, {
@@ -87,7 +86,7 @@ Object.assign(config, {
     hostname: '//yyweb.yystatic.com/',
     revAddr: `//yyweb.yystatic.com/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
-});
+})
 // - commit
 
-module.exports = config;
+module.exports = config

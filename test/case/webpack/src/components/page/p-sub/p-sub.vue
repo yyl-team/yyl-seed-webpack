@@ -11,11 +11,11 @@ div.p-sub
 }
 </style>
 <script>
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue'
+import { mapGetters, mapActions } from 'vuex'
 
-import vDemo from '@w/v-demo/v-demo.vue';
-import vNav from '@w/v-nav/v-nav.vue';
+import vDemo from '@w/v-demo/v-demo.vue'
+import vNav from '@w/v-nav/v-nav.vue'
 
 export default Vue.extend({
   methods: {
@@ -25,16 +25,15 @@ export default Vue.extend({
     ...mapGetters(['demoLogs'])
   },
   data() {
-    return {
-    };
+    return {}
   },
   components: {
     vDemo,
     vNav
   },
   mounted() {
-    const vm = this;
-    vm.addDemoLog('p-sub is ready');
+    const vm = this
+    vm.addDemoLog('p-sub is ready')
   }
-});
+})
 </script>

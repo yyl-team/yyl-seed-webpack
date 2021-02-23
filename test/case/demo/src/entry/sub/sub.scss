@@ -1,9 +1,11 @@
 @charset "utf-8";
-@import "../../sass/normalize";
-@import "../../sass/_mixin";
+@import '../../sass/normalize';
+@import '../../sass/_mixin';
 $psdWidth: 750;
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
 }
 
@@ -14,4 +16,3 @@ html, body, #app {
   width: 100px;
   height: auto;
 }
-

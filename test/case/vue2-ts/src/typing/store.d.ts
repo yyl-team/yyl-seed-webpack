@@ -1,2 +1,1 @@
-declare namespace StoreState {
-}
+declare namespace StoreState {}

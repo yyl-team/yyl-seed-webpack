@@ -9,7 +9,7 @@ const handler = require('./handler')
     if (env.ctx) {
       const ctx = env.ctx
       delete env.ctx
-      handler[ctrl]({env, ctx})
+      handler[ctrl]({ env, ctx })
     } else {
       handler[ctrl]({ env })
     }

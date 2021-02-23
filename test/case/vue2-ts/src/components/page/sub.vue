@@ -25,8 +25,8 @@ import Nav from '~@/widget/nav.vue'
   }
 })
 class PageSub extends Vue {
-  @Action addDemoLog:(msg: string) => void;
-  mounted () {
+  @Action addDemoLog: (msg: string) => void
+  mounted() {
     const vm = this
     vm.addDemoLog('page sub is ready')
   }

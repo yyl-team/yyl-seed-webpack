@@ -11,10 +11,10 @@ div.p-index
 }
 </style>
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex'
 
-import vDemo from '@w/v-demo/v-demo.vue';
-import vNav from '@w/v-nav/v-nav.vue';
+import vDemo from '@w/v-demo/v-demo.vue'
+import vNav from '@w/v-nav/v-nav.vue'
 
 export default {
   methods: {
@@ -24,17 +24,16 @@ export default {
     ...mapGetters(['demoLogs'])
   },
   data() {
-    return {
-    };
+    return {}
   },
   components: {
     vDemo,
     vNav
   },
   mounted() {
-    const vm = this;
-    vm.addDemoLog('p-index is ready');
-    vm.addDemoLog(`now in ${process.env.NODE_ENV}`);
+    const vm = this
+    vm.addDemoLog('p-index is ready')
+    vm.addDemoLog(`now in ${process.env.NODE_ENV}`)
   }
-};
+}
 </script>

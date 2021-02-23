@@ -39,13 +39,13 @@ const logger = (type, ctx, ext) => {
 }
 
 const handler = {
-  async all ({ env = {} }) {
+  async all({ env = {} }) {
     if (env.silent) {
       print.log.setLogLevel(0)
     } else {
       print.log.setLogLevel(2)
     }
-    
+
     const yyHander = new YylHander({
       env,
       logger

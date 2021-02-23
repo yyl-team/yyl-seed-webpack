@@ -18,7 +18,7 @@ div
   margin: -58px 0 0 -75px;
   background: url('images/logo.png') no-repeat;
   background-size: 150px 116px;
-  transition: .4s;
+  transition: 0.4s;
 }
 .w-demo-tl {
   position: absolute;
@@ -48,13 +48,12 @@ div
   left: 10px;
   right: 10px;
   height: 200px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   padding: 8px;
   color: green;
   overflow: auto;
   font-size: 18px; /*px*/
 }
-
 </style>
 <script lang="ts">
 import Vue from 'vue'
@@ -70,12 +69,12 @@ const cache = {
   name: 'Demo'
 })
 class Demo extends Vue {
-  @Action addDemoLog: (msg: string) => void;
-  @State demoLogs: string[];
-  @Prop({ default: 'hello YY' }) title: string;
-  rotate: number = 0;
+  @Action addDemoLog: (msg: string) => void
+  @State demoLogs: string[]
+  @Prop({ default: 'hello YY' }) title: string
+  rotate: number = 0
 
-  mounted () {
+  mounted() {
     const vm = this
     let i = 0
     const iClass = [0, 1, 2, 3]
@@ -88,7 +87,7 @@ class Demo extends Vue {
 
     vm.addDemoLog('v-demo is ready')
   }
-  beforeDestory () {
+  beforeDestory() {
     clearInterval(cache.changeKey)
   }
 }
