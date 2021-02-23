@@ -1,6 +1,6 @@
 import { YylConfig, Env } from 'yyl-config-types';
 import SeedResponse from 'yyl-seed-response';
-import { Compiler, Configuration } from 'webpack';
+import { Compiler, Configuration, Stats } from 'webpack';
 export declare function toCtx<T = any>(ctx: any): T;
 export declare function checkInstall(pkgName: string, pkgPath: string): any;
 export interface EventInitOption {
@@ -24,4 +24,8 @@ export interface InitCompilerLogOption {
 export interface LogCache {
     [key: string]: boolean;
 }
-export declare function initCompilerLog(option: InitCompilerLogOption): void;
+export interface StatDispatchOption {
+    stats: Stats;
+    response: SeedResponse;
+    env: Env;
+}

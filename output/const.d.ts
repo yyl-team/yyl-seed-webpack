@@ -1,5 +1,3 @@
-/** hooks 名称 */
-export declare const HOOK_NAME = "yyl-seed";
 export declare const LANG: {
     INIT: {
         TYPE_NOT_EXISTS: string;

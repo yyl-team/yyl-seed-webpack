@@ -50,8 +50,11 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
   const compiler = webpack(
     merge(wConfig, {
       plugins: [
-        new ProgressPlugin((percentage, message, ...args) => {
-          console.log(percentage, message, args)
+        new ProgressPlugin({
+          activeModules: true,
+          handler(percentage, message, ...args) {
+            console.log(percentage, message, args)
+          }
         })
       ]
     })

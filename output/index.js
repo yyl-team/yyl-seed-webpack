@@ -74,49 +74,6 @@ function wConfig$1(option) {
     });
 }
 
-/** hooks 名称 */
-const HOOK_NAME = 'yyl-seed';
-const LANG = {
-    INIT: {
-        TYPE_NOT_EXISTS: 'seed 类型(type) 没找到',
-        TARGET_NOT_EXISTS: '目标路径(targetPath) 不存在',
-        COPY_COMMON_START: '开始 复制通用文件',
-        COPY_COMMON_FINISHED: '复制通用文件 完成',
-        COPY_COMMON_ERROR: '复制通用文件发生 错误',
-        COPY_EXAMPLE_START: '开始 复制 seed 包文件',
-        COPY_EXAMPLE_FINISHED: '复制 seed 包文件 完成',
-        COPY_EXAMPLE_ERROR: '复制 seed 包文件发生 错误',
-        CREATE_DIST_START: '开始 创建 dist 目录',
-        CREATE_DIST_FINISHED: '创建 dist 目录 完成',
-        COPY_ESLINT_START: '开始 复制 eslint, editorconfig',
-        COPY_ESLINT_FINISHED: '复制 eslint, editorconfig 完成',
-        COPY_ESLINT_ERROR: '复制 eslint, editorconfig 发生 错误'
-    },
-    OPTIMIZE: {
-        WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
-        WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
-        WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置依赖',
-        WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
-        LOADING_WEBPACK_START: '正在加载 webpack 模块',
-        LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
-        SEED_NOT_EXISTS: 'config.seed 不存在',
-        SEED_NOT_SET: 'config.seed 没有配置',
-        CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
-        CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
-        CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
-        CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成',
-        USE_MIDDLEWARE: '使用 server 中间件',
-        USE_DEV_SERVER: '使用 webpack-dev-server',
-        DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
-        DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
-        DEV_SERVER_PORT_OCCUPIED: '端口 已被占用',
-        USE_HMR: '使用 hmr 模式',
-        WRITE_TO_DISK: '写入硬盘',
-        MOMERY_ADDRESS: '缓存访问地址',
-        USE_LIVERELOAD: '使用 livereload 模式'
-    }
-};
-
 function toCtx(ctx) {
     return ctx;
 }
@@ -166,10 +123,47 @@ function buildWConfig(option) {
         return wConfig$2;
     }
 }
-function initCompilerLog(option) {
-    const { compiler, response, env } = option;
-    compiler.options;
-}
+
+const LANG = {
+    INIT: {
+        TYPE_NOT_EXISTS: 'seed 类型(type) 没找到',
+        TARGET_NOT_EXISTS: '目标路径(targetPath) 不存在',
+        COPY_COMMON_START: '开始 复制通用文件',
+        COPY_COMMON_FINISHED: '复制通用文件 完成',
+        COPY_COMMON_ERROR: '复制通用文件发生 错误',
+        COPY_EXAMPLE_START: '开始 复制 seed 包文件',
+        COPY_EXAMPLE_FINISHED: '复制 seed 包文件 完成',
+        COPY_EXAMPLE_ERROR: '复制 seed 包文件发生 错误',
+        CREATE_DIST_START: '开始 创建 dist 目录',
+        CREATE_DIST_FINISHED: '创建 dist 目录 完成',
+        COPY_ESLINT_START: '开始 复制 eslint, editorconfig',
+        COPY_ESLINT_FINISHED: '复制 eslint, editorconfig 完成',
+        COPY_ESLINT_ERROR: '复制 eslint, editorconfig 发生 错误'
+    },
+    OPTIMIZE: {
+        WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
+        WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
+        WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置依赖',
+        WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
+        LOADING_WEBPACK_START: '正在加载 webpack 模块',
+        LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
+        SEED_NOT_EXISTS: 'config.seed 不存在',
+        SEED_NOT_SET: 'config.seed 没有配置',
+        CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
+        CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
+        CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
+        CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成',
+        USE_MIDDLEWARE: '使用 server 中间件',
+        USE_DEV_SERVER: '使用 webpack-dev-server',
+        DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
+        DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
+        DEV_SERVER_PORT_OCCUPIED: '端口 已被占用',
+        USE_HMR: '使用 hmr 模式',
+        WRITE_TO_DISK: '写入硬盘',
+        MOMERY_ADDRESS: '缓存访问地址',
+        USE_LIVERELOAD: '使用 livereload 模式'
+    }
+};
 
 /** 构建函数 */
 const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
@@ -203,8 +197,11 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
     });
     const compiler = webpack.webpack(merge.merge(wConfig, {
         plugins: [
-            new webpack.ProgressPlugin((percentage, message, ...args) => {
-                console.log(percentage, message, args);
+            new webpack.ProgressPlugin({
+                activeModules: true,
+                handler(percentage, message, ...args) {
+                    console.log(percentage, message, args);
+                }
             })
         ]
     }));
@@ -241,30 +238,29 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             return opzer;
         },
         all() {
-            iRes.trigger('start', ['watch']);
+            iRes.trigger('start', ['all']);
             iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START]);
-            compiler.run(() => {
-                console.log('done');
+            compiler.run((er) => {
+                if (er) {
+                    iRes.trigger('msg', ['error', env.logLevel === 2 ? er : er.message || er]);
+                }
+                iRes.trigger('finished', []);
             });
-            initCompilerLog({ compiler, response: iRes, env });
+            // initCompilerLog({ compiler, response: iRes, env })
             return opzer;
         },
         watch() {
-            compiler.hooks.watchRun.tap(HOOK_NAME, () => {
-                iRes.trigger('clear', []);
-                iRes.trigger('start', ['watch']);
-                iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START]);
-                if (env.livereload) {
-                    iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_LIVERELOAD]);
-                }
-                if (env.hmr) {
-                    iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_HMR]);
-                }
-            });
-            initCompilerLog({ compiler, response: iRes, env });
+            iRes.trigger('start', ['watch']);
+            iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START]);
             compiler.watch({
                 aggregateTimeout: 1000
-            }, () => undefined);
+            }, (er) => {
+                if (er) {
+                    iRes.trigger('msg', ['error', env.logLevel === 2 ? er : er.message || er]);
+                }
+                // TODO: error handle
+                iRes.trigger('finished', []);
+            });
             return opzer;
         }
     };
