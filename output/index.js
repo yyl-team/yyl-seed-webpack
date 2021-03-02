@@ -175,13 +175,13 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
     // npm 包自动安装
     const pkgPath = path__default['default'].join(root, 'package.json');
     if (fs__default['default'].existsSync(pkgPath)) {
-        iRes.trigger('msg', ['info', LANG.OPTIMIZE.CHECK_SEED_PKG_START]);
+        iRes.trigger('msg', ['info', [LANG.OPTIMIZE.CHECK_SEED_PKG_START]]);
         yield extOs__default['default'].installPackage(pkgPath, {
             production: false,
             loglevel: env.silent ? 'silent' : 'info',
             useYarn: !!yylConfig.yarn
         });
-        iRes.trigger('msg', ['info', LANG.OPTIMIZE.CHECK_SEED_PKG_FINISHED]);
+        iRes.trigger('msg', ['info', [LANG.OPTIMIZE.CHECK_SEED_PKG_FINISHED]]);
     }
     // 老版本兼容
     if (toCtx(yylConfig.workflow) === 'webpack-vue2') {
@@ -199,8 +199,9 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         plugins: [
             new webpack.ProgressPlugin({
                 activeModules: true,
-                handler(percentage, message, ...args) {
-                    console.log(percentage, message, args);
+                handler(percentage, ...args) {
+                    iRes.trigger('progress', [percentage]);
+                    iRes.trigger('msg', ['info', [args.join(' ')]]);
                 }
             })
         ]
@@ -210,16 +211,16 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_DEV_SERVER]);
         const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
         if (!(yield extOs__default['default'].checkPort(serverPort))) {
-            iRes.trigger('msg', ['error', `${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]);
+            iRes.trigger('msg', ['error', [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]]);
             return undefined;
         }
         const devServer = new WebpackDevServer__default['default'](compiler, wConfig.devServer);
         devServer.listen(serverPort, (err) => {
             if (err) {
-                iRes.trigger('msg', ['error', LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]);
+                iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
             }
             else {
-                iRes.trigger('msg', ['success', LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]);
+                iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]]);
             }
         });
     }
@@ -238,28 +239,28 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             return opzer;
         },
         all() {
-            iRes.trigger('start', ['all']);
-            iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START]);
+            iRes.trigger('progress', ['start']);
+            iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
             compiler.run((er) => {
                 if (er) {
-                    iRes.trigger('msg', ['error', env.logLevel === 2 ? er : er.message || er]);
+                    iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]]);
                 }
-                iRes.trigger('finished', []);
+                iRes.trigger('progress', ['finished']);
             });
             // initCompilerLog({ compiler, response: iRes, env })
             return opzer;
         },
         watch() {
-            iRes.trigger('start', ['watch']);
-            iRes.trigger('msg', ['info', LANG.OPTIMIZE.WEBPACK_RUN_START]);
+            iRes.trigger('progress', ['start']);
+            iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
             compiler.watch({
                 aggregateTimeout: 1000
             }, (er) => {
                 if (er) {
-                    iRes.trigger('msg', ['error', env.logLevel === 2 ? er : er.message || er]);
+                    iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]]);
                 }
                 // TODO: error handle
-                iRes.trigger('finished', []);
+                iRes.trigger('progress', ['finished']);
             });
             return opzer;
         }

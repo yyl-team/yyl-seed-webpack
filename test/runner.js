@@ -1,6 +1,17 @@
-const print = require('yyl-print')
+const YylCmdLogger = require('yyl-cmd-logger')
 const util = require('yyl-util')
 const handler = require('./handler')
+const chalk = require('chalk')
+const logger = new YylCmdLogger({
+  type: {
+    main: {
+      name: 'SEED',
+      color: chalk.bgRed.white,
+      shortName: 'S',
+      shortColor: chalk.red
+    }
+  }
+})
 
 ;(() => {
   const { env, cmds } = util.cmdParse(process.argv)
@@ -9,11 +20,11 @@ const handler = require('./handler')
     if (env.ctx) {
       const ctx = env.ctx
       delete env.ctx
-      handler[ctrl]({ env, ctx })
+      handler[ctrl]({ env, ctx, logger })
     } else {
-      handler[ctrl]({ env })
+      handler[ctrl]({ env, logger })
     }
   } else {
-    print.log.warn(`usage: ${Object.keys(handler).join(',')}`)
+    logger.log('msg', 'warn', [`usage: ${Object.keys(handler).join(',')}`])
   }
 })()
