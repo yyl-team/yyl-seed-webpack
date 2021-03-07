@@ -25,6 +25,28 @@ const handler = {
     await yyHander.init({
       seed
     })
+  },
+  async watch({ env = {}, logger }) {
+    if (env.silent) {
+      logger.setLogLevel(0)
+    } else {
+      // logger.setLogLevel(2)
+    }
+
+    const yyHander = new YylHander({
+      env,
+      logger(type, subType, args) {
+        if (type === 'msg') {
+          logger.log(subType, args)
+        } else if (type === 'progress') {
+          logger.setProgress(subType)
+        }
+      }
+    })
+    await yyHander.init({
+      seed,
+      watch: true
+    })
   }
 }
 module.exports = handler

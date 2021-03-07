@@ -3396,6 +3396,11 @@ es-module-lexer@^0.3.26:
   resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.3.26.tgz#7b507044e97d5b03b01d4392c74ffeb9c177a83b"
   integrity sha512-Va0Q/xqtrss45hWzP8CZJwzGSZJjDM5/MJRE3IXXnUCcVLElR9BRaE9F62BopysASyc4nM3uwhSW7FFB9nlWAA==
 
+es-module-lexer@^0.4.0:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.4.1.tgz#dda8c6a14d8f340a24e34331e0fab0cb50438e0e"
+  integrity sha512-ooYciCUtfw6/d2w56UVeqHPcoCFAiJdz5XOkYpv/Txl1HMUozpXjz/2RIQgqwKdXNDPSF1W7mJCFse3G+HDyAA==
+
 es-to-primitive@^1.2.1:
   version "1.2.1"
   resolved "http://npm-registry.yy.com/es-to-primitive/download/es-to-primitive-1.2.1.tgz#e55cd4c9cdc188bcefb03b366c736323fc5c898a"
@@ -4433,6 +4438,18 @@ html-webpack-plugin@^5.0.0-beta.6:
   version "5.0.0"
   resolved "https://registry.npmjs.org/html-webpack-plugin/-/html-webpack-plugin-5.0.0.tgz#457a9defb33ce368135078b4e0387a27f3fe244d"
   integrity sha512-kxTyb8cyZwEyUqXTgdHRUOF4C7uCrquzw2T+YTudehm/yspodgCkREjdmc4dXI8k2P4NEjqOVbnOOlPZg4TKJA==
+  dependencies:
+    "@types/html-minifier-terser" "^5.0.0"
+    html-minifier-terser "^5.0.1"
+    loader-utils "^2.0.0"
+    lodash "^4.17.20"
+    pretty-error "^2.1.1"
+    tapable "^2.0.0"
+
+html-webpack-plugin@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.2.0.tgz#d675ad0027a89de6b3d9950e0b57656dcfd97fbf"
+  integrity sha512-0wkVlJKq7edCN793gdLgdAm5m196qI2vb5SGXy4AtGOFB/lYKyS10+3Vkhe6Bo0acddAW3QVw+0ysgWoko/IEQ==
   dependencies:
     "@types/html-minifier-terser" "^5.0.0"
     html-minifier-terser "^5.0.1"
@@ -8933,7 +8950,7 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@^5.1.0, webpack@^5.21.2:
+webpack@^5.1.0:
   version "5.21.2"
   resolved "https://registry.npmjs.org/webpack/-/webpack-5.21.2.tgz#647507e50d3637695be28af58a6a8246050394e7"
   integrity sha512-xHflCenx+AM4uWKX71SWHhxml5aMXdy2tu/vdi4lClm7PADKxlyDAFFN1rEFzNV0MAoPpHtBeJnl/+K6F4QBPg==
@@ -8948,6 +8965,35 @@ webpack@^5.1.0, webpack@^5.21.2:
     chrome-trace-event "^1.0.2"
     enhanced-resolve "^5.7.0"
     es-module-lexer "^0.3.26"
+    eslint-scope "^5.1.1"
+    events "^3.2.0"
+    glob-to-regexp "^0.4.1"
+    graceful-fs "^4.2.4"
+    json-parse-better-errors "^1.0.2"
+    loader-runner "^4.2.0"
+    mime-types "^2.1.27"
+    neo-async "^2.6.2"
+    schema-utils "^3.0.0"
+    tapable "^2.1.1"
+    terser-webpack-plugin "^5.1.1"
+    watchpack "^2.0.0"
+    webpack-sources "^2.1.1"
+
+webpack@^5.24.3:
+  version "5.24.3"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.24.3.tgz#6ec0f5059f8d7c7961075fa553cfce7b7928acb3"
+  integrity sha512-x7lrWZ7wlWAdyKdML6YPvfVZkhD1ICuIZGODE5SzKJjqI9A4SpqGTjGJTc6CwaHqn19gGaoOR3ONJ46nYsn9rw==
+  dependencies:
+    "@types/eslint-scope" "^3.7.0"
+    "@types/estree" "^0.0.46"
+    "@webassemblyjs/ast" "1.11.0"
+    "@webassemblyjs/wasm-edit" "1.11.0"
+    "@webassemblyjs/wasm-parser" "1.11.0"
+    acorn "^8.0.4"
+    browserslist "^4.14.5"
+    chrome-trace-event "^1.0.2"
+    enhanced-resolve "^5.7.0"
+    es-module-lexer "^0.4.0"
     eslint-scope "^5.1.1"
     events "^3.2.0"
     glob-to-regexp "^0.4.1"
@@ -9158,10 +9204,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yyl-base-webpack-config@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/yyl-base-webpack-config/-/yyl-base-webpack-config-0.1.1.tgz#843543bb1b17663675a653f191b55f382f6284c3"
-  integrity sha512-QZyJvsUxftgP9dxxQm73VH+QfXvs4DyRwBDlvvRcsbGh/WRi7pGQgdNw8WPV4WuEVwAyrjX5kfvVdz916PfJOw==
+yyl-base-webpack-config@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.1.2.tgz#1ebc492df653ac84682d0e5f53162f271f045122"
+  integrity sha512-/KxrmBoBONsT9Xswstn7+yEQOWVLIpgv5k9rqKA7/G5z0VFt7oniH9Ryze7bBTrYNV5iku1iLK1Vq1Mg7kul7Q==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "^7.12.1"
@@ -9198,15 +9244,15 @@ yyl-base-webpack-config@^0.1.1:
     url-loader "^4.1.1"
     watch "^1.0.2"
     webpack-merge "^5.7.3"
-    yyl-concat-webpack-plugin "1.0.7"
-    yyl-config-types "0.3.17"
-    yyl-copy-webpack-plugin "1.0.4"
+    yyl-concat-webpack-plugin "1.0.10"
+    yyl-config-types "0.3.18"
+    yyl-copy-webpack-plugin "1.0.7"
     yyl-env-pop-webpack-plugin "1.0.2"
     yyl-fs "^0.3.3"
     yyl-os "^0.11.4"
-    yyl-rev-webpack-plugin "1.0.4"
-    yyl-server-webpack-plugin "1.0.4"
-    yyl-sugar-webpack-plugin "1.0.3"
+    yyl-rev-webpack-plugin "1.0.7"
+    yyl-server-webpack-plugin "1.0.5"
+    yyl-sugar-webpack-plugin "1.0.5"
     yyl-util "^2.3.8"
 
 yyl-cmd-logger@^0.1.1:
@@ -9216,32 +9262,32 @@ yyl-cmd-logger@^0.1.1:
   dependencies:
     chalk "^4.1.0"
 
-yyl-concat-webpack-plugin@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/yyl-concat-webpack-plugin/-/yyl-concat-webpack-plugin-1.0.7.tgz#ab8d17d0ff14816878b8677b8ff35525de0f4262"
-  integrity sha512-RKm5VgoXS+bJQsxckjWCDgV0hQW1Sgzlmqbbwtx+LXe6zwN7x/JLHBUHPPtW07Z/T04qcnNmeFZE0584TYk5+Q==
+yyl-concat-webpack-plugin@1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/yyl-concat-webpack-plugin/-/yyl-concat-webpack-plugin-1.0.10.tgz#86bbe31b89a52486327864e5298febdfe56e7f65"
+  integrity sha512-3KP5cFrLjScqmnRgSCvBIEcrLiWmvxlD+nOUiobzl1juhxh/F9D599lRS3Le+zVs/Tai5wNEA+xv1to3CvmqCQ==
   dependencies:
     chalk "^4.1.0"
     concat-with-sourcemaps "^1.1.0"
     tapable "^2.2.0"
     terser "^5.5.1"
     yyl-util "^2.3.9"
-    yyl-webpack-plugin-base "^0.1.6"
+    yyl-webpack-plugin-base "^0.2.1"
 
-yyl-config-types@0.3.17, yyl-config-types@^0.3.17:
+yyl-config-types@0.3.18, yyl-config-types@^0.3.18:
+  version "0.3.18"
+  resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.3.18.tgz#899b8588a8995edcebc5313a2ec37b08a9d9cc0d"
+  integrity sha512-A3a4U8ajABLUIIFn6TTg0fr8GRKav8F+OBf0k9EiClh2GAVmqk1A6ssWY0VCt+tmNBLyDWxPLl8XuhxIXYGisA==
+
+yyl-config-types@^0.3.17:
   version "0.3.17"
   resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.3.17.tgz#f40c9c5e86bf9042eab76acfb5da98621a2748d0"
   integrity sha512-JfOwJDVU+5nNcMYIlKALDHaDF0094GdvuOjCeHht09Ms7GUh/ruYt44sdPmrG6+jyml2sXg7EdptRa0EnebOOg==
 
-yyl-config-types@^0.3.18:
-  version "0.3.18"
-  resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.3.18.tgz#899b8588a8995edcebc5313a2ec37b08a9d9cc0d"
-  integrity sha512-A3a4U8ajABLUIIFn6TTg0fr8GRKav8F+OBf0k9EiClh2GAVmqk1A6ssWY0VCt+tmNBLyDWxPLl8XuhxIXYGisA==
-
-yyl-copy-webpack-plugin@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/yyl-copy-webpack-plugin/-/yyl-copy-webpack-plugin-1.0.4.tgz#50cd5c9b59d48d3841fe1c40c9aecaff1a0aa325"
-  integrity sha512-khAZA3Cs2XkD3lm0sv6XRihvBxaEwPG8+dmc7zQvzG/6tdgeknyaA4vRCun1gZ9kzXe4KYJRcRVdRiAxrpRGvQ==
+yyl-copy-webpack-plugin@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/yyl-copy-webpack-plugin/-/yyl-copy-webpack-plugin-1.0.7.tgz#e9bfa26f32e6e883a7d60a2200a938d3b342be31"
+  integrity sha512-g9Jiswfr0qpcHRlwkC4WetciclIgJj15Et//kjHBaahhgndOD0tvAy/u/uoheMrY/YUmMS/LD/MgkdsUQ3706Q==
   dependencies:
     "@types/clean-css" "^4.2.3"
     chalk "^4.1.0"
@@ -9251,7 +9297,7 @@ yyl-copy-webpack-plugin@1.0.4:
     terser "^5.5.1"
     yyl-fs "^0.3.3"
     yyl-util "^2.3.9"
-    yyl-webpack-plugin-base "^0.1.6"
+    yyl-webpack-plugin-base "^0.2.1"
 
 yyl-env-pop-webpack-plugin@1.0.2:
   version "1.0.2"
@@ -9295,15 +9341,15 @@ yyl-os@^0.11.4:
   dependencies:
     yyl-util "^2.3.5"
 
-yyl-rev-webpack-plugin@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/yyl-rev-webpack-plugin/-/yyl-rev-webpack-plugin-1.0.4.tgz#c6115ad703b17ba7707c4b61cd9d5cb8d362d9b6"
-  integrity sha512-7LfgIozDhYieFP1vGsfFm+rtzm5VIFp1/Nm1zV8shBZjqUI95zqvVFOhY31wTW5j8UjAd5LpIv+wLUoFFrKWiA==
+yyl-rev-webpack-plugin@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/yyl-rev-webpack-plugin/-/yyl-rev-webpack-plugin-1.0.7.tgz#a5ffafbf5cbc71d9f9bdd1a742c96b4d942b6baf"
+  integrity sha512-4oXYUY4oijcGPKe+VTrc2MmIXmJvLPVVtR84cuzOv/aixFF6YU7OkzdP1QKV9olmxBlynrwh4eq9RzVPgtM+7g==
   dependencies:
     "@types/request-promise" "^4.1.47"
     request-promise "^4.2.6"
     tapable "^2.2.0"
-    yyl-webpack-plugin-base "^0.1.6"
+    yyl-webpack-plugin-base "^0.2.1"
 
 yyl-seed-base@^0.1.0:
   version "0.1.0"
@@ -9320,34 +9366,35 @@ yyl-seed-response@0.2.0:
   resolved "https://registry.npmjs.org/yyl-seed-response/-/yyl-seed-response-0.2.0.tgz#91a5f43e32f37ea6ee820f07bb9ea315772e012c"
   integrity sha512-9IdVLB6ZglVGwWC/eQitM5wCY+m9kcJ5nQrCj4N9/GtchoM3re22e8Uxcft1uz8Ok2tfNzh4e4kFZEmBFDZTrQ==
 
-yyl-server-webpack-plugin@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/yyl-server-webpack-plugin/-/yyl-server-webpack-plugin-1.0.4.tgz#e5d31ee7b894fb46430f4bb7fcb9e4738a98ded9"
-  integrity sha512-rxwSUbrwZtrlFKwO1QC5FGv8Q7xhOXw2KYP0EQzP/y7Hxv2xn8lpNIpqUarmNMRuZ9NY9UZbhY/pqloTJsuq2w==
+yyl-server-webpack-plugin@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/yyl-server-webpack-plugin/-/yyl-server-webpack-plugin-1.0.5.tgz#dfbb7b34fae11a0f035d636dee4b35386d40a091"
+  integrity sha512-BkQOm5jiM1PIugNC+xlcSDGUlz7pULfHvwV4PmnkKTgoRuwdUjaGtznx9o85Xoyn3WoR76qtDnqnFivdk2TltA==
   dependencies:
     tapable "^2.2.0"
     yyl-config-types "^0.3.17"
-    yyl-webpack-plugin-base "^0.1.6"
+    yyl-webpack-plugin-base "^0.2.1"
 
-yyl-sugar-webpack-plugin@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/yyl-sugar-webpack-plugin/-/yyl-sugar-webpack-plugin-1.0.3.tgz#fbd4544491669a60a61bd181eb41c7915c19942d"
-  integrity sha512-cR8LxQRVBcFHLIKHIOyjYNZ0Iu+7uWZFsaXf777H1iSBSX2Z4TT80sS4rh1hCasiw/EFKnABsry14xIJ0w78Zw==
+yyl-sugar-webpack-plugin@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/yyl-sugar-webpack-plugin/-/yyl-sugar-webpack-plugin-1.0.5.tgz#e2fae3d0bfdfe25f547d4a55bf23206018f7ad13"
+  integrity sha512-qniAFpu9D6v3wNid/60L7upyGyFU1zUcg30xwRWoQLcPAE0mGCcnDpKiGWcMu492Z/rz1xyAveUi/do9ZOCY9Q==
   dependencies:
     chalk "^4.1.0"
+    html-webpack-plugin "^5.2.0"
     tapable "^2.2.0"
     yyl-file-replacer "^0.6.4"
     yyl-util "^2.3.9"
-    yyl-webpack-plugin-base "^0.1.6"
+    yyl-webpack-plugin-base "^0.2.1"
 
 yyl-util@^2.3.5, yyl-util@^2.3.8, yyl-util@^2.3.9:
   version "2.3.9"
   resolved "https://registry.npmjs.org/yyl-util/-/yyl-util-2.3.9.tgz#4c4f5d1af1c9b474e46db5cce6afbc82bbd586ce"
   integrity sha512-sKNudT5RApLNLDnHSppoR+K9yslDmof57gQ5yHDcX8xRADIv8r218DHIsyksSnlEmlld9TXAMYLeazAu4ufW0A==
 
-yyl-webpack-plugin-base@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.npmjs.org/yyl-webpack-plugin-base/-/yyl-webpack-plugin-base-0.1.6.tgz#89d92960f0890ca9392a67aa7c48fe97f409b089"
-  integrity sha512-wUXZrz1xRx35K8MRMFtrIk7Eifeza9LwaSi3PAQ4lz6YRvFoCyw74LNaHwbyzlc8Xv1hNa7BtzF95jVrLYjy1Q==
+yyl-webpack-plugin-base@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/yyl-webpack-plugin-base/-/yyl-webpack-plugin-base-0.2.1.tgz#b72358f4aefcd53a9b002bba3cac594f186502ec"
+  integrity sha512-Mvm2rejt8ScHWUbvS+X6Ii3hy2aiMRxV3mbyJDy/KEyEe1DHKJYCCFrprVO87GEfS20IJGTFmYXnRWfaQSnjBA==
   dependencies:
     yyl-util "^2.3.9"

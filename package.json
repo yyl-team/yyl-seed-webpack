@@ -34,7 +34,8 @@
     "w": "rollup --watch --config ./rollup.config.js",
     "prepublishOnly": "npm run prettier & npm run build",
     "test": "jest ./test/jest/",
-    "c-demo:all": "node ./test/runner.js all --config ./test/case/demo/config.js"
+    "c-demo:all": "node ./test/runner.js all --config ./test/case/demo/config.js",
+    "c-demo:watch": "node ./test/runner.js watch --config ./test/case/demo/config.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",
@@ -61,11 +62,11 @@
   "dependencies": {
     "@types/webpack-dev-server": "^3.11.1",
     "chalk": "^4.1.0",
-    "webpack": "^5.21.2",
+    "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^4.0.0-beta.0",
     "webpack-merge": "^5.7.3",
-    "yyl-base-webpack-config": "^0.1.1",
+    "yyl-base-webpack-config": "^0.1.2",
     "yyl-config-types": "^0.3.17",
     "yyl-os": "^0.11.4",
     "yyl-seed-base": "^0.1.0",
