@@ -9318,10 +9318,10 @@ yyl-fs@^0.3.3:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.3.3.tgz#aa409a5ea451cd0da287315665f338b1a24d4324"
   integrity sha512-3I+zY97ZJz91whuiBcdv3qdTQzErI8Dm2YSfJNK3XIAXmzWOSj1nSf6x59KrG4buzIaS3t2LEHVq4kPSYqu/9Q==
 
-yyl-hander@1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/yyl-hander/-/yyl-hander-1.1.4.tgz#873ea06f2f83745667b95e8b6c6c627056a0c148"
-  integrity sha512-t0xRx0psZ6RrV8N1rgZ04fMmdVDqwehvbYMNZesGDofsQq/4Pif37nV6s46EOVU816WEk4qPvDVnl56C9Bq8Pg==
+yyl-hander@1.1.5:
+  version "1.1.5"
+  resolved "https://registry.npmjs.org/yyl-hander/-/yyl-hander-1.1.5.tgz#cfc705e5d8d3230e8067ba2292b273a12ee477b5"
+  integrity sha512-A+qX7SY6AblSW9HHCzgl1rozwsNqBVZTM8cAX9kepvuoKp6ibqiiBMlD5fFny96WES3tbdswOtdUTa5eC209Zg==
   dependencies:
     "@types/request" "^2.48.5"
     "@types/request-promise" "^4.1.47"
