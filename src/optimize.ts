@@ -121,7 +121,38 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
           compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
             iRes.trigger('progress', ['start'])
           })
-          compiler.hooks.done.tap(PLUGIN_NAME, () => {
+          compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
+            const statsInfo = stats.toJson({
+              all: false,
+              assets: true,
+              errors: true,
+              warnings: true,
+              logging: 'warn'
+            })
+
+            if (statsInfo.warnings) {
+              statsInfo.warnings.forEach((er) => {
+                iRes.trigger('msg', ['warn', [er.moduleName || '', er.message]])
+              })
+            }
+
+            if (statsInfo.errors) {
+              statsInfo.errors.forEach((er) => {
+                iRes.trigger('msg', ['error', [er.moduleName || '', er.message]])
+              })
+            }
+
+            // 显示完整构建过程
+            if (!statsInfo.errors?.length && !statsInfo.warnings?.length) {
+              const logStr = stats.toString({
+                chunks: false,
+                color: true
+              })
+              iRes.trigger('msg', [
+                'success',
+                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+              ])
+            }
             iRes.trigger('progress', ['finished'])
           })
           compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {

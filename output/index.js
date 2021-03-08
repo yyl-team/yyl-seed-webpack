@@ -262,7 +262,36 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
                     compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
                         iRes.trigger('progress', ['start']);
                     });
-                    compiler.hooks.done.tap(PLUGIN_NAME, () => {
+                    compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
+                        var _a, _b;
+                        const statsInfo = stats.toJson({
+                            all: false,
+                            assets: true,
+                            errors: true,
+                            warnings: true,
+                            logging: 'warn'
+                        });
+                        if (statsInfo.warnings) {
+                            statsInfo.warnings.forEach((er) => {
+                                iRes.trigger('msg', ['warn', [er.moduleName || '', er.message]]);
+                            });
+                        }
+                        if (statsInfo.errors) {
+                            statsInfo.errors.forEach((er) => {
+                                iRes.trigger('msg', ['error', [er.moduleName || '', er.message]]);
+                            });
+                        }
+                        // 显示完整构建过程
+                        if (!((_a = statsInfo.errors) === null || _a === void 0 ? void 0 : _a.length) && !((_b = statsInfo.warnings) === null || _b === void 0 ? void 0 : _b.length)) {
+                            const logStr = stats.toString({
+                                chunks: false,
+                                color: true
+                            });
+                            iRes.trigger('msg', [
+                                'success',
+                                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+                            ]);
+                        }
                         iRes.trigger('progress', ['finished']);
                     });
                     compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {

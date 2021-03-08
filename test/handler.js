@@ -6,8 +6,8 @@ const handler = {
   async all({ env = {}, logger }) {
     if (env.silent) {
       logger.setLogLevel(0)
-    } else {
-      // logger.setLogLevel(2)
+    } else if (env.logLevel) {
+      logger.setLogLevel(env.logLevel)
     }
 
     const yyHander = new YylHander({
@@ -27,9 +27,9 @@ const handler = {
   async watch({ env = {}, logger }) {
     if (env.silent) {
       logger.setLogLevel(0)
-    } else {
-      // logger.setLogLevel(2)
-    }
+    } else if (env.logLevel) {
+      logger.setLogLevel(env.logLevel)
+    } 
 
     const yyHander = new YylHander({
       env,
