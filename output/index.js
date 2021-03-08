@@ -164,10 +164,10 @@ const LANG = {
         USE_LIVERELOAD: '使用 livereload 模式'
     }
 };
+const PLUGIN_NAME = 'yyl-seed';
 
 /** 构建函数 */
 const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     let { yylConfig, root, env, ctx } = option;
     // response 初始化
     const iRes = new SeedResponse__default['default']();
@@ -196,34 +196,19 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         ctx
     });
     const compiler = webpack.webpack(merge.merge(wConfig, {
+        stats: 'none',
+        infrastructureLogging: {
+            level: 'none'
+        },
         plugins: [
             new webpack.ProgressPlugin({
                 activeModules: true,
                 handler(percentage, ...args) {
-                    iRes.trigger('progress', [percentage]);
-                    iRes.trigger('msg', ['info', [args.join(' ')]]);
+                    iRes.trigger('progress', [percentage, 'info', args]);
                 }
             })
         ]
     }));
-    // 启动 devServer
-    if (ctx === 'watch') {
-        iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_DEV_SERVER]);
-        const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
-        if (!(yield extOs__default['default'].checkPort(serverPort))) {
-            iRes.trigger('msg', ['error', [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]]);
-            return undefined;
-        }
-        const devServer = new WebpackDevServer__default['default'](compiler, wConfig.devServer);
-        devServer.listen(serverPort, (err) => {
-            if (err) {
-                iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
-            }
-            else {
-                iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]]);
-            }
-        });
-    }
     // env 初始化
     env = envInit({ env, yylConfig });
     const opzer = {
@@ -239,8 +224,7 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             return opzer;
         },
         all() {
-            iRes.trigger('progress', ['start']);
-            iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
+            iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
             compiler.run((er) => {
                 if (er) {
                     iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]]);
@@ -251,16 +235,45 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             return opzer;
         },
         watch() {
+            var _a;
             iRes.trigger('progress', ['start']);
             iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
-            compiler.watch({
-                aggregateTimeout: 1000
-            }, (er) => {
-                if (er) {
-                    iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]]);
+            iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]]);
+            const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
+            extOs__default['default'].checkPort(serverPort).then((canUse) => {
+                if (!canUse) {
+                    iRes.trigger('msg', [
+                        'error',
+                        [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
+                    ]);
+                    iRes.trigger('progress', ['finished']);
+                    return;
                 }
-                // TODO: error handle
-                iRes.trigger('progress', ['finished']);
+                try {
+                    const devServer = new WebpackDevServer__default['default'](compiler, Object.assign({}, wConfig.devServer));
+                    devServer.listen(serverPort, (err) => {
+                        if (err) {
+                            iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
+                        }
+                        else {
+                            iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]]);
+                        }
+                    });
+                    compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+                        iRes.trigger('progress', ['start']);
+                    });
+                    compiler.hooks.done.tap(PLUGIN_NAME, () => {
+                        iRes.trigger('progress', ['finished']);
+                    });
+                    compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
+                        iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
+                        iRes.trigger('progress', ['finished']);
+                    });
+                }
+                catch (err) {
+                    iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
+                    iRes.trigger('progress', ['finished']);
+                }
             });
             return opzer;
         }

@@ -2,8 +2,6 @@ const { YylHander } = require('yyl-hander')
 const seed = require('../')
 const chalk = require('chalk')
 
-
-
 const handler = {
   async all({ env = {}, logger }) {
     if (env.silent) {
@@ -35,11 +33,11 @@ const handler = {
 
     const yyHander = new YylHander({
       env,
-      logger(type, subType, args) {
+      logger(type, $1, $2, $3) {
         if (type === 'msg') {
-          logger.log(subType, args)
+          logger.log($1, $2)
         } else if (type === 'progress') {
-          logger.setProgress(subType)
+          logger.setProgress($1, $2, $3)
         }
       }
     })

@@ -6,7 +6,7 @@ import { SeedOptimize, SeedOptimizeOption, SeedOptimizeResult } from 'yyl-seed-b
 import { ProgressPlugin, webpack } from 'webpack'
 import { merge } from 'webpack-merge'
 import { buildWConfig, envInit, toCtx } from './util'
-import { LANG } from './const'
+import { LANG, PLUGIN_NAME } from './const'
 import WebpackDevServer from 'webpack-dev-server'
 
 export interface OptimizeOption extends SeedOptimizeOption {}
@@ -49,35 +49,20 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
 
   const compiler = webpack(
     merge(wConfig, {
+      stats: 'none',
+      infrastructureLogging: {
+        level: 'none'
+      },
       plugins: [
         new ProgressPlugin({
           activeModules: true,
           handler(percentage, ...args) {
-            iRes.trigger('progress', [percentage])
-            iRes.trigger('msg', ['info', [args.join(' ')]])
+            iRes.trigger('progress', [percentage, 'info', args])
           }
         })
       ]
     })
   )
-
-  // 启动 devServer
-  if (ctx === 'watch') {
-    iRes.trigger('msg', ['info', LANG.OPTIMIZE.USE_DEV_SERVER])
-    const serverPort = env.port || yylConfig?.localserver?.port || 5000
-    if (!(await extOs.checkPort(serverPort))) {
-      iRes.trigger('msg', ['error', [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]])
-      return undefined
-    }
-    const devServer = new WebpackDevServer(compiler, wConfig.devServer)
-    devServer.listen(serverPort, (err) => {
-      if (err) {
-        iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-      } else {
-        iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
-      }
-    })
-  }
 
   // env 初始化
   env = envInit({ env, yylConfig })
@@ -96,8 +81,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     },
 
     all() {
-      iRes.trigger('progress', ['start'])
-      iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
+      iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
       compiler.run((er) => {
         if (er) {
           iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]])
@@ -111,18 +95,45 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     watch() {
       iRes.trigger('progress', ['start'])
       iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
-      compiler.watch(
-        {
-          aggregateTimeout: 1000
-        },
-        (er) => {
-          if (er) {
-            iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]])
-          }
-          // TODO: error handle
+      iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]])
+      const serverPort = env.port || yylConfig?.localserver?.port || 5000
+      extOs.checkPort(serverPort).then((canUse) => {
+        if (!canUse) {
+          iRes.trigger('msg', [
+            'error',
+            [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
+          ])
+          iRes.trigger('progress', ['finished'])
+          return
+        }
+
+        try {
+          const devServer = new WebpackDevServer(compiler, {
+            ...wConfig.devServer
+          } as any)
+          devServer.listen(serverPort, (err) => {
+            if (err) {
+              iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
+            } else {
+              iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
+            }
+          })
+          compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+            iRes.trigger('progress', ['start'])
+          })
+          compiler.hooks.done.tap(PLUGIN_NAME, () => {
+            iRes.trigger('progress', ['finished'])
+          })
+          compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
+            iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
+            iRes.trigger('progress', ['finished'])
+          })
+        } catch (err) {
+          iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
           iRes.trigger('progress', ['finished'])
         }
-      )
+      })
+
       return opzer
     }
   }

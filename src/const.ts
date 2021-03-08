@@ -38,3 +38,5 @@ export const LANG = {
     USE_LIVERELOAD: '使用 livereload 模式'
   }
 }
+
+export const PLUGIN_NAME = 'yyl-seed'

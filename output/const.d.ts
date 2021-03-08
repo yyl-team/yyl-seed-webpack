@@ -38,3 +38,4 @@ export declare const LANG: {
         USE_LIVERELOAD: string;
     };
 };
+export declare const PLUGIN_NAME = "yyl-seed";

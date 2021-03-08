@@ -16,6 +16,7 @@ const logger = new YylCmdLogger({
 ;(() => {
   const { env, cmds } = util.cmdParse(process.argv)
   const ctrl = cmds[0]
+  logger.log('main', ['runner'])
   if (ctrl in handler) {
     if (env.ctx) {
       const ctx = env.ctx
