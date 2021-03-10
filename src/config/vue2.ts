@@ -1,12 +1,12 @@
 import { Env, YylConfig } from 'yyl-config-types'
-import initBaseWebpackConfig from 'yyl-base-webpack-config'
+import initVue2WebpackConfig from 'yyl-vue2-webpack-config'
 export interface WConfigOption {
   env: Env
   yylConfig: YylConfig
 }
 export function wConfig(option: WConfigOption) {
   const { env, yylConfig } = option
-  return initBaseWebpackConfig({
+  return initVue2WebpackConfig({
     context: yylConfig?.alias?.dirname || process.cwd(),
     env,
     alias: yylConfig.alias,

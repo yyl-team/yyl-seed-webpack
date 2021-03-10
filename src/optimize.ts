@@ -5,7 +5,7 @@ import SeedResponse, { ResponseFn } from 'yyl-seed-response'
 import { SeedOptimize, SeedOptimizeOption, SeedOptimizeResult } from 'yyl-seed-base'
 import { ProgressPlugin, webpack } from 'webpack'
 import { merge } from 'webpack-merge'
-import { buildWConfig, envInit, toCtx } from './util'
+import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
 import { LANG, PLUGIN_NAME } from './const'
 import WebpackDevServer from 'webpack-dev-server'
 
@@ -82,13 +82,13 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
 
     all() {
       iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
-      compiler.run((er) => {
-        if (er) {
-          iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]])
-        }
-        iRes.trigger('progress', ['finished'])
+      initCompilerLog({
+        compiler,
+        response: iRes,
+        env
       })
-      // initCompilerLog({ compiler, response: iRes, env })
+
+      compiler.run(() => undefined)
       return opzer
     },
 
@@ -118,46 +118,11 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
               iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
             }
           })
-          compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
-            iRes.trigger('progress', ['start'])
-          })
-          compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
-            const statsInfo = stats.toJson({
-              all: false,
-              assets: true,
-              errors: true,
-              warnings: true,
-              logging: 'warn'
-            })
 
-            if (statsInfo.warnings) {
-              statsInfo.warnings.forEach((er) => {
-                iRes.trigger('msg', ['warn', [er.moduleName || '', er.message]])
-              })
-            }
-
-            if (statsInfo.errors) {
-              statsInfo.errors.forEach((er) => {
-                iRes.trigger('msg', ['error', [er.moduleName || '', er.message]])
-              })
-            }
-
-            // 显示完整构建过程
-            if (!statsInfo.errors?.length && !statsInfo.warnings?.length) {
-              const logStr = stats.toString({
-                chunks: false,
-                color: true
-              })
-              iRes.trigger('msg', [
-                'success',
-                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
-              ])
-            }
-            iRes.trigger('progress', ['finished'])
-          })
-          compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
-            iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-            iRes.trigger('progress', ['finished'])
+          initCompilerLog({
+            compiler,
+            response: iRes,
+            env
           })
         } catch (err) {
           iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])

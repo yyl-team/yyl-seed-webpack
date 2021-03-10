@@ -3,4 +3,4 @@ export interface WConfigOption {
     env: Env;
     yylConfig: YylConfig;
 }
-export declare function wConfig(option: WConfigOption): import("webpack").WebpackOptionsNormalized;
+export declare function wConfig(option: WConfigOption): import("webpack").Configuration;

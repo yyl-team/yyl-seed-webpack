@@ -14,6 +14,7 @@ var SeedResponse = require('yyl-seed-response');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var initBaseWebpackConfig = require('yyl-base-webpack-config');
+var initVue2WebpackConfig = require('yyl-vue2-webpack-config');
 var WebpackDevServer = require('webpack-dev-server');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -24,6 +25,7 @@ var extOs__default = /*#__PURE__*/_interopDefaultLegacy(extOs);
 var SeedResponse__default = /*#__PURE__*/_interopDefaultLegacy(SeedResponse);
 var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
 var initBaseWebpackConfig__default = /*#__PURE__*/_interopDefaultLegacy(initBaseWebpackConfig);
+var initVue2WebpackConfig__default = /*#__PURE__*/_interopDefaultLegacy(initVue2WebpackConfig);
 var WebpackDevServer__default = /*#__PURE__*/_interopDefaultLegacy(WebpackDevServer);
 
 /*! *****************************************************************************
@@ -66,13 +68,55 @@ function wConfig(option) {
 function wConfig$1(option) {
     var _a;
     const { env, yylConfig } = option;
-    return initBaseWebpackConfig__default['default']({
+    return initVue2WebpackConfig__default['default']({
         context: ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.alias) === null || _a === void 0 ? void 0 : _a.dirname) || process.cwd(),
         env,
         alias: yylConfig.alias,
         yylConfig
     });
 }
+
+const LANG = {
+    INIT: {
+        TYPE_NOT_EXISTS: 'seed 类型(type) 没找到',
+        TARGET_NOT_EXISTS: '目标路径(targetPath) 不存在',
+        COPY_COMMON_START: '开始 复制通用文件',
+        COPY_COMMON_FINISHED: '复制通用文件 完成',
+        COPY_COMMON_ERROR: '复制通用文件发生 错误',
+        COPY_EXAMPLE_START: '开始 复制 seed 包文件',
+        COPY_EXAMPLE_FINISHED: '复制 seed 包文件 完成',
+        COPY_EXAMPLE_ERROR: '复制 seed 包文件发生 错误',
+        CREATE_DIST_START: '开始 创建 dist 目录',
+        CREATE_DIST_FINISHED: '创建 dist 目录 完成',
+        COPY_ESLINT_START: '开始 复制 eslint, editorconfig',
+        COPY_ESLINT_FINISHED: '复制 eslint, editorconfig 完成',
+        COPY_ESLINT_ERROR: '复制 eslint, editorconfig 发生 错误'
+    },
+    OPTIMIZE: {
+        WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
+        WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
+        WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置依赖',
+        WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
+        LOADING_WEBPACK_START: '正在加载 webpack 模块',
+        LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
+        SEED_NOT_EXISTS: 'config.seed 不存在',
+        SEED_NOT_SET: 'config.seed 没有配置',
+        CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
+        CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
+        CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
+        CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成',
+        USE_MIDDLEWARE: '使用 server 中间件',
+        USE_DEV_SERVER: '使用 webpack-dev-server',
+        DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
+        DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
+        DEV_SERVER_PORT_OCCUPIED: '端口 已被占用',
+        USE_HMR: '使用 hmr 模式',
+        WRITE_TO_DISK: '写入硬盘',
+        MOMERY_ADDRESS: '缓存访问地址',
+        USE_LIVERELOAD: '使用 livereload 模式'
+    }
+};
+const PLUGIN_NAME = 'yyl-seed';
 
 function toCtx(ctx) {
     return ctx;
@@ -123,48 +167,48 @@ function buildWConfig(option) {
         return wConfig$2;
     }
 }
-
-const LANG = {
-    INIT: {
-        TYPE_NOT_EXISTS: 'seed 类型(type) 没找到',
-        TARGET_NOT_EXISTS: '目标路径(targetPath) 不存在',
-        COPY_COMMON_START: '开始 复制通用文件',
-        COPY_COMMON_FINISHED: '复制通用文件 完成',
-        COPY_COMMON_ERROR: '复制通用文件发生 错误',
-        COPY_EXAMPLE_START: '开始 复制 seed 包文件',
-        COPY_EXAMPLE_FINISHED: '复制 seed 包文件 完成',
-        COPY_EXAMPLE_ERROR: '复制 seed 包文件发生 错误',
-        CREATE_DIST_START: '开始 创建 dist 目录',
-        CREATE_DIST_FINISHED: '创建 dist 目录 完成',
-        COPY_ESLINT_START: '开始 复制 eslint, editorconfig',
-        COPY_ESLINT_FINISHED: '复制 eslint, editorconfig 完成',
-        COPY_ESLINT_ERROR: '复制 eslint, editorconfig 发生 错误'
-    },
-    OPTIMIZE: {
-        WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
-        WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
-        WEBPACK_DEV_SERVER_NEED_PRE_INSTALL: '需要在项目中安装前置依赖',
-        WEBPACK_RUN_SUCCESS: 'webpack 核心流程构建 完成',
-        LOADING_WEBPACK_START: '正在加载 webpack 模块',
-        LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
-        SEED_NOT_EXISTS: 'config.seed 不存在',
-        SEED_NOT_SET: 'config.seed 没有配置',
-        CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
-        CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
-        CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
-        CHECK_TARGET_PKG_FINISHED: '项目 依赖检查 完成',
-        USE_MIDDLEWARE: '使用 server 中间件',
-        USE_DEV_SERVER: '使用 webpack-dev-server',
-        DEV_SERVER_START_SUCCESS: 'webpack-dev-server 启动成功',
-        DEV_SERVER_START_FAIL: 'webpack-dev-server 启动失败',
-        DEV_SERVER_PORT_OCCUPIED: '端口 已被占用',
-        USE_HMR: '使用 hmr 模式',
-        WRITE_TO_DISK: '写入硬盘',
-        MOMERY_ADDRESS: '缓存访问地址',
-        USE_LIVERELOAD: '使用 livereload 模式'
-    }
-};
-const PLUGIN_NAME = 'yyl-seed';
+function initCompilerLog(op) {
+    const { compiler, env, response } = op;
+    compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+        response.trigger('progress', ['start']);
+    });
+    compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
+        var _a, _b;
+        const statsInfo = stats.toJson({
+            all: false,
+            assets: true,
+            errors: true,
+            warnings: true,
+            logging: 'warn'
+        });
+        if (statsInfo.warnings) {
+            statsInfo.warnings.forEach((er) => {
+                response.trigger('msg', ['warn', [er.moduleName || '', er.message]]);
+            });
+        }
+        if (statsInfo.errors) {
+            statsInfo.errors.forEach((er) => {
+                response.trigger('msg', ['error', [er.moduleName || '', er.message]]);
+            });
+        }
+        // 显示完整构建过程
+        if (!((_a = statsInfo.errors) === null || _a === void 0 ? void 0 : _a.length) && !((_b = statsInfo.warnings) === null || _b === void 0 ? void 0 : _b.length)) {
+            const logStr = stats.toString({
+                chunks: false,
+                color: true
+            });
+            response.trigger('msg', [
+                'success',
+                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+            ]);
+        }
+        response.trigger('progress', ['finished']);
+    });
+    compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
+        response.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
+        response.trigger('progress', ['finished']);
+    });
+}
 
 /** 构建函数 */
 const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
@@ -225,13 +269,12 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         },
         all() {
             iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
-            compiler.run((er) => {
-                if (er) {
-                    iRes.trigger('msg', ['error', [env.logLevel === 2 ? er : er.message || er]]);
-                }
-                iRes.trigger('progress', ['finished']);
+            initCompilerLog({
+                compiler,
+                response: iRes,
+                env
             });
-            // initCompilerLog({ compiler, response: iRes, env })
+            compiler.run(() => undefined);
             return opzer;
         },
         watch() {
@@ -259,44 +302,10 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
                             iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]]);
                         }
                     });
-                    compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
-                        iRes.trigger('progress', ['start']);
-                    });
-                    compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
-                        var _a, _b;
-                        const statsInfo = stats.toJson({
-                            all: false,
-                            assets: true,
-                            errors: true,
-                            warnings: true,
-                            logging: 'warn'
-                        });
-                        if (statsInfo.warnings) {
-                            statsInfo.warnings.forEach((er) => {
-                                iRes.trigger('msg', ['warn', [er.moduleName || '', er.message]]);
-                            });
-                        }
-                        if (statsInfo.errors) {
-                            statsInfo.errors.forEach((er) => {
-                                iRes.trigger('msg', ['error', [er.moduleName || '', er.message]]);
-                            });
-                        }
-                        // 显示完整构建过程
-                        if (!((_a = statsInfo.errors) === null || _a === void 0 ? void 0 : _a.length) && !((_b = statsInfo.warnings) === null || _b === void 0 ? void 0 : _b.length)) {
-                            const logStr = stats.toString({
-                                chunks: false,
-                                color: true
-                            });
-                            iRes.trigger('msg', [
-                                'success',
-                                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
-                            ]);
-                        }
-                        iRes.trigger('progress', ['finished']);
-                    });
-                    compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
-                        iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
-                        iRes.trigger('progress', ['finished']);
+                    initCompilerLog({
+                        compiler,
+                        response: iRes,
+                        env
                     });
                 }
                 catch (err) {

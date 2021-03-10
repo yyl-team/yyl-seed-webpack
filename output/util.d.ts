@@ -21,6 +21,7 @@ export interface InitCompilerLogOption {
     response: SeedResponse;
     env: Env;
 }
+export declare function initCompilerLog(op: InitCompilerLogOption): void;
 export interface LogCache {
     [key: string]: boolean;
 }

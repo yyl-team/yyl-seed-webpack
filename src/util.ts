@@ -4,6 +4,7 @@ import SeedResponse from 'yyl-seed-response'
 import { wConfig as baseWConfig } from './config/base'
 import { wConfig as vue2WConfig } from './config/vue2'
 import { Compiler, Compilation, Configuration, Stats } from 'webpack'
+import { PLUGIN_NAME, LANG } from './const'
 import fs from 'fs'
 import merge from 'webpack-merge'
 
@@ -90,6 +91,50 @@ export interface InitCompilerLogOption {
   compiler: Compiler
   response: SeedResponse
   env: Env
+}
+export function initCompilerLog(op: InitCompilerLogOption) {
+  const { compiler, env, response } = op
+  compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+    response.trigger('progress', ['start'])
+  })
+  compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
+    const statsInfo = stats.toJson({
+      all: false,
+      assets: true,
+      errors: true,
+      warnings: true,
+      logging: 'warn'
+    })
+
+    if (statsInfo.warnings) {
+      statsInfo.warnings.forEach((er) => {
+        response.trigger('msg', ['warn', [er.moduleName || '', er.message]])
+      })
+    }
+
+    if (statsInfo.errors) {
+      statsInfo.errors.forEach((er) => {
+        response.trigger('msg', ['error', [er.moduleName || '', er.message]])
+      })
+    }
+
+    // 显示完整构建过程
+    if (!statsInfo.errors?.length && !statsInfo.warnings?.length) {
+      const logStr = stats.toString({
+        chunks: false,
+        color: true
+      })
+      response.trigger('msg', [
+        'success',
+        logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+      ])
+    }
+    response.trigger('progress', ['finished'])
+  })
+  compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
+    response.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
+    response.trigger('progress', ['finished'])
+  })
 }
 
 export interface LogCache {
