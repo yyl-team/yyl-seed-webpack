@@ -7247,6 +7247,11 @@ qs@~6.5.2:
   resolved "http://npm-registry.yy.com/qs/download/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha1-yzroBuh0BERYTvFUzo7pjUA/PjY=
 
+querystring-es3@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
+  integrity sha1-nsYfeQSYdXB9aUFFlv2Qek1xHnM=
+
 querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
@@ -9429,10 +9434,10 @@ yyl-fs@^0.3.3:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.3.3.tgz#aa409a5ea451cd0da287315665f338b1a24d4324"
   integrity sha512-3I+zY97ZJz91whuiBcdv3qdTQzErI8Dm2YSfJNK3XIAXmzWOSj1nSf6x59KrG4buzIaS3t2LEHVq4kPSYqu/9Q==
 
-yyl-hander@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.npmjs.org/yyl-hander/-/yyl-hander-1.1.6.tgz#25ae198b8459364f32c9a84ef39a3d45aaff91f2"
-  integrity sha512-4BAGxu1hwRlRDxvXmZ08mANGl+M+wHEHMxDDHfsM7O1no9bhHu9LwaY4AXF+KaOPryiOaePNMQ3XvNchIOxMHw==
+yyl-hander@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.npmjs.org/yyl-hander/-/yyl-hander-1.1.7.tgz#db7964ae3abf51d9e961317e360ec4ff03d125a5"
+  integrity sha512-GboJAHSkLxIfqtJp4MeJUiZRmiusataz/umbmX6nJiYEanp4pAh5tWSafqNZ5JAoGF4Apa7ILwVGVDOvGmbvvw==
   dependencies:
     "@types/request" "^2.48.5"
     "@types/request-promise" "^4.1.47"

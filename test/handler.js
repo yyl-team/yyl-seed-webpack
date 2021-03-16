@@ -29,7 +29,7 @@ const handler = {
       logger.setLogLevel(0)
     } else if (env.logLevel) {
       logger.setLogLevel(env.logLevel)
-    } 
+    }
 
     const yyHander = new YylHander({
       env,

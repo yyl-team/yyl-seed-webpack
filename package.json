@@ -54,7 +54,7 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "typescript": "^4.1.3",
     "yyl-cmd-logger": "^0.1.5",
-    "yyl-hander": "1.1.6"
+    "yyl-hander": "1.1.7"
   },
   "name": "yyl-seed-webpack",
   "description": "yyl seed webpack",
@@ -64,6 +64,7 @@
   "dependencies": {
     "@types/webpack-dev-server": "^3.11.1",
     "chalk": "^4.1.0",
+    "querystring-es3": "^0.2.1",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^4.0.0-beta.0",

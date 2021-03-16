@@ -14,6 +14,7 @@ var SeedResponse = require('yyl-seed-response');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var initBaseWebpackConfig = require('yyl-base-webpack-config');
+var yylUtil = require('yyl-util');
 var initVue2WebpackConfig = require('yyl-vue2-webpack-config');
 var WebpackDevServer = require('webpack-dev-server');
 
@@ -54,26 +55,44 @@ function __awaiter(thisArg, _arguments, P, generator) {
 }
 
 // TODO: ProgressPlugin
+function commonConfig(option) {
+    return {
+        resolve: {
+            fallback: {
+                'url': require.resolve('url/'),
+                'punycode': require.resolve('punycode/'),
+                'querystring': require.resolve('querystring-es3'),
+                'webpack/hot': yylUtil.path.join(require.resolve('webpack/hot/emitter.js'), '..'),
+                'webpack/hot/emitter': require.resolve('webpack/hot/emitter.js'),
+                'ansi-html': require.resolve('ansi-html'),
+                'html-entities': require.resolve('html-entities'),
+                'events': require.resolve('events/')
+            }
+        }
+    };
+}
+
+// TODO: ProgressPlugin
 function wConfig(option) {
     var _a;
     const { env, yylConfig } = option;
-    return initBaseWebpackConfig__default['default']({
+    return merge.merge(initBaseWebpackConfig__default['default']({
         context: ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.alias) === null || _a === void 0 ? void 0 : _a.dirname) || process.cwd(),
         env,
         alias: yylConfig.alias,
         yylConfig
-    });
+    }), commonConfig());
 }
 
 function wConfig$1(option) {
     var _a;
     const { env, yylConfig } = option;
-    return initVue2WebpackConfig__default['default']({
+    return merge.merge(initVue2WebpackConfig__default['default']({
         context: ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.alias) === null || _a === void 0 ? void 0 : _a.dirname) || process.cwd(),
         env,
         alias: yylConfig.alias,
         yylConfig
-    });
+    }), commonConfig());
 }
 
 const LANG = {
@@ -156,10 +175,11 @@ function buildWConfig(option) {
             wConfig$2 = wConfig({ env, yylConfig });
             break;
     }
+    console.log('===ddd', yylConfig.alias);
     if (fs__default['default'].existsSync(pjWConfigPath)) {
         let pjWConfig = require(pjWConfigPath);
         if (typeof pjWConfig === 'function') {
-            pjWConfig = pjWConfig(env, yylConfig);
+            pjWConfig = pjWConfig(env, { yylConfig, env });
         }
         return merge__default['default'](wConfig$2, pjWConfig);
     }
@@ -173,7 +193,6 @@ function initCompilerLog(op) {
         response.trigger('progress', ['start']);
     });
     compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
-        var _a, _b;
         const statsInfo = stats.toJson({
             all: false,
             assets: true,
@@ -192,16 +211,14 @@ function initCompilerLog(op) {
             });
         }
         // 显示完整构建过程
-        if (!((_a = statsInfo.errors) === null || _a === void 0 ? void 0 : _a.length) && !((_b = statsInfo.warnings) === null || _b === void 0 ? void 0 : _b.length)) {
-            const logStr = stats.toString({
-                chunks: false,
-                color: true
-            });
-            response.trigger('msg', [
-                'success',
-                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
-            ]);
-        }
+        const logStr = stats.toString({
+            chunks: false,
+            color: true
+        });
+        response.trigger('msg', [
+            'info',
+            logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+        ]);
         response.trigger('progress', ['finished']);
     });
     compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {

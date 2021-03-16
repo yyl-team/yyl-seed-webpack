@@ -76,10 +76,12 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       break
   }
 
+  console.log('===ddd', yylConfig.alias)
+
   if (fs.existsSync(pjWConfigPath)) {
     let pjWConfig = require(pjWConfigPath)
     if (typeof pjWConfig === 'function') {
-      pjWConfig = pjWConfig(env, yylConfig)
+      pjWConfig = pjWConfig(env, { yylConfig, env })
     }
     return merge(wConfig, pjWConfig)
   } else {
@@ -119,16 +121,14 @@ export function initCompilerLog(op: InitCompilerLogOption) {
     }
 
     // 显示完整构建过程
-    if (!statsInfo.errors?.length && !statsInfo.warnings?.length) {
-      const logStr = stats.toString({
-        chunks: false,
-        color: true
-      })
-      response.trigger('msg', [
-        'success',
-        logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
-      ])
-    }
+    const logStr = stats.toString({
+      chunks: false,
+      color: true
+    })
+    response.trigger('msg', [
+      'info',
+      logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+    ])
     response.trigger('progress', ['finished'])
   })
   compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
