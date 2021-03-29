@@ -1,6 +1,6 @@
 {
   "name": "yyl-seed-webpack",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "description": "yyl seed with webpack",
   "main": "index.js",
   "types": "index.d.ts",
@@ -180,7 +180,7 @@
     "yyl-env-pop-webpack-plugin": "0.1.5",
     "yyl-fs": "0.3.2",
     "yyl-os": "0.11.1",
-    "yyl-rev-webpack-plugin": "0.1.7",
+    "yyl-rev-webpack-plugin": "0.1.8",
     "yyl-seed-response": "0.1.1",
     "yyl-sugar-webpack-plugin": "0.1.14",
     "yyl-util": "2.3.3"
