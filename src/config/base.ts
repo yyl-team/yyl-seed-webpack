@@ -1,8 +1,7 @@
 import { Env, YylConfig } from 'yyl-config-types'
-import initBaseWebpackConfig from 'yyl-base-webpack-config'
+import { initYylBaseConfig } from 'yyl-base-webpack-config'
 import { commonConfig } from './common'
 import { merge } from 'webpack-merge'
-import { WebpackOptionsNormalized } from 'webpack'
 export interface WConfigOption {
   env: Env
   yylConfig: YylConfig
@@ -11,7 +10,7 @@ export interface WConfigOption {
 export function wConfig(option: WConfigOption) {
   const { env, yylConfig } = option
   return merge(
-    initBaseWebpackConfig({
+    initYylBaseConfig({
       context: yylConfig?.alias?.dirname || process.cwd(),
       env,
       alias: yylConfig.alias,
@@ -20,6 +19,6 @@ export function wConfig(option: WConfigOption) {
     commonConfig({
       env,
       yylConfig
-    }) as WebpackOptionsNormalized
+    })
   )
 }
