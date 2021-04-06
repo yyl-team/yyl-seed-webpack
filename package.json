@@ -75,6 +75,6 @@
     "yyl-seed-base": "^0.2.6",
     "yyl-seed-response": "0.2.0",
     "yyl-util": "^2.3.9",
-    "yyl-vue2-webpack-config": "^0.1.0"
+    "yyl-vue2-webpack-config": "^0.1.1"
   }
 }

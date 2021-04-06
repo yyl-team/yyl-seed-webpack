@@ -1,6 +1,9 @@
 # 版本信息
+
 ## 2.6.5 (2021-03-29)
-* fix: 修复 remote 模式，在windows下 映射静态资源失败问题
+
+- fix: 修复 remote 模式，在 windows 下 映射静态资源失败问题
+
 ## 2.6.4 (2021-01-27)
 
 - fix: 更新 browserlist
