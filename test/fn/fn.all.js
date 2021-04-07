@@ -20,6 +20,7 @@ const linkCheck = function (config) {
   const cssArr = extFs.readFilesSync(config.alias.destRoot, /\.css$/)
   const jsArr = extFs.readFilesSync(config.alias.destRoot, /\.js$/)
 
+
   const destRoot = config.alias.destRoot
   const LOCAL_SOURCE_REG = new RegExp(`^(${config.commit.hostname})`)
   const REMOTE_SOURCE_REG = /^(http[s]?:|\/\/\w)/
@@ -44,7 +45,7 @@ const linkCheck = function (config) {
       localSource.push(
         tUtil.hideUrlTail(
           util.path.join(
-            path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, '$1'))
+            path.resolve(destRoot, iPath.replace(ABSOLUTE_SOURCE_REG, '$1'))
           )
         )
       )

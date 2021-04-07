@@ -28,6 +28,7 @@ const handler = {
     await yyHander.init({
       seed
     })
+    return yyHander.getYylConfig()
   },
   async watch({ env = {}, logger }) {
     if (!logger) {
@@ -53,6 +54,8 @@ const handler = {
       seed,
       watch: true
     })
+
+    return yyHander.getYylConfig()
   }
 }
 module.exports = handler
