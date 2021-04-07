@@ -13,7 +13,7 @@ var extOs = require('yyl-os');
 var SeedResponse = require('yyl-seed-response');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
-var initBaseWebpackConfig = require('yyl-base-webpack-config');
+var yylBaseWebpackConfig = require('yyl-base-webpack-config');
 var yylUtil = require('yyl-util');
 var initVue2WebpackConfig = require('yyl-vue2-webpack-config');
 var WebpackDevServer = require('webpack-dev-server');
@@ -25,7 +25,6 @@ var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 var extOs__default = /*#__PURE__*/_interopDefaultLegacy(extOs);
 var SeedResponse__default = /*#__PURE__*/_interopDefaultLegacy(SeedResponse);
 var merge__default = /*#__PURE__*/_interopDefaultLegacy(merge);
-var initBaseWebpackConfig__default = /*#__PURE__*/_interopDefaultLegacy(initBaseWebpackConfig);
 var initVue2WebpackConfig__default = /*#__PURE__*/_interopDefaultLegacy(initVue2WebpackConfig);
 var WebpackDevServer__default = /*#__PURE__*/_interopDefaultLegacy(WebpackDevServer);
 
@@ -66,7 +65,13 @@ function commonConfig(option) {
                 'webpack/hot/emitter': require.resolve('webpack/hot/emitter.js'),
                 'ansi-html': require.resolve('ansi-html'),
                 'html-entities': require.resolve('html-entities'),
-                'events': require.resolve('events/')
+                'events': require.resolve('events/'),
+                'strip-ansi': require.resolve('strip-ansi'),
+                'loglevel': require.resolve('loglevel'),
+                'sockjs-client/dist/sockjs': require.resolve('sockjs-client/dist/sockjs'),
+                'base64-js': require.resolve('base64-js'),
+                'ansi-regex': require.resolve('ansi-regex'),
+                'isarray': require.resolve('isarray')
             }
         }
     };
@@ -76,7 +81,7 @@ function commonConfig(option) {
 function wConfig(option) {
     var _a;
     const { env, yylConfig } = option;
-    return merge.merge(initBaseWebpackConfig__default['default']({
+    return merge.merge(yylBaseWebpackConfig.initYylBaseConfig({
         context: ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.alias) === null || _a === void 0 ? void 0 : _a.dirname) || process.cwd(),
         env,
         alias: yylConfig.alias,
@@ -175,7 +180,6 @@ function buildWConfig(option) {
             wConfig$2 = wConfig({ env, yylConfig });
             break;
     }
-    console.log('===ddd', yylConfig.alias);
     if (fs__default['default'].existsSync(pjWConfigPath)) {
         let pjWConfig = require(pjWConfigPath);
         if (typeof pjWConfig === 'function') {
@@ -229,6 +233,7 @@ function initCompilerLog(op) {
 
 /** 构建函数 */
 const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     let { yylConfig, root, env, ctx } = option;
     // response 初始化
     const iRes = new SeedResponse__default['default']();
@@ -270,6 +275,8 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             })
         ]
     }));
+    /** 使用项目自带server */
+    !!((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.entry);
     // env 初始化
     env = envInit({ env, yylConfig });
     const opzer = {
@@ -279,6 +286,19 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         ignoreServer: true,
         getConfigSync() {
             return yylConfig;
+        },
+        appWillMount(app) {
+            return __awaiter(this, void 0, void 0, function* () {
+                yylBaseWebpackConfig.initMiddleWare({
+                    app,
+                    env,
+                    compiler,
+                    yylConfig,
+                    logger(type, subType, args) {
+                        iRes.trigger(type, [subType, args]);
+                    }
+                });
+            });
         },
         on(eventName, fn) {
             iRes.on(eventName, fn);
@@ -301,6 +321,7 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]]);
             const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
             extOs__default['default'].checkPort(serverPort).then((canUse) => {
+                var _a;
                 if (!canUse) {
                     iRes.trigger('msg', [
                         'error',
@@ -309,25 +330,33 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
                     iRes.trigger('progress', ['finished']);
                     return;
                 }
-                try {
-                    const devServer = new WebpackDevServer__default['default'](compiler, Object.assign({}, wConfig.devServer));
-                    devServer.listen(serverPort, (err) => {
-                        if (err) {
-                            iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
-                        }
-                        else {
-                            iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]]);
-                        }
-                    });
-                    initCompilerLog({
-                        compiler,
-                        response: iRes,
-                        env
-                    });
+                // 项目自带 express
+                if ((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.entry) {
+                    compiler.watch({
+                        aggregateTimeout: 2000
+                    }, () => { });
                 }
-                catch (err) {
-                    iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
-                    iRes.trigger('progress', ['finished']);
+                else {
+                    try {
+                        const devServer = new WebpackDevServer__default['default'](compiler, Object.assign({}, wConfig.devServer));
+                        devServer.listen(serverPort, (err) => {
+                            if (err) {
+                                iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
+                            }
+                            else {
+                                iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]]);
+                            }
+                        });
+                        initCompilerLog({
+                            compiler,
+                            response: iRes,
+                            env
+                        });
+                    }
+                    catch (err) {
+                        iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
+                        iRes.trigger('progress', ['finished']);
+                    }
                 }
             });
             return opzer;

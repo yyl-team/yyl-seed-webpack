@@ -76,8 +76,6 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       break
   }
 
-  console.log('===ddd', yylConfig.alias)
-
   if (fs.existsSync(pjWConfigPath)) {
     let pjWConfig = require(pjWConfigPath)
     if (typeof pjWConfig === 'function') {
@@ -121,14 +119,16 @@ export function initCompilerLog(op: InitCompilerLogOption) {
     }
 
     // 显示完整构建过程
-    const logStr = stats.toString({
-      chunks: false,
-      color: true
-    })
-    response.trigger('msg', [
-      'info',
-      logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
-    ])
+    if (env.logLevel !== 2) {
+      const logStr = stats.toString({
+        chunks: false,
+        color: true
+      })
+      response.trigger('msg', [
+        'info',
+        logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+      ])
+    }
     response.trigger('progress', ['finished'])
   })
   compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {

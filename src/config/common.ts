@@ -18,7 +18,13 @@ export function commonConfig(option: CommonConfigConfigOption): Configuration {
         'webpack/hot/emitter': require.resolve('webpack/hot/emitter.js'),
         'ansi-html': require.resolve('ansi-html'),
         'html-entities': require.resolve('html-entities'),
-        'events': require.resolve('events/')
+        'events': require.resolve('events/'),
+        'strip-ansi': require.resolve('strip-ansi'),
+        'loglevel': require.resolve('loglevel'),
+        'sockjs-client/dist/sockjs': require.resolve('sockjs-client/dist/sockjs'),
+        'base64-js': require.resolve('base64-js'),
+        'ansi-regex': require.resolve('ansi-regex'),
+        'isarray': require.resolve('isarray')
       }
     }
   }

@@ -8,6 +8,7 @@ import { merge } from 'webpack-merge'
 import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
 import { LANG, PLUGIN_NAME } from './const'
 import WebpackDevServer from 'webpack-dev-server'
+import { initMiddleWare } from 'yyl-base-webpack-config'
 
 export interface OptimizeOption extends SeedOptimizeOption {}
 
@@ -64,6 +65,9 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     })
   )
 
+  /** 使用项目自带server */
+  const usePjServer = !!yylConfig.localserver?.entry
+
   // env 初始化
   env = envInit({ env, yylConfig })
   const opzer: OptimizeResult = {
@@ -73,6 +77,18 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     ignoreServer: true,
     getConfigSync() {
       return yylConfig
+    },
+
+    async appWillMount(app) {
+      initMiddleWare({
+        app,
+        env,
+        compiler,
+        yylConfig,
+        logger(type, subType, args) {
+          iRes.trigger(type, [subType, args])
+        }
+      })
     },
 
     on<A extends any[] = any[]>(eventName: string, fn: ResponseFn<A>) {
@@ -107,26 +123,36 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
           return
         }
 
-        try {
-          const devServer = new WebpackDevServer(compiler, {
-            ...wConfig.devServer
-          } as any)
-          devServer.listen(serverPort, (err) => {
-            if (err) {
-              iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-            } else {
-              iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
-            }
-          })
+        // 项目自带 express
+        if (usePjServer) {
+          compiler.watch(
+            {
+              aggregateTimeout: 2000
+            },
+            () => {}
+          )
+        } else {
+          try {
+            const devServer = new WebpackDevServer(compiler, {
+              ...wConfig.devServer
+            } as any)
+            devServer.listen(serverPort, (err) => {
+              if (err) {
+                iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
+              } else {
+                iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
+              }
+            })
 
-          initCompilerLog({
-            compiler,
-            response: iRes,
-            env
-          })
-        } catch (err) {
-          iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-          iRes.trigger('progress', ['finished'])
+            initCompilerLog({
+              compiler,
+              response: iRes,
+              env
+            })
+          } catch (err) {
+            iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
+            iRes.trigger('progress', ['finished'])
+          }
         }
       })
 
