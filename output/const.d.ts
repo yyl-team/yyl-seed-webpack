@@ -23,6 +23,7 @@ export declare const LANG: {
         LOADING_WEBPACK_FINISHED: string;
         SEED_NOT_EXISTS: string;
         SEED_NOT_SET: string;
+        PARSE_WCONFIG_FAIL: string;
         CHECK_SEED_PKG_START: string;
         CHECK_SEED_PKG_FINISHED: string;
         CHECK_TARGET_PKG_START: string;

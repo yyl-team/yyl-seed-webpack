@@ -1,6 +1,6 @@
 import { Env, YylConfig } from 'yyl-config-types'
 import { Configuration } from 'webpack'
-import { path } from 'yyl-util'
+import path from 'path'
 export interface CommonConfigConfigOption {
   env: Env
   yylConfig: YylConfig
@@ -10,6 +10,7 @@ export function commonConfig(option: CommonConfigConfigOption): Configuration {
   const { env, yylConfig } = option
   return {
     resolve: {
+      modules: ['node_modules'],
       fallback: {
         'url': require.resolve('url/'),
         'punycode': require.resolve('punycode/'),

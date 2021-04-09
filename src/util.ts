@@ -79,9 +79,18 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
   if (fs.existsSync(pjWConfigPath)) {
     let pjWConfig = require(pjWConfigPath)
     if (typeof pjWConfig === 'function') {
-      pjWConfig = pjWConfig(env, { yylConfig, env })
+      try {
+        pjWConfig = pjWConfig(env, { yylConfig, env })
+      } catch (er) {
+        try {
+          // 兼容 yyl 3.0 webpack.config 写法
+          pjWConfig = pjWConfig({ yylConfig, env })
+        } catch (er) {
+          throw new Error(`${LANG.OPTIMIZE.PARSE_WCONFIG_FAIL}: ${er.message}`)
+        }
+      }
     }
-    return merge(wConfig, pjWConfig)
+    return merge(pjWConfig, wConfig)
   } else {
     return wConfig
   }

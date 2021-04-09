@@ -14,7 +14,6 @@ var SeedResponse = require('yyl-seed-response');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var yylBaseWebpackConfig = require('yyl-base-webpack-config');
-var yylUtil = require('yyl-util');
 var initVue2WebpackConfig = require('yyl-vue2-webpack-config');
 var WebpackDevServer = require('webpack-dev-server');
 
@@ -57,11 +56,12 @@ function __awaiter(thisArg, _arguments, P, generator) {
 function commonConfig(option) {
     return {
         resolve: {
+            modules: ['node_modules'],
             fallback: {
                 'url': require.resolve('url/'),
                 'punycode': require.resolve('punycode/'),
                 'querystring': require.resolve('querystring-es3'),
-                'webpack/hot': yylUtil.path.join(require.resolve('webpack/hot/emitter.js'), '..'),
+                'webpack/hot': path__default['default'].join(require.resolve('webpack/hot/emitter.js'), '..'),
                 'webpack/hot/emitter': require.resolve('webpack/hot/emitter.js'),
                 'ansi-html': require.resolve('ansi-html'),
                 'html-entities': require.resolve('html-entities'),
@@ -125,6 +125,7 @@ const LANG = {
         LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
         SEED_NOT_EXISTS: 'config.seed 不存在',
         SEED_NOT_SET: 'config.seed 没有配置',
+        PARSE_WCONFIG_FAIL: '解析项目 webpack.config 出错',
         CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
         CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
         CHECK_TARGET_PKG_START: '项目 依赖检查 开始',
@@ -183,9 +184,20 @@ function buildWConfig(option) {
     if (fs__default['default'].existsSync(pjWConfigPath)) {
         let pjWConfig = require(pjWConfigPath);
         if (typeof pjWConfig === 'function') {
-            pjWConfig = pjWConfig(env, { yylConfig, env });
+            try {
+                pjWConfig = pjWConfig(env, { yylConfig, env });
+            }
+            catch (er) {
+                try {
+                    // 兼容 yyl 3.0 webpack.config 写法
+                    pjWConfig = pjWConfig({ yylConfig, env });
+                }
+                catch (er) {
+                    throw new Error(`${LANG.OPTIMIZE.PARSE_WCONFIG_FAIL}: ${er.message}`);
+                }
+            }
         }
-        return merge__default['default'](wConfig$2, pjWConfig);
+        return merge__default['default'](pjWConfig, wConfig$2);
     }
     else {
         return wConfig$2;
@@ -215,14 +227,16 @@ function initCompilerLog(op) {
             });
         }
         // 显示完整构建过程
-        const logStr = stats.toString({
-            chunks: false,
-            color: true
-        });
-        response.trigger('msg', [
-            'info',
-            logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
-        ]);
+        if (env.logLevel !== 2) {
+            const logStr = stats.toString({
+                chunks: false,
+                color: true
+            });
+            response.trigger('msg', [
+                'info',
+                logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
+            ]);
+        }
         response.trigger('progress', ['finished']);
     });
     compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
@@ -276,7 +290,7 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
         ]
     }));
     /** 使用项目自带server */
-    !!((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.entry);
+    const usePjServer = !!((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.entry);
     // env 初始化
     env = envInit({ env, yylConfig });
     const opzer = {
@@ -321,7 +335,6 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]]);
             const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
             extOs__default['default'].checkPort(serverPort).then((canUse) => {
-                var _a;
                 if (!canUse) {
                     iRes.trigger('msg', [
                         'error',
@@ -331,7 +344,7 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
                     return;
                 }
                 // 项目自带 express
-                if ((_a = yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.entry) {
+                if (usePjServer) {
                     compiler.watch({
                         aggregateTimeout: 2000
                     }, () => { });

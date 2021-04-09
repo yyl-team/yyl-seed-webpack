@@ -1,4 +1,6 @@
 **/js/lib/**
+**/__frag/**
+**/__gitcase/**
 .rpt2_cache
 dist/**
 **/dist/**

@@ -23,6 +23,7 @@ export const LANG = {
     LOADING_WEBPACK_FINISHED: 'webpack 模块加载 完成',
     SEED_NOT_EXISTS: 'config.seed 不存在',
     SEED_NOT_SET: 'config.seed 没有配置',
+    PARSE_WCONFIG_FAIL: '解析项目 webpack.config 出错',
     CHECK_SEED_PKG_START: 'seed 依赖检查 开始',
     CHECK_SEED_PKG_FINISHED: 'yyl seed 依赖检查 完成',
     CHECK_TARGET_PKG_START: '项目 依赖检查 开始',

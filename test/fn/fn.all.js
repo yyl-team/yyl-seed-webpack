@@ -20,7 +20,6 @@ const linkCheck = function (config) {
   const cssArr = extFs.readFilesSync(config.alias.destRoot, /\.css$/)
   const jsArr = extFs.readFilesSync(config.alias.destRoot, /\.js$/)
 
-
   const destRoot = config.alias.destRoot
   const LOCAL_SOURCE_REG = new RegExp(`^(${config.commit.hostname})`)
   const REMOTE_SOURCE_REG = /^(http[s]?:|\/\/\w)/
@@ -36,17 +35,13 @@ const linkCheck = function (config) {
     if (iPath.match(LOCAL_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(
-            path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, ''))
-          )
+          util.path.join(path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, '')))
         )
       )
     } else if (iPath.match(ABSOLUTE_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(
-            path.resolve(destRoot, iPath.replace(ABSOLUTE_SOURCE_REG, '$1'))
-          )
+          util.path.join(path.resolve(destRoot, iPath.replace(ABSOLUTE_SOURCE_REG, '$1')))
         )
       )
     } else if (iPath.match(REMOTE_SOURCE_REG)) {
@@ -118,11 +113,7 @@ const linkCheck = function (config) {
         paddingCheck()
       } else {
         const [, res] = await extRequest(rPath)
-        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([
-          iPath,
-          rPath,
-          404
-        ])
+        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([iPath, rPath, 404])
         padding--
         paddingCheck()
       }
