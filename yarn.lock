@@ -8900,6 +8900,13 @@ yyl-config-types@^0.4.0:
   resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.4.0.tgz#911fb48261f95841237bd458afc9b6b4c2ac278c"
   integrity sha512-Z8Zwdb2KXu2lFQdeNdAlDi6iZXrJIDLzgz1EvpFlnfQqtZnnoWBwU/zQrYQJHCMr6Wt6nOpeb1KgIJJMmLVyqg==
 
+yyl-config-types@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.npmjs.org/yyl-config-types/-/yyl-config-types-0.4.3.tgz#cf5338a97433701fa101fa378cd13385078e9dfc"
+  integrity sha512-IlTFQ17bWCVpUQwxqwdxDCx2T+5+LAcF/f36Rr948FgaN8rII0SGnFqEEO9ohFpIdtfER3mVooEe+eGLo8N85w==
+  dependencies:
+    "@types/express" "^4.17.11"
+
 yyl-copy-webpack-plugin@1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/yyl-copy-webpack-plugin/-/yyl-copy-webpack-plugin-1.0.8.tgz#b462561d20cdfd3d2a44da6b97af4b73e6d3dabc"
