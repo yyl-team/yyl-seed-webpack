@@ -4,3 +4,5 @@ dist/
 __committest/
 .vscode
 **/*/__frag/
+
+test/__gitcase/
