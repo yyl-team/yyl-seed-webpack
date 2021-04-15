@@ -48,6 +48,7 @@
     "test:all.git.usercenter": "mocha ./test/mocha/all.git.usercenter.test.js --timeout 120000",
     "test:all.git.yycom_h5_live": "mocha ./test/mocha/all.git.yycom_h5_live.test.js --timeout 120000",
     "test:all.git.yycom_header": "mocha ./test/mocha/all.git.yycom_header.test.js --timeout 120000",
+    "test:all.git.shenqu_play": "mocha ./test/mocha/all.git.shenqu_play.test.js --timeout 120000",
     "tav": "mocha ./test/mocha/all.case.vue2.test.js --timeout 120000",
     "tavt": "mocha ./test/mocha/all.case.vue2-ts.test.js --timeout 120000",
     "tar": "mocha ./test/mocha/all.case.react-ts.test.js --timeout 120000",
@@ -98,6 +99,8 @@
     "gla": "node ./test/runner.js all --config ./test/__gitcase/yycom_h5_live/yyl.config.js --logLevel 2",
     "glw": "node ./test/runner.js watch --config ./test/__gitcase/yycom_h5_live/yyl.config.js --proxy --logLevel 2",
     "gca": "node ./test/runner.js all --config ./test/__gitcase/coop_usercenter/yyl.config.js --logLevel 2",
+    "gsa": "node ./test/runner.js all --config ./test/__gitcase/shenqu_play/yyl.config.js --logLevel 2",
+    "gsw": "node ./test/runner.js watch --config ./test/__gitcase/shenqu_play/yyl.config.js --proxy --logLevel 2",
     "cya": "node ./test/runner.js all --config ./test/case/yarn/config.js",
     "caqa": "node ./test/runner.js all --config ./test/case/aquaman/config.js",
     "caqw": "node ./test/runner.js watch --config ./test/case/aquaman/config.js --proxy"
