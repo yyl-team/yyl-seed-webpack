@@ -2,6 +2,9 @@
   "version": "3.0.0",
   "main": "output/index.js",
   "types": "output/index.d.ts",
+  "bin": {
+    "yyl-webpack": "bin/index.js"
+  },
   "eslintConfig": {
     "env": {
       "mocha": true
@@ -33,7 +36,7 @@
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
     "prepublishOnly": "npm run prettier & npm run build",
-    "test": "jest ./test/jest/",
+    "test": "mocha ./test/mocha/ --timeout 120000",
     "test:all.case.demo": "mocha ./test/mocha/all.case.demo.test.js --timeout 120000",
     "test:all.case.env-test": "mocha ./test/mocha/all.case.env-test.test.js --timeout 120000",
     "test:all.case.local-webpack-config-function": "mocha ./test/mocha/all.case.local-webpack-config-type-function.test.js --timeout 120000",
@@ -70,7 +73,8 @@
     "c-local-wconfig-fn:all": "node ./test/runner.js all --config ./test/case/local-webpack-config-type-function/config.js",
     "c-local-wconfig-fn:watch": "node ./test/runner.js watch --config ./test/case/local-webpack-config-type-function/config.js",
     "cra": "node ./test/runner.js all --config ./test/case/react-ts/config.js",
-    "crac": "node ./test/runner.js watch --config ./test/case/react-ts/config.js --isCommit",
+    "crac": "node ./test/runner.js all --config ./test/case/react-ts/config.js --isCommit",
+    "crar": "node ./test/runner.js all --config ./test/case/react-ts/config.js --remote",
     "crw": "node ./test/runner.js watch --config ./test/case/react-ts/config.js --proxy",
     "crwc": "node ./test/runner.js watch --config ./test/case/react-ts/config.js --isCommit",
     "cva": "node ./test/runner.js all --config ./test/case/vue2/config.js",
@@ -139,7 +143,7 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3",
-    "yyl-base-webpack-config": "^0.1.13",
+    "yyl-base-webpack-config": "^0.1.14",
     "yyl-config-types": "^0.4.3",
     "yyl-os": "^0.11.4",
     "yyl-seed-base": "^0.2.6",
