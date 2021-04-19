@@ -3,6 +3,8 @@ const YylCmdLogger = require('yyl-cmd-logger')
 const chalk = require('chalk')
 const util = require('yyl-util')
 const handler = require('./handler')
+const fs = require('fs')
+const path = require('path')
 
 const logger = new YylCmdLogger({
   type: {
@@ -16,18 +18,28 @@ const logger = new YylCmdLogger({
 })
 
 ;(() => {
-  const { env, cmds } = util.cmdParse(process.argv)
+  const { env, cmds } = util.cmdParse(process.argv || [])
+
+  // + yyl config
+  const context = process.cwd()
+  const configPath = path.join(context, 'config.js')
+  const yylConfigPath = path.join(context, 'yyl.config.js')
+
+  if (fs.existsSync(configPath)) {
+    env.config = configPath
+  }
+  if (fs.existsSync(yylConfigPath)) {
+    env.config = yylConfigPath
+  }
+  // - yyl config
+
   const ctrl = cmds[0]
-  logger.log('main', ['runner'])
+  logger.log('main', [`${cmds.join(' ')} ${util.envStringify(env)}`])
   if (ctrl in handler) {
-    if (env.ctx) {
-      const ctx = env.ctx
-      delete env.ctx
-      handler[ctrl]({ env, ctx, logger })
-    } else {
-      handler[ctrl]({ env, logger })
-    }
+    handler[ctrl]({ env, logger }).catch((er) => {
+      logger.log('error', [er])
+    })
   } else {
-    logger.log('msg', 'warn', [`usage: ${Object.keys(handler).join(',')}`])
+    logger.log('warn', [`usage: ${Object.keys(handler).join(',')}`])
   }
 })()

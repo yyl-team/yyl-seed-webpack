@@ -3,7 +3,7 @@
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "bin": {
-    "yyl-webpack": "bin/index.js"
+    "yylw": "bin/index.js"
   },
   "eslintConfig": {
     "env": {
