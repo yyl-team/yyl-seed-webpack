@@ -3,7 +3,7 @@ const extFs = require('yyl-fs')
 const extOs = require('yyl-os')
 const fs = require('fs')
 const tUtil = require('yyl-seed-test-util')
-const handler = require('../handler')
+const handler = require('../../bin/handler')
 
 const { linkCheck } = require('./fn.all')
 

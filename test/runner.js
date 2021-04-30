@@ -1,6 +1,6 @@
 const YylCmdLogger = require('yyl-cmd-logger')
 const util = require('yyl-util')
-const handler = require('./handler')
+const handler = require('../bin/handler')
 const chalk = require('chalk')
 const logger = new YylCmdLogger({
   type: {
