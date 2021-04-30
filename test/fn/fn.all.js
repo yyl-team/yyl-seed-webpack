@@ -33,9 +33,13 @@ const linkCheck = function (config) {
 
   const sourcePickup = function (iPath, dir) {
     if (iPath.match(LOCAL_SOURCE_REG)) {
+      let replacedPath = iPath.replace(LOCAL_SOURCE_REG, '')
+      if (/^\//.test(replacedPath)) {
+        replacedPath = `.${replacedPath}`
+      }
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, '')))
+          util.path.join(path.resolve(destRoot, replacedPath))
         )
       )
     } else if (iPath.match(ABSOLUTE_SOURCE_REG)) {
