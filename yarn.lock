@@ -9104,10 +9104,10 @@ yyl-fs@^0.2.0:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.2.0.tgz#995aff7c4c64448ea2b8ce2ceca2e2cb76bafa2c"
   integrity sha512-NBs2zgNFg+uc1qEtBNzrUtT6Mcrk6m9KXSA8xsVYMVLFOT1zSdRjucQeUwCjSRfReUBG9sJjeniJTNphX+O70g==
 
-yyl-hander@1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.2.5.tgz#b34da043224571951ce99c691be56a5aea69a8a2"
-  integrity sha512-IEXYnqi9N6u1bnIa4z1xZsPlvCbf9YQMEPK4pL7CjwdLkV4GU94V3xx5uCMsEuruDpeuULKQe5pkuEU+Gns6gg==
+yyl-hander@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.2.6.tgz#8b6dd04d0b27428eed4e7c9c6451cc1d984b540c"
+  integrity sha512-GZ+m53CUrJ4RXPkmkKFMsYrak4DOVocEnyP9Adv/5e2dE7qPGIAdtdfR4Mstd0cbdv5jDdYMM61yrI01oZNtTQ==
   dependencies:
     "@babel/core" "^7.13.15"
     "@babel/preset-typescript" "^7.13.0"
@@ -9117,7 +9117,7 @@ yyl-hander@1.2.5:
     request "^2.88.2"
     yyl-config-types "^0.4.3"
     yyl-fs "^0.3.3"
-    yyl-os "^0.13.0"
+    yyl-os "^0.14.0"
     yyl-seed-base "^0.2.6"
     yyl-server "^1.0.5"
     yyl-util "^2.3.9"
@@ -9129,10 +9129,10 @@ yyl-os@0.11.4, yyl-os@^0.11.4:
   dependencies:
     yyl-util "^2.3.5"
 
-yyl-os@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.13.0.tgz#0625ff0e1e7c1f9d88ed4cab9cd7cf526e744b13"
-  integrity sha512-xWzWQMYPr9HtNgbyP2ZJOlYv+0gw3y3FU7+pw9g3BB7rGX231CrcoOVrbAGYjLvXzLUOHDjvcINpeKwydj8iww==
+yyl-os@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.14.0.tgz#4452e55ebd56f02b3b4d0d01c8f0a3d6185e5a25"
+  integrity sha512-qxAi3wiFRKLsQ95j5Oun6H2uiIwKGAn5U8fjaq7kFmQT7pSaEEKhJnALUkFDf4TLlXYVJbmtIgxfYtqnEHwuCw==
   dependencies:
     yyl-util "^2.3.5"
 
