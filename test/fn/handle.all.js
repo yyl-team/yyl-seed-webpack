@@ -35,11 +35,8 @@ function runAll({ targetPath, silent, extFn }) {
   }
 
   it(`${filename} all`, async () => {
-    console.log('111', filename)
     const extEnv = initEnv()
-    console.log('extEnv', extEnv)
     const config = await handler.all({ env: extEnv })
-    console.log('config', config)
 
     await linkCheck(config)
   })
