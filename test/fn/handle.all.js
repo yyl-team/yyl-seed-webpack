@@ -8,6 +8,7 @@ const handler = require('../../bin/handler')
 const { linkCheck } = require('./fn.all')
 
 function runAll({ targetPath, silent, extFn }) {
+  console.log('runAll', targetPath, silent, extFn)
   const filename = path.basename(targetPath)
   const initEnv = function () {
     let pjConfigPath = ''
@@ -34,8 +35,11 @@ function runAll({ targetPath, silent, extFn }) {
   }
 
   it(`${filename} all`, async () => {
+    console.log('111', filename)
     const extEnv = initEnv()
+    console.log('extEnv', extEnv)
     const config = await handler.all({ env: extEnv })
+    console.log('config', config)
 
     await linkCheck(config)
   })
@@ -82,8 +86,10 @@ module.exports.handleAll = function (PJ_PATH, extFn) {
 
   describe(`seed.all test - ${filename}`, () => {
     beforeEach(async () => {
-      await tUtil.frag.init(FRAG_PATH)
-      await tUtil.frag.build()
+      if (!fs.existsSync(FRAG_PATH)) {
+        await tUtil.frag.init(FRAG_PATH)
+        await tUtil.frag.build()
+      }
       await extFs.copyFiles(PJ_PATH, FRAG_PATH, (iPath) => {
         const rPath = path.relative(PJ_PATH, iPath)
         return !/node_modules/.test(rPath)
