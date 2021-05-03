@@ -18,7 +18,7 @@ const logger = new YylCmdLogger({
 })
 
 ;(() => {
-  const { env, cmds } = util.cmdParse(process.argv || [])
+  let { env, cmds } = util.cmdParse(process.argv || [])
 
   // + yyl config
   const context = process.cwd()
@@ -33,7 +33,33 @@ const logger = new YylCmdLogger({
   }
   // - yyl config
 
-  const ctrl = cmds[0]
+  let ctrl = cmds[0]
+  if (ctrl === 'd') {
+    cmds[0] = ctrl = 'watch'
+    env = {
+      proxy: true,
+      tips: true,
+      hmr: true,
+      ...env
+    }
+  } else if (ctrl === 'w') {
+    cmds[0] = ctrl = 'watch'
+  } else if (ctrl === 'o') {
+    cmds[0] = ctrl = 'all'
+    env = {
+      isCommit: true,
+      ...env
+    }
+  } else if (ctrl === 'r') {
+    cmds[0] = ctrl = 'watch'
+    env = {
+      proxy: true,
+      tips: true,
+      hmr: true,
+      remote: true,
+      ...env
+    }
+  }
   logger.log('main', [`${cmds.join(' ')} ${util.envStringify(env)}`])
   if (ctrl in handler) {
     handler[ctrl]({ env, logger }).catch((er) => {
