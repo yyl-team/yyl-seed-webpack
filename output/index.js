@@ -332,24 +332,28 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
             var _a;
             iRes.trigger('progress', ['start']);
             iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]]);
-            iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]]);
-            const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
-            extOs__default['default'].checkPort(serverPort).then((canUse) => {
-                if (!canUse) {
-                    iRes.trigger('msg', [
-                        'error',
-                        [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
-                    ]);
-                    iRes.trigger('progress', ['finished']);
-                    return;
-                }
-                // 项目自带 express
-                if (usePjServer) {
-                    compiler.watch({
-                        aggregateTimeout: 2000
-                    }, () => { });
-                }
-                else {
+            if (usePjServer) {
+                compiler.watch({
+                    aggregateTimeout: 2000
+                }, () => { });
+                initCompilerLog({
+                    compiler,
+                    response: iRes,
+                    env
+                });
+            }
+            else {
+                iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]]);
+                const serverPort = env.port || ((_a = yylConfig === null || yylConfig === void 0 ? void 0 : yylConfig.localserver) === null || _a === void 0 ? void 0 : _a.port) || 5000;
+                extOs__default['default'].checkPort(serverPort).then((canUse) => {
+                    if (!canUse) {
+                        iRes.trigger('msg', [
+                            'error',
+                            [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
+                        ]);
+                        iRes.trigger('progress', ['finished']);
+                        return;
+                    }
                     try {
                         const devServer = new WebpackDevServer__default['default'](compiler, Object.assign({}, wConfig.devServer));
                         devServer.listen(serverPort, (err) => {
@@ -370,8 +374,8 @@ const optimize = (option) => __awaiter(void 0, void 0, void 0, function* () {
                         iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]]);
                         iRes.trigger('progress', ['finished']);
                     }
-                }
-            });
+                });
+            }
             return opzer;
         }
     };

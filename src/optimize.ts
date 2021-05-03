@@ -111,27 +111,31 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     watch() {
       iRes.trigger('progress', ['start'])
       iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
-      iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]])
-      const serverPort = env.port || yylConfig?.localserver?.port || 5000
-      extOs.checkPort(serverPort).then((canUse) => {
-        if (!canUse) {
-          iRes.trigger('msg', [
-            'error',
-            [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
-          ])
-          iRes.trigger('progress', ['finished'])
-          return
-        }
+      if (usePjServer) {
+        compiler.watch(
+          {
+            aggregateTimeout: 2000
+          },
+          () => {}
+        )
+        initCompilerLog({
+          compiler,
+          response: iRes,
+          env
+        })
+      } else {
+        iRes.trigger('msg', ['info', [LANG.OPTIMIZE.USE_DEV_SERVER]])
+        const serverPort = env.port || yylConfig?.localserver?.port || 5000
+        extOs.checkPort(serverPort).then((canUse) => {
+          if (!canUse) {
+            iRes.trigger('msg', [
+              'error',
+              [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
+            ])
+            iRes.trigger('progress', ['finished'])
+            return
+          }
 
-        // 项目自带 express
-        if (usePjServer) {
-          compiler.watch(
-            {
-              aggregateTimeout: 2000
-            },
-            () => {}
-          )
-        } else {
           try {
             const devServer = new WebpackDevServer(compiler, {
               ...wConfig.devServer
@@ -153,9 +157,8 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
             iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
             iRes.trigger('progress', ['finished'])
           }
-        }
-      })
-
+        })
+      }
       return opzer
     }
   }
