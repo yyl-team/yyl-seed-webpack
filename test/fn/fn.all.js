@@ -38,11 +38,7 @@ const linkCheck = function (config) {
       if (/^\//.test(replacedPath)) {
         replacedPath = `.${replacedPath}`
       }
-      localSource.push(
-        tUtil.hideUrlTail(
-          util.path.join(path.resolve(destRoot, replacedPath))
-        )
-      )
+      localSource.push(tUtil.hideUrlTail(util.path.join(path.resolve(destRoot, replacedPath))))
     } else if (iPath.match(ABSOLUTE_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
@@ -112,7 +108,6 @@ const linkCheck = function (config) {
       if (rPath.match(NO_PROTOCOL)) {
         rPath = `http:${rPath}`
       }
-
 
       if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP) || rPath.match(IS_SERVER_VAR)) {
         padding--
