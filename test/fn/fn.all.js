@@ -26,6 +26,7 @@ const linkCheck = function (config) {
   const ABSOLUTE_SOURCE_REG = /^\/(\w)/
   const RELATIVE_SOURCE_REG = /^\./
   const NO_PROTOCOL = /^[/]{2}(\w)/
+  const IS_SERVER_VAR = /\:\w/
 
   const localSource = []
   const remoteSource = []
@@ -112,11 +113,13 @@ const linkCheck = function (config) {
         rPath = `http:${rPath}`
       }
 
-      if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP)) {
+
+      if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP) || rPath.match(IS_SERVER_VAR)) {
         padding--
         paddingCheck()
       } else {
-        const [, res] = await extRequest(rPath)
+        console.log('noMatchRequest:', rPath)
+        const [, res] = await extRequest({ uri: rPath, timeout: 5000 })
         expect([iPath, rPath, res.statusCode]).not.to.deep.equal([iPath, rPath, 404])
         padding--
         paddingCheck()

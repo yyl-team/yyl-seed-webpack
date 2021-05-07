@@ -8,7 +8,6 @@ const handler = require('../../bin/handler')
 const { linkCheck } = require('./fn.all')
 
 function runAll({ targetPath, silent, extFn }) {
-  console.log('runAll', targetPath, silent, extFn)
   const filename = path.basename(targetPath)
   const initEnv = function () {
     let pjConfigPath = ''
@@ -121,6 +120,6 @@ module.exports.handleAllGit = function (gitPath) {
       await extOs.runSpawn('git checkout master', pjPath)
     })
 
-    runAll({ targetPath: pjPath })
+    runAll({ targetPath: pjPath, silent: true })
   })
 }
