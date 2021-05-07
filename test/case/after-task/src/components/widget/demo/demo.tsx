@@ -11,23 +11,23 @@ interface IState {
 }
 
 export class Demo extends React.Component<IProps, IState> {
-  constructor (props: IProps) {
+  constructor(props: IProps) {
     super(props)
     this.state = {
       type: 0
     }
   }
-  public componentDidMount () {
+  public componentDidMount() {
     let padding = 0
     const runner = () => {
       this.setState({
-        type:  ++padding % 4
+        type: ++padding % 4
       })
     }
     setInterval(runner, 1000)
     runner()
   }
-  public render () {
+  public render() {
     return (
       <div className='demo-circlebox'>
         <img
@@ -35,7 +35,10 @@ export class Demo extends React.Component<IProps, IState> {
           alt=''
           src={require('./images/logo.png')}
         />
-        <div className='page-index__tl'>{this.props.title}{this.state.type}</div>
+        <div className='page-index__tl'>
+          {this.props.title}
+          {this.state.type}
+        </div>
       </div>
     )
   }

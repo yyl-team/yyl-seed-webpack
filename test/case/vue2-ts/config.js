@@ -1,7 +1,6 @@
 /* eslint indent: ["error", 2, { "SwitchCase": 1 }] */
 const path = require('path')
 
-
 // + vars
 const SRC_ROOT = './src'
 // - vars

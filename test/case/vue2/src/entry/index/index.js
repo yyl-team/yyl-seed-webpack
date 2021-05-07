@@ -13,22 +13,26 @@ const pageSub = () => import(/* webpackChunkName: "pageSub" */ '~@/page/p-sub/p-
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  routes: [{
-    path: '/index',
-    component: pageIndex
-  }, {
-    path: '/sub',
-    component: pageSub
-  }, {
-    path: '*',
-    redirect: '/index'
-  }]
+  routes: [
+    {
+      path: '/index',
+      component: pageIndex
+    },
+    {
+      path: '/sub',
+      component: pageSub
+    },
+    {
+      path: '*',
+      redirect: '/index'
+    }
+  ]
 })
 
 new Vue({
   store,
   router,
-  mounted () {
+  mounted() {
     this.addDemoLog('index.js ready')
   },
   methods: {

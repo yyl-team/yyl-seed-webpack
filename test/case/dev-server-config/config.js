@@ -13,7 +13,7 @@ const setting = {
   proxy: {
     port: 8887,
     localRemote: {
-      'http://www.jackness.org/': 'http://127.0.0.1:5000/',
+      'http://www.jackness.org/': 'http://127.0.0.1:5000/'
     },
     homePage: 'http://www.jackness.org/html/'
   },
@@ -54,7 +54,7 @@ const config = {
     ]
   },
   providePlugin: {
-    '$': 'jquery'
+    $: 'jquery'
   },
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径

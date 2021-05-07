@@ -18,7 +18,7 @@ div
   margin: -58px 0 0 -75px;
   background: url('./images/logo.png') no-repeat;
   background-size: 150px 116px;
-  transition: .4s;
+  transition: 0.4s;
 }
 .w-demo-tl {
   position: absolute;
@@ -48,26 +48,25 @@ div
   left: 10px;
   right: 10px;
   height: 200px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   padding: 8px;
   color: green;
   overflow: auto;
   font-size: 18px; /*px*/
 }
-
 </style>
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import fn from '@/js/fn.js';
+import { mapGetters, mapActions } from 'vuex'
+import fn from '@/js/fn.js'
 
-const cache = {};
+const cache = {}
 
 export default {
   data() {
     return {
       rotate: 0,
       title: ''
-    };
+    }
   },
   methods: {
     ...mapActions(['addDemoLog'])
@@ -76,22 +75,21 @@ export default {
     ...mapGetters(['demoLogs'])
   },
   mounted() {
-    const vm = this;
-    let i;
-    const iClass = [0, 1, 2, 3];
+    const vm = this
+    let i
+    const iClass = [0, 1, 2, 3]
 
     cache.changeKey = setInterval(() => {
-      const here = iClass.concat([]);
-      here.splice(here.indexOf(i), 1);
-      vm.$data.rotate = here[Math.round(Math.random() * (here.length - 1))];
-    }, 2000);
+      const here = iClass.concat([])
+      here.splice(here.indexOf(i), 1)
+      vm.$data.rotate = here[Math.round(Math.random() * (here.length - 1))]
+    }, 2000)
 
-    vm.addDemoLog('v-demo is ready');
-    fn();
+    vm.addDemoLog('v-demo is ready')
+    fn()
   },
   beforeDestroy() {
-    clearInterval(cache.changeKey);
+    clearInterval(cache.changeKey)
   }
-};
-
+}
 </script>

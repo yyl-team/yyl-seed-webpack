@@ -9,24 +9,13 @@
     "sourceMap": false,
     "allowJs": true,
     "jsx": "react",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "*"
-      ],
-      "~/*": [
-        "src/*"
-      ],
-      "~@/*": [
-        "src/components/*"
-      ]
+      "*": ["*"],
+      "~/*": ["src/*"],
+      "~@/*": ["src/components/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

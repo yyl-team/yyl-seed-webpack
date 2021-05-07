@@ -33,8 +33,7 @@ import Component from 'vue-class-component'
 @Component({
   name: 'Nav'
 })
-class Nav extends Vue {
-}
+class Nav extends Vue {}
 
 export default Nav
 </script>

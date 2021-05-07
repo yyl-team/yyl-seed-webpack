@@ -52,7 +52,7 @@ const config = {
     ]
   },
   providePlugin: {
-    '$': 'jquery'
+    $: 'jquery'
   },
   alias: {
     // 输出目录中 到 html, js, css, image 层 的路径

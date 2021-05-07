@@ -25,8 +25,8 @@ import Nav from '~@/widget/nav.vue'
   }
 })
 class PageIndex extends Vue {
-  @Action addDemoLog: (msg: string) => void;
-  mounted () {
+  @Action addDemoLog: (msg: string) => void
+  mounted() {
     const vm = this
     vm.addDemoLog('page index is ready')
     vm.addDemoLog(`now in ${process.env.NODE_ENV}`)

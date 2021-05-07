@@ -3,7 +3,7 @@ const extFs = require('yyl-fs')
 const extOs = require('yyl-os')
 const fs = require('fs')
 const tUtil = require('yyl-seed-test-util')
-const handler = require('../handler')
+const handler = require('../../bin/handler')
 
 const { linkCheck } = require('./fn.all')
 
@@ -35,34 +35,34 @@ function runAll({ targetPath, silent, extFn }) {
 
   it(`${filename} all`, async () => {
     const extEnv = initEnv()
-    const config = await handler.all(Object.assign({}, extEnv))
+    const config = await handler.all({ env: extEnv })
 
     await linkCheck(config)
   })
 
   it(`${filename} all --remote`, async () => {
     const extEnv = initEnv()
-    const config = await handler.all(
-      Object.assign(
+    const config = await handler.all({
+      env: Object.assign(
         {
           remote: true
         },
         extEnv
       )
-    )
+    })
 
     await linkCheck(config)
   })
   it(`${filename} all --isCommit`, async () => {
     const extEnv = initEnv()
-    const config = await handler.all(
-      Object.assign(
+    const config = await handler.all({
+      env: Object.assign(
         {
           isCommit: true
         },
         extEnv
       )
-    )
+    })
 
     await linkCheck(config)
   })
@@ -82,8 +82,10 @@ module.exports.handleAll = function (PJ_PATH, extFn) {
 
   describe(`seed.all test - ${filename}`, () => {
     beforeEach(async () => {
-      await tUtil.frag.init(FRAG_PATH)
-      await tUtil.frag.build()
+      if (!fs.existsSync(FRAG_PATH)) {
+        await tUtil.frag.init(FRAG_PATH)
+        await tUtil.frag.build()
+      }
       await extFs.copyFiles(PJ_PATH, FRAG_PATH, (iPath) => {
         const rPath = path.relative(PJ_PATH, iPath)
         return !/node_modules/.test(rPath)
@@ -118,6 +120,6 @@ module.exports.handleAllGit = function (gitPath) {
       await extOs.runSpawn('git checkout master', pjPath)
     })
 
-    runAll({ targetPath: pjPath })
+    runAll({ targetPath: pjPath, silent: true })
   })
 }

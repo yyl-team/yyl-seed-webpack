@@ -4,12 +4,12 @@ import { Demo } from '~/components/widget/demo/demo'
 
 import './index.scss'
 
-const App => (
+const App = () => (
   <div className='page-index'>
     <div className='page-index-circlebox'>
-      <Demo title='hello YY'/>
+      <Demo title='hello YY' />
     </div>
-    <div className='page-index__tl'/>
+    <div className='page-index__tl' />
   </div>
 )
 

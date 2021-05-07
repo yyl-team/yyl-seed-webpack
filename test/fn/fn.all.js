@@ -26,6 +26,7 @@ const linkCheck = function (config) {
   const ABSOLUTE_SOURCE_REG = /^\/(\w)/
   const RELATIVE_SOURCE_REG = /^\./
   const NO_PROTOCOL = /^[/]{2}(\w)/
+  const IS_SERVER_VAR = /\:\w/
 
   const localSource = []
   const remoteSource = []
@@ -33,19 +34,15 @@ const linkCheck = function (config) {
 
   const sourcePickup = function (iPath, dir) {
     if (iPath.match(LOCAL_SOURCE_REG)) {
-      localSource.push(
-        tUtil.hideUrlTail(
-          util.path.join(
-            path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, ''))
-          )
-        )
-      )
+      let replacedPath = iPath.replace(LOCAL_SOURCE_REG, '')
+      if (/^\//.test(replacedPath)) {
+        replacedPath = `.${replacedPath}`
+      }
+      localSource.push(tUtil.hideUrlTail(util.path.join(path.resolve(destRoot, replacedPath))))
     } else if (iPath.match(ABSOLUTE_SOURCE_REG)) {
       localSource.push(
         tUtil.hideUrlTail(
-          util.path.join(
-            path.resolve(destRoot, iPath.replace(LOCAL_SOURCE_REG, '$1'))
-          )
+          util.path.join(path.resolve(destRoot, iPath.replace(ABSOLUTE_SOURCE_REG, '$1')))
         )
       )
     } else if (iPath.match(REMOTE_SOURCE_REG)) {
@@ -112,16 +109,13 @@ const linkCheck = function (config) {
         rPath = `http:${rPath}`
       }
 
-      if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP)) {
+      if (/^\//.test(rPath) || !rPath.match(frp.REG.IS_HTTP) || rPath.match(IS_SERVER_VAR)) {
         padding--
         paddingCheck()
       } else {
-        const [, res] = await extRequest(rPath)
-        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([
-          iPath,
-          rPath,
-          404
-        ])
+        console.log('noMatchRequest:', rPath)
+        const [, res] = await extRequest({ uri: rPath, timeout: 5000 })
+        expect([iPath, rPath, res.statusCode]).not.to.deep.equal([iPath, rPath, 404])
         padding--
         paddingCheck()
       }

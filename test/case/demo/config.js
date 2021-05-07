@@ -1,7 +1,6 @@
+const path = require('path')
 
-const path = require('path');
-
-const config = {};
+const config = {}
 
 // + setting
 const setting = {
@@ -19,11 +18,11 @@ const setting = {
     tplPath: 'tpl',
     revPath: 'assets'
   }
-};
+}
 // - setting
 
-const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath);
-const COMMON_PATH = '../commons';
+const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath)
+const COMMON_PATH = '../commons'
 
 // + base
 Object.assign(config, {
@@ -34,9 +33,9 @@ Object.assign(config, {
   px2rem: false,
   seed: 'vue2',
   entry: {
-    'vendors': path.join(__dirname, './src/js/vendors.js')
+    vendors: path.join(__dirname, './src/js/vendors.js')
   }
-});
+})
 // - base
 
 // + alias
@@ -77,15 +76,14 @@ Object.assign(config, {
     // + yyl make
     // - yyl make
   }
-});
+})
 // - alias
 
 Object.assign(config, {
   providePlugin: {
-    '$': 'jquery'
+    $: 'jquery'
   }
-});
-
+})
 
 // + commit
 Object.assign(config, {
@@ -93,8 +91,7 @@ Object.assign(config, {
     hostname: '//yyweb.yystatic.com/',
     revAddr: `//yyweb.yystatic.com/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
-});
+})
 // - commit
 
-module.exports = config;
-
+module.exports = config
