@@ -1,5 +1,12 @@
 # 版本信息
 
+## 0.3.1 (2021-05-07)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.0`
+- feat: 更新 `yyl-config-types@0.5.1`
+- feat: 更新 `yyl-seed-base@0.3.0`
+- feat: 更新 `yyl-vue2-webpack-plugin@0.2.0`
+
 ## 2.6.5 (2021-03-29)
 
 - fix: 修复 remote 模式，在 windows 下 映射静态资源失败问题
