@@ -1,8 +1,0 @@
-{
-  "name": "yyl-seed-webpack-demo",
-  "dependencies": {
-    "vue": "2.6.12",
-    "vue-router": "3.5.1",
-    "vuex": "3.6.2"
-  }
-}

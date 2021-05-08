@@ -86,7 +86,7 @@ const config = {
   },
   // + configCommit
   commit: {
-    hostname: '//testu.yy.com',
+    hostname: '//www.testhost.com',
     revAddr: `/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
   // - configCommit

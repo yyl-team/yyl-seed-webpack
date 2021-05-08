@@ -131,7 +131,7 @@
   "name": "yyl-seed-webpack",
   "description": "yyl seed webpack",
   "repository": "https://github.com/jackness1208/yyl-seed-webpack.git",
-  "author": "liudaojie <liudaojie@yy.com>",
+  "author": "jackness1208",
   "license": "MIT",
   "dependencies": {
     "@types/webpack-dev-server": "^3.11.1",
