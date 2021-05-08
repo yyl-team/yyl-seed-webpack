@@ -123,3 +123,6 @@ module.exports.handleAllGit = function (gitPath) {
     runAll({ targetPath: pjPath, silent: true })
   })
 }
+
+const HOST_PREFIX = 'yy'
+module.exports.GIT_HOSTNAME = `git.${HOST_PREFIX}.com`
