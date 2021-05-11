@@ -1,5 +1,5 @@
 {
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "bin": {
@@ -35,7 +35,7 @@
     "d": "rollup --config ./rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
-    "prepublishOnly": "npm run prettier & npm run build & npm test",
+    "prepublishOnly": "npm run prettier & npm run build",
     "test": "mocha ./test/mocha/ --timeout 120000",
     "test:all.case.demo": "mocha ./test/mocha/all.case.demo.test.js --timeout 120000",
     "test:all.case.env-test": "mocha ./test/mocha/all.case.env-test.test.js --timeout 120000",
@@ -143,12 +143,12 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3",
-    "yyl-base-webpack-config": "0.1.16",
-    "yyl-config-types": "^0.4.3",
+    "yyl-base-webpack-config": "0.2.0",
+    "yyl-config-types": "^0.5.1",
     "yyl-os": "^0.14.0",
-    "yyl-seed-base": "^0.2.6",
+    "yyl-seed-base": "^0.3.0",
     "yyl-seed-response": "0.2.0",
     "yyl-util": "^2.3.9",
-    "yyl-vue2-webpack-config": "^0.1.1"
+    "yyl-vue2-webpack-config": "^0.2.0"
   }
 }
