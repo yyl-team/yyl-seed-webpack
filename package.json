@@ -35,7 +35,7 @@
     "d": "rollup --config ./rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup --config ./rollup.config.js",
     "w": "rollup --watch --config ./rollup.config.js",
-    "prepublishOnly": "npm run prettier & npm run build & npm test",
+    "prepublishOnly": "npm run prettier & npm run build",
     "test": "mocha ./test/mocha/ --timeout 120000",
     "test:all.case.demo": "mocha ./test/mocha/all.case.demo.test.js --timeout 120000",
     "test:all.case.env-test": "mocha ./test/mocha/all.case.env-test.test.js --timeout 120000",
