@@ -39,6 +39,43 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     yylConfig.workflow = 'webpack'
     yylConfig.seed = 'vue2'
   }
+
+  // 老版本兼容
+  if (yylConfig.workflow === 'webpack' && yylConfig.seed === 'vue2') {
+    if (!fs.existsSync(pkgPath)) {
+      fs.writeFileSync(
+        pkgPath,
+        JSON.stringify(
+          {
+            name: 'vue2-project'
+          },
+          null,
+          2
+        )
+      )
+    }
+    console.log(111)
+    let needInstall = true
+    const rootPkg = require(pkgPath)
+    if (rootPkg.dependencies && Object.keys(rootPkg.dependencies).includes('vue')) {
+      needInstall = false
+    } else if (rootPkg.devDependencies && Object.keys(rootPkg.devDependencies).includes('vue')) {
+      needInstall = false
+    }
+    if (needInstall) {
+      const plugins = ['vue@2.6.22', 'vue-router@3.5.1', 'vuex@3.6.2']
+      let cmd = `npm i ${plugins.join(' ')} --save`
+      if (yylConfig.yarn) {
+        cmd = `yarn add ${plugins.join(' ')}`
+      }
+      // TODO: bug
+      iRes.trigger('msg', ['info', [LANG.OPTIMIZE.ADD_VUE_DEPENDENCIES]])
+      iRes.trigger('msg', ['cmd', [cmd]])
+      await extOs.runSpawn(cmd, root, (msg) => {
+        iRes.trigger('msg', ['info', [msg.toString()]])
+      })
+    }
+  }
   // - 运行前校验
 
   const wConfig = buildWConfig({
