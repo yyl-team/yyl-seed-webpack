@@ -109,7 +109,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     },
 
     watch() {
-      iRes.trigger('progress', ['start'])
+      // iRes.trigger('progress', ['start'])
       iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
       if (usePjServer) {
         compiler.watch(
@@ -143,6 +143,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
             devServer.listen(serverPort, (err) => {
               if (err) {
                 iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
+                iRes.trigger('progress', ['finished'])
               } else {
                 iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
               }

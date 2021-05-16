@@ -104,6 +104,7 @@ export interface InitCompilerLogOption {
 export function initCompilerLog(op: InitCompilerLogOption) {
   const { compiler, env, response } = op
   compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+    console.log('===!!!', 'start')
     response.trigger('progress', ['start'])
   })
   compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
@@ -136,6 +137,7 @@ export function initCompilerLog(op: InitCompilerLogOption) {
       'info',
       logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
     ])
+    console.log('===!!!', 'finished')
     response.trigger('progress', ['finished'])
   })
   compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
