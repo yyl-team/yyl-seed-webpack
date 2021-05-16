@@ -103,9 +103,6 @@ export interface InitCompilerLogOption {
 }
 export function initCompilerLog(op: InitCompilerLogOption) {
   const { compiler, env, response } = op
-  compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
-    response.trigger('progress', ['start'])
-  })
   compiler.hooks.done.tap(PLUGIN_NAME, (stats) => {
     const statsInfo = stats.toJson({
       all: false,
@@ -114,6 +111,13 @@ export function initCompilerLog(op: InitCompilerLogOption) {
       warnings: true,
       logging: 'warn'
     })
+
+    // 补充生成的文件信息
+    if (statsInfo.assets) {
+      statsInfo.assets.forEach((asset) => {
+        response.trigger('msg', ['add', [path.join(compiler.outputPath, asset.name)]])
+      })
+    }
 
     if (statsInfo.warnings) {
       statsInfo.warnings.forEach((er) => {
@@ -126,6 +130,7 @@ export function initCompilerLog(op: InitCompilerLogOption) {
         response.trigger('msg', ['error', [er.moduleName || '', er.message]])
       })
     }
+    // console.log('===', statsInfo)
 
     // 显示完整构建过程
     const logStr = stats.toString({
@@ -136,11 +141,9 @@ export function initCompilerLog(op: InitCompilerLogOption) {
       'info',
       logStr.split(/[\r\n]+/).map((str) => str.trim().replace(/\s+/g, ' '))
     ])
-    response.trigger('progress', ['finished'])
   })
   compiler.hooks.failed.tap(PLUGIN_NAME, (err) => {
     response.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-    response.trigger('progress', ['finished'])
   })
 }
 

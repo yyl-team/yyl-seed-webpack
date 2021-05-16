@@ -64,6 +64,7 @@ const logger = new YylCmdLogger({
   if (ctrl in handler) {
     handler[ctrl]({ env, logger }).catch((er) => {
       logger.log('error', [er])
+      logger.setProgress('forceFinished', [])
     })
   } else {
     logger.log('warn', [`usage: ${Object.keys(handler).join(',')}`])

@@ -47,6 +47,7 @@ const handler = {
           logger.log($1, $2)
         } else if (type === 'progress') {
           logger.setProgress($1, $2, $3)
+        } else {
         }
       }
     })
