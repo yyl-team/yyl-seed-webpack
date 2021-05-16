@@ -112,6 +112,13 @@ export function initCompilerLog(op: InitCompilerLogOption) {
       logging: 'warn'
     })
 
+    // 补充生成的文件信息
+    if (statsInfo.assets) {
+      statsInfo.assets.forEach((asset) => {
+        response.trigger('msg', ['add', [path.join(compiler.outputPath, asset.name)]])
+      })
+    }
+
     if (statsInfo.warnings) {
       statsInfo.warnings.forEach((er) => {
         response.trigger('msg', ['warn', [er.moduleName || '', er.message]])
@@ -123,6 +130,7 @@ export function initCompilerLog(op: InitCompilerLogOption) {
         response.trigger('msg', ['error', [er.moduleName || '', er.message]])
       })
     }
+    // console.log('===', statsInfo)
 
     // 显示完整构建过程
     const logStr = stats.toString({

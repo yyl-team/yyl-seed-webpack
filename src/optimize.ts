@@ -58,12 +58,14 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
         new ProgressPlugin({
           activeModules: true,
           handler(percentage, ...args) {
-            if (percentage === 0) {
-              iRes.trigger('progress', ['start', 'info', args])
-            } else if (percentage === 1) {
-              iRes.trigger('progress', ['finished', 'info', args])
-            } else {
-              iRes.trigger('progress', [percentage, 'info', args])
+            if (env.logLevel !== 2) {
+              if (percentage === 0) {
+                iRes.trigger('progress', ['start', 'info', args])
+              } else if (percentage === 1) {
+                iRes.trigger('progress', ['finished', 'info', args])
+              } else {
+                iRes.trigger('progress', [percentage, 'info', args])
+              }
             }
           }
         })
