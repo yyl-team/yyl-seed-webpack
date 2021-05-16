@@ -58,7 +58,13 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
         new ProgressPlugin({
           activeModules: true,
           handler(percentage, ...args) {
-            iRes.trigger('progress', [percentage, 'info', args])
+            if (percentage === 0) {
+              iRes.trigger('progress', ['start', 'info', args])
+            } else if (percentage === 1) {
+              iRes.trigger('progress', ['finished', 'info', args])
+            } else {
+              iRes.trigger('progress', [percentage, 'info', args])
+            }
           }
         })
       ]
@@ -97,7 +103,6 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     },
 
     all() {
-      iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
       initCompilerLog({
         compiler,
         response: iRes,
@@ -109,7 +114,6 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     },
 
     watch() {
-      // iRes.trigger('progress', ['start'])
       iRes.trigger('msg', ['info', [LANG.OPTIMIZE.WEBPACK_RUN_START]])
       if (usePjServer) {
         compiler.watch(
@@ -132,7 +136,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
               'error',
               [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
             ])
-            iRes.trigger('progress', ['finished'])
+            // iRes.trigger('progress', ['finished'])
             return
           }
 
@@ -143,7 +147,6 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
             devServer.listen(serverPort, (err) => {
               if (err) {
                 iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-                iRes.trigger('progress', ['finished'])
               } else {
                 iRes.trigger('msg', ['success', [LANG.OPTIMIZE.DEV_SERVER_START_SUCCESS]])
               }
@@ -156,7 +159,6 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
             })
           } catch (err) {
             iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])
-            iRes.trigger('progress', ['finished'])
           }
         })
       }
