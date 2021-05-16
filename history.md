@@ -1,5 +1,9 @@
 # 版本信息
 
+## 3.0.3 (2021-05-16)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.4`
+
 ## 3.0.2 (2021-05-16)
 
 - feat: 更新 `yyl-seed-base@0.4.1`
