@@ -1,5 +1,5 @@
 {
-  "name": "project-demo",
+  "name": "vue2-project",
   "dependencies": {
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
