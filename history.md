@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.0.5 (2021-05-17)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.8`
+- feat: 更新 `yyl-hander@1.3.10`
+
 ## 3.0.4 (2021-05-17)
 
 - feat: 更新 `yyl-base-webpack-config@0.2.7`
