@@ -173,7 +173,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
               'error',
               [`${LANG.OPTIMIZE.DEV_SERVER_PORT_OCCUPIED}: ${serverPort}`]
             ])
-            // iRes.trigger('progress', ['finished'])
+            iRes.trigger('progress', ['finished'])
             return
           }
 

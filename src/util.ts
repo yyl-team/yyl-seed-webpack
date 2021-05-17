@@ -115,7 +115,9 @@ export function initCompilerLog(op: InitCompilerLogOption) {
     // 补充生成的文件信息
     if (statsInfo.assets) {
       statsInfo.assets.forEach((asset) => {
-        response.trigger('msg', ['add', [path.join(compiler.outputPath, asset.name)]])
+        if (asset.name) {
+          response.trigger('msg', ['add', [path.join(compiler.outputPath, asset.name)]])
+        }
       })
     }
 

@@ -29,7 +29,7 @@ const router = new VueRouter({
   ]
 })
 
-console.log(7)
+console.log(10)
 
 new Vue({
   store,
