@@ -54,7 +54,6 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
         )
       )
     }
-    console.log(111)
     let needInstall = true
     const rootPkg = require(pkgPath)
     if (rootPkg.dependencies && Object.keys(rootPkg.dependencies).includes('vue')) {
@@ -63,12 +62,11 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
       needInstall = false
     }
     if (needInstall) {
-      const plugins = ['vue@2.6.22', 'vue-router@3.5.1', 'vuex@3.6.2']
+      const plugins = ['vue@2.6.12', 'vue-router@3.5.1', 'vuex@3.6.2']
       let cmd = `npm i ${plugins.join(' ')} --save`
       if (yylConfig.yarn) {
         cmd = `yarn add ${plugins.join(' ')}`
       }
-      // TODO: bug
       iRes.trigger('msg', ['info', [LANG.OPTIMIZE.ADD_VUE_DEPENDENCIES]])
       iRes.trigger('msg', ['cmd', [cmd]])
       await extOs.runSpawn(cmd, root, (msg) => {
