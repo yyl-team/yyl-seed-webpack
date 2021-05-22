@@ -109,7 +109,7 @@ export function initCompilerLog(op: InitCompilerLogOption) {
       assets: true,
       errors: true,
       warnings: true,
-      logging: 'warn'
+      logging: 'info'
     })
 
     // 补充生成的文件信息
@@ -132,7 +132,6 @@ export function initCompilerLog(op: InitCompilerLogOption) {
         response.trigger('msg', ['error', [er.moduleName || '', er.message]])
       })
     }
-    // console.log('===', statsInfo)
 
     // 显示完整构建过程
     const logStr = stats.toString({
