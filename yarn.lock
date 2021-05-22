@@ -8383,9 +8383,9 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-cli@^4.5.0:
+webpack-cli@^4.7.0:
   version "4.7.0"
-  resolved "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.7.0.tgz#3195a777f1f802ecda732f6c95d24c0004bc5a35"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-4.7.0.tgz#3195a777f1f802ecda732f6c95d24c0004bc5a35"
   integrity sha512-7bKr9182/sGfjFm+xdZSwgQuFjgEcy0iCTIBxRUeteJ2Kr8/Wz0qNJX+jw60LU36jApt4nmMkep6+W5AKhok6g==
   dependencies:
     "@discoveryjs/json-ext" "^0.5.0"
@@ -8506,7 +8506,7 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@^5, webpack@^5.1.0, webpack@^5.24.3:
+webpack@^5, webpack@^5.1.0:
   version "5.36.2"
   resolved "https://registry.npmjs.org/webpack/-/webpack-5.36.2.tgz#6ef1fb2453ad52faa61e78d486d353d07cca8a0f"
   integrity sha512-XJumVnnGoH2dV+Pk1VwgY4YT6AiMKpVoudUFCNOXMIVrEKPUgEwdIfWPjIuGLESAiS8EdIHX5+TiJz/5JccmRg==
@@ -8539,6 +8539,35 @@ webpack@^5.25.0:
   version "5.37.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.37.0.tgz#2ab00f613faf494504eb2beef278dab7493cc39d"
   integrity sha512-yvdhgcI6QkQkDe1hINBAJ1UNevqNGTVaCkD2SSJcB8rcrNNl922RI8i2DXUAuNfANoxwsiXXEA4ZPZI9q2oGLA==
+  dependencies:
+    "@types/eslint-scope" "^3.7.0"
+    "@types/estree" "^0.0.47"
+    "@webassemblyjs/ast" "1.11.0"
+    "@webassemblyjs/wasm-edit" "1.11.0"
+    "@webassemblyjs/wasm-parser" "1.11.0"
+    acorn "^8.2.1"
+    browserslist "^4.14.5"
+    chrome-trace-event "^1.0.2"
+    enhanced-resolve "^5.8.0"
+    es-module-lexer "^0.4.0"
+    eslint-scope "^5.1.1"
+    events "^3.2.0"
+    glob-to-regexp "^0.4.1"
+    graceful-fs "^4.2.4"
+    json-parse-better-errors "^1.0.2"
+    loader-runner "^4.2.0"
+    mime-types "^2.1.27"
+    neo-async "^2.6.2"
+    schema-utils "^3.0.0"
+    tapable "^2.1.1"
+    terser-webpack-plugin "^5.1.1"
+    watchpack "^2.0.0"
+    webpack-sources "^2.1.1"
+
+webpack@^5.37.1:
+  version "5.37.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.37.1.tgz#2deb5acd350583c1ab9338471f323381b0b0c14b"
+  integrity sha512-btZjGy/hSjCAAVHw+cKG+L0M+rstlyxbO2C+BOTaQ5/XAnxkDrP5sVbqWhXgo4pL3X2dcOib6rqCP20Zr9PLow==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.47"
@@ -8858,10 +8887,10 @@ yyl-base-webpack-config@0.2.9:
     yyl-sugar-webpack-plugin "1.0.9"
     yyl-util "^2.3.9"
 
-yyl-cmd-logger@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/yyl-cmd-logger/-/yyl-cmd-logger-0.1.7.tgz#0a6e93a5a5e259372379a137ac1d39908dd1f170"
-  integrity sha512-KYsdm/eWuFHX1/B1IWmLxtXaBOGePV+ykM5apt1SOfPj6Wcm/vsyubQ62GhneiObAtNBmEzWQoBRow1kdEe/wg==
+yyl-cmd-logger@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/yyl-cmd-logger/-/yyl-cmd-logger-0.2.0.tgz#cb7bc6d2a40ab10d7eddb312af4fc93ea4989ca2"
+  integrity sha512-0LMh/zdsfbrLTfrZu/xKvYbxHGIEJ6n7il31tFm56J6VakddvMvophmSMlNGqcQDQcV+8hgyANsUwkNUXsjdQQ==
   dependencies:
     "@types/node" "^15.3.0"
     chalk "^4.1.0"
@@ -8956,10 +8985,10 @@ yyl-os@^0.11.4:
   dependencies:
     yyl-util "^2.3.5"
 
-yyl-os@^0.14.2:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.14.2.tgz#faf41e1ef1c1e4c363dfc2d6ab579e9cedb65afc"
-  integrity sha512-N4Us/D8U8iy0q49nNPtB3sRPOLuMHkcXj+YUY+WsCLqldwsxH8Xg2jpEYu+heSinmoGbpKs+isKuzKomMCET8Q==
+yyl-os@^0.14.3:
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/yyl-os/-/yyl-os-0.14.3.tgz#b179848d066195ec1e3bd8ff44336253eed08213"
+  integrity sha512-xxZxoXL3k0xwPV38j9Fq5MaoZHWEsz4QGhQe897nprGsH2rN/yRF+zdbvNhx/Rp419OPzeJSy8rufvDxjeAfpA==
   dependencies:
     yyl-util "^2.3.5"
 

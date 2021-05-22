@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import extOs from 'yyl-os'
+import chalk from 'chalk'
 import SeedResponse, { ResponseFn } from 'yyl-seed-response'
 import { SeedOptimize, SeedOptimizeOption, SeedOptimizeResult } from 'yyl-seed-base'
 import { ProgressPlugin, webpack } from 'webpack'
@@ -9,6 +10,8 @@ import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
 import { LANG, PLUGIN_NAME } from './const'
 import WebpackDevServer from 'webpack-dev-server'
 import { initMiddleWare } from 'yyl-base-webpack-config'
+
+const pkg = require('../package.json')
 
 export interface OptimizeOption extends SeedOptimizeOption {}
 
@@ -25,13 +28,16 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
   // npm 包自动安装
   const pkgPath = path.join(root, 'package.json')
   if (fs.existsSync(pkgPath)) {
-    iRes.trigger('msg', ['info', [LANG.OPTIMIZE.CHECK_SEED_PKG_START]])
+    iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.CHECK_SEED_PKG_START]])
     await extOs.installPackage(pkgPath, {
       production: false,
       loglevel: env.silent ? 'silent' : 'info',
-      useYarn: !!yylConfig.yarn
+      useYarn: !!yylConfig.yarn,
+      showOutput(msg) {
+        iRes.trigger('msg', ['info', [msg.toString()]])
+      }
     })
-    iRes.trigger('msg', ['info', [LANG.OPTIMIZE.CHECK_SEED_PKG_FINISHED]])
+    iRes.trigger('progress', ['finished', 'info', [LANG.OPTIMIZE.CHECK_SEED_PKG_FINISHED]])
   }
 
   // 老版本兼容
@@ -42,6 +48,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
 
   // 老版本兼容
   if (yylConfig.workflow === 'webpack' && yylConfig.seed === 'vue2') {
+    iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.LEGACY_POLYFILL_START]])
     if (!fs.existsSync(pkgPath)) {
       fs.writeFileSync(
         pkgPath,
@@ -73,6 +80,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
         iRes.trigger('msg', ['info', [msg.toString()]])
       })
     }
+    iRes.trigger('progress', ['finished', 'success', [LANG.OPTIMIZE.LEGACY_POLYFILL_START]])
   }
   // - 运行前校验
 
@@ -83,6 +91,25 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     ctx
   })
 
+  const getVersion = (ctx: string) => {
+    if (ctx) {
+      return ctx.replace(/^[\^~]/, '')
+    } else {
+      return 'undefined'
+    }
+  }
+  const webpackVersion = getVersion(pkg.dependencies.webpack)
+  const webpackCliVersion = getVersion(pkg.dependencies['webpack-cli'])
+  const devServerVersion = getVersion(pkg.dependencies['webpack-dev-server'])
+  iRes.trigger('msg', [
+    'info',
+    [
+      `${LANG.OPTIMIZE.WEBPACK_VERSION}:`,
+      `webpack: ${chalk.yellow(webpackVersion)}`,
+      `webpack-cli: ${chalk.yellow(webpackCliVersion)}`,
+      `webpack-dev-server: ${chalk.yellow(devServerVersion)}`
+    ]
+  ])
   const compiler = webpack(
     merge(wConfig, {
       stats: 'none',

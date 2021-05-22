@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const YylCmdLogger = require('yyl-cmd-logger')
+const { YylCmdLogger, cleanScreen } = require('yyl-cmd-logger')
 const chalk = require('chalk')
 const util = require('yyl-util')
 const handler = require('./handler')
@@ -7,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 
 const logger = new YylCmdLogger({
+  lite: true,
   type: {
     main: {
       name: 'SEED',
@@ -18,6 +19,7 @@ const logger = new YylCmdLogger({
 })
 
 ;(() => {
+  cleanScreen()
   let { env, cmds } = util.cmdParse(process.argv || [])
 
   // + yyl config
@@ -40,6 +42,7 @@ const logger = new YylCmdLogger({
       proxy: true,
       tips: true,
       hmr: true,
+      open: true,
       ...env
     }
   } else if (ctrl === 'w') {
@@ -60,7 +63,7 @@ const logger = new YylCmdLogger({
       ...env
     }
   }
-  logger.log('main', [`${cmds.join(' ')} ${util.envStringify(env)}`])
+  logger.log('main', [`yylw ${cmds.join(' ')} ${util.envStringify(env)}`])
   if (ctrl in handler) {
     handler[ctrl]({ env, logger }).catch((er) => {
       logger.log('error', [er])
