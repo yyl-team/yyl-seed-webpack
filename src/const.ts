@@ -15,6 +15,9 @@ export const LANG = {
     COPY_ESLINT_ERROR: '复制 eslint, editorconfig 发生 错误'
   },
   OPTIMIZE: {
+    WEBPACK_VERSION: '脚手架信息',
+    LEGACY_POLYFILL_START: '老版本兼容处理 开始',
+    LEGACY_POLYFILL_FINISHED: '老版本兼容处理 完成',
     ADD_VUE_DEPENDENCIES: '补充 构建所需的 vue, vuex, vue-router',
     WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
     WEBPACK_RUN_START: 'webpack 核心流程构建 开始',
