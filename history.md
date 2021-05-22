@@ -1,6 +1,8 @@
 # 版本信息
+
 ## 3.0.8 (2021-05-23)
-- feat: 优化log
+
+- feat: 优化 log
 - feat: 更新 `yyl-cmd-logger@0.2.0`
 - feat: 更新 `webpack@5.37.1`
 - feat: 更新 `webpack-cli@4.7.0`
