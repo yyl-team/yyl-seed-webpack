@@ -5,6 +5,7 @@ const util = require('yyl-util')
 const handler = require('./handler')
 const fs = require('fs')
 const path = require('path')
+const pkg = require('../package.json')
 
 const logger = new YylCmdLogger({
   lite: true,
@@ -20,7 +21,12 @@ const logger = new YylCmdLogger({
 
 ;(() => {
   cleanScreen()
-  let { env, cmds } = util.cmdParse(process.argv || [])
+  let { env, cmds, shortEnv } = util.cmdParse(process.argv || [])
+
+  if (env.version || shortEnv.v) {
+    console.log(`${chalk.cyan(pkg.name)} ${chalk.yellow(pkg.version)}`)
+    return
+  }
 
   // + yyl config
   const context = process.cwd()
