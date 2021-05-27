@@ -124,7 +124,9 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
               if (percentage === 0) {
                 iRes.trigger('progress', ['start', 'info', args])
               } else if (percentage === 1) {
-                iRes.trigger('progress', ['finished', 'info', args])
+                iRes.trigger('progress', [1, 'info', args])
+                // 特殊标识，告诉 hander 可以执行后置脚本
+                iRes.trigger('progress', ['finished', 'success', ['done']])
               } else {
                 iRes.trigger('progress', [percentage, 'info', args])
               }

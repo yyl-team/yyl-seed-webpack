@@ -5337,17 +5337,17 @@ media-typer@0.3.0:
   resolved "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-mem@^8.0.0:
+mem@^8.1.1:
   version "8.1.1"
-  resolved "https://registry.npmjs.org/mem/-/mem-8.1.1.tgz#cf118b357c65ab7b7e0817bdf00c8062297c0122"
+  resolved "https://registry.yarnpkg.com/mem/-/mem-8.1.1.tgz#cf118b357c65ab7b7e0817bdf00c8062297c0122"
   integrity sha512-qFCFUDs7U3b8mBDPyz5EToEKoAkgCzqquIgi9nkkR9bixxOVOre+09lbuH7+9Kn2NFpm56M3GUWVbU2hQgdACA==
   dependencies:
     map-age-cleaner "^0.1.3"
     mimic-fn "^3.1.0"
 
-memfs@^3.2.0:
+memfs@^3.2.2:
   version "3.2.2"
-  resolved "https://registry.npmjs.org/memfs/-/memfs-3.2.2.tgz#5de461389d596e3f23d48bb7c2afb6161f4df40e"
+  resolved "https://registry.yarnpkg.com/memfs/-/memfs-3.2.2.tgz#5de461389d596e3f23d48bb7c2afb6161f4df40e"
   integrity sha512-RE0CwmIM3CEvpcdK3rZ19BC4E6hv9kADkMN5rPduRak58cNArWLi/9jFLsa4rhsjfVxMP3v0jO7FHXq7SvFY5Q==
   dependencies:
     fs-monkey "1.0.3"
@@ -5439,7 +5439,7 @@ mime-types@2.1.11:
   dependencies:
     mime-db "~1.23.0"
 
-mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.28, mime-types@~2.1.17, mime-types@~2.1.19, mime-types@~2.1.24:
+mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.30, mime-types@~2.1.17, mime-types@~2.1.19, mime-types@~2.1.24:
   version "2.1.30"
   resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.30.tgz#6e7be8b4c479825f85ed6326695db73f9305d62d"
   integrity sha512-crmjA4bLtR8m9qLpHvgxSChT+XoSlZi8J4n/aIdn3z92e/U47Z0V/yl+Wh9W046GgFVAmoNR/fmdbZYcSSIUeg==
@@ -8425,15 +8425,15 @@ webpack-dev-middleware@^3.7.2:
     range-parser "^1.2.1"
     webpack-log "^2.0.0"
 
-webpack-dev-middleware@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-4.1.0.tgz#f0c1f12ff4cd855b3b5eec89ee0f69bcc5336364"
-  integrity sha512-mpa/FY+DiBu5+r5JUIyTCYWRfkWgyA3/OOE9lwfzV9S70A4vJYLsVRKj5rMFEsezBroy2FmPyQ8oBRVW8QmK1A==
+webpack-dev-middleware@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-4.3.0.tgz#179cc40795882cae510b1aa7f3710cbe93c9333e"
+  integrity sha512-PjwyVY95/bhBh6VUqt6z4THplYcsvQ8YNNBTBM873xLVmw8FLeALn0qurHbs9EmcfhzQis/eoqypSnZeuUz26w==
   dependencies:
-    colorette "^1.2.1"
-    mem "^8.0.0"
-    memfs "^3.2.0"
-    mime-types "^2.1.28"
+    colorette "^1.2.2"
+    mem "^8.1.1"
+    memfs "^3.2.2"
+    mime-types "^2.1.30"
     range-parser "^1.2.1"
     schema-utils "^3.0.0"
 
@@ -8840,10 +8840,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yyl-base-webpack-config@0.2.12:
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.2.12.tgz#24ea395417025796a63c54df3c4684b35ece6727"
-  integrity sha512-iO6jZOaRmZYRozZ3xRdIZtc3w7Sx1HCkZIia6N6uxGhk6WE377n1LpLmKpfvEedzL0JgVsUXqa247rZzbn0EYg==
+yyl-base-webpack-config@0.2.14:
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.2.14.tgz#db50545f82ee74824adb295bc032de67ab3afaec"
+  integrity sha512-5hH5xEqhQyIUaMUDVrPDo5IEUAOlMVBubiUAREm3nD9wTl2FufupyHrnQvVO3Kls3hrqzA9sPD3m2nWQp6U3bg==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "^7.12.1"
@@ -8884,7 +8884,7 @@ yyl-base-webpack-config@0.2.12:
     tsconfig-paths-webpack-plugin "^3.5.1"
     url-loader "^4.1.1"
     watch "^1.0.2"
-    webpack-dev-middleware "^4.1.0"
+    webpack-dev-middleware "^4.3.0"
     webpack-hot-middleware "^2.25.0"
     webpack-merge "^5.7.3"
     yyl-concat-webpack-plugin "1.0.11"
@@ -8900,10 +8900,10 @@ yyl-base-webpack-config@0.2.12:
     yyl-sugar-webpack-plugin "1.0.9"
     yyl-util "^2.3.9"
 
-yyl-cmd-logger@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/yyl-cmd-logger/-/yyl-cmd-logger-0.2.0.tgz#cb7bc6d2a40ab10d7eddb312af4fc93ea4989ca2"
-  integrity sha512-0LMh/zdsfbrLTfrZu/xKvYbxHGIEJ6n7il31tFm56J6VakddvMvophmSMlNGqcQDQcV+8hgyANsUwkNUXsjdQQ==
+yyl-cmd-logger@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/yyl-cmd-logger/-/yyl-cmd-logger-0.2.1.tgz#96031bccf60c60157559cbc28541a8aa2c3e2ba9"
+  integrity sha512-nKmb55vUFnQgm6oolK2vxywUH23+TtGR9PlklW6R0lHAd5UyFYQ39RTVZK4H6Re+OdE3UACJYirvzTaYX+nA4g==
   dependencies:
     "@types/node" "^15.3.0"
     chalk "^4.1.0"
@@ -8924,6 +8924,13 @@ yyl-config-types@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.5.3.tgz#50c84ab9a634bd9423c3ead5f07282078cefa457"
   integrity sha512-vBbCv+B64+uWJyyuIj7J5TnbaCAGpcSLenZQSO36JDM8ZiHnTIhbHayvtVRkTmV6tCPl/XVSxw6sUUhYFE3bEg==
+  dependencies:
+    "@types/express" "^4.17.11"
+
+yyl-config-types@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/yyl-config-types/-/yyl-config-types-0.5.4.tgz#21f0c0191e8f1b5345f16929c174d0991a0dc017"
+  integrity sha512-VNjQTo8wlCGaXovTJFfYfKYhh/qO3UFx7tFw9L2toMY0skDoVcCacszwXF/6N7zPZOGCIGup7AM9PYRDa4N+UA==
   dependencies:
     "@types/express" "^4.17.11"
 
@@ -8966,10 +8973,10 @@ yyl-fs@^0.2.0:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.2.0.tgz#995aff7c4c64448ea2b8ce2ceca2e2cb76bafa2c"
   integrity sha512-NBs2zgNFg+uc1qEtBNzrUtT6Mcrk6m9KXSA8xsVYMVLFOT1zSdRjucQeUwCjSRfReUBG9sJjeniJTNphX+O70g==
 
-yyl-hander@^1.3.11:
-  version "1.3.11"
-  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.3.11.tgz#114de75e0121a51238d162a0abec34a79fea08be"
-  integrity sha512-RcHa/C/uhqtIHDsPPOWjLovvLUAih+I0GSo4sfEX1YDRgSlLjyzrEDrVEG/8cXXOhJNxr1iqVzpPqe4gAFTbng==
+yyl-hander@^1.3.14:
+  version "1.3.14"
+  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.3.14.tgz#2a84e2beaaefff3b699f33d64fc21a8627add970"
+  integrity sha512-v8n1k2DIZwFW3vdYrvYosk6SvtiJp/wSr1eiRd3xiJQFjUFyY9AEqC2R0vWqHBbSTLF1xwFJkI4EF7P0+9fvRg==
   dependencies:
     "@babel/core" "^7.13.15"
     "@babel/preset-typescript" "^7.13.0"
@@ -8977,7 +8984,7 @@ yyl-hander@^1.3.11:
     chalk "^4.1.0"
     node-ts-parser "^0.1.3"
     request "^2.88.2"
-    yyl-config-types "^0.5.3"
+    yyl-config-types "^0.5.4"
     yyl-fs "^0.3.3"
     yyl-os "^0.14.1"
     yyl-seed-base "^0.4.1"

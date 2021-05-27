@@ -1,7 +1,7 @@
 const { YylHander } = require('yyl-hander')
 const seed = require('../')
 const chalk = require('chalk')
-const Logger = require('yyl-cmd-logger')
+const { Logger, cleanScreen } = require('yyl-cmd-logger')
 
 const handler = {
   async all({ env = {}, logger }) {
