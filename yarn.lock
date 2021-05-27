@@ -8973,10 +8973,10 @@ yyl-fs@^0.2.0:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.2.0.tgz#995aff7c4c64448ea2b8ce2ceca2e2cb76bafa2c"
   integrity sha512-NBs2zgNFg+uc1qEtBNzrUtT6Mcrk6m9KXSA8xsVYMVLFOT1zSdRjucQeUwCjSRfReUBG9sJjeniJTNphX+O70g==
 
-yyl-hander@^1.3.14:
-  version "1.3.14"
-  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.3.14.tgz#2a84e2beaaefff3b699f33d64fc21a8627add970"
-  integrity sha512-v8n1k2DIZwFW3vdYrvYosk6SvtiJp/wSr1eiRd3xiJQFjUFyY9AEqC2R0vWqHBbSTLF1xwFJkI4EF7P0+9fvRg==
+yyl-hander@^1.3.17:
+  version "1.3.17"
+  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.3.17.tgz#129cec028ab9ae4e67595d862e49d214542b1af4"
+  integrity sha512-FoKO397CVvaMiYxIrohtJRlYo8hBFytT2fuiXRtP7FuShyEZ4Cl7MBs/xXb+IgCbICAfrh353Rh7J+bjnmbQQw==
   dependencies:
     "@babel/core" "^7.13.15"
     "@babel/preset-typescript" "^7.13.0"
