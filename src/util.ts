@@ -56,10 +56,11 @@ export interface BuildWConfigOption {
   yylConfig: YylConfig
   /** 项目根目录 */
   root: string
+  response: SeedResponse
 }
 
 export function buildWConfig(option: BuildWConfigOption): Configuration {
-  const { env, ctx, yylConfig, root } = option
+  const { env, ctx, yylConfig, root, response } = option
   const pjWConfigPath = path.join(root, 'webpack.config.js')
   let wConfig: Configuration
 
@@ -90,6 +91,35 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
         }
       }
     }
+
+    // 兼容部分 wbpack4属性
+    if (pjWConfig.output.hotUpdateFunction) {
+      pjWConfig.output.hotUpdateGlobal = pjWConfig.output.hotUpdateFunction
+      delete pjWConfig.output.hotUpdateFunction
+      response.trigger('msg', [
+        'warn',
+        [`rename: pjWconfig.output.hotUpdateGlobal -> hotUpdateFunction`]
+      ])
+    }
+
+    if (pjWConfig.output.jsonpFunction) {
+      pjWConfig.output.chunkLoadingGlobal = pjWConfig.output.jsonpFunction
+      delete pjWConfig.output.jsonpFunction
+      response.trigger('msg', [
+        'warn',
+        [`rename: pjWconfig.output.jsonpFunction -> chunkLoadingGlobal`]
+      ])
+    }
+
+    if (pjWConfig.output.chunkCallbackFunction) {
+      pjWConfig.output.chunkLoadingGlobal = pjWConfig.output.chunkCallbackFunction
+      delete pjWConfig.output.chunkCallbackFunction
+      response.trigger('msg', [
+        'warn',
+        [`rename: pjWconfig.output.chunkCallbackFunction -> chunkLoadingGlobal`]
+      ])
+    }
+
     return merge(pjWConfig, wConfig)
   } else {
     return wConfig
