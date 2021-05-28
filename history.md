@@ -1,8 +1,12 @@
 # 版本信息
 
+## 3.0.16 (2021-05-28)
+
+- feat: 优化提示文案
+
 ## 3.0.15 (2021-05-28)
 
-兼容 项目 `webpack.config.js` 部分 webpack4 属性 `jsonpFunction`, `hotUpdateGlobal`, `chunkCallbackFunction`
+- feat: 兼容 项目 `webpack.config.js` 部分 webpack4 属性 `jsonpFunction`, `hotUpdateGlobal`, `chunkCallbackFunction`
 
 ## 3.0.14 (2021-05-27)
 

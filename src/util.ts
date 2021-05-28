@@ -4,6 +4,7 @@ import SeedResponse from 'yyl-seed-response'
 import { wConfig as baseWConfig } from './config/base'
 import { wConfig as vue2WConfig } from './config/vue2'
 import { Compiler, Compilation, Configuration, Stats } from 'webpack'
+import chalk from 'chalk'
 import { PLUGIN_NAME, LANG } from './const'
 import fs from 'fs'
 import merge from 'webpack-merge'
@@ -67,12 +68,17 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
   switch (yylConfig.seed) {
     case 'vue2':
     case 'vue2-ts':
+      response.trigger('msg', ['success', [`${LANG.OPTIMIZE.SEED_TYPE}: ${chalk.cyan('vue2')}`]])
       wConfig = vue2WConfig({ env, yylConfig }) as Configuration
       break
 
     case 'base':
     case 'react-ts':
     default:
+      response.trigger('msg', [
+        'success',
+        [`${LANG.OPTIMIZE.SEED_TYPE}: ${chalk.cyan('react-ts')}`]
+      ])
       wConfig = baseWConfig({ env, yylConfig }) as Configuration
       break
   }
@@ -98,7 +104,7 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       delete pjWConfig.output.hotUpdateFunction
       response.trigger('msg', [
         'warn',
-        [`rename: pjWconfig.output.hotUpdateGlobal -> hotUpdateFunction`]
+        [`${LANG.OPTIMIZE.LEGACY_KEYWORD}: pjWconfig.output.hotUpdateGlobal -> hotUpdateFunction`]
       ])
     }
 
@@ -107,7 +113,7 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       delete pjWConfig.output.jsonpFunction
       response.trigger('msg', [
         'warn',
-        [`rename: pjWconfig.output.jsonpFunction -> chunkLoadingGlobal`]
+        [`${LANG.OPTIMIZE.LEGACY_KEYWORD}: pjWconfig.output.jsonpFunction -> chunkLoadingGlobal`]
       ])
     }
 
@@ -116,7 +122,9 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       delete pjWConfig.output.chunkCallbackFunction
       response.trigger('msg', [
         'warn',
-        [`rename: pjWconfig.output.chunkCallbackFunction -> chunkLoadingGlobal`]
+        [
+          `${LANG.OPTIMIZE.LEGACY_KEYWORD}: pjWconfig.output.chunkCallbackFunction -> chunkLoadingGlobal`
+        ]
       ])
     }
 

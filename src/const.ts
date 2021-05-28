@@ -40,7 +40,9 @@ export const LANG = {
     USE_HMR: '使用 hmr 模式',
     WRITE_TO_DISK: '写入硬盘',
     MOMERY_ADDRESS: '缓存访问地址',
-    USE_LIVERELOAD: '使用 livereload 模式'
+    USE_LIVERELOAD: '使用 livereload 模式',
+    SEED_TYPE: '构建方式',
+    LEGACY_KEYWORD: '兼容字段'
   }
 }
 
