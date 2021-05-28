@@ -88,7 +88,8 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     yylConfig,
     env,
     root,
-    ctx
+    ctx,
+    response: iRes
   })
 
   const getVersion = (ctx: string) => {
