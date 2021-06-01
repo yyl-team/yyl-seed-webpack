@@ -1,5 +1,9 @@
 # 版本信息
 
+## 3.0.18 (2021-06-01)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.16`
+
 ## 3.0.17 (2021-06-01)
 
 - fix: `webpack` 修复 px2rem 失效问题
