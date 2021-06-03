@@ -1,5 +1,11 @@
 # 版本信息
 
+## 3.0.19 (2021-06-03)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.17`
+- fix: 修复 process && process.env && process.env.mode 判断 会报错问题
+- fix: rev-mainfest -> rev-manifest
+
 ## 3.0.18 (2021-06-01)
 
 - feat: 更新 `yyl-base-webpack-config@0.2.16`
