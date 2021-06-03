@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.0.20 (2021-06-03)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.18`
+- feat: 优化 wepack watchOptions 移除 node_modules 的监听
+
 ## 3.0.19 (2021-06-03)
 
 - feat: 更新 `yyl-base-webpack-config@0.2.17`
