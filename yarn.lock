@@ -9082,10 +9082,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yyl-base-webpack-config@0.2.16:
-  version "0.2.16"
-  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.2.16.tgz#292f6b2a8bb3fb00fb6c631097549d19c458fbce"
-  integrity sha512-A8dy1etR1mmYfHr9uujzX+muiXNnjum1XaU0xv6LuXCR6hhxC3+cpEbK+TiNFHPo2byC8w+rt19DhA0lmNALlg==
+yyl-base-webpack-config@0.2.17:
+  version "0.2.17"
+  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.2.17.tgz#f5462d29eaeaf60395e62b939c271e6c563959da"
+  integrity sha512-yROsBQtlGvezNPucUmegrXlEJAcLjBpjqBGO/jE5GP5VG2x5FfmeyTB+f1rfe60oX38omvdnecj8dGW0tlY8gQ==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "^7.12.1"
