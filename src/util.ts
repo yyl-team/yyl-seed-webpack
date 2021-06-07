@@ -99,7 +99,7 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
     }
 
     // 兼容部分 wbpack4属性
-    if (pjWConfig.output.hotUpdateFunction) {
+    if (pjWConfig.output && pjWConfig.output.hotUpdateFunction) {
       pjWConfig.output.hotUpdateGlobal = pjWConfig.output.hotUpdateFunction
       delete pjWConfig.output.hotUpdateFunction
       response.trigger('msg', [
@@ -108,7 +108,7 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       ])
     }
 
-    if (pjWConfig.output.jsonpFunction) {
+    if (pjWConfig.output && pjWConfig.output.jsonpFunction) {
       pjWConfig.output.chunkLoadingGlobal = pjWConfig.output.jsonpFunction
       delete pjWConfig.output.jsonpFunction
       response.trigger('msg', [
@@ -117,7 +117,7 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
       ])
     }
 
-    if (pjWConfig.output.chunkCallbackFunction) {
+    if (pjWConfig.output && pjWConfig.output.chunkCallbackFunction) {
       pjWConfig.output.chunkLoadingGlobal = pjWConfig.output.chunkCallbackFunction
       delete pjWConfig.output.chunkCallbackFunction
       response.trigger('msg', [
