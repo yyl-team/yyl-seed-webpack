@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.0.22 (2021-06-10)
+
+- fix: 更新 `yyl-base-webpack-config@0.2.19`
+- fix: 修复 px2rem 在 isCommit 情况下 处理异常问
+
 ## 3.0.21 (2021-06-07)
 
 - fix: 修复项目 `webpack.config.js` 自定义配置文件 报错问题
