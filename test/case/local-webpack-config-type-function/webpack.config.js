@@ -3,7 +3,7 @@ const wConfig = function ({ env, yylConfig }) {
   return {
     plugins: [
       new VConsolePlugin({
-        enable: env.mode !== 'master'
+        enable: true
       })
     ]
   }

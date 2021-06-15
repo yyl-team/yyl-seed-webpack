@@ -13,7 +13,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.5.5",
-    "vconsole-webpack-plugin": "^1.4.2"
+    "vconsole-webpack-plugin": "^1.6.1"
   },
   "devDependencies": {}
 }

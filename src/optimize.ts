@@ -8,7 +8,7 @@ import { ProgressPlugin, webpack } from 'webpack'
 import { merge } from 'webpack-merge'
 import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
 import { LANG, PLUGIN_NAME } from './const'
-import WebpackDevServer from 'webpack-dev-server'
+import WebpackDevServer, { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import { initMiddleWare } from 'yyl-base-webpack-config'
 
 const pkg = require('../package.json')
@@ -85,15 +85,13 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     // 不再支持 带 zepto 的支持 - 针对老旧项目
     if (rootPkg.dependencies && rootPkg.dependencies.zepto) {
       throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.dependencies.zepto')}`)
-      return
     } else if (rootPkg.devDependencies && rootPkg.devDependencies.zepto) {
       throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.devDependencies.zepto')}`)
-      return
     } else if (yylConfig?.alias?.zepto) {
       throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('yylConfig.alias.zepto')}`)
-      return
     }
   }
+  
   // - 运行前校验
 
   const wConfig = buildWConfig({
@@ -147,7 +145,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
           }
         })
       ]
-    })
+    } as any)
   )
 
   /** 使用项目自带server */
@@ -220,8 +218,8 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
           }
 
           try {
-            const devServer = new WebpackDevServer(compiler, {
-              ...wConfig.devServer
+            const devServer = new WebpackDevServer(compiler as any, {
+              ...(wConfig.devServer as DevServerConfiguration)
             } as any)
             devServer.listen(serverPort, (err) => {
               if (err) {

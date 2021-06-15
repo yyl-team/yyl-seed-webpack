@@ -3,7 +3,7 @@ import { YylConfig, Env } from 'yyl-config-types'
 import SeedResponse from 'yyl-seed-response'
 import { wConfig as baseWConfig } from './config/base'
 import { wConfig as vue2WConfig } from './config/vue2'
-import { Compiler, Compilation, Configuration, Stats } from 'webpack'
+import { Compiler, Compilation, Configuration, Stats, WebpackOptionsNormalized } from 'webpack'
 import chalk from 'chalk'
 import { PLUGIN_NAME, LANG } from './const'
 import fs from 'fs'
@@ -60,16 +60,16 @@ export interface BuildWConfigOption {
   response: SeedResponse
 }
 
-export function buildWConfig(option: BuildWConfigOption): Configuration {
+export function buildWConfig(option: BuildWConfigOption): WebpackOptionsNormalized {
   const { env, ctx, yylConfig, root, response } = option
   const pjWConfigPath = path.join(root, 'webpack.config.js')
-  let wConfig: Configuration
+  let wConfig: WebpackOptionsNormalized
 
   switch (yylConfig.seed) {
     case 'vue2':
     case 'vue2-ts':
       response.trigger('msg', ['success', [`${LANG.OPTIMIZE.SEED_TYPE}: ${chalk.cyan('vue2')}`]])
-      wConfig = vue2WConfig({ env, yylConfig }) as Configuration
+      wConfig = vue2WConfig({ env, yylConfig }) as WebpackOptionsNormalized
       break
 
     case 'base':
@@ -79,7 +79,7 @@ export function buildWConfig(option: BuildWConfigOption): Configuration {
         'success',
         [`${LANG.OPTIMIZE.SEED_TYPE}: ${chalk.cyan('react-ts')}`]
       ])
-      wConfig = baseWConfig({ env, yylConfig }) as Configuration
+      wConfig = baseWConfig({ env, yylConfig }) as WebpackOptionsNormalized
       break
   }
 
