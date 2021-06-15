@@ -71,7 +71,6 @@ const config = {
   },
   // + configCommit
   commit: {
-    hostname: '/',
     revAddr: `/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
   // - configCommit

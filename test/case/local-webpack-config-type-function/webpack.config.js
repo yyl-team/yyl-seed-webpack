@@ -1,9 +1,9 @@
 const VConsolePlugin = require('vconsole-webpack-plugin')
-const wConfig = function ({ env, config }) {
+const wConfig = function ({ env, yylConfig }) {
   return {
     plugins: [
       new VConsolePlugin({
-        enable: env.mode !== 'master' && config.seed === 'base'
+        enable: env.mode !== 'master'
       })
     ]
   }
