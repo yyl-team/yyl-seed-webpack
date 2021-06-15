@@ -9214,10 +9214,10 @@ yyl-fs@^0.2.0:
   resolved "https://registry.npmjs.org/yyl-fs/-/yyl-fs-0.2.0.tgz#995aff7c4c64448ea2b8ce2ceca2e2cb76bafa2c"
   integrity sha512-NBs2zgNFg+uc1qEtBNzrUtT6Mcrk6m9KXSA8xsVYMVLFOT1zSdRjucQeUwCjSRfReUBG9sJjeniJTNphX+O70g==
 
-yyl-hander@^1.3.19:
-  version "1.3.19"
-  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.3.19.tgz#91235b71a970c0009981750d32ba974491b218c0"
-  integrity sha512-xpjIOjWXdDRt2USh92ot9B6k/6+zqiF8rcLbBm6lwaW+9grvso0jEFhlb/ygTN0B6QWcS9n0nS/tgwftKzAURA==
+yyl-hander@^1.3.21:
+  version "1.3.21"
+  resolved "https://registry.yarnpkg.com/yyl-hander/-/yyl-hander-1.3.21.tgz#0dcd3b342f00ee1f72dd0dbe8963a771fd4afe12"
+  integrity sha512-X3x5g8ZZqOtOC91WCV+c9ANivo9I3+PFWX4RXHt3r9r8fVTnIaxDbT8GKRoTVd4Eed8WQ0D6b8G+2HFaYr4Xrg==
   dependencies:
     "@babel/core" "^7.13.15"
     "@babel/preset-typescript" "^7.13.0"

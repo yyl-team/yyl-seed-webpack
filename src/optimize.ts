@@ -80,7 +80,19 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
         iRes.trigger('msg', ['info', [msg.toString()]])
       })
     }
-    iRes.trigger('progress', ['finished', 'success', [LANG.OPTIMIZE.LEGACY_POLYFILL_START]])
+    iRes.trigger('progress', ['finished', 'success', [LANG.OPTIMIZE.LEGACY_POLYFILL_FINISHED]])
+
+    // 不再支持 带 zepto 的支持 - 针对老旧项目
+    if (rootPkg.dependencies && rootPkg.dependencies.zepto) {
+      throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.dependencies.zepto')}`)
+      return
+    } else if (rootPkg.devDependencies && rootPkg.devDependencies.zepto) {
+      throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.devDependencies.zepto')}`)
+      return
+    } else if (yylConfig?.alias?.zepto) {
+      throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('yylConfig.alias.zepto')}`)
+      return
+    }
   }
   // - 运行前校验
 
