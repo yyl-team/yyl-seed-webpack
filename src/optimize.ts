@@ -84,14 +84,20 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
 
     // 不再支持 带 zepto 的支持 - 针对老旧项目
     if (rootPkg.dependencies && rootPkg.dependencies.zepto) {
-      throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.dependencies.zepto')}`)
+      throw new Error(
+        `${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.dependencies.zepto')}`
+      )
     } else if (rootPkg.devDependencies && rootPkg.devDependencies.zepto) {
-      throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.devDependencies.zepto')}`)
+      throw new Error(
+        `${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('pkg.devDependencies.zepto')}`
+      )
     } else if (yylConfig?.alias?.zepto) {
-      throw new Error(`${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('yylConfig.alias.zepto')}`)
+      throw new Error(
+        `${LANG.OPTIMIZE.ZEPTO_NOT_SUPPORTED}: ${chalk.yellow('yylConfig.alias.zepto')}`
+      )
     }
   }
-  
+
   // - 运行前校验
 
   const wConfig = buildWConfig({
@@ -218,9 +224,12 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
           }
 
           try {
-            const devServer = new WebpackDevServer(compiler as any, {
-              ...(wConfig.devServer as DevServerConfiguration)
-            } as any)
+            const devServer = new WebpackDevServer(
+              compiler as any,
+              {
+                ...(wConfig.devServer as DevServerConfiguration)
+              } as any
+            )
             devServer.listen(serverPort, (err) => {
               if (err) {
                 iRes.trigger('msg', ['error', [LANG.OPTIMIZE.DEV_SERVER_START_FAIL, err]])

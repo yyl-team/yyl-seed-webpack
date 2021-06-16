@@ -1,10 +1,10 @@
 # 版本信息
 
-## 3.0.23 (*)
+## 3.0.23 (2021-06-16)
+
 - feat: 更新 `yyl-base-webpack-config@0.2.21`
 - feat: 如遇到 zepto 禁止构建并提示更换 (只针对 webpack-vue2 类型)
 - feat: 通过 webpack.config.js 添加 vconsole 无效, 原因已查到： vconsole-webpack-plugins 不支持 webpack5
-- TODO: webpack 运行崩溃问题
 
 ## 3.0.22 (2021-06-10)
 
