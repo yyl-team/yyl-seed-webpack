@@ -18,6 +18,7 @@ export const LANG = {
     WEBPACK_VERSION: '脚手架信息',
     LEGACY_POLYFILL_START: '老版本兼容处理 开始',
     LEGACY_POLYFILL_FINISHED: '老版本兼容处理 完成',
+    ZEPTO_NOT_SUPPORTED: '脚手架不再支持 zepto 引入，建议替换成 ^jquery@3.0.0',
     ADD_VUE_DEPENDENCIES: '补充 构建所需的 vue, vuex, vue-router',
     WCONFIG_TYPE_NOT_EXISTS: 'webpack.config 初始化 失败, seed 不存在',
     WEBPACK_RUN_START: 'webpack 核心流程构建 开始',

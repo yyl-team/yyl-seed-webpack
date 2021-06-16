@@ -22,18 +22,15 @@ const setting = {
   }
 }
 // - setting
-
 const DEST_BASE_PATH = path.join(setting.localserver.root, setting.dest.basePath)
 
 const config = {
   workflow: 'webpack',
   // + configBase
   // - configBase
-  seed: 'base',
+  seed: 'vue2',
   eslint: true,
   px2rem: true,
-  ie8: false,
-  babelrc: true,
   base64Limit: 3000,
   localserver: setting.localserver,
   dest: setting.dest,
@@ -71,6 +68,7 @@ const config = {
   },
   // + configCommit
   commit: {
+    hostname: '/',
     revAddr: `/${setting.dest.basePath}/${setting.dest.revPath}/rev-manifest.json`
   }
   // - configCommit
