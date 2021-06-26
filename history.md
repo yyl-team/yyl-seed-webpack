@@ -1,5 +1,9 @@
 # 版本信息
 
+## 3.0.26 (2021-06-26)
+
+- feat: 补充 seed 初始化时 yarn instal 的 log
+
 ## 3.0.25 (2021-06-26)
 
 - feat: 更新 `yyl-base-webpack-config@0.2.24`
