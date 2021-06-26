@@ -3367,6 +3367,11 @@ es-module-lexer@^0.4.0:
   resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.4.1.tgz#dda8c6a14d8f340a24e34331e0fab0cb50438e0e"
   integrity sha512-ooYciCUtfw6/d2w56UVeqHPcoCFAiJdz5XOkYpv/Txl1HMUozpXjz/2RIQgqwKdXNDPSF1W7mJCFse3G+HDyAA==
 
+es-module-lexer@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.6.0.tgz#e72ab05b7412e62b9be37c37a09bdb6000d706f0"
+  integrity sha512-f8kcHX1ArhllUtb/wVSyvygoKCznIjnxhLxy7TCvIiMdT7fL4ZDTIKaadMe6eLvOXg6Wk02UeoFgUoZ2EKZZUA==
+
 es-to-primitive@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/es-to-primitive/-/es-to-primitive-1.2.1.tgz#e55cd4c9cdc188bcefb03b366c736323fc5c898a"
@@ -5113,6 +5118,15 @@ jest-worker@^26.3.0, jest-worker@^26.6.2:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
+
+jest-worker@^27.0.2:
+  version "27.0.2"
+  resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.0.2.tgz#4ebeb56cef48b3e7514552f80d0d80c0129f0b05"
+  integrity sha512-EoBdilOTTyOgmHXtw/cPc+ZrCA0KJMrkXzkrPGNwLmnvvlN1nj7MPrxpT7m+otSv2e1TLaVffzDnE/LB14zJMg==
+  dependencies:
+    "@types/node" "*"
+    merge-stream "^2.0.0"
+    supports-color "^8.0.0"
 
 js-base64@^2.1.9:
   version "2.6.4"
@@ -7567,6 +7581,13 @@ serialize-javascript@^4.0.0:
   dependencies:
     randombytes "^2.1.0"
 
+serialize-javascript@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-6.0.0.tgz#efae5d88f45d7924141da8b5c3a7a7e663fefeb8"
+  integrity sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag==
+  dependencies:
+    randombytes "^2.1.0"
+
 serve-favicon@2.5.0, serve-favicon@^2.5.0:
   version "2.5.0"
   resolved "https://registry.npmjs.org/serve-favicon/-/serve-favicon-2.5.0.tgz#935d240cdfe0f5805307fdfe967d88942a2cbcf0"
@@ -8054,9 +8075,9 @@ stylehacks@^5.0.0:
     browserslist "^4.16.0"
     postcss-selector-parser "^6.0.4"
 
-supports-color@8.1.1:
+supports-color@8.1.1, supports-color@^8.0.0:
   version "8.1.1"
-  resolved "https://registry.npmjs.org/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
@@ -8163,6 +8184,18 @@ terser-webpack-plugin@^5.1.2:
     p-limit "^3.1.0"
     schema-utils "^3.0.0"
     serialize-javascript "^5.0.1"
+    source-map "^0.6.1"
+    terser "^5.7.0"
+
+terser-webpack-plugin@^5.1.3:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.1.4.tgz#c369cf8a47aa9922bd0d8a94fe3d3da11a7678a1"
+  integrity sha512-C2WkFwstHDhVEmsmlCxrXUtVklS+Ir1A7twrYzrDrQQOIMOaVAYykaoo/Aq1K0QRkMoY2hhvDQY1cm4jnIMFwA==
+  dependencies:
+    jest-worker "^27.0.2"
+    p-limit "^3.1.0"
+    schema-utils "^3.0.0"
+    serialize-javascript "^6.0.0"
     source-map "^0.6.1"
     terser "^5.7.0"
 
@@ -8840,10 +8873,10 @@ webpack@^5.25.0:
     watchpack "^2.0.0"
     webpack-sources "^2.1.1"
 
-webpack@^5.39.0:
-  version "5.39.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.39.0.tgz#37d6899f1f40c31d5901abc0f39bc8cc7224138c"
-  integrity sha512-25CHmuDj+oOTyteI13sUqNlCnjCnySuhiKWE/cRYPQYeoQ3ijHgyWX27CiyUKLNGq27v8S0mrksyTreT/xo7pg==
+webpack@^5.40.0:
+  version "5.40.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.40.0.tgz#3182cfd324759d715252cf541901a226e57b5061"
+  integrity sha512-c7f5e/WWrxXWUzQqTBg54vBs5RgcAgpvKE4F4VegVgfo4x660ZxYUF2/hpMkZUnLjgytVTitjeXaN4IPlXCGIw==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.47"
@@ -8854,7 +8887,7 @@ webpack@^5.39.0:
     browserslist "^4.14.5"
     chrome-trace-event "^1.0.2"
     enhanced-resolve "^5.8.0"
-    es-module-lexer "^0.4.0"
+    es-module-lexer "^0.6.0"
     eslint-scope "5.1.1"
     events "^3.2.0"
     glob-to-regexp "^0.4.1"
@@ -8865,7 +8898,7 @@ webpack@^5.39.0:
     neo-async "^2.6.2"
     schema-utils "^3.0.0"
     tapable "^2.1.1"
-    terser-webpack-plugin "^5.1.1"
+    terser-webpack-plugin "^5.1.3"
     watchpack "^2.2.0"
     webpack-sources "^2.3.0"
 
@@ -9104,10 +9137,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yyl-base-webpack-config@0.2.21:
-  version "0.2.21"
-  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.2.21.tgz#cb06d351f3ff093802b5b7a8e37464d4fbe2b387"
-  integrity sha512-DZuIH+PEr5B9RPx12ke0cqNuNPZRMkE73WgCjHCz3GvlI8vROMQHsFLyT0wvboxCndx3xr4U1ollb+03nXGG4w==
+yyl-base-webpack-config@0.2.23:
+  version "0.2.23"
+  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.2.23.tgz#6a2b58eac605b63522e824036ffe96075b44b659"
+  integrity sha512-IyRJJkV3ezwD9zor5OCP/LQkNd5gIdcuk39bjRbjX0yxMq1u4oNrP5+2/hfet1Za8CWEXaj4v86dB85QCkg41w==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "^7.12.1"
@@ -9164,7 +9197,7 @@ yyl-base-webpack-config@0.2.21:
     yyl-seed-base "^0.4.1"
     yyl-seed-response "^0.2.0"
     yyl-server-webpack-plugin "1.3.2"
-    yyl-sugar-webpack-plugin "1.0.9"
+    yyl-sugar-webpack-plugin "1.0.10"
     yyl-util "^2.3.9"
 
 yyl-cmd-logger@^0.2.1:
@@ -9375,10 +9408,10 @@ yyl-server@^1.0.7:
     yyl-seed-response "^0.2.0"
     yyl-util "^2.3.9"
 
-yyl-sugar-webpack-plugin@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/yyl-sugar-webpack-plugin/-/yyl-sugar-webpack-plugin-1.0.9.tgz#ddc244733c403d477058d0b57fa8ac50b25b7f07"
-  integrity sha512-x0O4jMILBKVShyZPN5i8DRnvm9JSQRhw30rUIkkpRbsJ5ff/MtttVnhUYtP1JisnF2JNAcFCUGXQLcdef+DwJg==
+yyl-sugar-webpack-plugin@1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/yyl-sugar-webpack-plugin/-/yyl-sugar-webpack-plugin-1.0.10.tgz#1295025d6c7c28f4b631459146b57e1cd1128096"
+  integrity sha512-fWw/4NMaWzc7lYwhsP8rSvP3Wkk8bsqwlZQRF8LmFwyiPfF+Xc67vOfY0dkBnjcfo8JVbd+1MU88hJ6jDVGZpA==
   dependencies:
     chalk "^4.1.0"
     tapable "^2.2.0"
@@ -9391,10 +9424,10 @@ yyl-util@^2.1.0, yyl-util@^2.3.5, yyl-util@^2.3.8, yyl-util@^2.3.9:
   resolved "https://registry.npmjs.org/yyl-util/-/yyl-util-2.3.9.tgz#4c4f5d1af1c9b474e46db5cce6afbc82bbd586ce"
   integrity sha512-sKNudT5RApLNLDnHSppoR+K9yslDmof57gQ5yHDcX8xRADIv8r218DHIsyksSnlEmlld9TXAMYLeazAu4ufW0A==
 
-yyl-vue2-webpack-config@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/yyl-vue2-webpack-config/-/yyl-vue2-webpack-config-0.2.1.tgz#a692a13785024fa007bf150f9121fcdc24727272"
-  integrity sha512-VX4+K+1CHXj+nQIT5uy63a5dyXaQMK21Z155s6S92WyWUeBW1JQS3rOjTWD3crIS/JJDr0faV8GjxYmaeJhgOw==
+yyl-vue2-webpack-config@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/yyl-vue2-webpack-config/-/yyl-vue2-webpack-config-0.2.2.tgz#b64d994f96804e5de3f4937594c13992f04c1032"
+  integrity sha512-MlMGzDBHt9bnyFncsdLlilLpTpkYQSdvgS9BHnHgTpQLDw4+EtWqMdUWK9Y67wVnODfmbE5IiXbnKYcRCeV9ig==
   dependencies:
     css-loader "^5.2.4"
     html-webpack-plugin "5.3.0"

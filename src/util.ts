@@ -64,12 +64,63 @@ export function buildWConfig(option: BuildWConfigOption): WebpackOptionsNormaliz
   const { env, ctx, yylConfig, root, response } = option
   const pjWConfigPath = path.join(root, 'webpack.config.js')
   let wConfig: WebpackOptionsNormalized
+  let pjWConfig: any = {}
+
+  if (fs.existsSync(pjWConfigPath)) {
+    pjWConfig = require(pjWConfigPath)
+    if (typeof pjWConfig === 'function') {
+      try {
+        pjWConfig = pjWConfig(env, { yylConfig, env })
+      } catch (er) {
+        try {
+          // 兼容 yyl 3.0 webpack.config 写法
+          pjWConfig = pjWConfig({ yylConfig, env })
+        } catch (er) {
+          throw new Error(`${LANG.OPTIMIZE.PARSE_WCONFIG_FAIL}: ${er.message}`)
+        }
+      }
+    }
+
+    // 兼容部分 wbpack4属性
+    if (pjWConfig.output && pjWConfig.output.hotUpdateFunction) {
+      pjWConfig.output.hotUpdateGlobal = pjWConfig.output.hotUpdateFunction
+      delete pjWConfig.output.hotUpdateFunction
+      response.trigger('msg', [
+        'warn',
+        [`${LANG.OPTIMIZE.LEGACY_KEYWORD}: pjWconfig.output.hotUpdateGlobal -> hotUpdateFunction`]
+      ])
+    }
+
+    if (pjWConfig.output && pjWConfig.output.jsonpFunction) {
+      pjWConfig.output.chunkLoadingGlobal = pjWConfig.output.jsonpFunction
+      delete pjWConfig.output.jsonpFunction
+      response.trigger('msg', [
+        'warn',
+        [`${LANG.OPTIMIZE.LEGACY_KEYWORD}: pjWconfig.output.jsonpFunction -> chunkLoadingGlobal`]
+      ])
+    }
+
+    if (pjWConfig.output && pjWConfig.output.chunkCallbackFunction) {
+      pjWConfig.output.chunkLoadingGlobal = pjWConfig.output.chunkCallbackFunction
+      delete pjWConfig.output.chunkCallbackFunction
+      response.trigger('msg', [
+        'warn',
+        [
+          `${LANG.OPTIMIZE.LEGACY_KEYWORD}: pjWconfig.output.chunkCallbackFunction -> chunkLoadingGlobal`
+        ]
+      ])
+    }
+  }
 
   switch (yylConfig.seed) {
     case 'vue2':
     case 'vue2-ts':
       response.trigger('msg', ['success', [`${LANG.OPTIMIZE.SEED_TYPE}: ${chalk.cyan('vue2')}`]])
-      wConfig = vue2WConfig({ env, yylConfig }) as WebpackOptionsNormalized
+      wConfig = vue2WConfig({
+        env,
+        yylConfig,
+        devServer: pjWConfig?.devServer
+      }) as WebpackOptionsNormalized
       break
 
     case 'base':
@@ -79,7 +130,11 @@ export function buildWConfig(option: BuildWConfigOption): WebpackOptionsNormaliz
         'success',
         [`${LANG.OPTIMIZE.SEED_TYPE}: ${chalk.cyan('react-ts')}`]
       ])
-      wConfig = baseWConfig({ env, yylConfig }) as WebpackOptionsNormalized
+      wConfig = baseWConfig({
+        env,
+        yylConfig,
+        devServer: pjWConfig?.devServer
+      }) as WebpackOptionsNormalized
       break
   }
 
@@ -128,7 +183,8 @@ export function buildWConfig(option: BuildWConfigOption): WebpackOptionsNormaliz
       ])
     }
 
-    return merge(pjWConfig, wConfig)
+    const r = merge(pjWConfig, wConfig)
+    return r
   } else {
     return wConfig
   }
