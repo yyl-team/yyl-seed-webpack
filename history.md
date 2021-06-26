@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.0.25 (2021-06-26)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.24`
+- fix: 修复生成的 无 hash 图片显示不了问题
+
 ## 3.0.24 (2021-06-26)
 
 - feat: 更新 `yyl-base-webpack-config@0.2.22`
