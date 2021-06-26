@@ -31,7 +31,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
     iRes.trigger('progress', ['start', 'info', [LANG.OPTIMIZE.CHECK_SEED_PKG_START]])
     await extOs.installPackage(pkgPath, {
       production: false,
-      loglevel: env.silent ? 'silent' : 'info',
+      loglevel: env.silent ? 'silent' : 'http',
       useYarn: !!yylConfig.yarn,
       showOutput(msg) {
         iRes.trigger('msg', ['info', [msg.toString()]])
@@ -74,6 +74,7 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
       if (yylConfig.yarn) {
         cmd = `yarn add ${plugins.join(' ')}`
       }
+      cmd += ` --loglevel ${env.silent ? 'silent' : 'http'}`
       iRes.trigger('msg', ['info', [LANG.OPTIMIZE.ADD_VUE_DEPENDENCIES]])
       iRes.trigger('msg', ['cmd', [cmd]])
       await extOs.runSpawn(cmd, root, (msg) => {
