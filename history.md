@@ -1,5 +1,12 @@
 # 版本信息
 
+## 3.0.24 (2021-06-26)
+
+- feat: 更新 `yyl-base-webpack-config@0.2.22`
+- feat: 更新 `yyl-vue2-webpack-config@0.2.2`
+- fix: 修复 sugar 时会生成两份文件，一份没有被 sugar 另一方 已被 sugar 的问题
+- feat: 修复 vue2 类型 hmr 不生效问题查明： hmr 不能在 https 下运行
+
 ## 3.0.23 (2021-06-16)
 
 - feat: 更新 `yyl-base-webpack-config@0.2.21`
