@@ -1,9 +1,10 @@
 # 版本信息
 
-## 3.1.0 (*)
+## 3.1.0 (2021-07-09)
 - feat: 新增 esbuild 模式
 - feat: 更新 `yyl-base-webpack-config@0.3.1`
 - feat: 更新 `yyl-vue2-webpack-config@0.3.0`
+
 ## 3.0.27 (2021-06-26)
 
 - feat: 更新 `yyl-hander@1.3.22`
