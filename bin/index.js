@@ -56,6 +56,16 @@ const logger = new YylCmdLogger({
       open: true,
       ...env
     }
+  } else if (ctrl === 'e') {
+    cmds[0] = ctrl = 'watch'
+    env = {
+      proxy: true,
+      tips: true,
+      hmr: true,
+      open: true,
+      esbuild: true,
+      ...env
+    }
   } else if (ctrl === 'w') {
     cmds[0] = ctrl = 'watch'
   } else if (ctrl === 'o') {
