@@ -1,6 +1,12 @@
 # 版本信息
 
+## 3.1.1 (2021-07-10)
+
+- feat: 更新 `yyl-base-webpack-config@0.3.2`
+- fix: 去掉多余的 log
+
 ## 3.1.0 (2021-07-09)
+
 - feat: 新增 esbuild 模式
 - feat: 更新 `yyl-base-webpack-config@0.3.1`
 - feat: 更新 `yyl-vue2-webpack-config@0.3.0`
