@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.1.3 (2021-07-14)
+
+- feat: 更新 `yyl-base-webpack-config@0.3.4`
+- fix: 修复 在不支持 ts 情况下 执行 esbuild 报错问题
+
 ## 3.1.2 (2021-07-13)
 
 - feat: 更新 `yyl-base-webpack-config@0.3.3`
