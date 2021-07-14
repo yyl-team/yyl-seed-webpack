@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.1.2 (2021-07-13)
+
+- feat: 更新 `yyl-base-webpack-config@0.3.3`
+- fix: 补充 svg 处理裸机价
+
 ## 3.1.1 (2021-07-10)
 
 - feat: 更新 `yyl-base-webpack-config@0.3.2`

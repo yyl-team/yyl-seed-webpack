@@ -7604,6 +7604,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
+simple-html-tokenizer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/simple-html-tokenizer/-/simple-html-tokenizer-0.1.1.tgz#05c2eec579ffffe145a030ac26cfea61b980fabe"
+  integrity sha1-BcLuxXn//+FFoDCsJs/qYbmA+r4=
+
 slice-ansi@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-2.1.0.tgz#cacd7693461a637a5788d92a7dd4fba068e81636"
@@ -8020,6 +8025,15 @@ supports-color@^7.1.0:
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
   dependencies:
     has-flag "^4.0.0"
+
+svg-inline-loader@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/svg-inline-loader/-/svg-inline-loader-0.8.2.tgz#9872414f9e4141601e04eb80cda748c9a50dae71"
+  integrity sha512-kbrcEh5n5JkypaSC152eGfGcnT4lkR0eSfvefaUJkLqgGjRQJyKDvvEE/CCv5aTSdfXuc+N98w16iAojhShI3g==
+  dependencies:
+    loader-utils "^1.1.0"
+    object-assign "^4.0.1"
+    simple-html-tokenizer "^0.1.1"
 
 svg-inline-react@^1.0.2:
   version "1.0.3"
@@ -8931,10 +8945,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yyl-base-webpack-config@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.3.2.tgz#fd67df08b5497d9a031119695e5e81a1d6ab6bbb"
-  integrity sha512-kpgff1OHJ1dwGFnizwnvhEXKW80JL34tqQ1cVcAZFlqjQvDeCm7kRf3dvL8kOdkZXOrIU2gqpnKNHNwR2XtdFQ==
+yyl-base-webpack-config@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/yyl-base-webpack-config/-/yyl-base-webpack-config-0.3.3.tgz#3cf0224e9665521592e40771b0ecb933afcb6690"
+  integrity sha512-mYnm+wMFv8VErXEpmOx8WaT1HJlKQ13+7xcOCWtTuzh5xYegISgmx6wOaqDgOvv3IYGmzvzakOO1dF/BQfbGAA==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "^7.12.1"
@@ -8974,6 +8988,7 @@ yyl-base-webpack-config@0.3.2:
     sass "1.26.3"
     sass-loader "11.0.0"
     style-loader "^2.0.0"
+    svg-inline-loader "^0.8.2"
     terser-webpack-plugin "^5.1.2"
     ts-loader "^8.0.14"
     tsconfig-paths-webpack-plugin "^3.5.1"
