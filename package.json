@@ -1,5 +1,5 @@
 {
-  "version": "3.1.2",
+  "version": "3.1.3",
   "main": "output/index.js",
   "types": "output/index.d.ts",
   "bin": {
@@ -143,7 +143,7 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.8.0",
-    "yyl-base-webpack-config": "0.3.3",
+    "yyl-base-webpack-config": "0.3.4",
     "yyl-cmd-logger": "^0.2.1",
     "yyl-config-types": "^0.5.3",
     "yyl-hander": "^1.3.22",
