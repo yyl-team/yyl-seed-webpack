@@ -1,5 +1,10 @@
 # 版本信息
 
+## 3.1.4 (2021-07-27)
+
+- feat: 更新 `yyl-base-webpack-config@0.3.5`
+- feat: 对齐 esbuild 下 postcss 插件
+
 ## 3.1.3 (2021-07-14)
 
 - feat: 更新 `yyl-base-webpack-config@0.3.4`
