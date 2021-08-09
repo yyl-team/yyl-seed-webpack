@@ -1,5 +1,13 @@
 # 版本信息
 
+## 3.1.6 (2021-08-09)
+
+- feat: 升级 `yyl-vue2-webpack-config@0.3.1`
+
+## 3.1.5 (2021-08-09)
+
+- feat: 兼容 `webpack/lib/rules/DescriptionDataMatcherRulePlugin` 没找到问题
+
 ## 3.1.4 (2021-07-27)
 
 - feat: 更新 `yyl-base-webpack-config@0.3.5`
