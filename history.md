@@ -1,5 +1,14 @@
 # 版本信息
 
+## 3.1.10 (2021-08-10)
+
+- feat: 锁定 `webpack@5.40.0`
+- feat: 更新 `yyl-vue2-webpack-config@0.3.4`
+
+## 3.1.8 (2021-08-10)
+
+- feat: 更新 `yyl-vue2-webpack-config@0.3.2`
+
 ## 3.1.7 (2021-08-10)
 
 - feat: add log
