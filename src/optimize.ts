@@ -4,7 +4,7 @@ import extOs from 'yyl-os'
 import chalk from 'chalk'
 import SeedResponse, { ResponseFn } from 'yyl-seed-response'
 import { SeedOptimize, SeedOptimizeOption, SeedOptimizeResult } from 'yyl-seed-base'
-import { ProgressPlugin, webpack } from 'webpack'
+import { ProgressPlugin, webpack, WebpackOptionsNormalized } from 'webpack'
 import { merge } from 'webpack-merge'
 import { buildWConfig, envInit, toCtx, initCompilerLog } from './util'
 import { LANG, PLUGIN_NAME } from './const'
@@ -128,6 +128,32 @@ export const optimize: SeedOptimize = async (option: OptimizeOption) => {
       `webpack-dev-server: ${chalk.yellow(devServerVersion)}`
     ]
   ])
+
+  if (env.logLevel === 2) {
+    if (wConfig.resolve.fallback) {
+      iRes.trigger('msg', [
+        'info',
+        [
+          `${LANG.OPTIMIZE.WEBPACK_RESOLVE_FALLBACK}:`,
+          ...Object.keys(wConfig.resolve.fallback).map((key) => {
+            return `${key}: ${chalk.yellow(`${(wConfig.resolve.fallback as any)[key]}`)}`
+          })
+        ]
+      ])
+    }
+    if (wConfig.resolve.alias) {
+      iRes.trigger('msg', [
+        'info',
+        [
+          `${LANG.OPTIMIZE.WEBPACK_RESOLVE_ALIAS}:`,
+          ...Object.keys(wConfig.resolve.alias).map((key) => {
+            return `${key}: ${chalk.yellow(`${(wConfig.resolve.alias as any)[key]}`)}`
+          })
+        ]
+      ])
+    }
+  }
+
   const compiler = webpack(
     merge(wConfig, {
       stats: 'none',

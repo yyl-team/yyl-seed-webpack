@@ -16,6 +16,8 @@ export const LANG = {
   },
   OPTIMIZE: {
     WEBPACK_VERSION: '脚手架信息',
+    WEBPACK_RESOLVE_FALLBACK: '配置 resolve.fallback 信息',
+    WEBPACK_RESOLVE_ALIAS: '配置 resolve.alias 信息',
     LEGACY_POLYFILL_START: '老版本兼容处理 开始',
     LEGACY_POLYFILL_FINISHED: '老版本兼容处理 完成',
     ZEPTO_NOT_SUPPORTED: '脚手架不再支持 zepto 引入，建议替换成 ^jquery@3.0.0',
