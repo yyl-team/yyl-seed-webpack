@@ -1,8 +1,13 @@
 # 版本信息
 
+## 3.1.11 (2021-08-10)
+
+- feat: 降级 `vue-loader@15.9.6`
+- feat: 更新 `yyl-vue2-webpack-config@0.3.5`
+
 ## 3.1.10 (2021-08-10)
 
-- feat: 锁定 `webpack@5.40.0`
+- feat: 锁定 `webpack@5.40.0` 修复 vue-loader 不适配新版 webpack 问题
 - feat: 更新 `yyl-vue2-webpack-config@0.3.4`
 
 ## 3.1.8 (2021-08-10)
